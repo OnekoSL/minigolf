@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource path="res://scenes/prototype_main.tscn" type="PackedScene" id="1_main"]
+[ext_resource path="res://tests/capture_polish.gd" type="Script" id="2_capture"]
+
+[node name="CaptureRoot" type="Node"]
+
+[node name="PrototypeMain" parent="." instance=ExtResource("1_main")]
+
+[node name="Capture" type="Node" parent="."]
+script = ExtResource("2_capture")

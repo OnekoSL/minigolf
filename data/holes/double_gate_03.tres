@@ -1,0 +1,95 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="3_obstacle"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(592, 12)
+size = Vector2(848, 8)
+
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(592, 348)
+size = Vector2(848, 8)
+
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(1012, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_waiting_top"]
+script = ExtResource("2_wall")
+center = Vector2(345, 126)
+size = Vector2(90, 8)
+
+[sub_resource type="Resource" id="Wall_approach_lower"]
+script = ExtResource("2_wall")
+center = Vector2(325, 262)
+size = Vector2(174, 8)
+rotation_degrees = -25.0
+
+[sub_resource type="Resource" id="Wall_corridor_top"]
+script = ExtResource("2_wall")
+center = Vector2(545, 126)
+size = Vector2(310, 8)
+
+[sub_resource type="Resource" id="Wall_corridor_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(545, 220)
+size = Vector2(310, 8)
+
+[sub_resource type="Resource" id="Wall_exit_upper"]
+script = ExtResource("2_wall")
+center = Vector2(795, 105)
+size = Vector2(190, 8)
+rotation_degrees = -20.0
+
+[sub_resource type="Resource" id="Wall_exit_lower"]
+script = ExtResource("2_wall")
+center = Vector2(805, 212)
+size = Vector2(220, 8)
+rotation_degrees = -24.0
+
+[sub_resource type="Resource" id="Gate_upper"]
+script = ExtResource("3_obstacle")
+obstacle_type = 1
+position = Vector2(475, 173)
+gate_size = Vector2(10, 86)
+open_offset = Vector2(0, -100)
+cycle_seconds = 2.8
+transition_seconds = 0.25
+open_hold_seconds = 1.0
+phase_offset_seconds = 0.0
+
+[sub_resource type="Resource" id="Gate_lower"]
+script = ExtResource("3_obstacle")
+obstacle_type = 1
+position = Vector2(595, 173)
+gate_size = Vector2(10, 86)
+open_offset = Vector2(0, 100)
+cycle_seconds = 2.8
+transition_seconds = 0.25
+open_hold_seconds = 1.0
+phase_offset_seconds = 0.25
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"double_gate_03"
+display_name = "DAS DOPPELTOR"
+par = 4
+course_rect = Rect2(176, 16, 832, 328)
+tee_position = Vector2(220, 286)
+hole_position = Vector2(960, 70)
+initial_aim_offset = Vector2(95, -35)
+camera_center_bounds = Rect2(320, 180, 376, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_waiting_top"), SubResource("Wall_approach_lower"), SubResource("Wall_corridor_top"), SubResource("Wall_corridor_bottom"), SubResource("Wall_exit_upper"), SubResource("Wall_exit_lower")])
+surfaces = []
+obstacles = Array[ExtResource("3_obstacle")]([SubResource("Gate_upper"), SubResource("Gate_lower")])

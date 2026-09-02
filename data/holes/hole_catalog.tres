@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HoleCatalog" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://src/hole_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="2_hole"]
+[ext_resource type="Resource" path="res://data/holes/reference_hole_01.tres" id="3_reference"]
+[ext_resource type="Resource" path="res://data/holes/classic_diamond_02.tres" id="4_diamond"]
+[ext_resource type="Resource" path="res://data/holes/double_gate_03.tres" id="5_gate"]
+[ext_resource type="Resource" path="res://data/holes/allround_test.tres" id="6_allround"]
+[ext_resource type="Resource" path="res://data/holes/slope_lab.tres" id="7_slope"]
+[ext_resource type="Resource" path="res://data/holes/flow_test.tres" id="8_flow"]
+[ext_resource type="Resource" path="res://data/holes/scroll_test.tres" id="9_scroll"]
+
+[resource]
+script = ExtResource("1_catalog")
+holes = Array[ExtResource("2_hole")]([ExtResource("3_reference"), ExtResource("4_diamond"), ExtResource("5_gate"), ExtResource("6_allround"), ExtResource("7_slope"), ExtResource("8_flow"), ExtResource("9_scroll")])

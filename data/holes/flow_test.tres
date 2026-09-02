@@ -1,0 +1,120 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 12)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 348)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(628, 180)
+size = Vector2(8, 344)
+[sub_resource type="Resource" id="Wall_entry_cap"]
+script = ExtResource("2_wall")
+center = Vector2(241, 46)
+size = Vector2(8, 8)
+[sub_resource type="Resource" id="Wall_left_outer"]
+script = ExtResource("2_wall")
+center = Vector2(241, 200.5)
+size = Vector2(8, 225)
+[sub_resource type="Resource" id="Wall_right_outer"]
+script = ExtResource("2_wall")
+center = Vector2(549, 177.5)
+size = Vector2(8, 271)
+[sub_resource type="Resource" id="Wall_u_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(395, 309)
+size = Vector2(316, 8)
+[sub_resource type="Resource" id="Wall_left_inner"]
+script = ExtResource("2_wall")
+center = Vector2(299, 144.5)
+size = Vector2(8, 205)
+[sub_resource type="Resource" id="Wall_right_inner"]
+script = ExtResource("2_wall")
+center = Vector2(491, 144.5)
+size = Vector2(8, 205)
+[sub_resource type="Resource" id="Wall_u_top"]
+script = ExtResource("2_wall")
+center = Vector2(395, 251)
+size = Vector2(184, 8)
+
+[sub_resource type="Resource" id="Flow_down"]
+script = ExtResource("3_surface")
+rect = Rect2(245, 50, 50, 197)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 4
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_down_right"]
+script = ExtResource("3_surface")
+rect = Rect2(245, 247, 58, 58)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 3
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_right"]
+script = ExtResource("3_surface")
+rect = Rect2(303, 255, 184, 50)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 2
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_up_right"]
+script = ExtResource("3_surface")
+rect = Rect2(487, 247, 58, 58)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 1
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_up"]
+script = ExtResource("3_surface")
+rect = Rect2(495, 50, 50, 197)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 0
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"flow_test"
+display_name = "U-FLUSSBAHN"
+par = 2
+course_rect = Rect2(176, 16, 448, 328)
+tee_position = Vector2(230, 69)
+hole_position = Vector2(520, 38)
+initial_aim_offset = Vector2(60, 0)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_entry_cap"), SubResource("Wall_left_outer"), SubResource("Wall_right_outer"), SubResource("Wall_u_bottom"), SubResource("Wall_left_inner"), SubResource("Wall_right_inner"), SubResource("Wall_u_top")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Flow_down"), SubResource("Flow_down_right"), SubResource("Flow_right"), SubResource("Flow_up_right"), SubResource("Flow_up")])

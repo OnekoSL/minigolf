@@ -1,0 +1,8 @@
+.godot/
+.tools/
+build/
+logs/
+tmp/
+*.log
+*.import
+user_data/

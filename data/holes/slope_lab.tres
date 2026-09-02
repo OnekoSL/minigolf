@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 12)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 348)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(628, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Slope_up"]
+script = ExtResource("3_surface")
+rect = Rect2(365, 36, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 0
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_up_right"]
+script = ExtResource("3_surface")
+rect = Rect2(460, 56, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 1
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_right"]
+script = ExtResource("3_surface")
+rect = Rect2(520, 146, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 2
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_down_right"]
+script = ExtResource("3_surface")
+rect = Rect2(460, 246, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 3
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_down"]
+script = ExtResource("3_surface")
+rect = Rect2(365, 280, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 4
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_down_left"]
+script = ExtResource("3_surface")
+rect = Rect2(270, 246, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 5
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_left"]
+script = ExtResource("3_surface")
+rect = Rect2(210, 146, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 6
+slope_strength = 90.0
+[sub_resource type="Resource" id="Slope_up_left"]
+script = ExtResource("3_surface")
+rect = Rect2(270, 56, 70, 48)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 7
+slope_strength = 90.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"slope_lab"
+display_name = "GEFAELLE-LABOR"
+par = 6
+course_rect = Rect2(176, 16, 448, 328)
+tee_position = Vector2(400, 180)
+hole_position = Vector2(595, 315)
+initial_aim_offset = Vector2(60, 0)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_up"), SubResource("Slope_up_right"), SubResource("Slope_right"), SubResource("Slope_down_right"), SubResource("Slope_down"), SubResource("Slope_down_left"), SubResource("Slope_left"), SubResource("Slope_up_left")])

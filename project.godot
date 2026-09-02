@@ -1,0 +1,38 @@
+; Engine configuration file.
+; Edit with Godot where possible.
+config_version=5
+
+[application]
+
+config/name="Putt & Pixel - Grundprototyp"
+run/main_scene="res://scenes/prototype_main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+ControllerSupport="*res://src/controller_support.gd"
+
+[display]
+
+[display/window]
+
+size/viewport_width=640
+size/viewport_height=360
+size/window_width_override=2560
+size/window_height_override=1440
+stretch/mode="canvas_items"
+stretch/aspect="keep"
+handheld/orientation=1
+energy_saving/keep_screen_on=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.035, 0.047, 0.061, 1)
+
+[physics]
+
+common/physics_ticks_per_second=60
