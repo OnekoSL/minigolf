@@ -57,6 +57,7 @@ slope_strength = 90.0
 script = ExtResource("1_hole")
 hole_id = &"scroll_test"
 display_name = "SCROLL-TESTBAHN"
+category = 1
 par = 6
 course_rect = Rect2(176, 16, 1088, 688)
 tee_position = Vector2(220, 100)

@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 12)
+size = Vector2(464, 8)
+
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 348)
+size = Vector2(464, 8)
+
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(628, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Guide_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 72)
+size = Vector2(320, 8)
+
+[sub_resource type="Resource" id="Guide_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 288)
+size = Vector2(320, 8)
+
+[sub_resource type="Resource" id="Slope_down"]
+script = ExtResource("3_surface")
+rect = Rect2(300, 92, 72, 176)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 4
+slope_strength = 90.0
+
+[sub_resource type="Resource" id="Slope_up"]
+script = ExtResource("3_surface")
+rect = Rect2(428, 92, 72, 176)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 0
+slope_strength = 90.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"arrow_armageddon_03"
+display_name = "SEITENZUG"
+par = 2
+course_rect = Rect2(176, 16, 448, 328)
+tee_position = Vector2(220, 180)
+hole_position = Vector2(580, 180)
+initial_aim_offset = Vector2(100, -18)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Guide_top"), SubResource("Guide_bottom")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_down"), SubResource("Slope_up")])
+obstacles = []
+triggers = []
+cannons = []

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CourseDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_course"]
+
+[resource]
+script = ExtResource("1_course")
+course_id = &"arrow_armageddon_course"
+display_name = "PFEIL-ARMAGEDDON"
+hole_ids = Array[StringName]([&"arrow_armageddon_01", &"arrow_armageddon_02", &"arrow_armageddon_03", &"arrow_armageddon_04", &"arrow_armageddon_05", &"arrow_armageddon_06", &"arrow_armageddon_07", &"arrow_armageddon_08", &"arrow_armageddon_09"])

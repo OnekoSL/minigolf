@@ -53,6 +53,8 @@ func spawn_wall(position: Vector2, normal: Vector2, intensity: float, kind: Stri
 		color = Color("#f0cf72")
 	elif kind == &"gate":
 		color = Color("#8ed7e5")
+	elif kind == &"cannon_locked":
+		color = Color("#ed7b67")
 	var speed := clampf(intensity * 0.10, 14.0, 42.0)
 	for spread in [-0.75, -0.25, 0.25, 0.75]:
 		_add_particle(position, (direction + tangent * spread).normalized() * speed, 0.22, color, 1.0)
@@ -70,6 +72,23 @@ func spawn_hole(position: Vector2) -> void:
 func spawn_perfect(position: Vector2) -> void:
 	for direction in [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]:
 		_add_particle(position, direction * 22.0, 0.25, Color("#fff1a3"), 1.5)
+
+
+func spawn_mechanism(kind: StringName, position: Vector2, direction: Vector2) -> void:
+	var forward := direction.normalized() if not direction.is_zero_approx() else Vector2.RIGHT
+	var side := forward.orthogonal()
+	match kind:
+		&"switch":
+			_add_ring(position, 0.0, 0.24, 3.0, 12.0, Color("#9cffad"))
+		&"cannon_load":
+			_add_ring(position, 0.0, 0.16, 2.0, 8.0, Color("#79d8bc"))
+		&"cannon_fire":
+			for spread in [-0.65, -0.2, 0.2, 0.65]:
+				_add_particle(position + forward * 7.0, (forward + side * spread).normalized() * 38.0, 0.30, Color("#d9dac5"), 1.5)
+		&"cannon_land":
+			_add_ring(position, 0.0, 0.28, 3.0, 14.0, Color("#e5d080"))
+			_add_particle(position, Vector2(-8.0, -12.0), 0.22, Color("#b7a46d"), 1.0)
+			_add_particle(position, Vector2(9.0, -9.0), 0.20, Color("#d7c18a"), 1.0)
 
 
 func clear() -> void:

@@ -2,8 +2,8 @@
 
 ## Putt & Pixel (vorlaeufiger Arbeitstitel)
 
-**Dokumentversion:** 0.2  
-**Stand:** 30. August 2026  
+**Dokumentversion:** 0.4
+**Stand:** 3. September 2026
 **Engine:** Godot 4.7.2 Standard, GDScript, Compatibility-Renderer  
 **Darstellung:** reine 2D-Pixel-Art  
 **Primaere Plattform:** Windows-PC  
@@ -319,7 +319,9 @@ Trigger verbinden Ereignis und Aktion, zum Beispiel:
 
 Bahnlogik und Dekoration bleiben getrennt. Dieselbe mechanische Bahn kann dadurch in unterschiedlichen Themenwelten anders aussehen.
 
-Der erste Bahn-Baukasten ist als typisiertes Godot-Resource-Modell umgesetzt. `HoleDefinition` verbindet Metadaten, Kameragrenzen, Banden, Flaechen und Hindernisse; ein gemeinsamer Runtime-Builder erzeugt daraus Darstellung und Kollisionen. Gerade und gedrehte Rechteckbanden, alle bisherigen Flaechenwerte, rotierende Hindernisse und deterministische Schiebetore werden ohne bahnspezifischen Programmcode beschrieben. Drei echte Loecher und vier technische Testbahnen verwenden denselben Katalog.
+Der erste Bahn-Baukasten ist als typisiertes Godot-Resource-Modell umgesetzt. `HoleDefinition` verbindet Metadaten, Kameragrenzen, Banden, Flaechen und Hindernisse; ein gemeinsamer Runtime-Builder erzeugt daraus Darstellung und Kollisionen. `WallDefinition` unterstuetzt gerade und gedrehte Rechteckbanden, massive Kreis-Bumper sowie dicke Kreisboegen mit frei waehlbarem Radius, Startwinkel, Bogenlaenge und Segmentzahl. Darstellung und Kollision werden aus derselben Geometrie erzeugt, damit sichtbare und physische Wand uebereinstimmen. Alle bisherigen Flaechenwerte, rotierende Hindernisse und deterministische Schiebetore werden ebenfalls ohne bahnspezifischen Programmcode beschrieben. Zwoelf echte Loecher und fuenf technische Testbahnen verwenden denselben Katalog.
+
+Das technische **Kurven-Labor** isoliert die neue Geometrie in einer festen Bildschirmbahn. Drei runde Bumper und vier verschieden grosse Kreisboegen erlauben Tests von frontalen, streifenden und mehrfachen Abprallern, ohne dass Flaechen oder bewegliche Hindernisse das Ergebnis verfremden.
 
 Schiebetore besitzen Groesse, Oeffnungsweg, Zyklus, Uebergangszeit, Offenhaltezeit und Phasenversatz. Bewegliche Hindernisse melden Kontaktgeschwindigkeit, Normale und Typ ueber eine gemeinsame Schnittstelle. Ein Lochneustart setzt ihre Bewegungsphase zurueck, sodass derselbe zeitlich definierte Ablauf reproduzierbar bleibt.
 
@@ -368,6 +370,15 @@ Konkrete Themen, Namen und Reihenfolge sind noch offen.
 
 Online-Multiplayer ist fuer die erste Version nicht vorgesehen.
 
+### Umgesetzter Prototyp-Spielrahmen
+
+- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun**, **Pfeil-Armageddon** und dem neunloecherigen Prototypkurs.
+- **Lokaler Mehrspieler:** zwei bis vier Spieler spielen lochweise nacheinander; jeder beendet sein Loch, bevor der Controller weitergereicht wird.
+- **Uebung:** ein Spieler waehlt ein einzelnes Loch und darf es sofort neu starten. Die technischen Testbahnen bleiben hier ueber Dreieck/F2 erreichbar.
+- **Freies Spiel:** ein bis vier Spieler stellen eine Folge aus einem bis neun echten Loechern zusammen; Reihenfolge und Wiederholungen sind frei.
+
+Der Ablauf ist Titelbild, Moduswahl, Spieleranlage, Kurs- oder Lochauswahl, Partie, Lochtabelle und Endtabelle. Die Kursauswahl wird vollstaendig aus dem Kurskatalog aufgebaut, zeigt drei Kurse pro Seite und speichert getrennte Bestwerte. Uebung und freies Spiel paginieren die zweiundzwanzig echten Bahnen in Seiten mit je fuenf Eintraegen. Nach jedem Bildschirm-, Spieler- und Lochwechsel muss die Eingabe neutral sein, bevor der naechste Zustand Controllerbefehle annimmt.
+
 ---
 
 ## 13. Wertung und Fortschritt
@@ -378,6 +389,10 @@ Online-Multiplayer ist fuer die erste Version nicht vorgesehen.
 - angezeigt werden Schlaege am Loch, Differenz zu Par und Kursgesamtwert
 - persoenliche Bestwerte werden lokal gespeichert
 - Gleichstand im lokalen Mehrspieler bleibt zunaechst ein gemeinsamer Rang
+- ein Loch endet spaetestens nach dem achten Schlag; ein nicht eingelochter Maximalwert wird in der Tabelle als `8*` gekennzeichnet
+- nach jedem vollstaendig von allen Spielern beendeten Loch erscheint die gemeinsame Tabelle
+- Gleichstaende verwenden gemeinsame Wettbewerbsraenge, zum Beispiel `1, 1, 3`
+- der Prototyp speichert je Kurs genau den besten Gesamtwert unter `user://`; nur vollstaendige Einzel- und Mehrspielerkurse sind bestwertberechtigt
 
 ### Fortschritt
 
@@ -524,7 +539,7 @@ Der Vertical Slice ist die erste kleine Fassung, die bereits das beabsichtigte S
 - Ballphysik, Banden, Reibung, Gefaelle, Wasser und Loch
 - animiertes Golferfenster mit mindestens Idle, Zielen, Schlag und Reaktion
 - Controller-, Tastatur- und Mausbedienung
-- Einzelspieler und einfacher Zwei-Spieler-Hotseat
+- Einzelspieler und Hotseat fuer zwei bis vier Spieler
 - Schlagzahl, Par und Abschlussanzeige
 - Platzhaltergrafik und einfacher Testsound sind zulaessig
 
@@ -629,7 +644,11 @@ Diese Punkte blockieren den Physik-Prototyp nicht, muessen aber vor dem Vertical
 
 ## 23. Status des Grundprototyps
 
-Der spielbare Godot-Grundprototyp umfasst drei echte Loecher und vier weiterhin erreichbare technische Testbahnen, reproduzierbare Ballphysik, das dreiphasige Ein-Tasten-Schlagsystem, eine animierte Platzhalterfigur und Controllerdiagnose. Der Schlag besitzt einen sichtbaren, exakt 0,10 Sekunden langen Abschwung vor dem Kontakt. Der angeschlossene PlayStation-3-Controller wird von Godot/SDL nativ erkannt.
+Der spielbare Godot-Grundprototyp umfasst zweiundzwanzig echte Loecher in drei Kursen und fuenf weiterhin erreichbare technische Testbahnen, reproduzierbare Ballphysik, das dreiphasige Ein-Tasten-Schlagsystem, eine animierte Platzhalterfigur und Controllerdiagnose. Der Schlag besitzt einen sichtbaren, exakt 0,10 Sekunden langen Abschwung vor dem Kontakt. Der angeschlossene PlayStation-3-Controller wird von Godot/SDL nativ erkannt.
+
+Der neue Spielrahmen startet auf einem Titelbild und fuehrt vollstaendig durch Einzelkurs, lokalen Mehrspieler, Uebung und freies Spiel. Bis zu vier Spieler erhalten Namen und eindeutige kosmetische Farbvarianten. Eine typisierte Rundensitzung verwaltet lochweise Spielerwechsel, das Schlagmaximum acht, Zwischen- und Endtabellen, gemeinsame Raenge sowie den lokalen Kursbestwert. Eingaben werden bei jedem Zustandswechsel bis zur neutralen Controllerstellung gesperrt, um haengende oder doppelt ausgeloeste Joystickbefehle zu verhindern.
+
+Der **Prototypkurs** verbindet seine vier regulaeren Kursloecher mit Allround-Testloch, Gefaelle-Labor, U-Flussbahn, Scroll-Testbahn und Kurven-Labor zu einer neunloecherigen Runde mit Gesamt-Par 38. Die fuenf Labore behalten ihre technische Kategorie und bleiben aus normaler Uebungs- und Freispielauswahl ausgeblendet. Eine ausdrueckliche Kursfreigabe erlaubt sie nur innerhalb dieses kuratierten Prototypkurses; beliebige Rundendaten duerfen technische Bahnen weiterhin nicht als normalen Kursinhalt einschleusen.
 
 Das Referenzloch besitzt einen breiten Sicherheitsweg durch Sand und Gefaelle sowie eine kuerzere obere Linie an Wasser und Windmuehle. Ein festgelegter Sicherheitsablauf beendet es reproduzierbar in vier Schlaegen; bei offener Windmuehle ist die Risikolinie in zwei Schlaegen erreichbar. Horizontales Scrolling zeigt Start und Loch samt vollstaendiger Aussenwaende.
 
@@ -637,7 +656,13 @@ Das Referenzloch besitzt einen breiten Sicherheitsweg durch Sand und Gefaelle so
 
 **Das Doppeltor** ist ein horizontal scrollendes Par 4 mit Anspielzone, Wartebucht, zwei phasenversetzten Schiebetoren und ansteigendem Schlussabschnitt. Beide Tore sind pro Zyklus 0,75 Sekunden gleichzeitig offen. Geschlossene Treffer prallen ohne Zusatzstrafe zurueck, schliessende Tore koennen ruhende Baelle kontrolliert aus dem Kontakt bewegen.
 
-Alle Bahnen liegen als typisierte Datenressourcen in einem validierten Katalog. Neue Loecher benoetigen keine eigene Skriptklasse mehr; der gemeinsame Runtime-Builder erzeugt Flaechen, gerade und schräge Banden sowie Hindernisse.
+**Die Kanonenwerkstatt** ist eine horizontal scrollende Par-4-Abenteuerbahn. Ein dauerhaft aktivierter Bodenschalter entriegelt zwei zwingend zu benutzende Kanonen: Eine breite Einfahrt fuehrt auf einen sicheren Vier-Schlag-Weg, eine halb so breite Einfahrt auf einen reproduzierbaren Drei-Schlag-Weg. Aufnahme, Zuendpause und sichtbarer Bogenflug laufen automatisch im festen Physiktakt. Der Ball ignoriert waehrend des Fluges Boden und Banden, landet mit definierter Restgeschwindigkeit und behaelt die Schlagzahl sowie die urspruengliche Wasser-Ruecksetzposition bei.
+
+**Klassische Neun** ist der erste vollstaendige Neun-Loch-Kurs mit Gesamt-Par 18. Je drei Bahnen sind als Par 1, Par 2 und Par 3 ausgelegt; sechs passen fest auf einen Bildschirm, drei scrollen horizontal. Gerade und schräge Banden, acht Kreis-Bumper und elf Kreisboegen erzeugen die Abwechslung. Der Kurs verwendet keine beweglichen Hindernisse, kein Wasser und keinen Sand. Nur Bogenschuss, Die Engstelle und Kreisallee besitzen jeweils eine kleine Pfeilzone mit `24 px/s²`, normaler Gruenreibung und ohne Flussassistenz. Jede Bahn besitzt eine automatisiert bestaetigte Idealloesung innerhalb ihres Pars.
+
+**Pfeil-Armageddon** ist ein vollstaendiger Neun-Loch-Gefaellekurs mit Gesamt-Par 27. Je drei Bahnen sind als Par 2, Par 3 und Par 4 ausgelegt; fuenf bleiben kompakt, vier scrollen horizontal. Der Kurs steigert sich von sanften Gefaellen mit `90 px/s²` ueber starke Flaechen mit `150 px/s²` bis zu fuehrenden Stroemungen mit Mindesttempo, Ausrichtung und Zentrierung. Alle acht Pfeilrichtungen kommen vor. Gedrehte rechteckige Flaechen verwenden fuer Darstellung, Kollision und Punktpruefung dieselbe Kontur, waehrend ihre Pfeilrichtung weiterhin in Weltkoordinaten definiert bleibt. Eine Sandflaeche und zwei Wasserbereiche ergaenzen die statischen Pfeilpuzzles; bewegliche Mechanik wird nicht verwendet. Jede Bahn besitzt eine automatisiert bestaetigte Idealloesung innerhalb ihres Pars.
+
+Alle Bahnen liegen als typisierte Datenressourcen in einem validierten Katalog. Neue Loecher benoetigen keine eigene Skriptklasse mehr; der gemeinsame Runtime-Builder erzeugt gerade und gedrehte Flaechen, gerade und schräge Banden, Kreise, Kreisboegen, Hindernisse, Trigger und Kanonen. Gedrehte Flaechen werden anhand ihrer transformierten Ecken gegen die Bahnbegrenzung validiert. Trigger- und Mechanismus-IDs werden vor dem Laden auf Eindeutigkeit und vollstaendige Verknuepfung geprueft.
 
 Der erste Spielgefuehl-Polish verbindet den Abschwung mit Kontaktton und Ballstart, unterscheidet die Golferposen klarer und ergaenzt prozedurales Materialaudio sowie kurze Pixel-Effekte. Die Ballkamera verwendet einen weichen Vorlauf; harte Kontakte erhalten einen begrenzten Impuls. Diese Rueckmeldungen lesen nur Physikereignisse und veraendern weder Bahnverlauf noch Reproduzierbarkeit.
 

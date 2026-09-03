@@ -82,6 +82,7 @@ slope_strength = 90.0
 script = ExtResource("1_hole")
 hole_id = &"slope_lab"
 display_name = "GEFAELLE-LABOR"
+category = 1
 par = 6
 course_rect = Rect2(176, 16, 448, 328)
 tee_position = Vector2(400, 180)

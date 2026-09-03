@@ -4,8 +4,8 @@ config_version=5
 
 [application]
 
-config/name="Putt & Pixel - Grundprototyp"
-run/main_scene="res://scenes/prototype_main.tscn"
+config/name="Putt & Pixel - Spielrahmen-Prototyp"
+run/main_scene="res://scenes/game_app.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]

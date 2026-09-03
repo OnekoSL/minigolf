@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseCatalog" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/course_catalog.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://data/prototype_course.tres" id="2_course"]
+[ext_resource type="Resource" path="res://data/classic_nine_course.tres" id="3_classic"]
+[ext_resource type="Resource" path="res://data/arrow_armageddon_course.tres" id="4_arrows"]
+
+[resource]
+script = ExtResource("1_catalog")
+courses = Array[CourseDefinition]([ExtResource("3_classic"), ExtResource("4_arrows"), ExtResource("2_course")])

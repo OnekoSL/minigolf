@@ -1,0 +1,112 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="3_trigger"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="4_cannon"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(656, 12)
+size = Vector2(976, 8)
+
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(656, 348)
+size = Vector2(976, 8)
+
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(1140, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_machine_divider"]
+script = ExtResource("2_wall")
+center = Vector2(680, 180)
+size = Vector2(12, 328)
+
+[sub_resource type="Resource" id="Wall_safe_funnel_top"]
+script = ExtResource("2_wall")
+center = Vector2(584, 240)
+size = Vector2(138, 8)
+rotation_degrees = 4.0
+
+[sub_resource type="Resource" id="Wall_safe_funnel_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(584, 291)
+size = Vector2(138, 8)
+rotation_degrees = -4.0
+
+[sub_resource type="Resource" id="Wall_risk_funnel_top"]
+script = ExtResource("2_wall")
+center = Vector2(555, 73)
+size = Vector2(110, 8)
+rotation_degrees = -40.0
+
+[sub_resource type="Resource" id="Wall_risk_funnel_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(566, 137)
+size = Vector2(110, 8)
+rotation_degrees = -40.0
+
+[sub_resource type="Resource" id="Wall_route_divider"]
+script = ExtResource("2_wall")
+center = Vector2(850, 185)
+size = Vector2(340, 10)
+
+[sub_resource type="Resource" id="Trigger_main_switch"]
+script = ExtResource("3_trigger")
+trigger_id = &"workshop_switch"
+position = Vector2(380, 280)
+size = Vector2(28, 16)
+target_ids = Array[StringName]([&"safe_cannon", &"risk_cannon"])
+
+[sub_resource type="Resource" id="Cannon_safe"]
+script = ExtResource("4_cannon")
+mechanism_id = &"safe_cannon"
+required_trigger_id = &"workshop_switch"
+position = Vector2(590, 265)
+capture_size = Vector2(36, 24)
+entry_direction = Vector2(0.995, -0.098)
+landing_position = Vector2(790, 260)
+landing_velocity = Vector2(55, 0)
+intake_seconds = 0.2
+ignition_seconds = 0.12
+flight_seconds = 0.55
+arc_height = 34.0
+
+[sub_resource type="Resource" id="Cannon_risk"]
+script = ExtResource("4_cannon")
+mechanism_id = &"risk_cannon"
+required_trigger_id = &"workshop_switch"
+position = Vector2(590, 105)
+capture_size = Vector2(18, 14)
+entry_direction = Vector2(0.758, -0.652)
+landing_position = Vector2(980, 105)
+landing_velocity = Vector2(52, -18)
+intake_seconds = 0.2
+ignition_seconds = 0.12
+flight_seconds = 0.65
+arc_height = 48.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"cannon_workshop_04"
+display_name = "DIE KANONENWERKSTATT"
+par = 4
+course_rect = Rect2(176, 16, 960, 328)
+tee_position = Vector2(220, 286)
+hole_position = Vector2(1090, 70)
+initial_aim_offset = Vector2(160, -6)
+camera_center_bounds = Rect2(320, 180, 504, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_machine_divider"), SubResource("Wall_safe_funnel_top"), SubResource("Wall_safe_funnel_bottom"), SubResource("Wall_risk_funnel_top"), SubResource("Wall_risk_funnel_bottom"), SubResource("Wall_route_divider")])
+surfaces = []
+obstacles = []
+triggers = Array[ExtResource("3_trigger")]([SubResource("Trigger_main_switch")])
+cannons = Array[ExtResource("4_cannon")]([SubResource("Cannon_safe"), SubResource("Cannon_risk")])

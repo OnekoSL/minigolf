@@ -19,8 +19,15 @@ const DEFAULT_SLOPE_ACCELERATION := 90.0
 var zone_size := Vector2(64.0, 32.0)
 
 
-func configure(rect: Rect2, type: SurfaceType, zone_deceleration: float, zone_acceleration := Vector2.ZERO) -> void:
+func configure(
+	rect: Rect2,
+	type: SurfaceType,
+	zone_deceleration: float,
+	zone_acceleration := Vector2.ZERO,
+	zone_rotation_degrees := 0.0
+) -> void:
 	position = rect.position + rect.size * 0.5
+	rotation = deg_to_rad(zone_rotation_degrees)
 	zone_size = rect.size
 	surface_type = type
 	deceleration = zone_deceleration
@@ -35,7 +42,8 @@ func configure_slope(
 	flow_minimum_speed := 0.0,
 	flow_maximum_speed := 0.0,
 	alignment_rate := 0.0,
-	centering_strength := 0.0
+	centering_strength := 0.0,
+	zone_rotation_degrees := 0.0
 ) -> void:
 	slope_direction = direction
 	slope_strength = strength
@@ -43,7 +51,13 @@ func configure_slope(
 	maximum_flow_speed = flow_maximum_speed
 	flow_alignment_rate = alignment_rate
 	flow_centering_strength = centering_strength
-	configure(rect, SurfaceType.SLOPE, zone_deceleration, direction_vector(direction) * strength)
+	configure(
+		rect,
+		SurfaceType.SLOPE,
+		zone_deceleration,
+		direction_vector(direction) * strength,
+		zone_rotation_degrees
+	)
 
 
 static func direction_vector(direction: SlopeDirection) -> Vector2:
@@ -91,12 +105,18 @@ func _draw() -> void:
 				for y in range(int(rect.position.y) + 5, int(rect.end.y), 11):
 					draw_circle(Vector2(x, y), 1.0, Color("#7d603a"))
 		SurfaceType.SLOPE:
-			draw_rect(rect, Color("#4c9960"), true)
-			var direction := acceleration.normalized()
+			var is_flow := minimum_flow_speed > 0.0
+			var is_strong := slope_strength >= 120.0
+			var background := Color("#3f8e5a") if is_flow else (Color("#48965b") if is_strong else Color("#4c9960"))
+			draw_rect(rect, background, true)
+			if is_flow:
+				draw_rect(rect.grow(-1.0), Color("#a8d98d"), false, 2.0)
+			var direction := acceleration.rotated(-rotation).normalized()
 			if direction == Vector2.ZERO:
 				direction = Vector2.UP
-			for x in range(int(rect.position.x) + 12, int(rect.end.x), 24):
-				for y in range(int(rect.position.y) + 12, int(rect.end.y), 24):
+			var spacing := 20 if is_strong else 24
+			for x in range(int(rect.position.x) + int(spacing / 2), int(rect.end.x), spacing):
+				for y in range(int(rect.position.y) + int(spacing / 2), int(rect.end.y), spacing):
 					var center := Vector2(x, y)
 					var color := Color("#d5e8a4")
 					var perpendicular := direction.orthogonal()
@@ -106,6 +126,12 @@ func _draw() -> void:
 					draw_line(tail, neck, color, 2.0)
 					draw_line(tip, neck + perpendicular * 4.0, color, 2.0)
 					draw_line(tip, neck - perpendicular * 4.0, color, 2.0)
+					if is_strong:
+						var second_neck := neck - direction * 5.0
+						draw_line(neck, second_neck + perpendicular * 3.0, color, 1.5)
+						draw_line(neck, second_neck - perpendicular * 3.0, color, 1.5)
+					if is_flow:
+						draw_line(tail - direction * 3.0, tail + direction, color, 2.0)
 		SurfaceType.WATER:
 			draw_rect(rect, Color("#2877a8"), true)
 			for y in range(int(rect.position.y) + 7, int(rect.end.y), 12):
@@ -126,5 +152,6 @@ func get_surface_data() -> Dictionary:
 
 
 func contains_global_point(point: Vector2) -> bool:
-	var rect := Rect2(global_position - zone_size * 0.5, zone_size)
+	var rect := Rect2(-zone_size * 0.5, zone_size)
+	point = to_local(point)
 	return rect.has_point(point)

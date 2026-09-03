@@ -7,6 +7,7 @@ var _time := 0.0
 var _state_time := 0.0
 var _reaction_left := 0.0
 var _perfect_left := 0.0
+var palette_id := 0
 
 
 func _ready() -> void:
@@ -40,6 +41,11 @@ func play_reaction(kind: String) -> void:
 	else:
 		reaction = kind
 		_reaction_left = 1.25 if kind in ["success", "frustration"] else 0.35
+
+
+func set_palette(value: int) -> void:
+	palette_id = clampi(value, 0, 3)
+	queue_redraw()
 
 
 func _draw() -> void:
@@ -77,8 +83,10 @@ func _draw() -> void:
 	var shoulder := Vector2(center_x, 31 + bob + crouch)
 	var head := Vector2(center_x, 18 + bob + crouch)
 	var skin := Color("#d8a16f")
-	var shirt := Color("#dc5a48")
-	var pants := Color("#293c5b")
+	var shirts := [Color("#49d6cf"), Color("#ee66cf"), Color("#f0c45b"), Color("#9b7bea")]
+	var pants_colors := [Color("#293c5b"), Color("#54294f"), Color("#5b4329"), Color("#30295b")]
+	var shirt: Color = shirts[palette_id]
+	var pants: Color = pants_colors[palette_id]
 	var outline := Color("#18202a")
 	if _perfect_left > 0.0:
 		var glow_alpha := clampf(_perfect_left / 0.25, 0.0, 1.0)

@@ -1,9 +1,13 @@
 class_name HoleRuntime
 extends Node2D
 
+signal mechanism_feedback(kind: StringName, world_position: Vector2, direction: Vector2)
+
 var definition: HoleDefinition
 var zones: Array[SurfaceZone] = []
 var obstacle_nodes: Array[Node2D] = []
+var trigger_nodes: Array[BallSwitch] = []
+var cannon_nodes: Array[AdventureCannon] = []
 var overlay: HoleOverlay
 
 
@@ -42,9 +46,17 @@ func get_camera_center_bounds() -> Rect2:
 
 
 func reset_obstacles() -> void:
+	reset_mechanisms()
+
+
+func reset_mechanisms() -> void:
 	for obstacle in obstacle_nodes:
 		if obstacle is MovingObstacle:
 			obstacle.reset_motion()
+	for trigger in trigger_nodes:
+		trigger.reset_state()
+	for cannon in cannon_nodes:
+		cannon.reset_state()
 
 
 func _ready() -> void:
@@ -59,6 +71,8 @@ func _build_from_definition() -> void:
 		child.queue_free()
 	zones.clear()
 	obstacle_nodes.clear()
+	trigger_nodes.clear()
+	cannon_nodes.clear()
 	for wall in definition.walls:
 		_add_wall(wall)
 	for surface in definition.surfaces:
@@ -69,10 +83,33 @@ func _build_from_definition() -> void:
 		var obstacle := obstacle_definition.instantiate_obstacle()
 		obstacle_nodes.append(obstacle)
 		add_child(obstacle)
+	for cannon_definition in definition.cannons:
+		var cannon := cannon_definition.instantiate_cannon()
+		cannon_nodes.append(cannon)
+		add_child(cannon)
+	for trigger_definition in definition.triggers:
+		var trigger := trigger_definition.instantiate_trigger()
+		trigger.activated.connect(_on_trigger_activated)
+		trigger_nodes.append(trigger)
+		add_child(trigger)
 	overlay = HoleOverlay.new()
 	overlay.configure(definition)
 	add_child(overlay)
 	queue_redraw()
+
+
+func _on_trigger_activated(trigger_id: StringName, world_position: Vector2) -> void:
+	var direction_sum := Vector2.ZERO
+	for trigger_definition in definition.triggers:
+		if trigger_definition.trigger_id != trigger_id:
+			continue
+		for target_id in trigger_definition.target_ids:
+			for cannon in cannon_nodes:
+				if cannon.mechanism_id == target_id:
+					cannon.set_enabled(true)
+					direction_sum += (cannon.global_position - world_position).normalized()
+		break
+	mechanism_feedback.emit(&"switch", world_position, direction_sum.normalized())
 
 
 func _add_wall(wall: WallDefinition) -> void:
@@ -81,11 +118,25 @@ func _add_wall(wall: WallDefinition) -> void:
 	body.rotation = deg_to_rad(wall.rotation_degrees)
 	body.collision_layer = 2
 	body.collision_mask = 0
-	var collision := CollisionShape2D.new()
-	var shape := RectangleShape2D.new()
-	shape.size = wall.size
-	collision.shape = shape
-	body.add_child(collision)
+	body.set_meta("wall_type", wall.wall_type)
+	match wall.wall_type:
+		WallDefinition.WallType.RECTANGLE:
+			var collision := CollisionShape2D.new()
+			var shape := RectangleShape2D.new()
+			shape.size = wall.size
+			collision.shape = shape
+			body.add_child(collision)
+		WallDefinition.WallType.CIRCLE:
+			var collision := CollisionShape2D.new()
+			var shape := CircleShape2D.new()
+			shape.radius = wall.radius
+			collision.shape = shape
+			body.add_child(collision)
+		WallDefinition.WallType.ARC:
+			var collision := CollisionPolygon2D.new()
+			collision.build_mode = CollisionPolygon2D.BUILD_SOLIDS
+			collision.polygon = wall.get_arc_polygon()
+			body.add_child(collision)
 	add_child(body)
 
 

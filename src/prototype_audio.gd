@@ -14,6 +14,10 @@ func _ready() -> void:
 	players["wall"] = _make_player(_make_stream(&"tone", 0.06, 430.0, 300.0, 0.24))
 	players["windmill"] = _make_player(_make_stream(&"metal", 0.09, 780.0, 510.0, 0.25))
 	players["gate"] = _make_player(_make_stream(&"metal", 0.08, 310.0, 220.0, 0.28))
+	players["switch"] = _make_player(_make_stream(&"metal", 0.08, 520.0, 760.0, 0.18))
+	players["cannon_load"] = _make_player(_make_stream(&"metal", 0.12, 180.0, 105.0, 0.24))
+	players["cannon_fire"] = _make_player(_make_stream(&"water", 0.18, 92.0, 48.0, 0.42))
+	players["cannon_land"] = _make_player(_make_stream(&"tone", 0.07, 240.0, 150.0, 0.22))
 	players["water"] = _make_player(_make_stream(&"water", 0.30, 135.0, 68.0, 0.28))
 	players["hole"] = _make_player(_make_stream(&"hole", 0.28, 660.0, 880.0, 0.22))
 	players["phase"] = _make_player(_make_stream(&"tone", 0.045, 360.0, 300.0, 0.11))
@@ -64,6 +68,18 @@ func play_water() -> void:
 
 func play_hole() -> void:
 	_play_one_shot("hole", -4.0, 1.0)
+
+
+func play_mechanism(kind: StringName) -> void:
+	match kind:
+		&"switch":
+			_play_one_shot("switch", -7.0, 1.0)
+		&"cannon_load":
+			_play_one_shot("cannon_load", -6.0, 1.0)
+		&"cannon_fire":
+			_play_one_shot("cannon_fire", -2.0, 0.92)
+		&"cannon_land":
+			_play_one_shot("cannon_land", -6.0, 1.0)
 
 
 func update_roll(speed: float, surface_type: int, moving: bool) -> void:

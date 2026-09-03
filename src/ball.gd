@@ -8,6 +8,7 @@ signal hazard_entered(hazard_type: String)
 signal holed(stroke_count: int)
 signal external_motion_started()
 signal surface_changed(surface_type: int)
+signal cannon_feedback(kind: StringName, mechanism_id: StringName, world_position: Vector2, direction: Vector2)
 
 const RADIUS := 5.0
 const GRASS_DECELERATION := 120.0
@@ -29,6 +30,19 @@ var _slow_time := 0.0
 var _hazard_generation := 0
 var _stuck_time := 0.0
 var _last_motion_position := Vector2.ZERO
+var _cannon_active := false
+var _cannon_id := &""
+var _cannon_elapsed := 0.0
+var _cannon_intake_seconds := 0.0
+var _cannon_ignition_seconds := 0.0
+var _cannon_flight_seconds := 0.0
+var _cannon_arc_height := 0.0
+var _cannon_start := Vector2.ZERO
+var _cannon_capture := Vector2.ZERO
+var _cannon_landing := Vector2.ZERO
+var _cannon_exit_velocity := Vector2.ZERO
+var _cannon_fire_emitted := false
+var _visual_lift := 0.0
 
 
 func _ready() -> void:
@@ -67,6 +81,7 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 
 func reset_to(target_position: Vector2) -> void:
 	_hazard_generation += 1
+	_cancel_cannon_sequence()
 	moving = false
 	velocity = Vector2.ZERO
 	global_position = target_position
@@ -80,6 +95,9 @@ func reset_to(target_position: Vector2) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not moving:
+		return
+	if _cannon_active:
+		_advance_cannon_sequence(delta)
 		return
 	var tick_start_position := global_position
 	var surface := _surface_at(global_position)
@@ -132,6 +150,8 @@ func _physics_process(delta: float) -> void:
 					collider.get_minimum_kick_speed()
 				).limit_length(520.0)
 			else:
+				if collider != null and collider.has_meta("feedback_kind"):
+					collision_kind = StringName(collider.get_meta("feedback_kind"))
 				velocity = calculate_bounce(velocity, collision.get_normal(), WALL_RESTITUTION)
 			wall_hit.emit(before, collision.get_position(), collision.get_normal(), collision_kind)
 		var stepped_surface := _surface_at(global_position)
@@ -215,6 +235,7 @@ func _set_current_surface_type(value: int) -> void:
 
 
 func _capture_hole() -> void:
+	_cancel_cannon_sequence()
 	moving = false
 	velocity = Vector2.ZERO
 	global_position = hole_position
@@ -268,10 +289,113 @@ func apply_moving_obstacle_contact(
 	return true
 
 
+func is_cannon_sequence_active() -> bool:
+	return _cannon_active
+
+
+func start_cannon_sequence(
+	mechanism_id: StringName,
+	capture_position: Vector2,
+	landing_position: Vector2,
+	intake_seconds: float,
+	ignition_seconds: float,
+	flight_seconds: float,
+	arc_height: float,
+	exit_velocity: Vector2
+) -> bool:
+	if not moving or _cannon_active:
+		return false
+	_cannon_active = true
+	_cannon_id = mechanism_id
+	_cannon_elapsed = 0.0
+	_cannon_intake_seconds = maxf(0.001, intake_seconds)
+	_cannon_ignition_seconds = maxf(0.0, ignition_seconds)
+	_cannon_flight_seconds = maxf(0.001, flight_seconds)
+	_cannon_arc_height = maxf(0.0, arc_height)
+	_cannon_start = global_position
+	_cannon_capture = capture_position
+	_cannon_landing = landing_position
+	_cannon_exit_velocity = exit_velocity
+	_cannon_fire_emitted = false
+	_visual_lift = 0.0
+	velocity = Vector2.ZERO
+	_slow_time = 0.0
+	_stuck_time = 0.0
+	collision_mask = 0
+	cannon_feedback.emit(&"cannon_load", _cannon_id, global_position, (_cannon_landing - _cannon_capture).normalized())
+	queue_redraw()
+	return true
+
+
+func advance_cannon_sequence(delta: float) -> void:
+	if _cannon_active:
+		_advance_cannon_sequence(delta)
+
+
+func _advance_cannon_sequence(delta: float) -> void:
+	_cannon_elapsed += maxf(0.0, delta)
+	var flight_start := _cannon_intake_seconds + _cannon_ignition_seconds
+	var total_duration := flight_start + _cannon_flight_seconds
+	if _cannon_elapsed < _cannon_intake_seconds:
+		var intake_progress := clampf(_cannon_elapsed / _cannon_intake_seconds, 0.0, 1.0)
+		global_position = _cannon_start.lerp(_cannon_capture, intake_progress)
+		_visual_lift = 0.0
+		queue_redraw()
+		return
+	if _cannon_elapsed < flight_start:
+		global_position = _cannon_capture
+		_visual_lift = 0.0
+		queue_redraw()
+		return
+	if not _cannon_fire_emitted:
+		_cannon_fire_emitted = true
+		cannon_feedback.emit(
+			&"cannon_fire",
+			_cannon_id,
+			_cannon_capture,
+			(_cannon_landing - _cannon_capture).normalized()
+		)
+	if _cannon_elapsed < total_duration:
+		var flight_progress := clampf((_cannon_elapsed - flight_start) / _cannon_flight_seconds, 0.0, 1.0)
+		global_position = _cannon_capture.lerp(_cannon_landing, flight_progress)
+		_visual_lift = 4.0 * _cannon_arc_height * flight_progress * (1.0 - flight_progress)
+		queue_redraw()
+		return
+	global_position = _cannon_landing
+	velocity = _cannon_exit_velocity
+	_visual_lift = 0.0
+	collision_mask = 2
+	_cannon_active = false
+	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
+	_last_motion_position = global_position
+	var landed_id := _cannon_id
+	_cannon_id = &""
+	cannon_feedback.emit(
+		&"cannon_land",
+		landed_id,
+		global_position,
+		velocity.normalized() if not velocity.is_zero_approx() else Vector2.RIGHT
+	)
+	queue_redraw()
+	if velocity.length() < STOP_SPEED:
+		_finish_stopped()
+
+
+func _cancel_cannon_sequence() -> void:
+	_cannon_active = false
+	_cannon_id = &""
+	_cannon_elapsed = 0.0
+	_cannon_fire_emitted = false
+	_visual_lift = 0.0
+	collision_mask = 2
+	queue_redraw()
+
+
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, RADIUS + 1.0, Color(0.05, 0.08, 0.10, 0.45))
-	draw_circle(Vector2(-1, -1), RADIUS, Color("#f5f0d7"))
-	draw_circle(Vector2(-2, -2), 1.2, Color("#ffffff"))
+	var ball_center := Vector2(0.0, -_visual_lift)
+	draw_circle(ball_center + Vector2(-1, -1), RADIUS, Color("#f5f0d7"))
+	draw_circle(ball_center + Vector2(-2, -2), 1.2, Color("#ffffff"))
 
 
 static func apply_deceleration(input_velocity: Vector2, deceleration: float, delta: float) -> Vector2:

@@ -109,6 +109,7 @@ flow_centering_strength = 10.0
 script = ExtResource("1_hole")
 hole_id = &"flow_test"
 display_name = "U-FLUSSBAHN"
+category = 1
 par = 2
 course_rect = Rect2(176, 16, 448, 328)
 tee_position = Vector2(230, 69)

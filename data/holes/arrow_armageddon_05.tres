@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 12)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 348)
+size = Vector2(464, 8)
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(628, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Divider_top_left"]
+script = ExtResource("2_wall")
+center = Vector2(322, 126)
+size = Vector2(104, 8)
+[sub_resource type="Resource" id="Divider_bottom_left"]
+script = ExtResource("2_wall")
+center = Vector2(322, 234)
+size = Vector2(104, 8)
+[sub_resource type="Resource" id="Divider_top_right"]
+script = ExtResource("2_wall")
+center = Vector2(486, 126)
+size = Vector2(104, 8)
+[sub_resource type="Resource" id="Divider_bottom_right"]
+script = ExtResource("2_wall")
+center = Vector2(486, 234)
+size = Vector2(104, 8)
+
+[sub_resource type="Resource" id="Slope_right"]
+script = ExtResource("3_surface")
+rect = Rect2(432, 152, 96, 56)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 2
+slope_strength = 150.0
+[sub_resource type="Resource" id="Slope_up"]
+script = ExtResource("3_surface")
+rect = Rect2(372, 40, 56, 96)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 0
+slope_strength = 150.0
+[sub_resource type="Resource" id="Slope_left"]
+script = ExtResource("3_surface")
+rect = Rect2(272, 152, 96, 56)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 6
+slope_strength = 150.0
+[sub_resource type="Resource" id="Slope_down"]
+script = ExtResource("3_surface")
+rect = Rect2(372, 224, 56, 96)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 4
+slope_strength = 150.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"arrow_armageddon_05"
+display_name = "KOMPASSKREUZ"
+par = 3
+course_rect = Rect2(176, 16, 448, 328)
+tee_position = Vector2(220, 180)
+hole_position = Vector2(575, 70)
+initial_aim_offset = Vector2(85, 0)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Divider_top_left"), SubResource("Divider_bottom_left"), SubResource("Divider_top_right"), SubResource("Divider_bottom_right")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_right"), SubResource("Slope_up"), SubResource("Slope_left"), SubResource("Slope_down")])
+obstacles = []
+triggers = []
+cannons = []

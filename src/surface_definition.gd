@@ -2,6 +2,7 @@ class_name SurfaceDefinition
 extends Resource
 
 @export var rect := Rect2(Vector2.ZERO, Vector2(64.0, 32.0))
+@export_range(-180.0, 180.0, 0.1) var rotation_degrees := 0.0
 @export_enum("Sand", "Gefaelle", "Wasser") var surface_type: int = SurfaceZone.SurfaceType.SAND
 @export var deceleration := 260.0
 @export var acceleration := Vector2.ZERO
@@ -35,8 +36,24 @@ func instantiate_zone() -> SurfaceZone:
 			minimum_flow_speed,
 			maximum_flow_speed,
 			flow_alignment_rate,
-			flow_centering_strength
+			flow_centering_strength,
+			rotation_degrees
 		)
 	else:
-		zone.configure(rect, surface_type as SurfaceZone.SurfaceType, deceleration, acceleration)
+		zone.configure(rect, surface_type as SurfaceZone.SurfaceType, deceleration, acceleration, rotation_degrees)
 	return zone
+
+
+func get_rotated_corners() -> PackedVector2Array:
+	var result := PackedVector2Array()
+	var center := rect.get_center()
+	var half_size := rect.size * 0.5
+	var angle := deg_to_rad(rotation_degrees)
+	for corner in [
+		Vector2(-half_size.x, -half_size.y),
+		Vector2(half_size.x, -half_size.y),
+		Vector2(half_size.x, half_size.y),
+		Vector2(-half_size.x, half_size.y),
+	]:
+		result.append(center + corner.rotated(angle))
+	return result

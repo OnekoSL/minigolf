@@ -1,0 +1,141 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(592, 12)
+size = Vector2(848, 8)
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(592, 348)
+size = Vector2(848, 8)
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(1012, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Guide_one"]
+script = ExtResource("2_wall")
+center = Vector2(390, 208)
+size = Vector2(150, 8)
+rotation_degrees = 20.0
+[sub_resource type="Resource" id="Guide_two"]
+script = ExtResource("2_wall")
+center = Vector2(545, 95)
+size = Vector2(132, 8)
+rotation_degrees = -18.0
+[sub_resource type="Resource" id="Guide_three"]
+script = ExtResource("2_wall")
+center = Vector2(682, 272)
+size = Vector2(145, 8)
+rotation_degrees = 18.0
+[sub_resource type="Resource" id="Guide_four"]
+script = ExtResource("2_wall")
+center = Vector2(835, 135)
+size = Vector2(145, 8)
+rotation_degrees = -18.0
+
+[sub_resource type="Resource" id="Flow_one"]
+script = ExtResource("3_surface")
+rect = Rect2(235, 59, 110, 42)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 2
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_two"]
+script = ExtResource("3_surface")
+rect = Rect2(355, 99, 110, 42)
+rotation_degrees = 32.0
+surface_type = 1
+deceleration = 50.0
+slope_direction = 3
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_counter_left"]
+script = ExtResource("3_surface")
+rect = Rect2(470, 145, 100, 60)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 6
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_four"]
+script = ExtResource("3_surface")
+rect = Rect2(570, 195, 120, 50)
+surface_type = 1
+deceleration = 50.0
+slope_direction = 2
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_counter_up_left"]
+script = ExtResource("3_surface")
+rect = Rect2(700, 150, 100, 60)
+rotation_degrees = -35.0
+surface_type = 1
+deceleration = 50.0
+slope_direction = 7
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+[sub_resource type="Resource" id="Flow_six"]
+script = ExtResource("3_surface")
+rect = Rect2(815, 229, 110, 42)
+rotation_degrees = 25.0
+surface_type = 1
+deceleration = 50.0
+slope_direction = 3
+slope_strength = 150.0
+minimum_flow_speed = 72.0
+maximum_flow_speed = 105.0
+flow_alignment_rate = 12.0
+flow_centering_strength = 10.0
+
+[sub_resource type="Resource" id="Water_one"]
+script = ExtResource("3_surface")
+rect = Rect2(455, 262, 105, 58)
+surface_type = 2
+deceleration = 0.0
+[sub_resource type="Resource" id="Water_two"]
+script = ExtResource("3_surface")
+rect = Rect2(690, 40, 105, 58)
+surface_type = 2
+deceleration = 0.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"arrow_armageddon_08"
+display_name = "GEGENSTROM"
+par = 4
+course_rect = Rect2(176, 16, 832, 328)
+tee_position = Vector2(220, 70)
+hole_position = Vector2(960, 286)
+initial_aim_offset = Vector2(95, 5)
+camera_center_bounds = Rect2(320, 180, 376, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Guide_one"), SubResource("Guide_two"), SubResource("Guide_three"), SubResource("Guide_four")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Flow_one"), SubResource("Flow_two"), SubResource("Flow_counter_left"), SubResource("Flow_four"), SubResource("Flow_counter_up_left"), SubResource("Flow_six"), SubResource("Water_one"), SubResource("Water_two")])
+obstacles = []
+triggers = []
+cannons = []

@@ -15,6 +15,9 @@ var result_label: Label
 var pause_label: Label
 var course_label: Label
 var golfer: PlaceholderGolfer
+var player_label: Label
+var round_label: Label
+var golfer_title: Label
 
 
 func _ready() -> void:
@@ -52,8 +55,8 @@ func _build_hud() -> void:
 	golfer_panel.add_theme_stylebox_override("panel", _panel_style(Color("#172332"), Color("#d5c477")))
 	root.add_child(golfer_panel)
 
-	var panel_title := _label("ALLROUNDER", Vector2(7, 4), Vector2(146, 16), 11, Color("#f0df9b"))
-	golfer_panel.add_child(panel_title)
+	golfer_title = _label("P1  ALLROUNDER", Vector2(7, 4), Vector2(146, 16), 11, Color("#f0df9b"))
+	golfer_panel.add_child(golfer_title)
 
 	golfer = PlaceholderGolfer.new()
 	golfer.position = Vector2(15, 20)
@@ -77,6 +80,11 @@ func _build_hud() -> void:
 
 	stroke_label = _label("SCHLAEGE 0   PAR 4", Vector2(185, 19), Vector2(210, 22), 14, Color("#fff3ba"))
 	root.add_child(stroke_label)
+	player_label = _label("SPIELER 1", Vector2(185, 42), Vector2(230, 18), 12, Color("#49d6cf"))
+	root.add_child(player_label)
+	round_label = _label("LOCH 1/1   GESAMT 0", Vector2(415, 42), Vector2(200, 18), 10, Color("#d7edcf"))
+	round_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	root.add_child(round_label)
 	distance_label = _label("ENTFERNUNG 0 dm", Vector2(8, 82), Vector2(160, 22), 12, Color("#d7edcf"))
 	root.add_child(distance_label)
 	controller_label = _label("Controller wird gesucht ...", Vector2(8, 8), Vector2(165, 38), 10, Color("#c9d6df"))
@@ -175,10 +183,19 @@ func set_diagnostics(visible: bool, text: String) -> void:
 	diagnostics_label.text = text
 
 
-func show_result(strokes: int, par: int) -> void:
+func show_result(strokes: int, par: int, prompt := "Kreuz / Leertaste: Nochmal") -> void:
 	var difference := strokes - par
 	var result := "PAR" if difference == 0 else ("%d UNTER PAR" % abs(difference) if difference < 0 else "+%d UEBER PAR" % difference)
-	result_label.text = "LOCH GESCHAFFT!\n%d SCHLAEGE - %s\n\nKreuz / Leertaste: Nochmal" % [strokes, result]
+	result_label.text = "LOCH GESCHAFFT!\n%d SCHLAEGE - %s%s" % [
+		strokes,
+		result,
+		"\n\n" + prompt if not prompt.is_empty() else "",
+	]
+	result_panel.visible = true
+
+
+func show_limit_result(strokes: int) -> void:
+	result_label.text = "MAXIMUM ERREICHT\n%d SCHLAEGE\n\nNAECHSTER SPIELER ..." % strokes
 	result_panel.visible = true
 
 
@@ -192,6 +209,17 @@ func set_paused(value: bool) -> void:
 
 func set_course_name(value: String) -> void:
 	course_label.text = value
+
+
+func set_player_context(profile: PlayerProfile, hole_number: int, hole_count: int, total_strokes: int) -> void:
+	if profile == null:
+		return
+	player_label.text = "P%d  %s" % [profile.player_id, profile.player_name]
+	player_label.add_theme_color_override("font_color", profile.get_color())
+	round_label.text = "LOCH %d/%d   GESAMT %d" % [hole_number, hole_count, total_strokes]
+	golfer_title.text = "P%d  ALLROUNDER" % profile.player_id
+	golfer_title.add_theme_color_override("font_color", profile.get_color())
+	golfer.set_palette(profile.palette_id)
 
 
 func play_golfer_reaction(kind: String) -> void:

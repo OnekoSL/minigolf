@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource path="res://scenes/game_app.tscn" type="PackedScene" id="1_app"]
+[ext_resource path="res://tests/capture_shell.gd" type="Script" id="2_capture"]
+
+[node name="CaptureRoot" type="Node"]
+
+[node name="GameApp" parent="." instance=ExtResource("1_app")]
+
+[node name="Capture" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_capture")

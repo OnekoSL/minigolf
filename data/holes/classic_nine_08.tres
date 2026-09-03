@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(592, 12)
+size = Vector2(848, 8)
+
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(592, 348)
+size = Vector2(848, 8)
+
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(1012, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Circle_one"]
+script = ExtResource("2_wall")
+wall_type = 1
+center = Vector2(350, 118)
+radius = 28.0
+
+[sub_resource type="Resource" id="Circle_two"]
+script = ExtResource("2_wall")
+wall_type = 1
+center = Vector2(480, 242)
+radius = 28.0
+
+[sub_resource type="Resource" id="Circle_three"]
+script = ExtResource("2_wall")
+wall_type = 1
+center = Vector2(610, 118)
+radius = 28.0
+
+[sub_resource type="Resource" id="Circle_four"]
+script = ExtResource("2_wall")
+wall_type = 1
+center = Vector2(740, 242)
+radius = 28.0
+
+[sub_resource type="Resource" id="Circle_five"]
+script = ExtResource("2_wall")
+wall_type = 1
+center = Vector2(870, 118)
+radius = 28.0
+
+[sub_resource type="Resource" id="Slope_assist"]
+script = ExtResource("3_surface")
+rect = Rect2(582, 158, 56, 44)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 2
+slope_strength = 24.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"classic_nine_08"
+display_name = "KREISALLEE"
+par = 3
+course_rect = Rect2(176, 16, 832, 328)
+tee_position = Vector2(220, 286)
+hole_position = Vector2(960, 72)
+initial_aim_offset = Vector2(92, -26)
+camera_center_bounds = Rect2(320, 180, 376, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Circle_one"), SubResource("Circle_two"), SubResource("Circle_three"), SubResource("Circle_four"), SubResource("Circle_five")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_assist")])
+obstacles = []

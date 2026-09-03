@@ -102,7 +102,13 @@ func _ensure_input_actions() -> void:
 	_add_action("shot_action", [
 		_key(KEY_SPACE), _key(KEY_ENTER), _mouse_button(MOUSE_BUTTON_LEFT), _joy_button(JOY_BUTTON_A)
 	])
+	_add_action("menu_confirm", [
+		_key(KEY_SPACE), _key(KEY_ENTER), _mouse_button(MOUSE_BUTTON_LEFT), _joy_button(JOY_BUTTON_A)
+	])
 	_add_action("shot_cancel", [
+		_key(KEY_ESCAPE), _mouse_button(MOUSE_BUTTON_RIGHT), _joy_button(JOY_BUTTON_B)
+	])
+	_add_action("menu_back", [
 		_key(KEY_ESCAPE), _mouse_button(MOUSE_BUTTON_RIGHT), _joy_button(JOY_BUTTON_B)
 	])
 	_add_action("restart_hole", [_key(KEY_R), _joy_button(JOY_BUTTON_X)])
@@ -235,11 +241,31 @@ func _custom_button_matches(event: InputEventJoypadButton, action: StringName) -
 	if event.device != active_device_id or not _profiles.has(active_device_guid):
 		return false
 	var profile: Dictionary = _profiles[active_device_guid]
-	if action == &"shot_action":
+	if action in [&"shot_action", &"menu_confirm"]:
 		return event.button_index == int(profile.get("shot_button", -999))
-	if action == &"shot_cancel":
+	if action in [&"shot_cancel", &"menu_back"]:
 		return event.button_index == int(profile.get("cancel_button", -999))
 	return false
+
+
+func is_action_held(action: StringName) -> bool:
+	if Input.is_action_pressed(action):
+		return true
+	if active_device_id < 0 or not _profiles.has(active_device_guid):
+		return false
+	var profile: Dictionary = _profiles[active_device_guid]
+	if action in [&"shot_action", &"menu_confirm"]:
+		return Input.is_joy_button_pressed(active_device_id, int(profile.get("shot_button", -999)))
+	if action in [&"shot_cancel", &"menu_back"]:
+		return Input.is_joy_button_pressed(active_device_id, int(profile.get("cancel_button", -999)))
+	return false
+
+
+func menu_controls_are_neutral() -> bool:
+	return get_aim_vector().length() < 0.10 \
+		and not is_action_held(&"menu_confirm") \
+		and not is_action_held(&"menu_back") \
+		and not Input.is_action_pressed("pause")
 
 
 func get_aim_vector() -> Vector2:
