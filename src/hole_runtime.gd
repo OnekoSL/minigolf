@@ -5,6 +5,8 @@ signal mechanism_feedback(kind: StringName, world_position: Vector2, direction: 
 
 var definition: HoleDefinition
 var zones: Array[SurfaceZone] = []
+var lane_boundary_nodes: Array[StaticBody2D] = []
+var wall_tile_nodes: Array[StaticBody2D] = []
 var obstacle_nodes: Array[Node2D] = []
 var trigger_nodes: Array[BallSwitch] = []
 var cannon_nodes: Array[AdventureCannon] = []
@@ -53,6 +55,8 @@ func reset_mechanisms() -> void:
 	for obstacle in obstacle_nodes:
 		if obstacle is MovingObstacle:
 			obstacle.reset_motion()
+		elif obstacle.has_method("reset_motion"):
+			obstacle.reset_motion()
 	for trigger in trigger_nodes:
 		trigger.reset_state()
 	for cannon in cannon_nodes:
@@ -70,18 +74,30 @@ func _build_from_definition() -> void:
 	for child in get_children():
 		child.queue_free()
 	zones.clear()
+	lane_boundary_nodes.clear()
+	wall_tile_nodes.clear()
 	obstacle_nodes.clear()
 	trigger_nodes.clear()
 	cannon_nodes.clear()
+	if definition.lane_outline != null:
+		_add_lane_boundaries(definition.lane_outline)
 	for wall in definition.walls:
 		_add_wall(wall)
+	for wall_tile in definition.wall_tiles:
+		_add_wall_tile(wall_tile)
 	for surface in definition.surfaces:
 		var zone := surface.instantiate_zone()
 		zones.append(zone)
 		add_child(zone)
+	for arrow_tile in definition.arrow_tiles:
+		var arrow_zone := arrow_tile.instantiate_zone()
+		zones.append(arrow_zone)
+		add_child(arrow_zone)
 	for obstacle_definition in definition.obstacles:
 		var obstacle := obstacle_definition.instantiate_obstacle()
 		obstacle_nodes.append(obstacle)
+		if obstacle is SurfaceZone:
+			zones.append(obstacle)
 		add_child(obstacle)
 	for cannon_definition in definition.cannons:
 		var cannon := cannon_definition.instantiate_cannon()
@@ -140,8 +156,68 @@ func _add_wall(wall: WallDefinition) -> void:
 	add_child(body)
 
 
+func _add_wall_tile(tile: WallTileDefinition) -> void:
+	var body := _create_wall_tile_body(tile, &"wall_tile")
+	wall_tile_nodes.append(body)
+	add_child(body)
+
+
+func _create_wall_tile_body(tile: WallTileDefinition, wall_type: StringName) -> StaticBody2D:
+	return _create_wall_piece_body(tile.get_segments(), tile.variant, wall_type)
+
+
+func _create_wall_piece_body(segments: Array, variant: int, wall_type: StringName) -> StaticBody2D:
+	var body := StaticBody2D.new()
+	body.collision_layer = 2
+	body.collision_mask = 0
+	body.set_meta("wall_type", wall_type)
+	body.set_meta("wall_variant", variant)
+	for segment in segments:
+		var start: Vector2 = segment[0]
+		var end: Vector2 = segment[1]
+		var edge: Vector2 = end - start
+		var collision := CollisionShape2D.new()
+		collision.position = (start + end) * 0.5
+		collision.rotation = edge.angle()
+		var shape := RectangleShape2D.new()
+		shape.size = Vector2(edge.length(), WallTileDefinition.THICKNESS)
+		collision.shape = shape
+		body.add_child(collision)
+	return body
+
+
+func _add_lane_boundaries(outline: LaneOutlineDefinition) -> void:
+	if outline.use_normalized_walls:
+		for piece in outline.get_normalized_wall_pieces():
+			var tile_body := _create_wall_piece_body(piece["segments"], piece["variant"], &"normalized_lane_boundary")
+			lane_boundary_nodes.append(tile_body)
+			add_child(tile_body)
+		return
+	for index in range(outline.points.size()):
+		var start := outline.points[index]
+		var end := outline.points[(index + 1) % outline.points.size()]
+		var edge := end - start
+		var body := StaticBody2D.new()
+		body.position = (start + end) * 0.5
+		body.rotation = edge.angle()
+		body.collision_layer = 2
+		body.collision_mask = 0
+		body.set_meta("wall_type", &"lane_boundary")
+		var collision := CollisionShape2D.new()
+		var shape := RectangleShape2D.new()
+		shape.size = Vector2(edge.length() + outline.wall_thickness, outline.wall_thickness)
+		collision.shape = shape
+		body.add_child(collision)
+		lane_boundary_nodes.append(body)
+		add_child(body)
+
+
 func _draw() -> void:
 	if definition == null:
+		return
+	if definition.lane_outline != null:
+		draw_rect(definition.course_rect, Color("#183626"), true)
+		draw_colored_polygon(definition.lane_outline.points, Color("#347a4a"))
 		return
 	draw_rect(definition.course_rect, Color("#347a4a"), true)
 	var spacing := maxi(8, definition.grid_spacing)

@@ -17,6 +17,9 @@ const STOP_SETTLE_TIME := 0.25
 const STUCK_DISTANCE_PER_TICK := 0.05
 const STUCK_SETTLE_TIME := 0.40
 const WALL_RESTITUTION := 0.82
+const WALL_SETTLE_NORMAL_SPEED := 28.0
+const REPEATED_WALL_SETTLE_NORMAL_SPEED := 140.0
+const SAME_WALL_NORMAL_DOT := 0.94
 const MAX_HOLE_SPEED := 120.0
 const HOLE_RADIUS := 7.0
 
@@ -30,6 +33,8 @@ var _slow_time := 0.0
 var _hazard_generation := 0
 var _stuck_time := 0.0
 var _last_motion_position := Vector2.ZERO
+var _last_static_wall_normal := Vector2.ZERO
+var _same_wall_hit_count := 0
 var _cannon_active := false
 var _cannon_id := &""
 var _cannon_elapsed := 0.0
@@ -74,6 +79,7 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 	_slow_time = 0.0
 	_stuck_time = 0.0
 	_last_motion_position = global_position
+	_reset_wall_contact_memory()
 	visible = true
 	scale = Vector2.ONE
 	launched.emit()
@@ -91,6 +97,7 @@ func reset_to(target_position: Vector2) -> void:
 	_slow_time = 0.0
 	_stuck_time = 0.0
 	_last_motion_position = global_position
+	_reset_wall_contact_memory()
 
 
 func _physics_process(delta: float) -> void:
@@ -137,13 +144,15 @@ func _physics_process(delta: float) -> void:
 			var before := velocity.length()
 			var collider_velocity := collision.get_collider_velocity()
 			var collider := collision.get_collider()
+			var contact_normal := collision.get_normal().normalized()
 			var collision_kind := &"wall"
 			if collider is MovingObstacle:
+				_reset_wall_contact_memory()
 				collision_kind = collider.feedback_kind
 				collider_velocity = collider.get_velocity_at_world_point(collision.get_position())
 				velocity = resolve_rotating_obstacle_collision(
 					velocity,
-					collision.get_normal(),
+					contact_normal,
 					collider_velocity,
 					WALL_RESTITUTION,
 					collider.get_impulse_multiplier(),
@@ -152,8 +161,15 @@ func _physics_process(delta: float) -> void:
 			else:
 				if collider != null and collider.has_meta("feedback_kind"):
 					collision_kind = StringName(collider.get_meta("feedback_kind"))
-				velocity = calculate_bounce(velocity, collision.get_normal(), WALL_RESTITUTION)
-			wall_hit.emit(before, collision.get_position(), collision.get_normal(), collision_kind)
+				var same_wall_hits := _register_static_wall_hit(contact_normal)
+				if should_settle_static_wall_contact(velocity, contact_normal, same_wall_hits):
+					velocity = remove_inward_wall_velocity(velocity, contact_normal)
+				else:
+					velocity = calculate_bounce(velocity, contact_normal, WALL_RESTITUTION)
+			wall_hit.emit(before, collision.get_position(), contact_normal, collision_kind)
+			if not collider is MovingObstacle and velocity.length() < STOP_SPEED:
+				_finish_stopped()
+				return
 		var stepped_surface := _surface_at(global_position)
 		if int(stepped_surface.get("type", -1)) == SurfaceZone.SurfaceType.WATER:
 			_enter_hazard("Wasser")
@@ -225,6 +241,21 @@ func _finish_stopped() -> void:
 	_slow_time = 0.0
 	_stuck_time = 0.0
 	stopped.emit(global_position)
+
+
+func _register_static_wall_hit(normal: Vector2) -> int:
+	var normalized_normal := normal.normalized()
+	if not _last_static_wall_normal.is_zero_approx() and normalized_normal.dot(_last_static_wall_normal) >= SAME_WALL_NORMAL_DOT:
+		_same_wall_hit_count += 1
+	else:
+		_same_wall_hit_count = 1
+	_last_static_wall_normal = normalized_normal
+	return _same_wall_hit_count
+
+
+func _reset_wall_contact_memory() -> void:
+	_last_static_wall_normal = Vector2.ZERO
+	_same_wall_hit_count = 0
 
 
 func _set_current_surface_type(value: int) -> void:
@@ -453,6 +484,20 @@ static func apply_flow_centering(
 
 static func calculate_bounce(input_velocity: Vector2, normal: Vector2, restitution: float) -> Vector2:
 	return input_velocity.bounce(normal) * restitution
+
+
+static func should_settle_static_wall_contact(input_velocity: Vector2, normal: Vector2, same_wall_hits: int) -> bool:
+	var inward_speed := maxf(0.0, -input_velocity.dot(normal.normalized()))
+	return inward_speed <= WALL_SETTLE_NORMAL_SPEED \
+		or (same_wall_hits >= 2 and inward_speed <= REPEATED_WALL_SETTLE_NORMAL_SPEED)
+
+
+static func remove_inward_wall_velocity(input_velocity: Vector2, normal: Vector2) -> Vector2:
+	var normalized_normal := normal.normalized()
+	var normal_speed := input_velocity.dot(normalized_normal)
+	if normal_speed >= 0.0:
+		return input_velocity
+	return input_velocity - normalized_normal * normal_speed
 
 
 static func resolve_moving_surface_collision(

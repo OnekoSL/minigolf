@@ -15,7 +15,11 @@ func _run_all() -> void:
 	await _test_hazard_reset()
 	await _test_rotating_obstacle_wakes_ball()
 	await _test_timed_gate()
+	await _test_seesaw_obstacle()
 	_test_slope_directions()
+	_test_atomic_arrow_dynamics()
+	await _test_slope_wall_settling()
+	_test_wall_tiles()
 	await _test_rotated_surface_zones()
 	await _test_hole_catalog()
 	await _test_reference_hole()
@@ -28,6 +32,8 @@ func _run_all() -> void:
 	await _test_flow_test_hole()
 	await _test_scroll_test_hole()
 	await _test_curve_lab()
+	await _test_real_lane_references()
+	await _test_gate_lane_family()
 	await _test_repeated_hole_switch_input()
 	_test_distance_scale()
 	await _test_feedback_systems()
@@ -123,6 +129,10 @@ func _test_ball_math() -> void:
 	var bounce := PrototypeBall.calculate_bounce(Vector2(100, 40), Vector2(-1, 0), 0.82)
 	_check(bounce.x < 0.0 and bounce.y > 0.0, "Bandenreflexion spiegelt die Normalkomponente")
 	_check(absf(bounce.length() - Vector2(100, 40).length() * 0.82) < 0.01, "Rueckprallfaktor wird angewendet")
+	_check(not PrototypeBall.should_settle_static_wall_contact(Vector2(100, 0), Vector2.LEFT, 1), "Kraeftiger erster Bandentreffer prallt weiterhin ab")
+	_check(PrototypeBall.should_settle_static_wall_contact(Vector2(20, 0), Vector2.LEFT, 1), "Schwacher Bandentreffer darf an der Wand ausrollen")
+	_check(PrototypeBall.should_settle_static_wall_contact(Vector2(105, 0), Vector2.LEFT, 2), "Wiederholter Gefaelleruecklauf wird an derselben Wand beruhigt")
+	_check(PrototypeBall.remove_inward_wall_velocity(Vector2(20, 12), Vector2.LEFT).is_equal_approx(Vector2(0, 12)), "Ruhelage entfernt nur die Bewegung in die Wand")
 	var paddle_hit := PrototypeBall.resolve_moving_surface_collision(
 		Vector2.ZERO, Vector2.DOWN, Vector2(0, 90), 0.82
 	)
@@ -218,6 +228,109 @@ func _test_slope_directions() -> void:
 		)
 		ball.free()
 		zone.free()
+
+
+func _test_atomic_arrow_dynamics() -> void:
+	print("\n[Atomare Pfeilkraefte]")
+	var default_tile := ArrowTileDefinition.new()
+	_check(is_equal_approx(default_tile.deceleration, 30.0), "Atomare Pfeilbloecke verwenden nur 30 px/s2 Rollwiderstand")
+	var grade_names := ["flach", "mittel", "steil"]
+	var expected_downhill := [30.0, 60.0, 120.0]
+	var expected_uphill_braking := [90.0, 120.0, 180.0]
+	for grade in range(3):
+		var tile := ArrowTileDefinition.new()
+		tile.direction = SurfaceZone.SlopeDirection.RIGHT
+		tile.slope_grade = grade
+		var zone := tile.instantiate_zone()
+		var data := zone.get_surface_data()
+		var acceleration := Vector2(data["acceleration"])
+		var resistance := float(data["deceleration"])
+		var downhill := PrototypeBall.apply_deceleration(
+			PrototypeBall.apply_surface_acceleration(Vector2.ZERO, acceleration, 1.0),
+			resistance,
+			1.0
+		)
+		var uphill_start := Vector2.LEFT * 300.0
+		var uphill := PrototypeBall.apply_deceleration(
+			PrototypeBall.apply_surface_acceleration(uphill_start, acceleration, 1.0),
+			resistance,
+			1.0
+		)
+		var uphill_braking := uphill_start.length() - uphill.length()
+		_check(
+			is_equal_approx(downhill.x, expected_downhill[grade])
+			and is_equal_approx(uphill_braking, expected_uphill_braking[grade]),
+			"Pfeilstufe %s beschleunigt bergab und bremst bergauf mit abgestufter Kraft" % grade_names[grade]
+		)
+		zone.free()
+
+
+func _test_slope_wall_settling() -> void:
+	print("\n[Gefaelle an Begrenzungswand]")
+	var slope := SurfaceZone.new()
+	slope.configure_slope(
+		Rect2(0, 0, 128, 64),
+		SurfaceZone.SlopeDirection.RIGHT,
+		SurfaceZone.STEEP_SLOPE_ACCELERATION,
+		50.0,
+		105.0,
+		105.0,
+		12.0
+	)
+	get_tree().root.add_child(slope)
+	var wall := StaticBody2D.new()
+	wall.collision_layer = 2
+	wall.collision_mask = 0
+	wall.position = Vector2(108, 32)
+	var wall_collision := CollisionShape2D.new()
+	var wall_shape := RectangleShape2D.new()
+	wall_shape.size = Vector2(8, 64)
+	wall_collision.shape = wall_shape
+	wall.add_child(wall_collision)
+	get_tree().root.add_child(wall)
+	var ball := PrototypeBall.new()
+	ball.position = Vector2(48, 32)
+	get_tree().root.add_child(ball)
+	await get_tree().physics_frame
+	var slope_zones: Array[SurfaceZone] = [slope]
+	ball.configure_environment(slope_zones, Vector2(-1000, -1000))
+	var wall_hits := {"count": 0}
+	ball.wall_hit.connect(func(_intensity, _position, _normal, _kind): wall_hits["count"] += 1)
+	ball.launch(Vector2.RIGHT, 120.0, 1)
+	for _step in range(240):
+		await get_tree().physics_frame
+		if not ball.moving:
+			break
+	_check(int(wall_hits["count"]) >= 2, "Testball erreicht dieselbe Gefaellewand wiederholt")
+	_check(not ball.moving and ball.position.x < wall.position.x, "Wiederholter Ruecklauf kommt an der Wand zur Ruhe")
+	ball.queue_free()
+	wall.queue_free()
+	slope.queue_free()
+	await get_tree().process_frame
+
+
+func _test_wall_tiles() -> void:
+	print("\n[Atomare Wandbausteine]")
+	var signatures: Dictionary = {}
+	for variant in range(8):
+		var tile := WallTileDefinition.new()
+		tile.grid_cell = Vector2i(20, 10)
+		tile.variant = variant
+		_check(tile.validate("Test-Wandbaustein", 16).is_empty(), "Wandvariante %d ist im 16-Pixel-Raster gueltig" % variant)
+		_check(tile.get_cell_rect().size == Vector2(16, 16), "Wandvariante %d belegt genau ein Kaestchen" % variant)
+		var segments := tile.get_segments()
+		var expected_count := 2 if variant <= WallTileDefinition.Variant.CORNER_LEFT_UP else 1
+		_check(segments.size() == expected_count, "Wandvariante %d besitzt die normierte Segmentzahl" % variant)
+		var signature_parts := PackedStringArray()
+		for segment in segments:
+			_check(segment.size() == 2 and tile.get_cell_rect().grow(0.1).has_point(segment[0]) and tile.get_cell_rect().grow(0.1).has_point(segment[1]), "Wandvariante %d bleibt in ihrem Kaestchen" % variant)
+			signature_parts.append("%s>%s" % [segment[0], segment[1]])
+		signatures["|".join(signature_parts)] = true
+	_check(signatures.size() == 8, "Alle acht Wandbausteine besitzen eine eigene Geometrie")
+	_check(is_equal_approx(WallTileDefinition.THICKNESS, 4.0), "Normierte Wandstaerke betraegt vier Pixel")
+	var invalid := WallTileDefinition.new()
+	invalid.variant = 8
+	_check(not invalid.validate("Ungueltiger Wandbaustein", 16).is_empty(), "Weitere Wandvarianten werden von der Datenvalidierung abgelehnt")
 
 
 func _test_rotated_surface_zones() -> void:
@@ -553,6 +666,201 @@ func _test_curve_lab() -> void:
 	await get_tree().process_frame
 
 
+func _test_real_lane_references() -> void:
+	print("\n[Reale Bahnkonturen und atomare Pfeilzellen]")
+	var ids := [&"reference_gate_lane", &"reference_angle_lane", &"reference_mos_lane"]
+	for hole_id in ids:
+		var runtime := _instantiate_hole(hole_id)
+		await get_tree().process_frame
+		var definition := runtime.definition
+		_check(definition.category == HoleDefinition.HoleCategory.TECHNICAL, "%s bleibt eine technische Referenzbahn" % hole_id)
+		_check(definition.lane_outline != null, "%s besitzt eine eigene spielbare Bahnkontur" % hole_id)
+		_check(definition.lane_outline.contains_point(definition.tee_position), "%s umfasst den Abschlag" % hole_id)
+		_check(definition.lane_outline.contains_point(definition.hole_position), "%s umfasst das Zielloch" % hole_id)
+		_check(definition.lane_outline.use_normalized_walls, "%s verwendet fuer die Aussenkontur Normwaende" % hole_id)
+		var normalized_pieces := definition.lane_outline.get_normalized_wall_pieces()
+		_check(not normalized_pieces.is_empty() and runtime.lane_boundary_nodes.size() == normalized_pieces.size(), "%s erzeugt fuer jedes Aussenwandstueck genau einen Kollisionskoerper" % hole_id)
+		var boundaries_are_normalized := true
+		for body in runtime.lane_boundary_nodes:
+			if body.get_meta("wall_type", &"") != &"normalized_lane_boundary" or body.get_child_count() < 1:
+				boundaries_are_normalized = false
+				break
+			for child in body.get_children():
+				var collision := child as CollisionShape2D
+				var rectangle := collision.shape as RectangleShape2D if collision != null else null
+				if rectangle == null or not is_equal_approx(rectangle.size.y, WallTileDefinition.THICKNESS) or rectangle.size.x > Vector2(WallTileDefinition.CELL_SIZE, WallTileDefinition.CELL_SIZE).length() + 0.01:
+					boundaries_are_normalized = false
+					break
+		_check(boundaries_are_normalized, "%s baut die Aussenwand ausschliesslich aus vier Pixel starken Normsegmenten" % hole_id)
+		runtime.queue_free()
+	await get_tree().process_frame
+
+	var gate := HoleCatalog.load_default().get_hole(&"reference_gate_lane")
+	_check(gate.par == 1 and gate.walls.is_empty() and gate.wall_tiles.size() == 2, "Tor-Gerade verwendet zwei normierte Wandkaestchen")
+	_check(gate.wall_tiles[0].variant == WallTileDefinition.Variant.DIAGONAL_DOWN and gate.wall_tiles[1].variant == WallTileDefinition.Variant.DIAGONAL_UP, "Tor-Gerade verwendet beide diagonal gespiegelten Torstuecke")
+	var gate_boundary_variants: Dictionary = {}
+	for piece in gate.lane_outline.get_normalized_wall_pieces():
+		gate_boundary_variants[piece["variant"]] = true
+	_check(gate_boundary_variants.has(WallTileDefinition.Variant.DIAGONAL_DOWN) and gate_boundary_variants.has(WallTileDefinition.Variant.DIAGONAL_UP), "Tor-Gerade ersetzt die vier Zielstufen durch echte Diagonalwaende")
+	var gate_is_symmetric := true
+	for point in gate.lane_outline.points:
+		if not gate.lane_outline.points.has(Vector2(point.x, 352.0 - point.y)):
+			gate_is_symmetric = false
+			break
+	_check(gate_is_symmetric and is_equal_approx(gate.tee_position.y, 176.0) and is_equal_approx(gate.hole_position.y, 176.0), "Tor-Gerade ist um ihre horizontale Spielachse gespiegelt")
+	var gate_runtime := _instantiate_hole(&"reference_gate_lane")
+	await get_tree().process_frame
+	_check(gate_runtime.wall_tile_nodes.size() == 2 and gate_runtime.wall_tile_nodes[0].get_child_count() == 1, "Tor-Gerade erzeugt fuer jeden Wandbaustein genau eine Kollision")
+	gate_runtime.queue_free()
+	await get_tree().process_frame
+	var gate_completed := await _simulate_hole_route(&"reference_gate_lane", [
+		[Vector2(554, 180), 282.0],
+	])
+	_check(gate_completed, "Tor-Gerade endet reproduzierbar mit einem Schlag")
+
+	var angle := HoleCatalog.load_default().get_hole(&"reference_angle_lane")
+	_check(angle.par == 2 and angle.walls.is_empty(), "Winkelbahn erzeugt ihre Aufgabe allein aus der Aussenkontur")
+	_check(is_equal_approx(angle.lane_outline.points[5].x - angle.lane_outline.points[1].x, 144.0), "Winkelbahn besitzt einen auf 144 Pixel verschmaelerten Mittelteil")
+	var angle_is_symmetric := true
+	for point in angle.lane_outline.points:
+		if not angle.lane_outline.points.has(Vector2(800.0 - point.x, 416.0 - point.y)):
+			angle_is_symmetric = false
+			break
+	_check(angle_is_symmetric and angle.tee_position + angle.hole_position == Vector2(800, 416), "Winkelbahn ist samt Abschlag und Loch punktsymmetrisch")
+	var angle_completed := await _simulate_hole_route(&"reference_angle_lane", [
+		[Vector2(350, 260), 180.0],
+		[Vector2(568, 144), 250.0],
+	])
+	_check(angle_completed, "Winkelbahn endet reproduzierbar mit zwei Schlaegen")
+
+	var mos := HoleCatalog.load_default().get_hole(&"reference_mos_lane")
+	_check(mos.par == 3 and mos.obstacles.size() == 1, "MOS-Kurve kombiniert diagonale Kontur und eine berechenbare Mechanik")
+	var mos_is_horizontally_symmetric := true
+	var mos_is_vertically_symmetric := true
+	for point in mos.lane_outline.points:
+		mos_is_horizontally_symmetric = mos_is_horizontally_symmetric and mos.lane_outline.points.has(Vector2(point.x, 416.0 - point.y))
+		mos_is_vertically_symmetric = mos_is_vertically_symmetric and mos.lane_outline.points.has(Vector2(736.0 - point.x, point.y))
+	_check(mos_is_horizontally_symmetric, "MOS-Kurve ist um ihre horizontale Spielachse gespiegelt")
+	_check(mos_is_vertically_symmetric and mos.tee_position + mos.hole_position == Vector2(736, 416), "MOS-Kurve ist samt Abschlag und Loch vertikal gespiegelt")
+	var mos_boundary_variants: Dictionary = {}
+	for piece in mos.lane_outline.get_normalized_wall_pieces():
+		mos_boundary_variants[piece["variant"]] = true
+	_check(mos_boundary_variants.has(WallTileDefinition.Variant.DIAGONAL_DOWN), "MOS-Kurve verwendet abwaerts gerichtete Diagonalwaende")
+	_check(mos_boundary_variants.has(WallTileDefinition.Variant.DIAGONAL_UP), "MOS-Kurve verwendet aufwaerts gerichtete Diagonalwaende")
+	_check(mos.arrow_tiles.size() == 16, "MOS-Kurve besitzt ein 4-x-4-Pfeilfeld aus sechzehn atomaren Zellen")
+	var used_grades: Dictionary = {}
+	for index in range(mos.arrow_tiles.size()):
+		var tile := mos.arrow_tiles[index]
+		var rect := tile.get_rect()
+		_check(is_equal_approx(rect.size.x, rect.size.y), "Pfeilzelle %d ist quadratisch" % index)
+		_check(tile.cell_size == ArrowTileDefinition.CELL_SIZE and tile.cell_size == 16, "Pfeilzelle %d besitzt exakt 16 Pixel Seitenlaenge" % index)
+		_check(int(rect.position.x) % tile.cell_size == 0 and int(rect.position.y) % tile.cell_size == 0, "Pfeilzelle %d liegt achsenparallel im Raster" % index)
+		_check(tile.direction >= 0 and tile.direction < 8, "Pfeilzelle %d verwendet eine der acht Richtungen" % index)
+		_check(is_equal_approx(tile.get_strength(), SurfaceZone.slope_strength_for_grade(tile.slope_grade as SurfaceZone.SlopeGrade)), "Pfeilzelle %d leitet ihre Kraft aus der Steigungsstufe ab" % index)
+		used_grades[tile.slope_grade] = true
+	_check(used_grades.size() == 3, "MOS-Pfeilfeld zeigt flache, mittlere und steile Zellen")
+	_check(SurfaceZone.slope_color_for_grade(SurfaceZone.SlopeGrade.SHALLOW) == Color("#245537"), "Flache Pfeilzellen sind dunkelgruen")
+	_check(SurfaceZone.slope_color_for_grade(SurfaceZone.SlopeGrade.MEDIUM) == Color("#244c70"), "Mittlere Pfeilzellen sind dunkelblau")
+	_check(SurfaceZone.slope_color_for_grade(SurfaceZone.SlopeGrade.STEEP) == Color("#71343a"), "Steile Pfeilzellen sind dunkelrot")
+	_check(SurfaceZone.slope_grade_from_strength(24.0) == SurfaceZone.SlopeGrade.SHALLOW, "Bestehende schwache Gefaelle werden als flach dargestellt")
+	_check(SurfaceZone.slope_grade_from_strength(90.0) == SurfaceZone.SlopeGrade.MEDIUM, "Bestehende normale Gefaelle werden als mittel dargestellt")
+	_check(SurfaceZone.slope_grade_from_strength(150.0) == SurfaceZone.SlopeGrade.STEEP, "Bestehende starke Gefaelle werden als steil dargestellt")
+	var mos_runtime := _instantiate_hole(&"reference_mos_lane")
+	await get_tree().process_frame
+	for index in range(mos_runtime.zones.size()):
+		var zone := mos_runtime.zones[index]
+		var tile := mos.arrow_tiles[index]
+		_check(zone.is_atomic_arrow_tile and is_zero_approx(zone.rotation), "MOS-Pfeilzelle wird ungedreht und mit genau einem Pfeil erzeugt")
+		_check(zone.arrow_tile_grade == tile.slope_grade and is_equal_approx(zone.acceleration.length(), tile.get_strength()), "MOS-Pfeilzelle uebertraegt Steigungsstufe und Kraft in die Physik")
+	mos_runtime.queue_free()
+	await get_tree().process_frame
+	var invalid_tile := ArrowTileDefinition.new()
+	invalid_tile.cell_size = 32
+	_check(not invalid_tile.validate("Ungueltige Testzelle", 16).is_empty(), "Pfeilzellen mit alter 32-Pixel-Seitenlaenge werden abgelehnt")
+	var crossing_outline := LaneOutlineDefinition.new()
+	crossing_outline.points = PackedVector2Array([Vector2(0, 0), Vector2(64, 64), Vector2(0, 64), Vector2(64, 0)])
+	_check(not crossing_outline.validate("Kreuzende Testkontur").is_empty(), "Selbstueberschneidende Bahnkonturen werden abgelehnt")
+	var mos_completed := await _simulate_hole_route(&"reference_mos_lane", [
+		[Vector2(350, 240), 190.0],
+		[Vector2(470, 188), 190.0],
+		[Vector2(520, 220), 170.0],
+	], &"reference_open")
+	_check(mos_completed, "MOS-Kurve endet reproduzierbar innerhalb von drei Schlaegen")
+
+
+func _test_gate_lane_family() -> void:
+	print("\n[Bahn-1-Grundform mit Hindernisvarianten]")
+	var catalog := HoleCatalog.load_default()
+	var base := catalog.get_hole(&"reference_gate_lane")
+	var variant_ids := [&"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_gate_hill_hole"]
+	for hole_id in variant_ids:
+		var variant := catalog.get_hole(hole_id)
+		_check(variant != null and variant.lane_outline.points == base.lane_outline.points and variant.tee_position == base.tee_position and variant.hole_position == base.hole_position, "%s verwendet unveraendert die symmetrische Bahn-1-Grundform" % hole_id)
+	var bumpers := catalog.get_hole(&"reference_gate_bumpers")
+	_check(bumpers.walls.size() == 3 and bumpers.walls.all(func(wall): return wall.wall_type == WallDefinition.WallType.CIRCLE), "Dreifach-Bumper verwendet drei statische Kreisbarrieren")
+	var rotor := catalog.get_hole(&"reference_gate_rotor")
+	_check(rotor.obstacles.size() == 1 and rotor.obstacles[0].obstacle_type == ObstacleDefinition.ObstacleType.ROTATING_BLADE, "Rotor-Variante verwendet genau ein rotierendes Hindernis")
+	var slider := catalog.get_hole(&"reference_gate_slider")
+	_check(slider.obstacles.size() == 1 and slider.obstacles[0].obstacle_type == ObstacleDefinition.ObstacleType.SLIDING_GATE, "Schiebetor-Variante verwendet genau ein zeitgesteuertes Hindernis")
+	var seesaw := catalog.get_hole(&"reference_gate_seesaw")
+	_check(seesaw.obstacles.size() == 1 and seesaw.obstacles[0].obstacle_type == ObstacleDefinition.ObstacleType.SEESAW, "Wippen-Variante verwendet genau eine gewichtsgesteuerte Plattform")
+	var seesaw_runtime := _instantiate_hole(&"reference_gate_seesaw")
+	await get_tree().process_frame
+	_check(seesaw_runtime.obstacle_nodes.size() == 1 and seesaw_runtime.obstacle_nodes[0] is SeesawObstacle and seesaw_runtime.zones.has(seesaw_runtime.obstacle_nodes[0]), "Wippenplattform ist als befahrbare dynamische Gefaellezone eingebunden")
+	seesaw_runtime.queue_free()
+	await get_tree().process_frame
+	var hill := catalog.get_hole(&"reference_gate_hill")
+	var hill_grades := {}
+	var hill_is_mirrored := hill.arrow_tiles.size() == 24
+	for tile in hill.arrow_tiles:
+		hill_grades[tile.slope_grade] = true
+		var mirrored_cell := Vector2i(47 - tile.grid_cell.x, tile.grid_cell.y)
+		var mirrored_direction := SurfaceZone.SlopeDirection.RIGHT if tile.direction == SurfaceZone.SlopeDirection.LEFT else SurfaceZone.SlopeDirection.LEFT
+		hill_is_mirrored = hill_is_mirrored and hill.arrow_tiles.any(func(other): return other.grid_cell == mirrored_cell and other.slope_grade == tile.slope_grade and other.direction == mirrored_direction)
+	_check(hill_is_mirrored, "Huegelpass spiegelt Anstieg und Gefaelle um seine Mittelachse")
+	_check(hill_grades.size() == 3, "Huegelpass verwendet flache, mittlere und steile Pfeilbloecke")
+	var hill_hole := catalog.get_hole(&"reference_gate_hill_hole")
+	var hill_hole_rect: Rect2 = hill_hole.arrow_tiles[0].get_rect()
+	var hill_hole_points_outward := hill_hole.arrow_tiles.size() == 20
+	var hill_hole_grades := {}
+	for tile in hill_hole.arrow_tiles:
+		hill_hole_rect = hill_hole_rect.merge(tile.get_rect())
+		var radial_direction := hill_hole.hole_position.direction_to(tile.get_rect().get_center())
+		var arrow_direction := SurfaceZone.direction_vector(tile.direction as SurfaceZone.SlopeDirection)
+		hill_hole_points_outward = hill_hole_points_outward and radial_direction.dot(arrow_direction) > 0.7
+		hill_hole_grades[tile.slope_grade] = true
+	_check(hill_hole_rect.size == Vector2(80, 64) and hill_hole_rect.get_center() == hill_hole.hole_position, "Huegelloch liegt exakt im Zentrum seines 5-x-4-Pfeilfelds")
+	_check(hill_hole_points_outward, "Alle Pfeile des Huegellochs zeigen von der Kuppe nach aussen")
+	_check(hill_hole_grades.size() == 3, "Huegelloch staffelt die Kuppe in drei Steigungsstufen")
+	var bumpers_completed := await _simulate_hole_route(&"reference_gate_bumpers", [
+		[Vector2(440, 160), 250.0],
+		[Vector2(552, 176), 170.0],
+	])
+	_check(bumpers_completed, "Dreifach-Bumper endet reproduzierbar innerhalb von Par 2")
+	var rotor_completed := await _simulate_hole_route(&"reference_gate_rotor", [
+		[Vector2(450, 148), 250.0],
+		[Vector2(552, 176), 170.0],
+	], &"reference_open")
+	_check(rotor_completed, "Rotor-Variante endet reproduzierbar innerhalb von Par 2")
+	var slider_completed := await _simulate_hole_route(&"reference_gate_slider", [
+		[Vector2(552, 176), 282.0],
+	], &"gates_open")
+	_check(slider_completed, "Schiebetor-Variante endet bei offenem Tor reproduzierbar")
+	var seesaw_completed := await _simulate_hole_route(&"reference_gate_seesaw", [
+		[Vector2(552, 176), 282.0],
+	], &"seesaw_weight")
+	_check(seesaw_completed, "Wippen-Variante endet reproduzierbar innerhalb von Par 2")
+	var hill_completed := await _simulate_hole_route(&"reference_gate_hill", [
+		[Vector2(552, 176), 282.0],
+		[Vector2(552, 176), 110.0],
+	])
+	_check(hill_completed, "Huegelpass endet reproduzierbar innerhalb von Par 2")
+	var hill_hole_completed := await _simulate_hole_route(&"reference_gate_hill_hole", [
+		[Vector2(552, 176), 282.0],
+	])
+	_check(hill_hole_completed, "Huegelloch endet reproduzierbar innerhalb von Par 2")
+
+
 func _test_repeated_hole_switch_input() -> void:
 	print("\n[Bahnwechsel-Eingabe]")
 	var scene := load("res://scenes/prototype_main.tscn") as PackedScene
@@ -562,7 +870,7 @@ func _test_repeated_hole_switch_input() -> void:
 	main.shot_controller.state = ShotController.ShotState.SWINGING
 	main._update_controller_status(-1, "Kein Controller", "")
 	_check(main.shot_controller.state == ShotController.ShotState.AIMING and main.strokes == 0, "Controllertrennung bricht SWINGING ohne Schlagverlust ab")
-	for index in range(27):
+	for index in range(36):
 		main.switch_test_hole()
 		_check(
 			main.shot_controller.state == ShotController.ShotState.AIMING,
@@ -636,13 +944,32 @@ func _test_timed_gate() -> void:
 	gate.free()
 
 
+func _test_seesaw_obstacle() -> void:
+	print("\n[Gewichtsgesteuerte Wippe]")
+	var seesaw := SeesawObstacle.new()
+	seesaw.position = Vector2(300, 180)
+	seesaw.response_seconds = 0.35
+	get_tree().root.add_child(seesaw)
+	await get_tree().process_frame
+	seesaw.set_physics_process(false)
+	seesaw.reset_motion()
+	seesaw.advance_tilt(0.35, -30.0)
+	_check(is_equal_approx(seesaw.tilt, -1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x < 0.0, "Ballgewicht links senkt die linke Wippenhaelfte")
+	seesaw.advance_tilt(0.70, 30.0)
+	_check(is_equal_approx(seesaw.tilt, 1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x > 0.0, "Ballgewicht rechts kippt Gefaelle und Beschleunigung nach rechts")
+	seesaw.reset_motion()
+	_check(is_zero_approx(seesaw.tilt) and Vector2(seesaw.get_surface_data()["acceleration"]).is_zero_approx(), "Wippenreset stellt die unbelastete Waagerechte wieder her")
+	_check(seesaw.contains_global_point(Vector2(270, 180)) and seesaw.contains_global_point(Vector2(330, 180)) and not seesaw.contains_global_point(Vector2(355, 180)), "Wippe besteht aus zwei befahrbaren Flaechen um den Mittelpunkt")
+	seesaw.free()
+
+
 func _test_hole_catalog() -> void:
 	print("\n[Datengetriebener Bahnkatalog]")
 	var catalog := HoleCatalog.load_default()
 	_check(catalog != null, "Lochkatalog wird als typisierte Resource geladen")
 	if catalog == null:
 		return
-	_check(catalog.holes.size() == 27, "Katalog enthaelt zweiundzwanzig echte Loecher und fuenf Testbahnen")
+	_check(catalog.holes.size() == 36, "Katalog enthaelt zweiundzwanzig echte Loecher und vierzehn Testbahnen")
 	_check(catalog.validate().is_empty(), "Alle Bahndefinitionen bestehen die Datenvalidierung")
 	var found_ids: Dictionary = {}
 	for definition in catalog.holes:
@@ -650,7 +977,11 @@ func _test_hole_catalog() -> void:
 		var runtime := HoleRuntime.new()
 		runtime.configure(definition)
 		get_tree().root.add_child(runtime)
-		_check(runtime.zones.size() == definition.surfaces.size(), "%s erzeugt alle Flaechen" % definition.hole_id)
+		var expected_zone_count := definition.surfaces.size() + definition.arrow_tiles.size()
+		for obstacle in definition.obstacles:
+			if obstacle.obstacle_type == ObstacleDefinition.ObstacleType.SEESAW:
+				expected_zone_count += 1
+		_check(runtime.zones.size() == expected_zone_count, "%s erzeugt alle Flaechen" % definition.hole_id)
 		_check(runtime.obstacle_nodes.size() == definition.obstacles.size(), "%s erzeugt alle Hindernisse" % definition.hole_id)
 		_check(runtime.trigger_nodes.size() == definition.triggers.size(), "%s erzeugt alle Trigger" % definition.hole_id)
 		_check(runtime.cannon_nodes.size() == definition.cannons.size(), "%s erzeugt alle Kanonen" % definition.hole_id)
@@ -658,7 +989,7 @@ func _test_hole_catalog() -> void:
 		if not runtime.zones.is_empty():
 			_check(runtime.overlay.get_index() > runtime.zones[-1].get_index(), "%s zeichnet Banden ueber den Flaechen" % definition.hole_id)
 		runtime.queue_free()
-	_check(found_ids.size() == 27, "Alle Bahn-IDs sind eindeutig")
+	_check(found_ids.size() == 36, "Alle Bahn-IDs sind eindeutig")
 	await get_tree().process_frame
 
 
@@ -1100,6 +1431,11 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 		var speed: float = shots[index][1]
 		ball.launch(ball.position.direction_to(target), speed, index + 1)
 		for _step in range(1800):
+			if obstacle_mode == &"seesaw_weight":
+				for obstacle in runtime.obstacle_nodes:
+					if obstacle is SeesawObstacle:
+						var weighted_x := obstacle.to_local(ball.global_position).x if obstacle.contains_global_point(ball.global_position) else INF
+						obstacle.advance_tilt(1.0 / 60.0, weighted_x)
 			ball._physics_process(1.0 / 60.0)
 			if not ball.moving:
 				break
@@ -1139,9 +1475,12 @@ func _test_game_shell() -> void:
 	_check(course.allow_technical_holes, "Prototypkurs erlaubt seine kuratierten Testbahnen ausdruecklich")
 	var classic_course := courses.get_course(&"classic_nine_course")
 	var arrow_course := courses.get_course(&"arrow_armageddon_course")
-	_check(courses.courses.size() == 3 and courses.courses[0] == classic_course and courses.courses[1] == arrow_course and courses.courses[2] == course, "Kursauswahl ordnet Klassische Neun, Pfeil-Armageddon und Prototypkurs")
+	var reference_course := courses.get_course(&"reference_lanes_course")
+	_check(courses.courses.size() == 4 and courses.courses[0] == classic_course and courses.courses[1] == arrow_course and courses.courses[2] == reference_course and courses.courses[3] == course, "Kursauswahl ordnet Klassische Neun, Pfeil-Armageddon, Referenzbahnen und Prototypkurs")
 	_check(classic_course != null and classic_course.hole_ids.size() == 9 and classic_course.get_total_par(holes) == 18, "Neun-Loch-Kurs ist vollstaendig im Spielrahmen registriert")
 	_check(arrow_course != null and arrow_course.hole_ids.size() == 9 and arrow_course.get_total_par(holes) == 27, "Pfeil-Armageddon ist vollstaendig im Spielrahmen registriert")
+	_check(reference_course != null and reference_course.hole_ids == [&"reference_gate_lane", &"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_angle_lane", &"reference_mos_lane", &"reference_gate_hill_hole"], "Referenzkurs enthaelt neun Bahnen und endet mit dem Huegelloch")
+	_check(reference_course != null and reference_course.get_total_par(holes) == 18 and reference_course.allow_technical_holes, "Referenzkurs besitzt Gesamt-Par 18 und erlaubt technische Bahnen")
 	var course_holes := 0
 	var technical_holes := 0
 	for hole in holes.holes:
@@ -1149,7 +1488,7 @@ func _test_game_shell() -> void:
 			course_holes += 1
 		else:
 			technical_holes += 1
-	_check(course_holes == 22 and technical_holes == 5, "Katalog trennt zweiundzwanzig Kurs- und fuenf Technikbahnen")
+	_check(course_holes == 22 and technical_holes == 14, "Katalog trennt zweiundzwanzig Kurs- und vierzehn Technikbahnen")
 
 	var first := PlayerProfile.create(1, "", 0)
 	var second := PlayerProfile.create(2, "ZWOELFZEICHENPLUS", 1)
@@ -1264,17 +1603,17 @@ func _test_game_shell() -> void:
 	app._select_mode(RoundConfig.GameMode.FREE_PLAY)
 	_check(app.current_screen == GameApp.ScreenState.PLAYER_COUNT, "Freies Spiel besitzt einen eigenen Mehrspielerpfad")
 	app._show_course_select()
-	_check(app.option_buttons.size() == 6 and "KLASSISCHE NEUN" in app.option_buttons[0].text and "PFEIL-ARMAGEDDON" in app.option_buttons[1].text and "PROTOTYPKURS" in app.option_buttons[2].text, "Kursauswahl erzeugt drei Kurskarten aus den Daten")
-	_check(app.option_buttons[3].disabled and app.option_buttons[5].disabled, "Drei Kurse passen ohne Ueberlappung auf die erste Kursseite")
+	_check(app.option_buttons.size() == 6 and "KLASSISCHE NEUN" in app.option_buttons[0].text and "PFEIL-ARMAGEDDON" in app.option_buttons[1].text and "REFERENZBAHNEN" in app.option_buttons[2].text, "Erste Kursseite zeigt den neuen Referenzkurs direkt an")
+	_check(app.option_buttons[3].disabled and not app.option_buttons[5].disabled, "Vier Kurse aktivieren die zweite Kursseite")
+	app._change_course_page(1)
+	_check(app.course_select_page == 1 and app.option_buttons.size() == 4 and "PROTOTYPKURS" in app.option_buttons[0].text, "Zweite Kursseite enthaelt den Prototypkurs")
 	var extra_course := classic_course.duplicate(true) as CourseDefinition
 	extra_course.course_id = &"course_page_test"
 	extra_course.display_name = "SEITENTEST"
 	app.course_catalog = app.course_catalog.duplicate(true) as CourseCatalog
 	app.course_catalog.courses.append(extra_course)
 	app._show_course_select()
-	_check(not app.option_buttons[5].disabled, "Ein vierter Kurs aktiviert die Naechste-Seite")
-	app._change_course_page(1)
-	_check(app.course_select_page == 1 and app.option_buttons.size() == 4 and "SEITENTEST" in app.option_buttons[0].text, "Kursnavigation erreicht weitere datengetriebene Seiten")
+	_check(app.course_select_page == 1 and app.option_buttons.size() == 5 and "PROTOTYPKURS" in app.option_buttons[0].text and "SEITENTEST" in app.option_buttons[1].text, "Kursnavigation erreicht weitere datengetriebene Eintraege")
 	app.course_catalog = courses
 	app.course_select_page = 0
 	app.hole_select_page = 0

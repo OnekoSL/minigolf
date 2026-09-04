@@ -1,0 +1,6 @@
+system,official_length_m,official_lane_width_m,official_target_width_m,typical_surface,typical_border,standardized_lane_catalog,moving_obstacles,design_role_for_game
+Beton,12.00,1.25,2.50,Beton,Metallrohr oder Flachstahl,18 feste Bahnen in fester Reihenfolge,nein,"lange schmale Linien; grosse runde Zielkreise; Banden- und Tempospiel"
+Miniaturgolf,6.25,0.90,1.40,Faserzementplatte,Metall oder Faserzement,18 aus 30 Normbahnen,nein,"kompakte Einzelideen; enge Tore; Rohre; Wellen; Rampen; Fangziele"
+Filzgolf,6.00-18.00,0.90,1.80 oder 2.40,Filzteppich,Hartholz oder Metall-Holz,18 aus 32 Normbahnen,nein,"lange Korridore; polygonale Zielfelder; groessere Steigungen; Winkel und Tore"
+Adventuregolf,3.00-40.00,mindestens 1.00,frei,Kunstrasen oder Filz,"Stein; Ziegel; Beton; Rough oder Markierung",keine festen Bahntypen,nein,"organische Konturen; Landschaft; Wasser/Sand/Kies; mehrere plausible Linien"
+MOS,3.00-40.00,mindestens 0.50,frei,"Kunstrasen; Beton; Filz; Faserzement; Metall; Holz; Kunststoff","Stein; Metall; Holz; Faserzement; Beton oder Markierung",keine festen Bahntypen,"ja, falls berechenbar","freie Fantasievarianten; passende Heimat fuer berechenbare Spielmechanik"

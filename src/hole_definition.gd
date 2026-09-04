@@ -8,13 +8,16 @@ enum HoleCategory { COURSE, TECHNICAL }
 @export var category := HoleCategory.COURSE
 @export_range(1, 20, 1) var par := 4
 @export var course_rect := Rect2(176.0, 16.0, 448.0, 328.0)
+@export var lane_outline: LaneOutlineDefinition
 @export var tee_position := Vector2(220.0, 305.0)
 @export var hole_position := Vector2(575.0, 55.0)
 @export var initial_aim_offset := Vector2(60.0, 0.0)
 @export var camera_center_bounds := Rect2(Vector2(320.0, 180.0), Vector2.ZERO)
 @export var grid_spacing := 16
 @export var walls: Array[WallDefinition] = []
+@export var wall_tiles: Array[WallTileDefinition] = []
 @export var surfaces: Array[SurfaceDefinition] = []
+@export var arrow_tiles: Array[ArrowTileDefinition] = []
 @export var obstacles: Array[ObstacleDefinition] = []
 @export var triggers: Array[TriggerDefinition] = []
 @export var cannons: Array[CannonDefinition] = []
@@ -28,10 +31,32 @@ func validate() -> PackedStringArray:
 		errors.append("Bahn %s besitzt keinen Anzeigenamen" % hole_id)
 	if course_rect.size.x <= 0.0 or course_rect.size.y <= 0.0:
 		errors.append("Bahn %s besitzt kein gueltiges Spielfeld" % hole_id)
+	if lane_outline != null:
+		errors.append_array(lane_outline.validate("Bahn %s, Kontur" % hole_id))
+		for point in lane_outline.points:
+			if not course_rect.grow(0.1).has_point(point):
+				errors.append("Bahn %s: Konturpunkt liegt ausserhalb des Spielfelds" % hole_id)
+				break
+		if lane_outline.use_normalized_walls:
+			for tile in lane_outline.get_normalized_wall_tiles():
+				errors.append_array(tile.validate("Bahn %s, Aussenwandkaestchen %s" % [hole_id, tile.grid_cell], grid_spacing))
+				if not course_rect.encloses(tile.get_cell_rect()):
+					errors.append("Bahn %s: Aussenwandkaestchen %s liegt ausserhalb des Spielfelds" % [hole_id, tile.grid_cell])
+			for piece in lane_outline.get_normalized_wall_pieces():
+				for segment in piece["segments"]:
+					for endpoint in segment:
+						if not course_rect.grow(0.1).has_point(endpoint):
+							errors.append("Bahn %s: Normwandsegment liegt ausserhalb des Spielfelds" % hole_id)
+							break
 	if not course_rect.has_point(tee_position):
 		errors.append("Bahn %s: Abschlag liegt ausserhalb des Spielfelds" % hole_id)
 	if not course_rect.has_point(hole_position):
 		errors.append("Bahn %s: Loch liegt ausserhalb des Spielfelds" % hole_id)
+	if lane_outline != null and lane_outline.points.size() >= 3:
+		if not lane_outline.contains_point(tee_position):
+			errors.append("Bahn %s: Abschlag liegt ausserhalb der Bahnkontur" % hole_id)
+		if not lane_outline.contains_point(hole_position):
+			errors.append("Bahn %s: Loch liegt ausserhalb der Bahnkontur" % hole_id)
 	if camera_center_bounds.size.x < 0.0 or camera_center_bounds.size.y < 0.0:
 		errors.append("Bahn %s besitzt negative Kameragrenzen" % hole_id)
 	var expected_camera_end := Vector2(
@@ -48,6 +73,27 @@ func validate() -> PackedStringArray:
 		errors.append_array(walls[index].validate("Bahn %s, Bande %d" % [hole_id, index]))
 		if not course_rect.grow(16.0).has_point(walls[index].center):
 			errors.append("Bahn %s, Bande %d liegt ausserhalb der Bahn" % [hole_id, index])
+	var wall_tile_rects: Array[Rect2] = []
+	for index in range(wall_tiles.size()):
+		var tile := wall_tiles[index]
+		if tile == null:
+			errors.append("Bahn %s enthaelt einen leeren Wandbaustein" % hole_id)
+			continue
+		errors.append_array(tile.validate("Bahn %s, Wandbaustein %d" % [hole_id, index], grid_spacing))
+		var tile_rect := tile.get_cell_rect()
+		if not course_rect.encloses(tile_rect):
+			errors.append("Bahn %s, Wandbaustein %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+		if lane_outline != null:
+			for segment in tile.get_segments():
+				for point in segment:
+					if not lane_outline.contains_point(point):
+						errors.append("Bahn %s, Wandbaustein %d liegt nicht vollstaendig in der Bahnkontur" % [hole_id, index])
+						break
+		for previous_rect in wall_tile_rects:
+			if tile_rect.intersects(previous_rect):
+				errors.append("Bahn %s, Wandbaustein %d belegt ein bereits verwendetes Kaestchen" % [hole_id, index])
+				break
+		wall_tile_rects.append(tile_rect)
 	for index in range(surfaces.size()):
 		if surfaces[index] == null:
 			errors.append("Bahn %s enthaelt eine leere Flaeche" % hole_id)
@@ -57,6 +103,26 @@ func validate() -> PackedStringArray:
 			if not course_rect.has_point(corner):
 				errors.append("Bahn %s, Flaeche %d liegt ausserhalb der Bahn" % [hole_id, index])
 				break
+	var arrow_rects: Array[Rect2] = []
+	for index in range(arrow_tiles.size()):
+		var tile := arrow_tiles[index]
+		if tile == null:
+			errors.append("Bahn %s enthaelt eine leere Pfeilzelle" % hole_id)
+			continue
+		errors.append_array(tile.validate("Bahn %s, Pfeilzelle %d" % [hole_id, index], grid_spacing))
+		var tile_rect := tile.get_rect()
+		if not course_rect.encloses(tile_rect):
+			errors.append("Bahn %s, Pfeilzelle %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+		if lane_outline != null:
+			for corner in tile.get_inset_corners():
+				if not lane_outline.contains_point(corner):
+					errors.append("Bahn %s, Pfeilzelle %d liegt nicht vollstaendig in der Bahnkontur" % [hole_id, index])
+					break
+		for previous_rect in arrow_rects:
+			if tile_rect.intersects(previous_rect):
+				errors.append("Bahn %s, Pfeilzelle %d ueberlappt eine andere Pfeilzelle" % [hole_id, index])
+				break
+		arrow_rects.append(tile_rect)
 	for index in range(obstacles.size()):
 		if obstacles[index] == null:
 			errors.append("Bahn %s enthaelt ein leeres Hindernis" % hole_id)

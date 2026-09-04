@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(200, 136, 488, 136, 520, 104, 584, 104, 616, 136, 616, 216, 584, 248, 520, 248, 488, 216, 200, 216)
+wall_thickness = 4.0
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Wall_bumper_top"]
+script = ExtResource("3_wall")
+wall_type = 1
+center = Vector2(368, 152)
+radius = 7.0
+thickness = 4.0
+
+[sub_resource type="Resource" id="Wall_bumper_center"]
+script = ExtResource("3_wall")
+wall_type = 1
+center = Vector2(408, 176)
+radius = 7.0
+thickness = 4.0
+
+[sub_resource type="Resource" id="Wall_bumper_bottom"]
+script = ExtResource("3_wall")
+wall_type = 1
+center = Vector2(368, 200)
+radius = 7.0
+thickness = 4.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"reference_gate_bumpers"
+display_name = "BASIS 1: DREIFACH-BUMPER"
+category = 1
+par = 2
+course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Lane_outline")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(552, 176)
+initial_aim_offset = Vector2(80, -12)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("3_wall")]([SubResource("Wall_bumper_top"), SubResource("Wall_bumper_center"), SubResource("Wall_bumper_bottom")])
+wall_tiles = []
+surfaces = []
+arrow_tiles = []
+obstacles = []
+triggers = []
+cannons = []

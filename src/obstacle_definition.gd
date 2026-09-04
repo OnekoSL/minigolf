@@ -1,7 +1,7 @@
 class_name ObstacleDefinition
 extends Resource
 
-enum ObstacleType { ROTATING_BLADE, SLIDING_GATE }
+enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW }
 
 @export var obstacle_type := ObstacleType.ROTATING_BLADE
 @export var position := Vector2.ZERO
@@ -16,6 +16,10 @@ enum ObstacleType { ROTATING_BLADE, SLIDING_GATE }
 @export_range(0.01, 5.0, 0.01) var transition_seconds := 0.25
 @export_range(0.0, 10.0, 0.05) var open_hold_seconds := 1.0
 @export_range(0.0, 20.0, 0.05) var phase_offset_seconds := 0.0
+@export var seesaw_size := Vector2(96.0, 64.0)
+@export_range(1.0, 30.0, 0.5) var seesaw_max_angle_degrees := 16.0
+@export_range(0.1, 3.0, 0.05) var seesaw_response_seconds := 0.35
+@export_range(0.0, 200.0, 1.0) var seesaw_slope_strength := 120.0
 
 
 func validate(label: String) -> PackedStringArray:
@@ -32,6 +36,11 @@ func validate(label: String) -> PackedStringArray:
 			errors.append("%s besitzt keinen Oeffnungsweg" % label)
 		if cycle_seconds <= open_hold_seconds + transition_seconds * 2.0:
 			errors.append("%s besitzt keine geschlossene Haltephase" % label)
+	elif obstacle_type == ObstacleType.SEESAW:
+		if seesaw_size.x <= 0.0 or seesaw_size.y <= 0.0:
+			errors.append("%s besitzt keine gueltige Wippengroesse" % label)
+		if seesaw_max_angle_degrees <= 0.0 or seesaw_response_seconds <= 0.0 or seesaw_slope_strength <= 0.0:
+			errors.append("%s besitzt keine gueltige Wippenbewegung" % label)
 	return errors
 
 
@@ -57,4 +66,13 @@ func instantiate_obstacle() -> Node2D:
 			gate.open_hold_seconds = open_hold_seconds
 			gate.phase_offset_seconds = phase_offset_seconds
 			return gate
+		ObstacleType.SEESAW:
+			var seesaw := SeesawObstacle.new()
+			seesaw.position = position
+			seesaw.rotation = deg_to_rad(start_rotation_degrees)
+			seesaw.plank_size = seesaw_size
+			seesaw.max_tilt_degrees = seesaw_max_angle_degrees
+			seesaw.response_seconds = seesaw_response_seconds
+			seesaw.seesaw_slope_strength = seesaw_slope_strength
+			return seesaw
 	return Node2D.new()

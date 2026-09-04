@@ -12,6 +12,17 @@ func configure(hole_definition: HoleDefinition) -> void:
 func _draw() -> void:
 	if definition == null:
 		return
+	if definition.lane_outline != null:
+		if definition.lane_outline.use_normalized_walls:
+			for piece in definition.lane_outline.get_normalized_wall_pieces():
+				_draw_wall_segments(piece["segments"])
+		else:
+			draw_polyline(
+				definition.lane_outline.get_closed_points(),
+				Color("#dad1af"),
+				definition.lane_outline.wall_thickness,
+				true
+			)
 	for wall in definition.walls:
 		draw_set_transform(wall.center, deg_to_rad(wall.rotation_degrees), Vector2.ONE)
 		match wall.wall_type:
@@ -30,6 +41,8 @@ func _draw() -> void:
 					outline.append(outline[0])
 					draw_polyline(outline, Color("#584d43"), 1.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	for wall_tile in definition.wall_tiles:
+		_draw_wall_tile(wall_tile)
 	for obstacle in definition.obstacles:
 		if obstacle.obstacle_type != ObstacleDefinition.ObstacleType.SLIDING_GATE:
 			continue
@@ -60,3 +73,14 @@ func _draw() -> void:
 		definition.hole_position + Vector2(1, -17),
 	])
 	draw_colored_polygon(flag, Color("#d9514e"))
+
+
+func _draw_wall_tile(wall_tile: WallTileDefinition) -> void:
+	_draw_wall_segments(wall_tile.get_segments())
+
+
+func _draw_wall_segments(segments: Array) -> void:
+	for segment in segments:
+		draw_line(segment[0], segment[1], Color("#584d43"), WallTileDefinition.THICKNESS + 2.0, false)
+	for segment in segments:
+		draw_line(segment[0], segment[1], Color("#dad1af"), WallTileDefinition.THICKNESS, false)
