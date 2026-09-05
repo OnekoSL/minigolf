@@ -161,11 +161,15 @@ func _physics_process(delta: float) -> void:
 			else:
 				if collider != null and collider.has_meta("feedback_kind"):
 					collision_kind = StringName(collider.get_meta("feedback_kind"))
-				var same_wall_hits := _register_static_wall_hit(contact_normal)
-				if should_settle_static_wall_contact(velocity, contact_normal, same_wall_hits):
+				if collision_kind == &"seesaw_lip":
+					_reset_wall_contact_memory()
 					velocity = remove_inward_wall_velocity(velocity, contact_normal)
 				else:
-					velocity = calculate_bounce(velocity, contact_normal, WALL_RESTITUTION)
+					var same_wall_hits := _register_static_wall_hit(contact_normal)
+					if should_settle_static_wall_contact(velocity, contact_normal, same_wall_hits):
+						velocity = remove_inward_wall_velocity(velocity, contact_normal)
+					else:
+						velocity = calculate_bounce(velocity, contact_normal, WALL_RESTITUTION)
 			wall_hit.emit(before, collision.get_position(), contact_normal, collision_kind)
 			if not collider is MovingObstacle and velocity.length() < STOP_SPEED:
 				_finish_stopped()

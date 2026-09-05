@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HoleCatalog" load_steps=38 format=3]
+[gd_resource type="Resource" script_class="HoleCatalog" load_steps=47 format=3]
 
 [ext_resource type="Script" path="res://src/hole_catalog.gd" id="1_catalog"]
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="2_hole"]
@@ -38,7 +38,16 @@
 [ext_resource type="Resource" path="res://data/holes/reference_gate_seesaw.tres" id="36_reference_seesaw"]
 [ext_resource type="Resource" path="res://data/holes/reference_gate_hill.tres" id="37_reference_hill"]
 [ext_resource type="Resource" path="res://data/holes/reference_gate_hill_hole.tres" id="38_reference_hill_hole"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_01.tres" id="39_labyrinth_1"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_02.tres" id="40_labyrinth_2"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_03.tres" id="41_labyrinth_3"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_04.tres" id="42_labyrinth_4"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_05.tres" id="43_labyrinth_5"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_06.tres" id="44_labyrinth_6"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_07.tres" id="45_labyrinth_7"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_08.tres" id="46_labyrinth_8"]
+[ext_resource type="Resource" path="res://data/holes/labyrinth_nine_09.tres" id="47_labyrinth_9"]
 
 [resource]
 script = ExtResource("1_catalog")
-holes = Array[ExtResource("2_hole")]([ExtResource("3_reference"), ExtResource("4_diamond"), ExtResource("5_gate"), ExtResource("20_cannon"), ExtResource("11_classic_1"), ExtResource("12_classic_2"), ExtResource("13_classic_3"), ExtResource("14_classic_4"), ExtResource("15_classic_5"), ExtResource("16_classic_6"), ExtResource("17_classic_7"), ExtResource("18_classic_8"), ExtResource("19_classic_9"), ExtResource("21_arrow_1"), ExtResource("22_arrow_2"), ExtResource("23_arrow_3"), ExtResource("24_arrow_4"), ExtResource("25_arrow_5"), ExtResource("26_arrow_6"), ExtResource("27_arrow_7"), ExtResource("28_arrow_8"), ExtResource("29_arrow_9"), ExtResource("6_allround"), ExtResource("7_slope"), ExtResource("8_flow"), ExtResource("9_scroll"), ExtResource("10_curve"), ExtResource("30_reference_gate"), ExtResource("31_reference_angle"), ExtResource("32_reference_mos"), ExtResource("33_reference_bumpers"), ExtResource("34_reference_rotor"), ExtResource("35_reference_slider"), ExtResource("36_reference_seesaw"), ExtResource("37_reference_hill"), ExtResource("38_reference_hill_hole")])
+holes = Array[ExtResource("2_hole")]([ExtResource("3_reference"), ExtResource("4_diamond"), ExtResource("5_gate"), ExtResource("20_cannon"), ExtResource("11_classic_1"), ExtResource("12_classic_2"), ExtResource("13_classic_3"), ExtResource("14_classic_4"), ExtResource("15_classic_5"), ExtResource("16_classic_6"), ExtResource("17_classic_7"), ExtResource("18_classic_8"), ExtResource("19_classic_9"), ExtResource("21_arrow_1"), ExtResource("22_arrow_2"), ExtResource("23_arrow_3"), ExtResource("24_arrow_4"), ExtResource("25_arrow_5"), ExtResource("26_arrow_6"), ExtResource("27_arrow_7"), ExtResource("28_arrow_8"), ExtResource("29_arrow_9"), ExtResource("6_allround"), ExtResource("7_slope"), ExtResource("8_flow"), ExtResource("9_scroll"), ExtResource("10_curve"), ExtResource("30_reference_gate"), ExtResource("31_reference_angle"), ExtResource("32_reference_mos"), ExtResource("33_reference_bumpers"), ExtResource("34_reference_rotor"), ExtResource("35_reference_slider"), ExtResource("36_reference_seesaw"), ExtResource("37_reference_hill"), ExtResource("38_reference_hill_hole"), ExtResource("39_labyrinth_1"), ExtResource("40_labyrinth_2"), ExtResource("41_labyrinth_3"), ExtResource("42_labyrinth_4"), ExtResource("43_labyrinth_5"), ExtResource("44_labyrinth_6"), ExtResource("45_labyrinth_7"), ExtResource("46_labyrinth_8"), ExtResource("47_labyrinth_9")])

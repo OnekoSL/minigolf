@@ -18,6 +18,9 @@ seesaw_size = Vector2(96, 64)
 seesaw_max_angle_degrees = 16.0
 seesaw_response_seconds = 0.35
 seesaw_slope_strength = 120.0
+seesaw_end_lip_thickness = 4.0
+seesaw_blocker_tilt_threshold = 0.2
+seesaw_preferred_tilt = -1.0
 
 [resource]
 script = ExtResource("1_hole")

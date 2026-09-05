@@ -20,6 +20,9 @@ enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW }
 @export_range(1.0, 30.0, 0.5) var seesaw_max_angle_degrees := 16.0
 @export_range(0.1, 3.0, 0.05) var seesaw_response_seconds := 0.35
 @export_range(0.0, 200.0, 1.0) var seesaw_slope_strength := 120.0
+@export_range(1.0, 12.0, 1.0) var seesaw_end_lip_thickness := 4.0
+@export_range(0.05, 0.95, 0.05) var seesaw_blocker_tilt_threshold := 0.2
+@export_range(-1.0, 1.0, 0.05) var seesaw_preferred_tilt := -1.0
 
 
 func validate(label: String) -> PackedStringArray:
@@ -41,15 +44,20 @@ func validate(label: String) -> PackedStringArray:
 			errors.append("%s besitzt keine gueltige Wippengroesse" % label)
 		if seesaw_max_angle_degrees <= 0.0 or seesaw_response_seconds <= 0.0 or seesaw_slope_strength <= 0.0:
 			errors.append("%s besitzt keine gueltige Wippenbewegung" % label)
+		if seesaw_end_lip_thickness <= 0.0 or seesaw_blocker_tilt_threshold <= 0.0:
+			errors.append("%s besitzt keine gueltige Wippensperre" % label)
+		if absf(seesaw_preferred_tilt) > 1.0:
+			errors.append("%s besitzt keine gueltige Wippen-Vorzugsposition" % label)
 	return errors
 
 
 func instantiate_obstacle() -> Node2D:
+	var placement_rotation := deg_to_rad(start_rotation_degrees)
 	match obstacle_type:
 		ObstacleType.ROTATING_BLADE:
 			var obstacle := RotatingObstacle.new()
 			obstacle.position = position
-			obstacle.rotation = deg_to_rad(start_rotation_degrees)
+			obstacle.rotation = placement_rotation
 			obstacle.blade_size = blade_size
 			obstacle.seconds_per_revolution = seconds_per_revolution
 			obstacle.impulse_multiplier = impulse_multiplier
@@ -58,9 +66,11 @@ func instantiate_obstacle() -> Node2D:
 		ObstacleType.SLIDING_GATE:
 			var gate := TimedSlidingGate.new()
 			gate.position = position
-			gate.rotation = deg_to_rad(start_rotation_degrees)
+			gate.rotation = placement_rotation
 			gate.gate_size = gate_size
-			gate.open_offset = open_offset
+			# Der Oeffnungsweg ist Teil der lokalen Hindernisgeometrie und dreht
+			# sich deshalb gemeinsam mit einem um 90 Grad platzierten Tor.
+			gate.open_offset = open_offset.rotated(placement_rotation)
 			gate.cycle_seconds = cycle_seconds
 			gate.transition_seconds = transition_seconds
 			gate.open_hold_seconds = open_hold_seconds
@@ -69,10 +79,13 @@ func instantiate_obstacle() -> Node2D:
 		ObstacleType.SEESAW:
 			var seesaw := SeesawObstacle.new()
 			seesaw.position = position
-			seesaw.rotation = deg_to_rad(start_rotation_degrees)
+			seesaw.rotation = placement_rotation
 			seesaw.plank_size = seesaw_size
 			seesaw.max_tilt_degrees = seesaw_max_angle_degrees
 			seesaw.response_seconds = seesaw_response_seconds
 			seesaw.seesaw_slope_strength = seesaw_slope_strength
+			seesaw.end_lip_thickness = seesaw_end_lip_thickness
+			seesaw.blocker_tilt_threshold = seesaw_blocker_tilt_threshold
+			seesaw.preferred_tilt = seesaw_preferred_tilt
 			return seesaw
 	return Node2D.new()

@@ -1,6 +1,6 @@
 # Putt & Pixel - Spielrahmen-Prototyp
 
-Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit vier Kursen, insgesamt zweiundzwanzig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
+Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit fuenf Kursen, insgesamt einunddreissig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
 
 ## Starten
 
@@ -34,18 +34,18 @@ Direkt spielen:
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus zweiundzwanzig Kurs- und vierzehn technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus einunddreissig Kurs- und vierzehn technischen Bahnen.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
 ## Spielmodi und Runde
 
-- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun** (Par 18), **Pfeil-Armageddon** (Par 27) und dem **Prototypkurs** (Par 38).
+- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun** (Par 18), **Pfeil-Armageddon** (Par 27), dem **Referenzkurs** (Par 18), **Labyrinth-Neun** (Par 50) und dem **Prototypkurs** (Par 38).
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
 - **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Der achte Schlag ist das Maximum; ein nicht eingelochtes Ergebnis wird als `8*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die zweiundzwanzig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Der achte Schlag ist das Maximum; ein nicht eingelochtes Ergebnis wird als `8*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die einunddreissig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
 ## Controller
 
@@ -59,7 +59,7 @@ Wenn SDL das Geraet auf einem anderen Rechner gar nicht erkennt, ist Steam Input
 & '.\.tools\godot-4.7.2\Godot_v4.7.2-stable_win64_console.exe' --headless --path . res://tests/test_runner.tscn
 ```
 
-Die Headless-Suite prueft 895 Faelle: Schusszustaende samt verzoegertem Kontakt und Abbruch, Genauigkeitsfehler, Reibung, alle acht Gefaellerichtungen, bestehende gedrehte Gefaelleflaechen, atomare 16-Pixel-Pfeilzellen mit drei Steigungsstufen sowie abgestufter Bergab-Beschleunigung und Bergauf-Bremsung, alle acht atomaren Wandbausteine, gemischte gerade und diagonale Aussenkonturen, die Symmetrieachsen und Proportionen der neun Referenzbahnen, das sichere Ausrollen nach wiederholtem Gefaelle-Wandkontakt, freie Bahnkonturen, aus Normwand-Kaestchen erzeugte Aussenbanden, Rechteck-, Kreis- und Kreisbogenkollisionen, Dreher- und Torimpuls, die gewichtsgesteuerte Wippenneigung, Triggerverkettung, verriegelte Kanonen, reproduzierbaren Bogenflug und die Referenzrouten aller zweiundzwanzig echten Loecher sowie der neun Konturbahnen. Zusaetzlich werden Wasser-Ruecksetzung, Lochgeschwindigkeit, Bahn- und Kurskatalog, der sichtbare Referenzkurs, kuratierte technische Kursbahnen, paginierte Auswahl, Spieler- und Rundendaten, Hotseat-Wechsel, Schlaglimit, Neun-Loch-Tabelle, getrennte Bestwerte sowie Kamera-, Audio-, Effekt-, Eingabe- und Fokusverhalten geprueft.
+Die Headless-Suite prueft 1023 Faelle: Schusszustaende samt verzoegertem Kontakt und Abbruch, Genauigkeitsfehler, Reibung, alle acht Gefaellerichtungen, bestehende gedrehte Gefaelleflaechen, atomare 16-Pixel-Pfeilzellen mit drei Steigungsstufen sowie abgestufter Bergab-Beschleunigung und Bergauf-Bremsung, alle acht atomaren Wandbausteine, um 90 Grad gedrehte Hindernisse, gemischte gerade und diagonale Aussenkonturen, die Symmetrieachsen und Proportionen der neun Referenzbahnen, das sichere Ausrollen nach wiederholtem Gefaelle-Wandkontakt, freie Bahnkonturen, aus Normwand-Kaestchen erzeugte Aussenbanden, Rechteck-, Kreis- und Kreisbogenkollisionen, Dreher- und Torimpuls, die gewichtsgesteuerte Wippenneigung samt Vorzugsstellung und dynamischer Sperrkante, Triggerverkettung, verriegelte Kanonen, reproduzierbaren Bogenflug und die Referenzrouten aller einunddreissig echten Loecher sowie der neun Konturbahnen. Zusaetzlich werden Wasser-Ruecksetzung, Lochgeschwindigkeit, Bahn- und Kurskatalog, der sichtbare Referenz- und Labyrinthkurs, kuratierte technische Kursbahnen, paginierte Auswahl, Spieler- und Rundendaten, Hotseat-Wechsel, Schlaglimit, Neun-Loch-Tabelle, getrennte Bestwerte sowie Kamera-, Audio-, Effekt-, Eingabe- und Fokusverhalten geprueft.
 
 Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 
@@ -71,9 +71,11 @@ Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 
 - der Kurs **Klassische Neun** mit drei Par-1-, drei Par-2- und drei Par-3-Bahnen, Gesamt-Par 18, sechs festen Bildschirmbahnen und drei horizontal scrollenden Bahnen
 - der Kurs **Pfeil-Armageddon** mit je drei Par-2-, Par-3- und Par-4-Bahnen, Gesamt-Par 27, fuenf kompakten und vier horizontal scrollenden Pfeilpuzzles
+- der sichtbare **Referenzkurs** mit neun Konturbahnen und Gesamt-Par 18
+- der Kurs **Labyrinth-Neun** mit neun langen Irrgaerten, Gesamt-Par 50, 26 kombinierten Rotoren, Schiebetoren und Wippen sowie zwei Bahnen mit diagonalen Normwaenden
 - der neunloecherige **Prototypkurs** mit **S-Kurve an der Muehle**, **Die Diamantenlinie**, **Das Doppeltor**, **Die Kanonenwerkstatt** und den fuenf fuer diesen Kurs kuratierten technischen Testbahnen, Gesamt-Par 38
-- vierzehn technische Bahnen: Allround-Testloch, Acht-Richtungs-Labor, U-Flussbahn, Scroll-Testbahn, **Kurven-Labor** sowie **Referenz: Tor-Gerade**, **Basis 1: Dreifach-Bumper**, **Basis 1: Rotor**, **Basis 1: Schiebetor**, **Basis 1: Wippe**, **Basis 1: Huegelpass**, **Referenz: Winkel**, **Referenz: MOS-Kurve** und **Basis 1: Huegelloch**; Dreieck/F2 wechselt in der Uebung zyklisch durch alle 36 Bahnen
-- typisierte `.tres`-Bahndaten fuer freie Bahnkonturen, bei den neun Referenzbahnen vollstaendig aus Normwaenden erzeugte Aussenbanden, atomare achsenparallele 16-x-16-Pixel-Pfeilzellen, acht normierte Wandbausteine im 16-Pixel-Raster, rechteckige Legacy-Banden, runde Bumper, Kreisbogenwaende, bestehende freie Flaechen, Hindernisse, Trigger, Kanonen, Kamera und Lochregeln; ein gemeinsamer Runtime-Builder erzeugt Darstellung und Kollisionen aller Bahnen
+- vierzehn technische Bahnen: Allround-Testloch, Acht-Richtungs-Labor, U-Flussbahn, Scroll-Testbahn, **Kurven-Labor** sowie **Referenz: Tor-Gerade**, **Basis 1: Dreifach-Bumper**, **Basis 1: Rotor**, **Basis 1: Schiebetor**, **Basis 1: Wippe**, **Basis 1: Huegelpass**, **Referenz: Winkel**, **Referenz: MOS-Kurve** und **Basis 1: Huegelloch**; Dreieck/F2 wechselt in der Uebung zyklisch durch alle 45 Bahnen
+- typisierte `.tres`-Bahndaten fuer freie Bahnkonturen, bei den Referenz- und Labyrinthbahnen vollstaendig aus Normwaenden erzeugte Aussenbanden, atomare achsenparallele 16-x-16-Pixel-Pfeilzellen, acht normierte Wandbausteine im 16-Pixel-Raster, rechteckige Legacy-Banden, runde Bumper, Kreisbogenwaende, bestehende freie Flaechen, Hindernisse, Trigger, Kanonen, Kamera und Lochregeln; ein gemeinsamer Runtime-Builder erzeugt Darstellung und Kollisionen aller Bahnen
 - Gruen, Sand, Gefaelle und Wasser; atomare Pfeilflaechen verwenden 30 px/s2 Rollwiderstand und unterscheiden flaches Gefaelle in Dunkelgruen, mittleres in Dunkelblau und steiles in Dunkelrot
 - gerade und gedrehte Banden, massive Kreis-Bumper, dicke Kreisbogenwaende, rotierende Hindernisse, zwei deterministische Schiebetore sowie zwei automatisch ausloesende Kanonen mit sichtbarem Bogenflug
 - reproduzierbare Ballphysik mit festen Physikschritten

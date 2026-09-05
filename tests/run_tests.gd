@@ -16,6 +16,7 @@ func _run_all() -> void:
 	await _test_rotating_obstacle_wakes_ball()
 	await _test_timed_gate()
 	await _test_seesaw_obstacle()
+	await _test_rotated_obstacle_definitions()
 	_test_slope_directions()
 	_test_atomic_arrow_dynamics()
 	await _test_slope_wall_settling()
@@ -28,6 +29,7 @@ func _run_all() -> void:
 	await _test_cannon_workshop()
 	await _test_classic_nine_course()
 	await _test_arrow_armageddon_course()
+	await _test_labyrinth_nine_course()
 	await _test_slope_test_hole()
 	await _test_flow_test_hole()
 	await _test_scroll_test_hole()
@@ -792,7 +794,7 @@ func _test_gate_lane_family() -> void:
 	print("\n[Bahn-1-Grundform mit Hindernisvarianten]")
 	var catalog := HoleCatalog.load_default()
 	var base := catalog.get_hole(&"reference_gate_lane")
-	var variant_ids := [&"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_gate_hill_hole"]
+	var variant_ids := [&"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill"]
 	for hole_id in variant_ids:
 		var variant := catalog.get_hole(hole_id)
 		_check(variant != null and variant.lane_outline.points == base.lane_outline.points and variant.tee_position == base.tee_position and variant.hole_position == base.hole_position, "%s verwendet unveraendert die symmetrische Bahn-1-Grundform" % hole_id)
@@ -811,27 +813,57 @@ func _test_gate_lane_family() -> void:
 	await get_tree().process_frame
 	var hill := catalog.get_hole(&"reference_gate_hill")
 	var hill_grades := {}
-	var hill_is_mirrored := hill.arrow_tiles.size() == 24
+	var hill_is_mirrored := hill.arrow_tiles.size() == 48
+	var hill_rect: Rect2 = hill.arrow_tiles[0].get_rect()
+	var hill_bands_correct := true
+	var expected_hill_grades := [
+		SurfaceZone.SlopeGrade.STEEP,
+		SurfaceZone.SlopeGrade.STEEP,
+		SurfaceZone.SlopeGrade.MEDIUM,
+		SurfaceZone.SlopeGrade.MEDIUM,
+		SurfaceZone.SlopeGrade.SHALLOW,
+		SurfaceZone.SlopeGrade.SHALLOW,
+		SurfaceZone.SlopeGrade.SHALLOW,
+		SurfaceZone.SlopeGrade.SHALLOW,
+		SurfaceZone.SlopeGrade.MEDIUM,
+		SurfaceZone.SlopeGrade.MEDIUM,
+		SurfaceZone.SlopeGrade.STEEP,
+		SurfaceZone.SlopeGrade.STEEP,
+	]
 	for tile in hill.arrow_tiles:
 		hill_grades[tile.slope_grade] = true
+		hill_rect = hill_rect.merge(tile.get_rect())
+		hill_bands_correct = hill_bands_correct and tile.slope_grade == expected_hill_grades[tile.grid_cell.x - 18]
 		var mirrored_cell := Vector2i(47 - tile.grid_cell.x, tile.grid_cell.y)
 		var mirrored_direction := SurfaceZone.SlopeDirection.RIGHT if tile.direction == SurfaceZone.SlopeDirection.LEFT else SurfaceZone.SlopeDirection.LEFT
 		hill_is_mirrored = hill_is_mirrored and hill.arrow_tiles.any(func(other): return other.grid_cell == mirrored_cell and other.slope_grade == tile.slope_grade and other.direction == mirrored_direction)
-	_check(hill_is_mirrored, "Huegelpass spiegelt Anstieg und Gefaelle um seine Mittelachse")
+	_check(hill_is_mirrored and hill_rect.size == Vector2(192, 64) and hill_bands_correct, "Huegelpass ist 12 Pfeile lang, beginnt beidseitig steil und spiegelt sich um seine Mittelachse")
 	_check(hill_grades.size() == 3, "Huegelpass verwendet flache, mittlere und steile Pfeilbloecke")
 	var hill_hole := catalog.get_hole(&"reference_gate_hill_hole")
 	var hill_hole_rect: Rect2 = hill_hole.arrow_tiles[0].get_rect()
-	var hill_hole_points_outward := hill_hole.arrow_tiles.size() == 20
+	var hill_hole_points_outward := hill_hole.arrow_tiles.size() == 49
+	var hill_hole_tiers_correct := true
+	var hill_hole_grid_correct := true
 	var hill_hole_grades := {}
 	for tile in hill_hole.arrow_tiles:
 		hill_hole_rect = hill_hole_rect.merge(tile.get_rect())
-		var radial_direction := hill_hole.hole_position.direction_to(tile.get_rect().get_center())
+		var tile_center := tile.get_rect().get_center()
+		var radial_direction := hill_hole.hole_position.direction_to(tile_center)
 		var arrow_direction := SurfaceZone.direction_vector(tile.direction as SurfaceZone.SlopeDirection)
-		hill_hole_points_outward = hill_hole_points_outward and radial_direction.dot(arrow_direction) > 0.7
+		if not radial_direction.is_zero_approx():
+			hill_hole_points_outward = hill_hole_points_outward and radial_direction.dot(arrow_direction) > 0.7
+		var ring := int(maxf(absf(tile_center.x - hill_hole.hole_position.x), absf(tile_center.y - hill_hole.hole_position.y)) / 16.0)
+		var expected_grade := SurfaceZone.SlopeGrade.STEEP if ring == 3 else (SurfaceZone.SlopeGrade.MEDIUM if ring == 2 else SurfaceZone.SlopeGrade.SHALLOW)
+		hill_hole_tiers_correct = hill_hole_tiers_correct and tile.slope_grade == expected_grade
+		hill_hole_grid_correct = hill_hole_grid_correct and tile.grid_offset == Vector2i(0, 8)
 		hill_hole_grades[tile.slope_grade] = true
-	_check(hill_hole_rect.size == Vector2(80, 64) and hill_hole_rect.get_center() == hill_hole.hole_position, "Huegelloch liegt exakt im Zentrum seines 5-x-4-Pfeilfelds")
+	_check(hill_hole_rect.size == Vector2(112, 112) and hill_hole_rect.get_center() == hill_hole.hole_position and hill_hole_grid_correct, "Huegelloch liegt exakt im Zentrum seines versetzten 7-x-7-Pfeilfelds")
 	_check(hill_hole_points_outward, "Alle Pfeile des Huegellochs zeigen von der Kuppe nach aussen")
-	_check(hill_hole_grades.size() == 3, "Huegelloch staffelt die Kuppe in drei Steigungsstufen")
+	_check(hill_hole_grades.size() == 3 and hill_hole_tiers_correct, "Huegelloch beginnt aussen steil und wird zum Loch hin flach")
+	var hill_hole_is_symmetric := true
+	for point in hill_hole.lane_outline.points:
+		hill_hole_is_symmetric = hill_hole_is_symmetric and hill_hole.lane_outline.points.has(Vector2(point.x, 352.0 - point.y))
+	_check(hill_hole_is_symmetric and hill_hole.lane_outline.points != base.lane_outline.points, "Huegelloch erweitert den Zielraum symmetrisch fuer das 7-x-7-Feld")
 	var bumpers_completed := await _simulate_hole_route(&"reference_gate_bumpers", [
 		[Vector2(440, 160), 250.0],
 		[Vector2(552, 176), 170.0],
@@ -847,7 +879,8 @@ func _test_gate_lane_family() -> void:
 	], &"gates_open")
 	_check(slider_completed, "Schiebetor-Variante endet bei offenem Tor reproduzierbar")
 	var seesaw_completed := await _simulate_hole_route(&"reference_gate_seesaw", [
-		[Vector2(552, 176), 282.0],
+		[Vector2(552, 176), 240.0],
+		[Vector2(552, 176), 145.0],
 	], &"seesaw_weight")
 	_check(seesaw_completed, "Wippen-Variante endet reproduzierbar innerhalb von Par 2")
 	var hill_completed := await _simulate_hole_route(&"reference_gate_hill", [
@@ -870,7 +903,7 @@ func _test_repeated_hole_switch_input() -> void:
 	main.shot_controller.state = ShotController.ShotState.SWINGING
 	main._update_controller_status(-1, "Kein Controller", "")
 	_check(main.shot_controller.state == ShotController.ShotState.AIMING and main.strokes == 0, "Controllertrennung bricht SWINGING ohne Schlagverlust ab")
-	for index in range(36):
+	for index in range(45):
 		main.switch_test_hole()
 		_check(
 			main.shot_controller.state == ShotController.ShotState.AIMING,
@@ -955,12 +988,69 @@ func _test_seesaw_obstacle() -> void:
 	seesaw.reset_motion()
 	seesaw.advance_tilt(0.35, -30.0)
 	_check(is_equal_approx(seesaw.tilt, -1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x < 0.0, "Ballgewicht links senkt die linke Wippenhaelfte")
+	_check(seesaw.is_right_end_blocking() and not seesaw.is_left_end_blocking(), "Abgesenkte linke Wippenseite hebt die rechte Sperrkante")
 	seesaw.advance_tilt(0.70, 30.0)
 	_check(is_equal_approx(seesaw.tilt, 1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x > 0.0, "Ballgewicht rechts kippt Gefaelle und Beschleunigung nach rechts")
+	_check(seesaw.is_left_end_blocking() and not seesaw.is_right_end_blocking(), "Abgesenkte rechte Wippenseite hebt die linke Sperrkante")
 	seesaw.reset_motion()
-	_check(is_zero_approx(seesaw.tilt) and Vector2(seesaw.get_surface_data()["acceleration"]).is_zero_approx(), "Wippenreset stellt die unbelastete Waagerechte wieder her")
+	_check(is_equal_approx(seesaw.tilt, -1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x < 0.0 and seesaw.is_right_end_blocking(), "Wippenreset stellt die linke Vorzugsposition wieder her")
 	_check(seesaw.contains_global_point(Vector2(270, 180)) and seesaw.contains_global_point(Vector2(330, 180)) and not seesaw.contains_global_point(Vector2(355, 180)), "Wippe besteht aus zwei befahrbaren Flaechen um den Mittelpunkt")
+	seesaw.advance_tilt(0.35, -30.0)
+	await get_tree().physics_frame
+	var test_ball := PrototypeBall.new()
+	get_tree().root.add_child(test_ball)
+	await get_tree().physics_frame
+	test_ball.set_physics_process(false)
+	test_ball.position = Vector2(320, 180)
+	var seesaw_zones: Array[SurfaceZone] = [seesaw]
+	test_ball.configure_environment(seesaw_zones, Vector2(500, 180))
+	var lip_feedback := {"kind": &""}
+	test_ball.wall_hit.connect(func(_intensity, _position, _normal, kind): lip_feedback["kind"] = kind)
+	test_ball.launch(Vector2.RIGHT, 180.0, 1)
+	for _step in range(20):
+		test_ball._physics_process(1.0 / 60.0)
+		if not test_ball.moving:
+			break
+	_check(not test_ball.moving and test_ball.position.x < 348.0 and lip_feedback["kind"] == &"seesaw_lip", "Hohe Wippenkante stoppt einen zu schnellen Ball")
+	seesaw.advance_tilt(0.70, 30.0)
+	await get_tree().physics_frame
+	test_ball.reset_to(Vector2(320, 180))
+	test_ball.launch(Vector2.RIGHT, 180.0, 1)
+	for _step in range(20):
+		test_ball._physics_process(1.0 / 60.0)
+	_check(test_ball.position.x > 354.0, "Abgesenkte Wippenkante gibt den Ausgang frei")
+	test_ball.free()
 	seesaw.free()
+
+
+func _test_rotated_obstacle_definitions() -> void:
+	print("\n[Gedrehte Hindernisse]")
+	var obstacle_types := [
+		ObstacleDefinition.ObstacleType.ROTATING_BLADE,
+		ObstacleDefinition.ObstacleType.SLIDING_GATE,
+		ObstacleDefinition.ObstacleType.SEESAW,
+	]
+	var rotated_nodes: Array[Node2D] = []
+	for obstacle_type in obstacle_types:
+		var definition := ObstacleDefinition.new()
+		definition.obstacle_type = obstacle_type
+		definition.position = Vector2(300, 180)
+		definition.start_rotation_degrees = 90.0
+		var obstacle := definition.instantiate_obstacle()
+		get_tree().root.add_child(obstacle)
+		rotated_nodes.append(obstacle)
+	await get_tree().process_frame
+	_check(rotated_nodes.all(func(obstacle): return is_equal_approx(obstacle.rotation, PI * 0.5)), "Rotor, Schiebetor und Wippe lassen sich gemeinsam um 90 Grad platzieren")
+	var gate := rotated_nodes[1] as TimedSlidingGate
+	_check(gate.open_offset.is_equal_approx(Vector2(100, 0)), "Beim gedrehten Schiebetor dreht sich auch der Oeffnungsweg")
+	var seesaw := rotated_nodes[2] as SeesawObstacle
+	seesaw.set_physics_process(false)
+	seesaw.advance_tilt(0.70, 30.0)
+	var slope_acceleration: Vector2 = seesaw.get_surface_data()["acceleration"]
+	_check(slope_acceleration.y > 0.0 and absf(slope_acceleration.x) <= 0.01, "Die Gefaellerichtung der Wippe folgt ihrer 90-Grad-Drehung")
+	_check(seesaw.contains_global_point(Vector2(300, 220)) and not seesaw.contains_global_point(Vector2(350, 180)), "Die befahrbare Wippenflaeche dreht sich samt Kollision")
+	for obstacle in rotated_nodes:
+		obstacle.free()
 
 
 func _test_hole_catalog() -> void:
@@ -969,7 +1059,7 @@ func _test_hole_catalog() -> void:
 	_check(catalog != null, "Lochkatalog wird als typisierte Resource geladen")
 	if catalog == null:
 		return
-	_check(catalog.holes.size() == 36, "Katalog enthaelt zweiundzwanzig echte Loecher und vierzehn Testbahnen")
+	_check(catalog.holes.size() == 45, "Katalog enthaelt einunddreissig echte Loecher und vierzehn Testbahnen")
 	_check(catalog.validate().is_empty(), "Alle Bahndefinitionen bestehen die Datenvalidierung")
 	var found_ids: Dictionary = {}
 	for definition in catalog.holes:
@@ -989,7 +1079,7 @@ func _test_hole_catalog() -> void:
 		if not runtime.zones.is_empty():
 			_check(runtime.overlay.get_index() > runtime.zones[-1].get_index(), "%s zeichnet Banden ueber den Flaechen" % definition.hole_id)
 		runtime.queue_free()
-	_check(found_ids.size() == 36, "Alle Bahn-IDs sind eindeutig")
+	_check(found_ids.size() == 45, "Alle Bahn-IDs sind eindeutig")
 	await get_tree().process_frame
 
 
@@ -1328,6 +1418,61 @@ func _test_arrow_armageddon_course() -> void:
 		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
 
 
+func _test_labyrinth_nine_course() -> void:
+	print("\n[Kurs: Labyrinth-Neun]")
+	var holes := HoleCatalog.load_default()
+	var courses := CourseCatalog.load_default()
+	var course := courses.get_course(&"labyrinth_nine_course")
+	_check(course != null, "Labyrinth-Neun wird als eigener Kurs geladen")
+	if course == null:
+		return
+	_check(course.hole_ids.size() == 9, "Labyrinth-Neun enthaelt neun geordnete Bahnen")
+	_check(course.get_total_par(holes) == 50, "Labyrinth-Neun besitzt Gesamt-Par 50")
+	var layout_signatures := {}
+	var obstacle_types := {}
+	var obstacle_count := 0
+	var diagonal_wall_count := 0
+	for hole_id in course.hole_ids:
+		var definition := holes.get_hole(hole_id)
+		_check(definition != null and definition.is_course_hole(), "%s ist eine gueltige Kursbahn" % hole_id)
+		if definition == null:
+			continue
+		_check(definition.lane_outline != null and definition.lane_outline.use_normalized_walls and definition.course_rect == Rect2(176, 16, 960, 336), "%s verwendet die grosse normierte Labyrinth-Grundflaeche" % hole_id)
+		_check(definition.walls.is_empty() and definition.wall_tiles.size() >= 24, "%s baut sein Labyrinth aus mindestens 24 atomaren Wandkaestchen" % hole_id)
+		_check(definition.obstacles.size() >= 2 and definition.obstacles.size() <= 3, "%s kombiniert zwei oder drei bewegliche Hindernisse" % hole_id)
+		var signature := ""
+		for tile in definition.wall_tiles:
+			signature += "%s:%d;" % [tile.grid_cell, tile.variant]
+			if tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN or tile.variant == WallTileDefinition.Variant.DIAGONAL_UP:
+				diagonal_wall_count += 1
+		layout_signatures[signature] = true
+		for obstacle in definition.obstacles:
+			obstacle_types[obstacle.obstacle_type] = true
+			obstacle_count += 1
+	_check(layout_signatures.size() == 9, "Alle neun Labyrinthbahnen besitzen einen eigenen Wandverlauf")
+	_check(obstacle_count == 26, "Der Kurs verteilt insgesamt 26 bewegliche Hindernisse")
+	_check(obstacle_types.size() == 3, "Labyrinth-Neun verwendet Rotoren, Schiebetore und Wippen")
+	_check(diagonal_wall_count >= 30, "Zwei Labyrinthe verwenden zusammen mindestens dreissig Diagonalwaende")
+	var crossways := holes.get_hole(&"labyrinth_nine_07")
+	var crossways_seesaw: ObstacleDefinition = crossways.obstacles.filter(func(obstacle): return obstacle.obstacle_type == ObstacleDefinition.ObstacleType.SEESAW)[0]
+	_check(is_equal_approx(crossways_seesaw.start_rotation_degrees, 90.0) and is_equal_approx(crossways_seesaw.seesaw_preferred_tilt, 1.0), "Kreuzwege richtet seine Wippe samt passender Vorzugsseite um 90 Grad aus")
+
+	var routes := {
+		&"labyrinth_nine_01": [[Vector2(384, 300), 224.0], [Vector2(608, 64), 284.0], [Vector2(832, 300), 284.0], [Vector2(1056, 64), 284.0], [Vector2(1088, 176), 170.0]],
+		&"labyrinth_nine_02": [[Vector2(432, 64), 242.0], [Vector2(624, 300), 274.0], [Vector2(832, 176), 245.0], [Vector2(1040, 64), 242.0], [Vector2(1088, 176), 174.0]],
+		&"labyrinth_nine_03": [[Vector2(384, 300), 224.0], [Vector2(576, 64), 274.0], [Vector2(800, 300), 284.0], [Vector2(1024, 64), 284.0], [Vector2(1088, 176), 179.0]],
+		&"labyrinth_nine_04": [[Vector2(352, 304), 210.0], [Vector2(520, 40), 300.0], [Vector2(680, 304), 278.0], [Vector2(840, 40), 278.0], [Vector2(1000, 304), 278.0], [Vector2(1088, 176), 197.0]],
+		&"labyrinth_nine_05": [[Vector2(544, 316), 294.0], [Vector2(928, 300), 308.0], [Vector2(1088, 176), 224.0]],
+		&"labyrinth_nine_06": [[Vector2(432, 300), 245.0], [Vector2(640, 176), 245.0], [Vector2(864, 64), 249.0], [Vector2(1080, 300), 281.0], [Vector2(1088, 176), 175.0]],
+		&"labyrinth_nine_07": [[Vector2(400, 64), 227.0], [Vector2(576, 300), 270.0], [Vector2(752, 64), 270.0], [Vector2(928, 300), 270.0], [Vector2(1088, 176), 224.0]],
+		&"labyrinth_nine_08": [[Vector2(368, 304), 217.0], [Vector2(384, 48), 270.0], [Vector2(536, 48), 210.0], [Vector2(688, 176), 220.0], [Vector2(848, 304), 224.0], [Vector2(1008, 40), 286.0], [Vector2(1088, 176), 187.0]],
+		&"labyrinth_nine_09": [[Vector2(352, 304), 210.0], [Vector2(504, 40), 294.0], [Vector2(648, 304), 282.0], [Vector2(792, 40), 282.0], [Vector2(936, 304), 266.0], [Vector2(1080, 36), 282.0], [Vector2(1088, 176), 173.0]],
+	}
+	for hole_id in course.hole_ids:
+		var completed := await _simulate_hole_route(hole_id, routes[hole_id], &"labyrinth_safe")
+		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
+
+
 func _simulate_hole_snapshot(hole_id: StringName, target: Vector2, speed: float, steps: int) -> Dictionary:
 	var runtime := _instantiate_hole(hole_id)
 	await get_tree().physics_frame
@@ -1418,6 +1563,16 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 			obstacle.rotation = 0.0
 		elif obstacle_mode == &"gates_open" and obstacle is TimedSlidingGate:
 			obstacle.position = obstacle.closed_position + obstacle.open_offset
+		elif obstacle_mode == &"labyrinth_safe":
+			if obstacle is RotatingObstacle:
+				obstacle.rotation = 0.0
+				obstacle.collision_layer = 0
+			elif obstacle is TimedSlidingGate:
+				obstacle.position = obstacle.closed_position + obstacle.open_offset
+				obstacle.collision_layer = 0
+			elif obstacle is SeesawObstacle:
+				obstacle.left_end_blocker.collision_layer = 0
+				obstacle.right_end_blocker.collision_layer = 0
 	await get_tree().physics_frame
 	var ball := PrototypeBall.new()
 	get_tree().root.add_child(ball)
@@ -1431,11 +1586,12 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 		var speed: float = shots[index][1]
 		ball.launch(ball.position.direction_to(target), speed, index + 1)
 		for _step in range(1800):
-			if obstacle_mode == &"seesaw_weight":
+			if obstacle_mode == &"seesaw_weight" or obstacle_mode == &"labyrinth_safe":
 				for obstacle in runtime.obstacle_nodes:
 					if obstacle is SeesawObstacle:
 						var weighted_x := obstacle.to_local(ball.global_position).x if obstacle.contains_global_point(ball.global_position) else INF
 						obstacle.advance_tilt(1.0 / 60.0, weighted_x)
+						obstacle.sync_end_blockers(true)
 			ball._physics_process(1.0 / 60.0)
 			if not ball.moving:
 				break
@@ -1476,11 +1632,13 @@ func _test_game_shell() -> void:
 	var classic_course := courses.get_course(&"classic_nine_course")
 	var arrow_course := courses.get_course(&"arrow_armageddon_course")
 	var reference_course := courses.get_course(&"reference_lanes_course")
-	_check(courses.courses.size() == 4 and courses.courses[0] == classic_course and courses.courses[1] == arrow_course and courses.courses[2] == reference_course and courses.courses[3] == course, "Kursauswahl ordnet Klassische Neun, Pfeil-Armageddon, Referenzbahnen und Prototypkurs")
+	var labyrinth_course := courses.get_course(&"labyrinth_nine_course")
+	_check(courses.courses.size() == 5 and courses.courses[0] == classic_course and courses.courses[1] == arrow_course and courses.courses[2] == reference_course and courses.courses[3] == labyrinth_course and courses.courses[4] == course, "Kursauswahl ordnet Klassische Neun, Pfeil-Armageddon, Referenzbahnen, Labyrinth-Neun und Prototypkurs")
 	_check(classic_course != null and classic_course.hole_ids.size() == 9 and classic_course.get_total_par(holes) == 18, "Neun-Loch-Kurs ist vollstaendig im Spielrahmen registriert")
 	_check(arrow_course != null and arrow_course.hole_ids.size() == 9 and arrow_course.get_total_par(holes) == 27, "Pfeil-Armageddon ist vollstaendig im Spielrahmen registriert")
 	_check(reference_course != null and reference_course.hole_ids == [&"reference_gate_lane", &"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_angle_lane", &"reference_mos_lane", &"reference_gate_hill_hole"], "Referenzkurs enthaelt neun Bahnen und endet mit dem Huegelloch")
 	_check(reference_course != null and reference_course.get_total_par(holes) == 18 and reference_course.allow_technical_holes, "Referenzkurs besitzt Gesamt-Par 18 und erlaubt technische Bahnen")
+	_check(labyrinth_course != null and labyrinth_course.hole_ids.size() == 9 and labyrinth_course.get_total_par(holes) == 50, "Labyrinth-Neun ist vollstaendig im Spielrahmen registriert")
 	var course_holes := 0
 	var technical_holes := 0
 	for hole in holes.holes:
@@ -1488,7 +1646,7 @@ func _test_game_shell() -> void:
 			course_holes += 1
 		else:
 			technical_holes += 1
-	_check(course_holes == 22 and technical_holes == 14, "Katalog trennt zweiundzwanzig Kurs- und vierzehn Technikbahnen")
+	_check(course_holes == 31 and technical_holes == 14, "Katalog trennt einunddreissig Kurs- und vierzehn Technikbahnen")
 
 	var first := PlayerProfile.create(1, "", 0)
 	var second := PlayerProfile.create(2, "ZWOELFZEICHENPLUS", 1)
@@ -1604,16 +1762,16 @@ func _test_game_shell() -> void:
 	_check(app.current_screen == GameApp.ScreenState.PLAYER_COUNT, "Freies Spiel besitzt einen eigenen Mehrspielerpfad")
 	app._show_course_select()
 	_check(app.option_buttons.size() == 6 and "KLASSISCHE NEUN" in app.option_buttons[0].text and "PFEIL-ARMAGEDDON" in app.option_buttons[1].text and "REFERENZBAHNEN" in app.option_buttons[2].text, "Erste Kursseite zeigt den neuen Referenzkurs direkt an")
-	_check(app.option_buttons[3].disabled and not app.option_buttons[5].disabled, "Vier Kurse aktivieren die zweite Kursseite")
+	_check(app.option_buttons[3].disabled and not app.option_buttons[5].disabled, "Fuenf Kurse aktivieren die zweite Kursseite")
 	app._change_course_page(1)
-	_check(app.course_select_page == 1 and app.option_buttons.size() == 4 and "PROTOTYPKURS" in app.option_buttons[0].text, "Zweite Kursseite enthaelt den Prototypkurs")
+	_check(app.course_select_page == 1 and app.option_buttons.size() == 5 and "LABYRINTH-NEUN" in app.option_buttons[0].text and "PROTOTYPKURS" in app.option_buttons[1].text, "Zweite Kursseite enthaelt Labyrinth-Neun und Prototypkurs")
 	var extra_course := classic_course.duplicate(true) as CourseDefinition
 	extra_course.course_id = &"course_page_test"
 	extra_course.display_name = "SEITENTEST"
 	app.course_catalog = app.course_catalog.duplicate(true) as CourseCatalog
 	app.course_catalog.courses.append(extra_course)
 	app._show_course_select()
-	_check(app.course_select_page == 1 and app.option_buttons.size() == 5 and "PROTOTYPKURS" in app.option_buttons[0].text and "SEITENTEST" in app.option_buttons[1].text, "Kursnavigation erreicht weitere datengetriebene Eintraege")
+	_check(app.course_select_page == 1 and app.option_buttons.size() == 6 and "LABYRINTH-NEUN" in app.option_buttons[0].text and "PROTOTYPKURS" in app.option_buttons[1].text and "SEITENTEST" in app.option_buttons[2].text, "Kursnavigation erreicht weitere datengetriebene Eintraege")
 	app.course_catalog = courses
 	app.course_select_page = 0
 	app.hole_select_page = 0
@@ -1621,9 +1779,9 @@ func _test_game_shell() -> void:
 	_check(app.option_buttons.size() == 8 and app.option_buttons[5].disabled and not app.option_buttons[7].disabled, "Uebung zeigt fuenf Bahnen mit Seitennavigation")
 	app._change_hole_page(1)
 	_check(app.hole_select_page == 1 and app.option_buttons.size() == 8, "Uebungsseite wechselt controllerfreundlich weiter")
-	app.free_select_page = 4
+	app.free_select_page = 6
 	app._show_free_builder()
-	_check(app.free_select_page == 4 and app.option_buttons.size() == 7, "Freies Spiel erreicht die letzte Seite aller zweiundzwanzig Kursbahnen")
+	_check(app.free_select_page == 6 and app.option_buttons.size() == 6, "Freies Spiel erreicht die letzte Seite aller einunddreissig Kursbahnen")
 	app.free_hole_ids = [&"reference_01", &"classic_diamond_02", &"reference_01"]
 	_check(app._free_sequence_text() == "FOLGE: 1-2-1", "Freie Auswahl bewahrt Reihenfolge und Wiederholung")
 	var practice_config := RoundConfig.new()
