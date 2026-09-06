@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
-points = PackedVector2Array(184, 40, 1000, 40, 1000, 152, 920, 152, 872, 200, 776, 200, 728, 248, 632, 248, 584, 296, 184, 296)
+points = PackedVector2Array(184, 40, 1000, 40, 1000, 312, 184, 312)
 wall_thickness = 4.0
 use_normalized_walls = true
 
@@ -84,52 +84,52 @@ variant = 5
 
 [sub_resource type="Resource" id="WallTile_15"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(44, 14)
+grid_cell = Vector2i(42, 18)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_16"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(45, 13)
+grid_cell = Vector2i(43, 17)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_17"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(46, 12)
+grid_cell = Vector2i(44, 16)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_18"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(47, 11)
+grid_cell = Vector2i(45, 15)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_19"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(48, 10)
+grid_cell = Vector2i(46, 14)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_20"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(49, 9)
+grid_cell = Vector2i(47, 13)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_21"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(50, 8)
+grid_cell = Vector2i(48, 12)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_22"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(51, 7)
+grid_cell = Vector2i(49, 11)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_23"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(52, 6)
+grid_cell = Vector2i(50, 10)
 variant = 5
 
 [sub_resource type="Resource" id="WallTile_24"]
 script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(53, 5)
+grid_cell = Vector2i(51, 9)
 variant = 5
 
 [resource]
@@ -139,13 +139,13 @@ display_name = "DER ZICKZACK-WEG"
 par = 3
 course_rect = Rect2(176, 16, 832, 328)
 lane_outline = SubResource("Lane_outline")
-tee_position = Vector2(220, 286)
-hole_position = Vector2(960, 72)
-initial_aim_offset = Vector2(94, -28)
+tee_position = Vector2(220, 72)
+hole_position = Vector2(960, 280)
+initial_aim_offset = Vector2(94, 28)
 camera_center_bounds = Rect2(320, 180, 376, 0)
 grid_spacing = 16
 walls = Array[ExtResource("3_wall")]([])
-wall_tiles = Array[ExtResource("4_wall_tile")]([SubResource("WallTile_2"), SubResource("WallTile_3"), SubResource("WallTile_4"), SubResource("WallTile_5"), SubResource("WallTile_6"), SubResource("WallTile_7"), SubResource("WallTile_8"), SubResource("WallTile_9"), SubResource("WallTile_10"), SubResource("WallTile_11"), SubResource("WallTile_12"), SubResource("WallTile_13"), SubResource("WallTile_15"), SubResource("WallTile_16"), SubResource("WallTile_17"), SubResource("WallTile_18"), SubResource("WallTile_19"), SubResource("WallTile_20"), SubResource("WallTile_21"), SubResource("WallTile_22"), SubResource("WallTile_23"), SubResource("WallTile_24")])
+wall_tiles = Array[ExtResource("4_wall_tile")]([SubResource("WallTile_2"), SubResource("WallTile_3"), SubResource("WallTile_4"), SubResource("WallTile_5"), SubResource("WallTile_6"), SubResource("WallTile_7"), SubResource("WallTile_8"), SubResource("WallTile_9"), SubResource("WallTile_10"), SubResource("WallTile_11"), SubResource("WallTile_15"), SubResource("WallTile_16"), SubResource("WallTile_17"), SubResource("WallTile_18"), SubResource("WallTile_19"), SubResource("WallTile_20"), SubResource("WallTile_21"), SubResource("WallTile_22"), SubResource("WallTile_23"), SubResource("WallTile_24")])
 surfaces = []
 arrow_tiles = Array[ExtResource("5_arrow")]([])
 obstacles = []

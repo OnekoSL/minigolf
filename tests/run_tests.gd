@@ -1429,7 +1429,7 @@ func _test_classic_nine_course() -> void:
 	if course == null:
 		return
 	_check(course.hole_ids.size() == 9, "Klassische Neun enthaelt neun geordnete Bahnen")
-	_check(course.get_total_par(holes) == 18, "Klassische Neun besitzt Gesamt-Par 18")
+	_check(course.get_total_par(holes) == 19, "Klassische Neun besitzt Gesamt-Par 19")
 	var par_counts := {1: 0, 2: 0, 3: 0}
 	var compact_count := 0
 	var wide_count := 0
@@ -1490,7 +1490,7 @@ func _test_classic_nine_course() -> void:
 			)
 		if not definition.arrow_tiles.is_empty():
 			arrow_hole_counts[hole_id] = definition.arrow_tiles.size()
-	_check(par_counts == {1: 3, 2: 3, 3: 3}, "Par-Verteilung besteht aus dreimal eins, zwei und drei")
+	_check(par_counts == {1: 3, 2: 3, 3: 2, 4: 1}, "Par-Verteilung folgt der festgelegten Folge von eins bis vier Schlaegen")
 	_check(compact_count == 6 and wide_count == 3, "Sechs Bahnen sind kompakt und drei scrollen horizontal")
 	_check(outline_signatures.size() == 9, "Alle neun Bahnen besitzen eine eigene geschlossene Silhouette")
 	_check(legacy_rectangle_count == 0, "Klassische Neun enthaelt keine freien rechteckigen Legacy-Waende")
@@ -1524,29 +1524,46 @@ func _test_classic_nine_course() -> void:
 	var diagonal_down_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN).size()
 	var diagonal_up_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_UP).size()
 	var first_baffle_is_anchored := zigzag.wall_tiles.any(func(tile): return tile.grid_cell == Vector2i(23, 3) and tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN)
-	var second_baffle_is_anchored := zigzag.wall_tiles.any(func(tile): return tile.grid_cell == Vector2i(44, 14) and tile.variant == WallTileDefinition.Variant.DIAGONAL_UP)
+	var second_baffle_is_anchored := zigzag.wall_tiles.any(func(tile): return tile.grid_cell == Vector2i(42, 18) and tile.variant == WallTileDefinition.Variant.DIAGONAL_UP)
 	_check(
-		diagonal_down_count == 12 and diagonal_up_count == 10 and first_baffle_is_anchored and second_baffle_is_anchored,
-		"Der Zickzack-Weg verbindet zwei gegensinnige Diagonalbaender abwechselnd mit der Aussenwand"
+		diagonal_down_count == 10 and diagonal_up_count == 10 and first_baffle_is_anchored and second_baffle_is_anchored,
+		"Der Zickzack-Weg verbindet zwei kurze gegensinnige Diagonalbaender abwechselnd mit der Aussenwand"
+	)
+	_check(
+		zigzag.tee_position == Vector2(220, 72)
+			and zigzag.hole_position == Vector2(960, 280)
+			and zigzag.initial_aim_offset == Vector2(94, 28),
+		"Der Zickzack-Weg fuehrt vom oberen linken Start zum unteren rechten Loch"
 	)
 	var homecoming := holes.get_hole(&"classic_nine_09")
+	var homecoming_horizontal_tiles := homecoming.wall_tiles.filter(
+		func(tile): return tile.variant == WallTileDefinition.Variant.HORIZONTAL
+	)
+	var homecoming_vertical_tiles := homecoming.wall_tiles.filter(
+		func(tile): return tile.variant == WallTileDefinition.Variant.VERTICAL
+	)
 	_check(
 		homecoming.walls.size() == 2
 			and homecoming.walls.all(func(wall): return wall.wall_type == WallDefinition.WallType.ARC)
-			and homecoming.wall_tiles.size() == 8,
-		"Die Heimkehr schliesst ihre konzentrische Wendekammer mit acht Normwandsegmenten"
+			and homecoming.walls.all(func(wall): return wall.center == Vector2(856, 168))
+			and homecoming.walls.all(func(wall): return is_equal_approx(wall.arc_start_degrees, 90.0) and is_equal_approx(wall.arc_sweep_degrees, -180.0))
+			and homecoming_horizontal_tiles.size() == 84
+			and homecoming_vertical_tiles.size() == 1
+			and homecoming.par == 4
+			and homecoming.hole_position == Vector2(220, 72),
+		"Die Heimkehr bildet einen geschlossenen Haarnadelkanal aus zwei verbundenen Halbkreisen"
 	)
 
 	var safe_routes := {
 		&"classic_nine_01": [[0.0, 292.0]],
 		&"classic_nine_02": [[-12.0, 408.0]],
 		&"classic_nine_03": [[-37.1, 399.0]],
-		&"classic_nine_04": [[-24.0, 180.0], [-147.0, 364.0]],
-		&"classic_nine_05": [[-32.35, 220.0], [-95.0, 372.0]],
+		&"classic_nine_04": [[-24.0, 244.0]],
+		&"classic_nine_05": [[-32.35, 387.5]],
 		&"classic_nine_06": [[-28.0, 220.0], [-34.0, 412.0]],
-		&"classic_nine_07": [[-6.0, 420.0], [-8.22, 180.0], [-10.0, 252.0]],
+		&"classic_nine_07": [[Vector2(600, 270), 300.0], [Vector2(850, 100), 270.0], [Vector2(960, 280), 240.0]],
 		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 180.0], [-121.0, 392.0]],
-		&"classic_nine_09": [[-30.0, 420.0], [26.61, 200.0], [-80.0, 312.0]],
+		&"classic_nine_09": [[Vector2(600, 286), 300.0], [Vector2(1000, 280), 300.0], [Vector2(960, 72), 220.0], [Vector2(220, 72), 420.0]],
 	}
 	for hole_id in course.hole_ids:
 		var completed := await _simulate_hole_route(hole_id, safe_routes[hole_id])
@@ -1556,9 +1573,9 @@ func _test_classic_nine_course() -> void:
 		&"classic_nine_04": [[-24.0, 244.0]],
 		&"classic_nine_05": [[-32.35, 387.5]],
 		&"classic_nine_06": [[-28.0, 400.0]],
-		&"classic_nine_07": [[-6.0, 420.0], [-8.22, 320.0]],
+		&"classic_nine_07": [[Vector2(600, 270), 310.0], [Vector2(960, -190), 420.0]],
 		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 320.0]],
-		&"classic_nine_09": [[-30.0, 420.0], [26.61, 350.0]],
+		&"classic_nine_09": [[Vector2(1000, 280), 420.0], [Vector2(960, 72), 220.0], [Vector2(220, 72), 420.0]],
 	}
 	for hole_id in risk_routes:
 		var completed := await _simulate_hole_route(hole_id, risk_routes[hole_id])
@@ -1673,13 +1690,48 @@ func _test_arrow_armageddon_course() -> void:
 		"Das innere Sackgassenloch fuehrt verborgen in die geschlossene Zielkammer"
 	)
 
-	var weak_countercurrent := await _simulate_countercurrent_launch(100.0)
-	_check(
-		not weak_countercurrent["crossed"] and weak_countercurrent["reversed"],
-		"Ein zu schwacher Ball stoppt im roten Gegenstrom und rollt zurueck"
+	var water_guard := holes.get_hole(&"arrow_armageddon_08")
+	var water_guard_red_tiles := water_guard.arrow_tiles.filter(
+		func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.STEEP
 	)
-	var strong_countercurrent := await _simulate_countercurrent_launch(330.0)
-	_check(strong_countercurrent["crossed"], "Ein ausreichend starker Schlag ueberwindet den roten Gegenstrom")
+	var water_guard_points_inward := water_guard_red_tiles.size() == 48
+	for tile in water_guard_red_tiles:
+		if tile.grid_cell.y == 9:
+			water_guard_points_inward = water_guard_points_inward and tile.direction == SurfaceZone.SlopeDirection.DOWN
+		elif tile.grid_cell.y == 10:
+			water_guard_points_inward = water_guard_points_inward and tile.direction == SurfaceZone.SlopeDirection.DOWN_LEFT
+		elif tile.grid_cell.y == 11:
+			water_guard_points_inward = water_guard_points_inward and tile.direction == SurfaceZone.SlopeDirection.UP_LEFT
+		elif tile.grid_cell.y == 12:
+			water_guard_points_inward = water_guard_points_inward and tile.direction == SurfaceZone.SlopeDirection.UP
+		else:
+			water_guard_points_inward = false
+	_check(
+		water_guard_points_inward,
+		"Die roten Pfeile zeigen vom Wasser zur Mitte und die inneren Reihen zusaetzlich nach links"
+	)
+	var water_guard_runtime := _instantiate_hole(&"arrow_armageddon_08")
+	await get_tree().physics_frame
+	var center_release_ball := PrototypeBall.new()
+	get_tree().root.add_child(center_release_ball)
+	center_release_ball.set_physics_process(false)
+	center_release_ball.position = Vector2(656, 176)
+	center_release_ball.configure_environment(
+		water_guard_runtime.zones,
+		water_guard_runtime.get_hole_position(),
+		water_guard_runtime.get_tunnels()
+	)
+	center_release_ball.launch(Vector2.RIGHT, 30.0, 1)
+	for _step in range(600):
+		center_release_ball._physics_process(1.0 / 60.0)
+		if not center_release_ball.moving:
+			break
+	_check(
+		center_release_ball.position.x < 552.0,
+		"Ein langsamer Ball verlaesst die rote Mittellinie nach links statt dort festzuhaengen"
+	)
+	center_release_ball.free()
+	water_guard_runtime.free()
 
 	var routes := {
 		&"arrow_armageddon_01": [[Vector2(490, 180), 250.0], [Vector2(580, 100), 180.0]],
@@ -1689,7 +1741,7 @@ func _test_arrow_armageddon_course() -> void:
 		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(400, 80), 160.0], [Vector2(575, 82), 195.0]],
 		&"arrow_armageddon_06": [[-2.0, 360.0], [-180.0, 280.0], [-146.0, 420.0]],
 		&"arrow_armageddon_07": [[Vector2(430, 235), 300.0], [Vector2(960, 70), 155.0], [Vector2(960, 70), 80.0], [Vector2(960, 70), 80.0]],
-		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 430.0], [Vector2(900, 260), 280.0], [Vector2(960, 286), 120.0]],
+		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 360.0], [Vector2(900, 260), 180.0], [Vector2(960, 286), 120.0]],
 		&"arrow_armageddon_09": [[Vector2(430, 235), 300.0], [Vector2(425, 165), 140.0], [Vector2(550, 40), 220.0], [Vector2(1090, 70), 370.0]],
 	}
 	for hole_id in course.hole_ids:
@@ -1951,27 +2003,6 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 	return completed
 
 
-func _simulate_countercurrent_launch(speed: float) -> Dictionary:
-	var runtime := _instantiate_hole(&"arrow_armageddon_08")
-	await get_tree().physics_frame
-	var ball := PrototypeBall.new()
-	get_tree().root.add_child(ball)
-	ball.set_physics_process(false)
-	ball.position = Vector2(568, 176)
-	ball.configure_environment(runtime.zones, runtime.get_hole_position(), runtime.get_tunnels())
-	ball.launch(Vector2.RIGHT, speed, 1)
-	var result := {"crossed": false, "reversed": false}
-	for _step in range(900):
-		ball._physics_process(1.0 / 60.0)
-		result["crossed"] = result["crossed"] or ball.position.x > 752.0
-		result["reversed"] = result["reversed"] or ball.velocity.x < -PrototypeBall.STOP_SPEED
-		if not ball.moving:
-			break
-	ball.free()
-	runtime.free()
-	return result
-
-
 func _instantiate_hole(hole_id: StringName) -> HoleRuntime:
 	var catalog := HoleCatalog.load_default()
 	var definition := catalog.get_hole(hole_id)
@@ -1997,7 +2028,7 @@ func _test_game_shell() -> void:
 	var reference_course := courses.get_course(&"reference_lanes_course")
 	var labyrinth_course := courses.get_course(&"labyrinth_nine_course")
 	_check(courses.courses.size() == 5 and courses.courses[0] == classic_course and courses.courses[1] == arrow_course and courses.courses[2] == reference_course and courses.courses[3] == labyrinth_course and courses.courses[4] == course, "Kursauswahl ordnet Klassische Neun, Pfeil-Armageddon, Referenzbahnen, Labyrinth-Neun und Prototypkurs")
-	_check(classic_course != null and classic_course.hole_ids.size() == 9 and classic_course.get_total_par(holes) == 18, "Neun-Loch-Kurs ist vollstaendig im Spielrahmen registriert")
+	_check(classic_course != null and classic_course.hole_ids.size() == 9 and classic_course.get_total_par(holes) == 19, "Neun-Loch-Kurs ist vollstaendig im Spielrahmen registriert")
 	_check(arrow_course != null and arrow_course.hole_ids.size() == 9 and arrow_course.get_total_par(holes) == 27, "Pfeil-Armageddon ist vollstaendig im Spielrahmen registriert")
 	_check(reference_course != null and reference_course.hole_ids == [&"reference_gate_lane", &"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_angle_lane", &"reference_mos_lane", &"reference_gate_hill_hole"], "Referenzkurs enthaelt neun Bahnen und endet mit dem Huegelloch")
 	_check(reference_course != null and reference_course.get_total_par(holes) == 18 and reference_course.allow_technical_holes, "Referenzkurs besitzt Gesamt-Par 18 und erlaubt technische Bahnen")
@@ -2121,19 +2152,32 @@ func _test_game_shell() -> void:
 	_check(store.submit(course.course_id, 16) == 14, "Schlechteres Ergebnis ueberschreibt den Bestwert nicht")
 	_check(store.submit(course.course_id, 10) == 10 and store.get_best(course.course_id) == 10, "Besseres Ergebnis aktualisiert den Bestwert")
 	_check(store.submit(arrow_course.course_id, 27) == 27 and store.get_best(course.course_id) == 10, "Alter Pfeil-Armageddon-Bestwert bleibt vom klassischen Kurs getrennt")
+	_check(store.submit(&"arrow_armageddon_course_v2", 24) == 24, "Pfeil-Armageddon-Bestwert der Revision 2 bleibt erhalten")
+	_check(store.submit(&"arrow_armageddon_course_v3", 25) == 25, "Pfeil-Armageddon-Bestwert der Revision 3 bleibt erhalten")
 	_check(
-		arrow_course.best_score_revision == 2
-			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v2"
-			and store.get_best(arrow_course.get_best_score_key()) == -1,
-		"Pfeil-Armageddon Revision 2 uebernimmt keinen alten Kursbestwert"
+		arrow_course.best_score_revision == 4
+			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v4"
+			and store.get_best(arrow_course.get_best_score_key()) == -1
+			and store.get_best(arrow_course.course_id) == 27
+			and store.get_best(&"arrow_armageddon_course_v2") == 24
+			and store.get_best(&"arrow_armageddon_course_v3") == 25,
+		"Pfeil-Armageddon Revision 4 uebernimmt keine aelteren Kursbestwerte"
 	)
 	_check(store.submit(classic_course.course_id, 18) == 18, "Alter Klassik-Bestwert bleibt unter seinem bisherigen Schluessel erhalten")
+	_check(store.submit(&"classic_nine_course_v2", 17) == 17, "Klassik-Bestwert der Revision 2 bleibt unter seinem Revisionsschluessel erhalten")
+	_check(store.submit(&"classic_nine_course_v3", 19) == 19, "Klassik-Bestwert der Revision 3 bleibt unter seinem Revisionsschluessel erhalten")
+	_check(store.submit(&"classic_nine_course_v4", 19) == 19, "Klassik-Bestwert der Revision 4 bleibt unter seinem Revisionsschluessel erhalten")
+	_check(store.submit(&"classic_nine_course_v5", 19) == 19, "Klassik-Bestwert der Revision 5 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(
-		classic_course.best_score_revision == 2
-			and classic_course.get_best_score_key() == &"classic_nine_course_v2"
+		classic_course.best_score_revision == 6
+			and classic_course.get_best_score_key() == &"classic_nine_course_v6"
 			and store.get_best(classic_course.get_best_score_key()) == -1
-			and store.get_best(classic_course.course_id) == 18,
-		"Klassische Neun Revision 2 uebernimmt keinen alten Kursbestwert"
+			and store.get_best(classic_course.course_id) == 18
+			and store.get_best(&"classic_nine_course_v2") == 17
+			and store.get_best(&"classic_nine_course_v3") == 19
+			and store.get_best(&"classic_nine_course_v4") == 19
+			and store.get_best(&"classic_nine_course_v5") == 19,
+		"Klassische Neun Revision 6 uebernimmt keine aelteren Bestwerte"
 	)
 	_check(
 		course.best_score_revision == 2
@@ -2220,12 +2264,12 @@ func _test_game_shell() -> void:
 	nine_config.best_eligible = true
 	var nine_round := RoundSession.new()
 	nine_round.configure(nine_config, holes)
-	var par_scores := [1, 1, 1, 2, 2, 2, 3, 3, 3]
+	var par_scores := [1, 2, 2, 1, 1, 2, 3, 3, 4]
 	for hole_index in range(9):
 		nine_round.record_current_score(par_scores[hole_index], false)
 		if hole_index < 8:
 			nine_round.advance_hole()
-	_check(nine_round.is_complete() and nine_round.get_player_total(0) == 18 and nine_round.get_player_difference(0) == 0, "Neun-Loch-Tabelle summiert Par 18 korrekt")
+	_check(nine_round.is_complete() and nine_round.get_player_total(0) == 19 and nine_round.get_player_difference(0) == 0, "Neun-Loch-Tabelle summiert Par 19 korrekt")
 	var arrow_config := RoundConfig.new()
 	arrow_config.mode = RoundConfig.GameMode.COURSE_SOLO
 	arrow_config.course_id = arrow_course.course_id

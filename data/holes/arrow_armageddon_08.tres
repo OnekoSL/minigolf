@@ -153,289 +153,289 @@ slope_grade = 1
 [sub_resource type="Resource" id="Arrow_22"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(35, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_23"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(36, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_24"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(37, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_25"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(38, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_26"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(39, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_27"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(40, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_28"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(41, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_29"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(42, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_30"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(43, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_31"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(44, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_32"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(45, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_33"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(46, 9)
-direction = 6
+direction = 4
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_34"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(35, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_35"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(36, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_36"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(37, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_37"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(38, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_38"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(39, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_39"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(40, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_40"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(41, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_41"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(42, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_42"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(43, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_43"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(44, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_44"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(45, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_45"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(46, 10)
-direction = 6
+direction = 5
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_46"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(35, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_47"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(36, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_48"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(37, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_49"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(38, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_50"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(39, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_51"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(40, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_52"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(41, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_53"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(42, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_54"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(43, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_55"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(44, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_56"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(45, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_57"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(46, 11)
-direction = 6
+direction = 7
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_58"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(35, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_59"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(36, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_60"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(37, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_61"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(38, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_62"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(39, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_63"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(40, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_64"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(41, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_65"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(42, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_66"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(43, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_67"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(44, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_68"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(45, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_69"]
 script = ExtResource("3_arrow")
 grid_cell = Vector2i(46, 12)
-direction = 6
+direction = 0
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_70"]
