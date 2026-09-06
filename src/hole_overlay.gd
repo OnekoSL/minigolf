@@ -60,6 +60,11 @@ func _draw() -> void:
 	for cannon in definition.cannons:
 		draw_dashed_line(cannon.position, cannon.landing_position, Color(0.92, 0.83, 0.46, 0.48), 1.0, 8.0)
 		draw_circle(cannon.landing_position, 12.0, Color(0.92, 0.83, 0.46, 0.25), false, 1.0)
+	for tunnel in definition.tunnels:
+		if tunnel == null:
+			continue
+		draw_circle(tunnel.endpoint_a, TunnelDefinition.HOLE_RADIUS, Color("#111419"))
+		draw_circle(tunnel.endpoint_b, TunnelDefinition.HOLE_RADIUS, Color("#111419"))
 	draw_circle(definition.tee_position, 10.0, Color(0.85, 0.95, 0.75, 0.25))
 	draw_circle(definition.tee_position, 2.0, Color("#f4e9bf"))
 	draw_circle(definition.hole_position, PrototypeBall.HOLE_RADIUS, Color("#111419"))

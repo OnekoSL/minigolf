@@ -22,8 +22,11 @@ const REPEATED_WALL_SETTLE_NORMAL_SPEED := 140.0
 const SAME_WALL_NORMAL_DOT := 0.94
 const MAX_HOLE_SPEED := 120.0
 const HOLE_RADIUS := 7.0
+const TUNNEL_DURATION := 0.28
+const TUNNEL_EXIT_CLEARANCE := 13.0
 
 var zones: Array[SurfaceZone] = []
+var tunnels: Array[TunnelDefinition] = []
 var hole_position := Vector2.ZERO
 var moving := false
 var shot_origin := Vector2.ZERO
@@ -48,6 +51,12 @@ var _cannon_landing := Vector2.ZERO
 var _cannon_exit_velocity := Vector2.ZERO
 var _cannon_fire_emitted := false
 var _visual_lift := 0.0
+var _tunnel_active := false
+var _tunnel_elapsed := 0.0
+var _tunnel_entry := Vector2.ZERO
+var _tunnel_exit_hole := Vector2.ZERO
+var _tunnel_exit_position := Vector2.ZERO
+var _tunnel_velocity := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -62,9 +71,14 @@ func _ready() -> void:
 	queue_redraw()
 
 
-func configure_environment(surface_zones: Array[SurfaceZone], target_hole: Vector2) -> void:
+func configure_environment(
+	surface_zones: Array[SurfaceZone],
+	target_hole: Vector2,
+	tunnel_pairs: Array[TunnelDefinition] = []
+) -> void:
 	zones = surface_zones
 	hole_position = target_hole
+	tunnels = tunnel_pairs
 	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
 
 
@@ -72,6 +86,7 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 	if moving:
 		return
 	_hazard_generation += 1
+	_cancel_tunnel_sequence()
 	shot_origin = global_position
 	current_stroke_count = stroke_count
 	velocity = direction.normalized() * speed
@@ -88,6 +103,7 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 func reset_to(target_position: Vector2) -> void:
 	_hazard_generation += 1
 	_cancel_cannon_sequence()
+	_cancel_tunnel_sequence()
 	moving = false
 	velocity = Vector2.ZERO
 	global_position = target_position
@@ -102,6 +118,9 @@ func reset_to(target_position: Vector2) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not moving:
+		return
+	if _tunnel_active:
+		_advance_tunnel_sequence(delta)
 		return
 	if _cannon_active:
 		_advance_cannon_sequence(delta)
@@ -177,6 +196,10 @@ func _physics_process(delta: float) -> void:
 		var stepped_surface := _surface_at(global_position)
 		if int(stepped_surface.get("type", -1)) == SurfaceZone.SurfaceType.WATER:
 			_enter_hazard("Wasser")
+			return
+		var tunnel_entry := _find_tunnel_entry(global_position)
+		if not tunnel_entry.is_empty():
+			_start_tunnel_sequence(tunnel_entry["entry"], tunnel_entry["exit"])
 			return
 
 	surface = _surface_at(global_position)
@@ -271,6 +294,7 @@ func _set_current_surface_type(value: int) -> void:
 
 func _capture_hole() -> void:
 	_cancel_cannon_sequence()
+	_cancel_tunnel_sequence()
 	moving = false
 	velocity = Vector2.ZERO
 	global_position = hole_position
@@ -326,6 +350,77 @@ func apply_moving_obstacle_contact(
 
 func is_cannon_sequence_active() -> bool:
 	return _cannon_active
+
+
+func is_tunnel_sequence_active() -> bool:
+	return _tunnel_active
+
+
+func _find_tunnel_entry(point: Vector2) -> Dictionary:
+	for tunnel in tunnels:
+		if tunnel == null:
+			continue
+		if point.distance_to(tunnel.endpoint_a) <= TunnelDefinition.HOLE_RADIUS:
+			return {"entry": tunnel.endpoint_a, "exit": tunnel.endpoint_b}
+		if point.distance_to(tunnel.endpoint_b) <= TunnelDefinition.HOLE_RADIUS:
+			return {"entry": tunnel.endpoint_b, "exit": tunnel.endpoint_a}
+	return {}
+
+
+func _start_tunnel_sequence(entry: Vector2, exit_hole: Vector2) -> bool:
+	if not moving or _tunnel_active or _cannon_active or velocity.length() < STOP_SPEED:
+		return false
+	_tunnel_active = true
+	_tunnel_elapsed = 0.0
+	_tunnel_entry = entry
+	_tunnel_exit_hole = exit_hole
+	_tunnel_velocity = velocity
+	_tunnel_exit_position = exit_hole + velocity.normalized() * TUNNEL_EXIT_CLEARANCE
+	global_position = entry
+	velocity = Vector2.ZERO
+	collision_mask = 0
+	_slow_time = 0.0
+	_stuck_time = 0.0
+	_reset_wall_contact_memory()
+	queue_redraw()
+	return true
+
+
+func advance_tunnel_sequence(delta: float) -> void:
+	if _tunnel_active:
+		_advance_tunnel_sequence(delta)
+
+
+func _advance_tunnel_sequence(delta: float) -> void:
+	_tunnel_elapsed += maxf(0.0, delta)
+	var progress := clampf(_tunnel_elapsed / TUNNEL_DURATION, 0.0, 1.0)
+	if progress < 0.5:
+		global_position = _tunnel_entry
+		scale = Vector2.ONE * (1.0 - progress * 2.0)
+	else:
+		var exit_progress := (progress - 0.5) * 2.0
+		global_position = _tunnel_exit_hole.lerp(_tunnel_exit_position, exit_progress)
+		scale = Vector2.ONE * exit_progress
+	if progress < 1.0:
+		return
+	global_position = _tunnel_exit_position
+	velocity = _tunnel_velocity
+	scale = Vector2.ONE
+	collision_mask = 2
+	_tunnel_active = false
+	_tunnel_elapsed = 0.0
+	_last_motion_position = global_position
+	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
+	queue_redraw()
+
+
+func _cancel_tunnel_sequence() -> void:
+	_tunnel_active = false
+	_tunnel_elapsed = 0.0
+	_tunnel_velocity = Vector2.ZERO
+	collision_mask = 2
+	scale = Vector2.ONE
+	queue_redraw()
 
 
 func start_cannon_sequence(

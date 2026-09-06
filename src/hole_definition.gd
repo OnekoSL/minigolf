@@ -21,6 +21,7 @@ enum HoleCategory { COURSE, TECHNICAL }
 @export var obstacles: Array[ObstacleDefinition] = []
 @export var triggers: Array[TriggerDefinition] = []
 @export var cannons: Array[CannonDefinition] = []
+@export var tunnels: Array[TunnelDefinition] = []
 
 
 func validate() -> PackedStringArray:
@@ -175,6 +176,25 @@ func validate() -> PackedStringArray:
 					break
 			if not linked:
 				errors.append("Bahn %s: Kanone %s ist nicht als Ziel ihres Triggers eingetragen" % [hole_id, cannon.mechanism_id])
+	var tunnel_endpoints: Array[Vector2] = []
+	for index in range(tunnels.size()):
+		var tunnel := tunnels[index]
+		if tunnel == null:
+			errors.append("Bahn %s enthaelt einen leeren Tunnel" % hole_id)
+			continue
+		errors.append_array(tunnel.validate("Bahn %s, Tunnel %d" % [hole_id, index]))
+		for endpoint in [tunnel.endpoint_a, tunnel.endpoint_b]:
+			if not course_rect.has_point(endpoint):
+				errors.append("Bahn %s, Tunnel %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+			elif lane_outline != null and lane_outline.points.size() >= 3 and not lane_outline.contains_point(endpoint):
+				errors.append("Bahn %s, Tunnel %d liegt ausserhalb der Bahnkontur" % [hole_id, index])
+			if endpoint.distance_to(hole_position) <= TunnelDefinition.HOLE_RADIUS * 2.0:
+				errors.append("Bahn %s, Tunnel %d ueberlappt das Zielloch" % [hole_id, index])
+			for previous_endpoint in tunnel_endpoints:
+				if endpoint.distance_to(previous_endpoint) <= TunnelDefinition.HOLE_RADIUS * 2.0:
+					errors.append("Bahn %s, Tunnel %d ueberlappt ein anderes Tunnelloch" % [hole_id, index])
+					break
+			tunnel_endpoints.append(endpoint)
 	return errors
 
 

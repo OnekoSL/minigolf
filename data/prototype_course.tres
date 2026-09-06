@@ -8,3 +8,4 @@ course_id = &"prototype_course_03"
 display_name = "PROTOTYPKURS"
 hole_ids = Array[StringName]([&"reference_01", &"classic_diamond_02", &"double_gate_03", &"allround_test", &"slope_lab", &"flow_test", &"scroll_test", &"curve_lab", &"cannon_workshop_04"])
 allow_technical_holes = true
+best_score_revision = 2

@@ -89,7 +89,7 @@ func _build_game() -> void:
 	ball.process_mode = Node.PROCESS_MODE_PAUSABLE
 	ball.position = hole.get_tee_position()
 	add_child(ball)
-	ball.configure_environment(hole.zones, hole.get_hole_position())
+	ball.configure_environment(hole.zones, hole.get_hole_position(), hole.get_tunnels())
 
 	shot_controller = ShotController.new()
 	shot_controller.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -337,7 +337,7 @@ func switch_test_hole() -> void:
 	hole.mechanism_feedback.connect(_on_hole_mechanism_feedback)
 	move_child(hole, 0)
 	strokes = 0
-	ball.configure_environment(hole.zones, hole.get_hole_position())
+	ball.configure_environment(hole.zones, hole.get_hole_position(), hole.get_tunnels())
 	ball.reset_to(hole.get_tee_position())
 	shot_controller.configure(ball, hole.get_course_rect(), hole.get_initial_aim_offset())
 	course_camera.configure(ball, hole.get_camera_center_bounds())

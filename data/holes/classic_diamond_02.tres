@@ -1,63 +1,128 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
 
-[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_vf6vj"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_hs6ui"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="3_p4bc1"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_h0arm"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="5_vbodg"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="6_q5573"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="7_7wahg"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="8_cpl6j"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="9_683mt"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="10_ujfwf"]
 
-[sub_resource type="Resource" id="Wall_top"]
-script = ExtResource("2_wall")
-center = Vector2(400, 12)
-size = Vector2(464, 8)
+[sub_resource type="Resource" id="Resource_12rqb"]
+script = ExtResource("3_p4bc1")
+points = PackedVector2Array(184, 24, 616, 24, 616, 328, 184, 328)
+use_normalized_walls = true
 
-[sub_resource type="Resource" id="Wall_bottom"]
-script = ExtResource("2_wall")
-center = Vector2(400, 348)
-size = Vector2(464, 8)
+[sub_resource type="Resource" id="Resource_rnd6u"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(25, 6)
+variant = 4
 
-[sub_resource type="Resource" id="Wall_left"]
-script = ExtResource("2_wall")
-center = Vector2(172, 180)
-size = Vector2(8, 344)
+[sub_resource type="Resource" id="Resource_0m7l8"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(26, 7)
+variant = 4
 
-[sub_resource type="Resource" id="Wall_right"]
-script = ExtResource("2_wall")
-center = Vector2(628, 180)
-size = Vector2(8, 344)
+[sub_resource type="Resource" id="Resource_v11ym"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(27, 8)
+variant = 4
 
-[sub_resource type="Resource" id="Diamond_top_left"]
-script = ExtResource("2_wall")
-center = Vector2(364.5, 147.5)
-size = Vector2(104, 8)
-rotation_degrees = -38.75
+[sub_resource type="Resource" id="Resource_5iw32"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(28, 9)
+variant = 4
 
-[sub_resource type="Resource" id="Diamond_top_right"]
-script = ExtResource("2_wall")
-center = Vector2(445.5, 147.5)
-size = Vector2(104, 8)
-rotation_degrees = 38.75
+[sub_resource type="Resource" id="Resource_3mug4"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(29, 10)
+variant = 4
 
-[sub_resource type="Resource" id="Diamond_bottom_right"]
-script = ExtResource("2_wall")
-center = Vector2(445.5, 212.5)
-size = Vector2(104, 8)
-rotation_degrees = -38.75
+[sub_resource type="Resource" id="Resource_22jps"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(29, 11)
+variant = 5
 
-[sub_resource type="Resource" id="Diamond_bottom_left"]
-script = ExtResource("2_wall")
-center = Vector2(364.5, 212.5)
-size = Vector2(104, 8)
-rotation_degrees = 38.75
+[sub_resource type="Resource" id="Resource_5m5v8"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(28, 12)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_q7vu6"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(27, 13)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_d3keq"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(26, 14)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_x1xy8"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(25, 15)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_d6qxf"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(24, 15)
+variant = 4
+
+[sub_resource type="Resource" id="Resource_36ijh"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(23, 14)
+variant = 4
+
+[sub_resource type="Resource" id="Resource_x0t7c"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(22, 13)
+variant = 4
+
+[sub_resource type="Resource" id="Resource_u71j8"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(21, 12)
+variant = 4
+
+[sub_resource type="Resource" id="Resource_7h7s5"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(20, 11)
+variant = 4
+
+[sub_resource type="Resource" id="Resource_vgfp8"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(20, 10)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_0o0hu"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(21, 9)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_jt472"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(22, 8)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_cndmw"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(23, 7)
+variant = 5
+
+[sub_resource type="Resource" id="Resource_oum8q"]
+script = ExtResource("9_683mt")
+grid_cell = Vector2i(24, 6)
+variant = 5
 
 [resource]
-script = ExtResource("1_hole")
+script = ExtResource("5_vbodg")
 hole_id = &"classic_diamond_02"
 display_name = "DIE DIAMANTENLINIE"
 par = 3
-course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Resource_12rqb")
 tee_position = Vector2(220, 286)
 hole_position = Vector2(575, 70)
 initial_aim_offset = Vector2(90, -30)
-camera_center_bounds = Rect2(320, 180, 0, 0)
-grid_spacing = 16
-walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Diamond_top_left"), SubResource("Diamond_top_right"), SubResource("Diamond_bottom_right"), SubResource("Diamond_bottom_left")])
-surfaces = []
-obstacles = []
+wall_tiles = Array[ExtResource("9_683mt")]([SubResource("Resource_rnd6u"), SubResource("Resource_0m7l8"), SubResource("Resource_v11ym"), SubResource("Resource_5iw32"), SubResource("Resource_3mug4"), SubResource("Resource_22jps"), SubResource("Resource_5m5v8"), SubResource("Resource_q7vu6"), SubResource("Resource_d3keq"), SubResource("Resource_x1xy8"), SubResource("Resource_d6qxf"), SubResource("Resource_36ijh"), SubResource("Resource_x0t7c"), SubResource("Resource_u71j8"), SubResource("Resource_7h7s5"), SubResource("Resource_vgfp8"), SubResource("Resource_0o0hu"), SubResource("Resource_jt472"), SubResource("Resource_cndmw"), SubResource("Resource_oum8q")])

@@ -13,6 +13,7 @@ func _run_all() -> void:
 	await _test_shot_state_machine()
 	_test_ball_math()
 	await _test_hazard_reset()
+	await _test_tunnel_pair()
 	await _test_rotating_obstacle_wakes_ball()
 	await _test_timed_gate()
 	await _test_seesaw_obstacle()
@@ -387,6 +388,47 @@ func _test_hazard_reset() -> void:
 	_check(result["hazard_seen"], "Wassersignal wird ausgeloest")
 	_check(Vector2(result["stop_position"]).distance_to(Vector2(220, 305)) < 0.1, "Ball kehrt zur Position vor dem Schlag zurueck")
 	ball.queue_free()
+	await get_tree().process_frame
+
+
+func _test_tunnel_pair() -> void:
+	print("\n[Verborgene Tunnelloecher]")
+	var tunnel := TunnelDefinition.new()
+	tunnel.endpoint_a = Vector2(48, 100)
+	tunnel.endpoint_b = Vector2(160, 100)
+	_check(tunnel.validate("Testtunnel").is_empty(), "Zwei getrennte Loecher bilden ein gueltiges Tunnelpaar")
+	_check(tunnel.get_other_endpoint(tunnel.endpoint_b) == tunnel.endpoint_a, "Beide Loecher verweisen wechselseitig aufeinander")
+	var invalid := TunnelDefinition.new()
+	invalid.endpoint_a = Vector2(48, 100)
+	invalid.endpoint_b = Vector2(56, 100)
+	_check(not invalid.validate("Zu kurzer Testtunnel").is_empty(), "Ueberlappende Tunnelloecher werden abgelehnt")
+
+	var ball := PrototypeBall.new()
+	get_tree().root.add_child(ball)
+	ball.set_physics_process(false)
+	ball.position = Vector2(40, 100)
+	ball.configure_environment([], Vector2(1000, 1000), [tunnel])
+	ball.launch(Vector2.RIGHT, 120.0, 1)
+	ball._physics_process(1.0 / 60.0)
+	_check(ball.is_tunnel_sequence_active(), "Ein rollender Ball wird vom unmarkierten Tunnelloch aufgenommen")
+	ball.advance_tunnel_sequence(PrototypeBall.TUNNEL_DURATION)
+	_check(not ball.is_tunnel_sequence_active(), "Der Ball erscheint nach kurzer Einzugsanimation am Partnerloch")
+	_check(ball.position.is_equal_approx(Vector2(173, 100)), "Der Ball verlaesst das Partnerloch ausserhalb des erneuten Aufnahmebereichs")
+	_check(ball.velocity.is_equal_approx(Vector2(120, 0)), "Der Tunnel erhaelt Richtung und Geschwindigkeit des Balls")
+	ball.queue_free()
+	await get_tree().process_frame
+
+	var reverse_ball := PrototypeBall.new()
+	get_tree().root.add_child(reverse_ball)
+	reverse_ball.set_physics_process(false)
+	reverse_ball.position = Vector2(168, 100)
+	reverse_ball.configure_environment([], Vector2(1000, 1000), [tunnel])
+	reverse_ball.launch(Vector2.LEFT, 120.0, 1)
+	reverse_ball._physics_process(1.0 / 60.0)
+	reverse_ball.advance_tunnel_sequence(PrototypeBall.TUNNEL_DURATION)
+	_check(reverse_ball.position.is_equal_approx(Vector2(35, 100)), "Dasselbe Tunnelpaar funktioniert auch in Gegenrichtung")
+	_check(reverse_ball.velocity.is_equal_approx(Vector2(-120, 0)), "Auch rueckwaerts bleibt die Austrittsrichtung erhalten")
+	reverse_ball.queue_free()
 	await get_tree().process_frame
 
 
@@ -1116,17 +1158,35 @@ func _test_reference_hole() -> void:
 	_check(definition.par == 4, "Referenzloch ist Par 4")
 	_check(definition.course_rect == Rect2(176, 16, 960, 328), "Referenzloch ist zwei Spielfenster breit")
 	_check(definition.camera_center_bounds == Rect2(320, 180, 504, 0), "Referenzloch scrollt nur horizontal bis zur kompletten Aussenwand")
+	_check(
+		definition.lane_outline != null
+			and definition.lane_outline.use_normalized_walls
+			and is_equal_approx(definition.lane_outline.wall_thickness, 4.0),
+		"Referenzloch verwendet eine geschlossene S-Kontur aus vier Pixel starken Normwaenden"
+	)
+	_check(definition.walls.is_empty(), "Referenzloch enthaelt keine freien Legacy-Waende")
 	var surface_types: Dictionary = {}
 	for surface in definition.surfaces:
 		surface_types[surface.surface_type] = true
-	_check(surface_types.has(SurfaceZone.SurfaceType.WATER), "Referenzloch enthaelt die Wassertrennung")
-	_check(surface_types.has(SurfaceZone.SurfaceType.SAND), "Referenzloch enthaelt den sicheren Sandweg")
-	_check(surface_types.has(SurfaceZone.SurfaceType.SLOPE), "Referenzloch enthaelt das Gefaelle zum Schlussabschnitt")
-	var angled_walls := 0
-	for wall in definition.walls:
-		if not is_zero_approx(wall.rotation_degrees):
-			angled_walls += 1
-	_check(angled_walls == 2, "Zwei schräge Leitbanden formen die S-Kurve")
+	_check(
+		definition.surfaces.size() == 2
+			and surface_types.has(SurfaceZone.SurfaceType.WATER)
+			and surface_types.has(SurfaceZone.SurfaceType.SAND)
+			and not surface_types.has(SurfaceZone.SurfaceType.SLOPE),
+		"Referenzloch besitzt genau Wasser und Sand, aber keine Legacy-Gefaelleflaeche"
+	)
+	var valid_arrows := definition.arrow_tiles.size() == 18
+	for arrow in definition.arrow_tiles:
+		valid_arrows = valid_arrows \
+			and arrow.cell_size == 16 \
+			and arrow.direction == SurfaceZone.SlopeDirection.UP_RIGHT \
+			and arrow.slope_grade == SurfaceZone.SlopeGrade.MEDIUM \
+			and is_equal_approx(arrow.deceleration, 30.0) \
+			and is_zero_approx(arrow.minimum_flow_speed) \
+			and is_zero_approx(arrow.maximum_flow_speed) \
+			and is_zero_approx(arrow.flow_alignment_rate) \
+			and is_zero_approx(arrow.flow_centering_strength)
+	_check(valid_arrows, "Ein reines blaues 6-x-3-Pfeilfeld ersetzt das alte Gefaelle")
 	_check(definition.obstacles.size() == 1, "Riskanter Weg enthaelt genau eine Windmuehle")
 	var windmill := definition.obstacles[0]
 	_check(is_equal_approx(windmill.seconds_per_revolution, 2.4), "Windmuehle behaelt die getestete Umlaufzeit")
@@ -1134,15 +1194,15 @@ func _test_reference_hole() -> void:
 	test_hole.queue_free()
 	await get_tree().process_frame
 	var safe_completed := await _simulate_reference_route([
-		[Vector2(440, 285), 235.0],
-		[Vector2(705, 285), 335.0],
-		[Vector2(940, 125), 330.0],
-		[Vector2(1090, 65), 100.0],
+		[Vector2(480, 250), 245.0],
+		[Vector2(710, 242), 310.0],
+		[Vector2(850, 120), 285.0],
+		[Vector2(1090, 65), 210.0],
 	])
 	_check(safe_completed, "Reproduzierbarer Sicherheitsweg beendet das Loch in vier Schlaegen")
 	var risk_completed := await _simulate_reference_route([
-		[Vector2(450, 80), 272.0],
-		[Vector2(1090, 65), 392.0],
+		[Vector2(680, 155), 365.0],
+		[Vector2(1090, 65), 255.0],
 	])
 	_check(risk_completed, "Reproduzierbarer Risikoweg beendet das Loch bei offener Muehle in zwei Schlaegen")
 
@@ -1157,11 +1217,22 @@ func _test_classic_diamond_hole() -> void:
 	_check(definition.course_rect == Rect2(176, 16, 448, 328), "Diamantenlinie passt vollstaendig auf einen Bildschirm")
 	_check(definition.camera_center_bounds.size == Vector2.ZERO, "Geometrische Bahn benoetigt kein Scrolling")
 	_check(definition.surfaces.is_empty() and definition.obstacles.is_empty(), "Diamantenlinie besteht ausschliesslich aus Geometrie")
-	var diamond_walls := 0
-	for wall in definition.walls:
-		if not is_zero_approx(wall.rotation_degrees):
-			diamond_walls += 1
-	_check(diamond_walls == 4, "Vier schräge Banden bilden den geschlossenen Diamanten")
+	_check(
+		definition.lane_outline != null
+			and definition.lane_outline.use_normalized_walls
+			and is_equal_approx(definition.lane_outline.wall_thickness, 4.0)
+			and definition.walls.is_empty(),
+		"Diamantenlinie verwendet nur vier Pixel starke Normwaende"
+	)
+	var diagonal_counts := {WallTileDefinition.Variant.DIAGONAL_DOWN: 0, WallTileDefinition.Variant.DIAGONAL_UP: 0}
+	for wall_tile in definition.wall_tiles:
+		diagonal_counts[wall_tile.variant] = int(diagonal_counts.get(wall_tile.variant, 0)) + 1
+	_check(
+		definition.wall_tiles.size() == 20
+			and diagonal_counts[WallTileDefinition.Variant.DIAGONAL_DOWN] == 10
+			and diagonal_counts[WallTileDefinition.Variant.DIAGONAL_UP] == 10,
+		"Zwanzig Diagonalbausteine bilden eine symmetrische geschlossene Mittelinsel"
+	)
 	test_hole.free()
 	var safe_completed := await _simulate_hole_route(&"classic_diamond_02", [
 		[Vector2(350, 286), 180.0],
@@ -1185,6 +1256,14 @@ func _test_double_gate_hole() -> void:
 	_check(definition.par == 4, "Doppeltor ist Par 4")
 	_check(definition.course_rect == Rect2(176, 16, 832, 328), "Doppeltor besitzt den festgelegten breiten Bahnraum")
 	_check(definition.camera_center_bounds == Rect2(320, 180, 376, 0), "Doppeltor scrollt nur horizontal bis zur Aussenwand")
+	_check(
+		definition.lane_outline != null
+			and definition.lane_outline.use_normalized_walls
+			and is_equal_approx(definition.lane_outline.wall_thickness, 4.0)
+			and definition.walls.is_empty()
+			and definition.surfaces.is_empty(),
+		"Doppeltor verwendet ausschliesslich seine geschlossene Normwandkontur"
+	)
 	_check(definition.obstacles.size() == 2, "Doppeltor enthaelt genau zwei zeitgesteuerte Tore")
 	var valid_gate_data := true
 	for obstacle in definition.obstacles:
@@ -1194,6 +1273,13 @@ func _test_double_gate_hole() -> void:
 		valid_gate_data = valid_gate_data and is_equal_approx(obstacle.transition_seconds, 0.25)
 		valid_gate_data = valid_gate_data and is_equal_approx(obstacle.open_hold_seconds, 1.0)
 	_check(valid_gate_data, "Beide Tore behalten Groesse und festgelegte Timingwerte")
+	var closed_gate_top := definition.obstacles[0].position.y - definition.obstacles[0].gate_size.y * 0.5
+	var closed_gate_bottom := definition.obstacles[0].position.y + definition.obstacles[0].gate_size.y * 0.5
+	_check(
+		closed_gate_top - 120.0 <= PrototypeBall.RADIUS * 2.0
+			and 216.0 - closed_gate_bottom <= PrototypeBall.RADIUS * 2.0,
+		"Geschlossene Tore lassen oberhalb und unterhalb keinen Ball vorbei"
+	)
 	var first_gate := test_hole.obstacle_nodes[0] as TimedSlidingGate
 	var second_gate := test_hole.obstacle_nodes[1] as TimedSlidingGate
 	first_gate.set_physics_process(false)
@@ -1212,12 +1298,19 @@ func _test_double_gate_hole() -> void:
 	test_hole.reset_obstacles()
 	_check(first_gate.position.is_equal_approx(first_closed) and second_gate.position.is_equal_approx(second_closed), "Lochneustart setzt beide Torphasen zurueck")
 	test_hole.free()
-	var route_completed := await _simulate_hole_route(&"double_gate_03", [
+	var safe_completed := await _simulate_hole_route(&"double_gate_03", [
 		[Vector2(410, 173), 225.0],
 		[Vector2(735, 173), 280.0],
-		[Vector2(960, 70), 245.0],
+		[Vector2(850, 70), 190.0],
+		[Vector2(960, 70), 160.0],
 	], &"gates_open")
-	_check(route_completed, "Reproduzierbarer Timingweg beendet das Doppeltor in hoechstens vier Schlaegen")
+	_check(safe_completed, "Reproduzierbarer Wartezonenweg beendet das Doppeltor in vier Schlaegen")
+	var risk_completed := await _simulate_hole_route(&"double_gate_03", [
+		[Vector2(410, 173), 225.0],
+		[Vector2(850, 105), 340.0],
+		[Vector2(960, 70), 170.0],
+	], &"gates_open")
+	_check(risk_completed, "Gemeinsames Torfenster ermoeglicht einen reproduzierbaren Dreischlagweg")
 
 
 func _test_cannon_workshop() -> void:
@@ -1229,6 +1322,30 @@ func _test_cannon_workshop() -> void:
 	_check(definition.par == 4, "Kanonenwerkstatt ist Par 4")
 	_check(definition.course_rect == Rect2(176, 16, 960, 328), "Kanonenwerkstatt besitzt den zweibildschirmbreiten Bahnraum")
 	_check(definition.camera_center_bounds == Rect2(320, 180, 504, 0), "Kanonenwerkstatt scrollt nur horizontal")
+	_check(
+		definition.lane_outline != null
+			and definition.lane_outline.use_normalized_walls
+			and is_equal_approx(definition.lane_outline.wall_thickness, 4.0)
+			and definition.walls.is_empty()
+			and definition.surfaces.is_empty(),
+		"Kanonenwerkstatt verwendet nur Kontur- und Innenwaende aus Normbausteinen"
+	)
+	var workshop_cells := {}
+	var t_piece_count := 0
+	for wall_tile in definition.wall_tiles:
+		workshop_cells[wall_tile.grid_cell] = wall_tile.variant
+		if wall_tile.variant in [WallTileDefinition.Variant.T_LEFT, WallTileDefinition.Variant.T_RIGHT]:
+			t_piece_count += 1
+	var machine_barrier_complete := true
+	for grid_y in range(2, 20):
+		machine_barrier_complete = machine_barrier_complete and workshop_cells.has(Vector2i(42, grid_y))
+	_check(machine_barrier_complete and t_piece_count == 3, "Maschinenwand und drei T-Stuecke trennen beide Kanonenwege lueckenlos")
+	_check(
+		workshop_cells.has(Vector2i(22, 16))
+			and not workshop_cells.has(Vector2i(22, 17))
+			and workshop_cells.has(Vector2i(22, 18)),
+		"Die einzige Oeffnung der Schalterwand liegt genau auf dem Pflichtschalter"
+	)
 	_check(definition.triggers.size() == 1 and definition.cannons.size() == 2, "Ein Schalter steuert genau zwei Kanonen")
 	_check(definition.cannons[0].capture_size == Vector2(36, 24), "Sichere Kanone besitzt die breite Einfahrt")
 	_check(definition.cannons[1].capture_size == Vector2(18, 14), "Riskante Kanone besitzt die schmale Einfahrt")
@@ -1466,6 +1583,7 @@ func _test_arrow_armageddon_course() -> void:
 	var grade_counts := {0: 0, 1: 0, 2: 0}
 	var sand_count := 0
 	var water_count := 0
+	var tunnel_count := 0
 	var directions: Dictionary = {}
 	var outline_signatures: Dictionary = {}
 	var core_specs := {
@@ -1474,7 +1592,7 @@ func _test_arrow_armageddon_course() -> void:
 		&"arrow_armageddon_03": Rect2i(19, 8, 14, 7),
 		&"arrow_armageddon_04": Rect2i(17, 15, 4, 5),
 		&"arrow_armageddon_05": Rect2i(18, 9, 9, 6),
-		&"arrow_armageddon_06": Rect2i(16, 16, 28, 4),
+		&"arrow_armageddon_06": Rect2i(28, 6, 12, 4),
 		&"arrow_armageddon_07": Rect2i(17, 16, 4, 4),
 		&"arrow_armageddon_08": Rect2i(35, 9, 12, 4),
 		&"arrow_armageddon_09": Rect2i(24, 13, 4, 4),
@@ -1489,6 +1607,7 @@ func _test_arrow_armageddon_course() -> void:
 		_check(definition.lane_outline != null and definition.lane_outline.use_normalized_walls, "%s besitzt eine eigene geschlossene Normwandkontur" % hole_id)
 		_check(definition.walls.is_empty(), "%s verwendet keine freien Legacy-Banden" % hole_id)
 		outline_signatures[str(definition.lane_outline.points)] = true
+		tunnel_count += definition.tunnels.size()
 		if definition.course_rect == Rect2(176, 16, 448, 328) and definition.camera_center_bounds.size == Vector2.ZERO:
 			compact_count += 1
 		elif definition.course_rect == Rect2(176, 16, 832, 328) and definition.camera_center_bounds == Rect2(320, 180, 376, 0):
@@ -1535,10 +1654,24 @@ func _test_arrow_armageddon_course() -> void:
 			_check(definition.arrow_tiles.any(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.STEEP), "%s verwendet steile rote Pfeile als Hauptgefahr" % hole_id)
 	_check(par_counts == {2: 3, 3: 3, 4: 3}, "Par-Verteilung besteht aus dreimal zwei, drei und vier")
 	_check(compact_count == 5 and wide_count == 3 and long_count == 1, "Fuenf Bahnen sind kompakt und vier scrollen horizontal")
-	_check(arrow_count == 867 and grade_counts == {0: 174, 1: 600, 2: 93}, "Der Kurs verteilt 867 atomare Pfeilzellen ueber drei ansteigende Wirkungsstufen")
+	_check(arrow_count == 761 and grade_counts == {0: 174, 1: 494, 2: 93}, "Der Kurs verteilt 761 atomare Pfeilzellen ueber drei ansteigende Wirkungsstufen")
 	_check(sand_count == 1 and water_count == 2, "Nur eine Sand- und zwei Wasserflaechen ergaenzen die Pfeile")
+	_check(tunnel_count == 1, "Nur die Pfeilspirale besitzt ein verborgenes Tunnelpaar")
 	_check(directions.size() == 8, "Der Kurs verwendet alle acht Pfeilrichtungen")
 	_check(outline_signatures.size() == 9, "Alle neun Bahnen besitzen eine eigenstaendige geschlossene Silhouette")
+	var spiral := holes.get_hole(&"arrow_armageddon_06")
+	_check(
+		spiral.wall_tiles.size() == 146
+			and spiral.wall_tiles.any(func(tile): return tile.variant <= WallTileDefinition.Variant.CORNER_LEFT_UP)
+			and spiral.wall_tiles.any(func(tile): return tile.variant >= WallTileDefinition.Variant.T_UP),
+		"Die Pfeilspirale schliesst ihre Korridore mit normierten L- und T-Stuecken"
+	)
+	_check(
+		spiral.tunnels.size() == 1
+			and spiral.tunnels[0].endpoint_a == Vector2(808, 120)
+			and spiral.tunnels[0].endpoint_b == Vector2(872, 100),
+		"Das innere Sackgassenloch fuehrt verborgen in die geschlossene Zielkammer"
+	)
 
 	var weak_countercurrent := await _simulate_countercurrent_launch(100.0)
 	_check(
@@ -1554,7 +1687,7 @@ func _test_arrow_armageddon_course() -> void:
 		&"arrow_armageddon_03": [[Vector2(475, 165), 290.0], [Vector2(580, 180), 130.0]],
 		&"arrow_armageddon_04": [[Vector2(350, 235), 245.0], [Vector2(580, 180), 110.0], [Vector2(580, 180), 120.0]],
 		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(400, 80), 160.0], [Vector2(575, 82), 195.0]],
-		&"arrow_armageddon_06": [[Vector2(430, 235), 300.0], [Vector2(990, 175), 120.0], [Vector2(960, 100), 180.0]],
+		&"arrow_armageddon_06": [[-2.0, 360.0], [-180.0, 280.0], [-146.0, 420.0]],
 		&"arrow_armageddon_07": [[Vector2(430, 235), 300.0], [Vector2(960, 70), 155.0], [Vector2(960, 70), 80.0], [Vector2(960, 70), 80.0]],
 		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 430.0], [Vector2(900, 260), 280.0], [Vector2(960, 286), 120.0]],
 		&"arrow_armageddon_09": [[Vector2(430, 235), 300.0], [Vector2(425, 165), 140.0], [Vector2(550, 40), 220.0], [Vector2(1090, 70), 370.0]],
@@ -1683,7 +1816,7 @@ func _simulate_hole_snapshot(hole_id: StringName, target: Vector2, speed: float,
 	get_tree().root.add_child(ball)
 	ball.set_physics_process(false)
 	ball.position = runtime.get_tee_position()
-	ball.configure_environment(runtime.zones, runtime.get_hole_position())
+	ball.configure_environment(runtime.zones, runtime.get_hole_position(), runtime.get_tunnels())
 	ball.launch(ball.position.direction_to(target), speed, 1)
 	for _step in range(steps):
 		if not ball.moving:
@@ -1706,7 +1839,7 @@ func _simulate_cannon_route(use_risk_cannon: bool) -> bool:
 	get_tree().root.add_child(ball)
 	ball.set_physics_process(false)
 	ball.position = runtime.get_tee_position()
-	ball.configure_environment(runtime.zones, runtime.get_hole_position())
+	ball.configure_environment(runtime.zones, runtime.get_hole_position(), runtime.get_tunnels())
 	var result := {"holed": false}
 	ball.holed.connect(func(_strokes): result["holed"] = true)
 	var shots := [
@@ -1781,7 +1914,7 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 	get_tree().root.add_child(ball)
 	ball.set_physics_process(false)
 	ball.position = runtime.get_tee_position()
-	ball.configure_environment(runtime.zones, runtime.get_hole_position())
+	ball.configure_environment(runtime.zones, runtime.get_hole_position(), runtime.get_tunnels())
 	var result := {"holed": false}
 	ball.holed.connect(func(_strokes): result["holed"] = true)
 	for index in range(shots.size()):
@@ -1825,7 +1958,7 @@ func _simulate_countercurrent_launch(speed: float) -> Dictionary:
 	get_tree().root.add_child(ball)
 	ball.set_physics_process(false)
 	ball.position = Vector2(568, 176)
-	ball.configure_environment(runtime.zones, runtime.get_hole_position())
+	ball.configure_environment(runtime.zones, runtime.get_hole_position(), runtime.get_tunnels())
 	ball.launch(Vector2.RIGHT, speed, 1)
 	var result := {"crossed": false, "reversed": false}
 	for _step in range(900):
@@ -2003,7 +2136,15 @@ func _test_game_shell() -> void:
 		"Klassische Neun Revision 2 uebernimmt keinen alten Kursbestwert"
 	)
 	_check(
-		course.best_score_revision == 1 and course.get_best_score_key() == course.course_id and store.get_best(course.get_best_score_key()) == 10,
+		course.best_score_revision == 2
+			and course.get_best_score_key() == &"prototype_course_03_v2"
+			and store.get_best(course.get_best_score_key()) == -1
+			and store.get_best(course.course_id) == 10,
+		"Prototypkurs Revision 2 uebernimmt keinen alten Kursbestwert"
+	)
+	_check(
+		reference_course.best_score_revision == 1
+			and reference_course.get_best_score_key() == reference_course.course_id,
 		"Nicht revidierte Kurse behalten ihren bisherigen Bestwertschluessel"
 	)
 	DirAccess.remove_absolute(absolute_test_path)

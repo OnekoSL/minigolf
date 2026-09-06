@@ -47,6 +47,10 @@ func get_camera_center_bounds() -> Rect2:
 	return definition.camera_center_bounds
 
 
+func get_tunnels() -> Array[TunnelDefinition]:
+	return definition.tunnels
+
+
 func reset_obstacles() -> void:
 	reset_mechanisms()
 

@@ -1,81 +1,154 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
 
-[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
-[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
-[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_obstacle"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_fl00j"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_lhsf8"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="3_m4xrw"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_tgceu"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="5_058vy"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="6_32b7t"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="7_0eb50"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="8_2h67o"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="9_2win6"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="10_7pu11"]
 
-[sub_resource type="Resource" id="Wall_top"]
-script = ExtResource("2_wall")
-center = Vector2(656, 12)
-size = Vector2(976, 8)
+[sub_resource type="Resource" id="Resource_rn4ix"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(45, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Wall_bottom"]
-script = ExtResource("2_wall")
-center = Vector2(656, 348)
-size = Vector2(976, 8)
+[sub_resource type="Resource" id="Resource_ebyjm"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(46, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Wall_left"]
-script = ExtResource("2_wall")
-center = Vector2(172, 180)
-size = Vector2(8, 344)
+[sub_resource type="Resource" id="Resource_vkwah"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(47, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Wall_right"]
-script = ExtResource("2_wall")
-center = Vector2(1140, 180)
-size = Vector2(8, 344)
+[sub_resource type="Resource" id="Resource_era0i"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(48, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Wall_lower_guide"]
-script = ExtResource("2_wall")
-center = Vector2(830, 260)
-size = Vector2(200, 8)
-rotation_degrees = -30.0
+[sub_resource type="Resource" id="Resource_87ss1"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(49, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Wall_upper_guide"]
-script = ExtResource("2_wall")
-center = Vector2(830, 165)
-size = Vector2(180, 8)
-rotation_degrees = -30.0
+[sub_resource type="Resource" id="Resource_34xjl"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(50, 8)
+direction = 1
+slope_grade = 1
 
-[sub_resource type="Resource" id="Surface_water"]
-script = ExtResource("3_surface")
-rect = Rect2(470, 105, 250, 115)
+[sub_resource type="Resource" id="Resource_6x0c8"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(45, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_8643k"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(46, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_an6t5"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(47, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_uw7ex"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(48, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wix78"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(49, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_nnq4a"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(50, 9)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_3nlo5"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(45, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_k3mag"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(46, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_tc7qy"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(47, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_fbfde"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(48, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_407l6"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(49, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_dk5s4"]
+script = ExtResource("1_fl00j")
+grid_cell = Vector2i(50, 10)
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wr0re"]
+script = ExtResource("3_m4xrw")
+points = PackedVector2Array(184, 200, 440, 200, 504, 136, 696, 136, 808, 24, 1128, 24, 1128, 152, 856, 152, 744, 264, 552, 264, 488, 328, 184, 328)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_ho3r5"]
+script = ExtResource("4_tgceu")
+position = Vector2(800, 104)
+blade_size = Vector2(76, 8)
+
+[sub_resource type="Resource" id="Resource_ar0y1"]
+script = ExtResource("6_32b7t")
+rect = Rect2(536, 200, 144, 24)
 surface_type = 2
 deceleration = 120.0
 
-[sub_resource type="Resource" id="Surface_sand"]
-script = ExtResource("3_surface")
-rect = Rect2(500, 255, 175, 60)
-surface_type = 0
-deceleration = 260.0
-
-[sub_resource type="Resource" id="Surface_slope"]
-script = ExtResource("3_surface")
-rect = Rect2(720, 215, 185, 95)
-surface_type = 1
-deceleration = 120.0
-slope_direction = 1
-slope_strength = 90.0
-
-[sub_resource type="Resource" id="Obstacle_windmill"]
-script = ExtResource("4_obstacle")
-position = Vector2(760, 62)
-blade_size = Vector2(76, 8)
-seconds_per_revolution = 2.4
-impulse_multiplier = 1.25
-minimum_kick_speed = 55.0
+[sub_resource type="Resource" id="Resource_kebv5"]
+script = ExtResource("6_32b7t")
+rect = Rect2(536, 224, 128, 32)
 
 [resource]
-script = ExtResource("1_hole")
+script = ExtResource("5_058vy")
 hole_id = &"reference_01"
 display_name = "S-KURVE AN DER MUEHLE"
-par = 4
 course_rect = Rect2(176, 16, 960, 328)
+lane_outline = SubResource("Resource_wr0re")
 tee_position = Vector2(220, 285)
 hole_position = Vector2(1090, 65)
 initial_aim_offset = Vector2(80, -35)
 camera_center_bounds = Rect2(320, 180, 504, 0)
-grid_spacing = 16
-walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_lower_guide"), SubResource("Wall_upper_guide")])
-surfaces = Array[ExtResource("3_surface")]([SubResource("Surface_water"), SubResource("Surface_sand"), SubResource("Surface_slope")])
-obstacles = Array[ExtResource("4_obstacle")]([SubResource("Obstacle_windmill")])
+surfaces = Array[ExtResource("6_32b7t")]([SubResource("Resource_ar0y1"), SubResource("Resource_kebv5")])
+arrow_tiles = Array[ExtResource("1_fl00j")]([SubResource("Resource_rn4ix"), SubResource("Resource_ebyjm"), SubResource("Resource_vkwah"), SubResource("Resource_era0i"), SubResource("Resource_87ss1"), SubResource("Resource_34xjl"), SubResource("Resource_6x0c8"), SubResource("Resource_8643k"), SubResource("Resource_an6t5"), SubResource("Resource_uw7ex"), SubResource("Resource_wix78"), SubResource("Resource_nnq4a"), SubResource("Resource_3nlo5"), SubResource("Resource_k3mag"), SubResource("Resource_tc7qy"), SubResource("Resource_fbfde"), SubResource("Resource_407l6"), SubResource("Resource_dk5s4")])
+obstacles = Array[ExtResource("4_tgceu")]([SubResource("Resource_ho3r5")])
