@@ -5,6 +5,7 @@ extends Resource
 @export var display_name := "UNBENANNTER KURS"
 @export var hole_ids: Array[StringName] = []
 @export var allow_technical_holes := false
+@export_range(1, 99, 1) var best_score_revision := 1
 
 
 func validate(hole_catalog: HoleCatalog) -> PackedStringArray:
@@ -13,6 +14,8 @@ func validate(hole_catalog: HoleCatalog) -> PackedStringArray:
 		errors.append("Kurs besitzt keine eindeutige ID")
 	if display_name.strip_edges().is_empty():
 		errors.append("Kurs %s besitzt keinen Anzeigenamen" % course_id)
+	if best_score_revision < 1:
+		errors.append("Kurs %s besitzt keine gueltige Bestwertrevision" % course_id)
 	if hole_ids.is_empty():
 		errors.append("Kurs %s besitzt keine Loecher" % course_id)
 	for hole_id in hole_ids:
@@ -22,6 +25,12 @@ func validate(hole_catalog: HoleCatalog) -> PackedStringArray:
 		elif not hole.is_course_hole() and not allow_technical_holes:
 			errors.append("Kurs %s enthaelt technische Bahn %s" % [course_id, hole_id])
 	return errors
+
+
+func get_best_score_key() -> StringName:
+	if best_score_revision <= 1:
+		return course_id
+	return StringName("%s_v%d" % [course_id, best_score_revision])
 
 
 func get_total_par(hole_catalog: HoleCatalog) -> int:

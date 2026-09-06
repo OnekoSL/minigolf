@@ -8,6 +8,7 @@ func _ready() -> void:
 func _capture_all() -> void:
 	var catalog := HoleCatalog.load_default()
 	var ids := [
+		&"classic_nine_07",
 		&"reference_gate_lane",
 		&"reference_gate_bumpers",
 		&"reference_gate_rotor",
@@ -27,15 +28,18 @@ func _capture_all() -> void:
 		&"labyrinth_nine_08",
 		&"labyrinth_nine_09",
 	]
+	for definition in catalog.holes:
+		if definition.is_course_hole() and not ids.has(definition.hole_id):
+			ids.append(definition.hole_id)
 	for hole_id in ids:
 		var definition := catalog.get_hole(hole_id)
 		var main := PrototypeMain.new()
 		main.configure_attempt(definition, PlayerProfile.create(1, "SPIELER 1", 0), true, 1, 1, 0, false)
 		add_child(main)
 		await get_tree().process_frame
-		if String(hole_id).begins_with("labyrinth_nine_"):
+		if definition.course_rect.size.x > 640.0:
 			main.course_camera.set_physics_process(false)
-			main.course_camera.position = Vector2(656, 180)
+			main.course_camera.position = definition.course_rect.get_center()
 			main.course_camera.zoom = Vector2(0.62, 0.62)
 		await RenderingServer.frame_post_draw
 		var path := "res://.godot/%s.png" % hole_id

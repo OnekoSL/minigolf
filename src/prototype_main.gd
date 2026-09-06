@@ -230,7 +230,7 @@ func _on_shot_state_changed(state: int) -> void:
 
 
 func _on_ball_stopped(at_position: Vector2) -> void:
-	if managed_attempt and strokes >= RoundSession.MAX_STROKES:
+	if managed_attempt and strokes >= get_stroke_limit():
 		_finish_managed_attempt(true)
 		return
 	shot_controller.notify_ball_stopped(at_position)
@@ -269,7 +269,7 @@ func _on_wall_hit(intensity: float, position: Vector2, normal: Vector2, kind: St
 
 
 func _on_hazard_entered(_hazard_type: String) -> void:
-	strokes = mini(strokes + 1, RoundSession.MAX_STROKES) if managed_attempt else strokes + 1
+	strokes = mini(strokes + 1, get_stroke_limit()) if managed_attempt else strokes + 1
 	ball.current_stroke_count = strokes
 	hud.play_golfer_reaction("frustration")
 	if audio_feedback != null:
@@ -299,10 +299,14 @@ func _finish_managed_attempt(reached_limit: bool) -> void:
 	shot_controller.notify_hole_complete()
 	if reached_limit:
 		hud.play_golfer_reaction("frustration")
-		hud.show_limit_result(RoundSession.MAX_STROKES)
+		hud.show_limit_result(get_stroke_limit())
 	await get_tree().create_timer(0.55).timeout
 	if is_inside_tree():
-		attempt_finished.emit(mini(strokes, RoundSession.MAX_STROKES), reached_limit)
+		attempt_finished.emit(mini(strokes, get_stroke_limit()), reached_limit)
+
+
+func get_stroke_limit() -> int:
+	return RoundSession.stroke_limit_for_par(hole.get_par()) if hole != null else RoundSession.MIN_STROKE_LIMIT
 
 
 func restart_hole() -> void:
@@ -386,7 +390,8 @@ func _update_hud() -> void:
 		shot_controller.power_value,
 		shot_controller.accuracy_value,
 		shot_controller.state,
-		int(round(ball.global_position.distance_to(shot_controller.cursor_position) / PIXELS_PER_METER * 10.0))
+		int(round(ball.global_position.distance_to(shot_controller.cursor_position) / PIXELS_PER_METER * 10.0)),
+		get_stroke_limit() if managed_attempt else 0
 	)
 	if attempt_profile != null:
 		hud.set_player_context(

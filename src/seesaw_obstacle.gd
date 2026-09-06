@@ -16,6 +16,9 @@ var left_end_blocker: StaticBody2D
 var right_end_blocker: StaticBody2D
 var left_end_collision: CollisionShape2D
 var right_end_collision: CollisionShape2D
+var side_wall_nodes: Array[StaticBody2D] = []
+var top_side_collisions: Array[CollisionShape2D] = []
+var bottom_side_collisions: Array[CollisionShape2D] = []
 
 
 func _ready() -> void:
@@ -33,6 +36,8 @@ func _ready() -> void:
 	add_child(collision)
 	left_end_blocker = _create_end_blocker(-plank_size.x * 0.5)
 	right_end_blocker = _create_end_blocker(plank_size.x * 0.5)
+	_create_side_wall(true)
+	_create_side_wall(false)
 	reset_motion()
 	queue_redraw()
 
@@ -100,6 +105,7 @@ func _create_end_blocker(local_x: float) -> StaticBody2D:
 
 func _update_end_blockers() -> void:
 	sync_end_blockers(false)
+	_sync_side_walls()
 
 
 func sync_end_blockers(immediate: bool) -> void:
@@ -113,6 +119,73 @@ func sync_end_blockers(immediate: bool) -> void:
 			right_end_collision.disabled = not is_right_end_blocking()
 		else:
 			right_end_collision.set_deferred("disabled", not is_right_end_blocking())
+
+
+func _create_side_wall(is_top: bool) -> void:
+	var body := StaticBody2D.new()
+	body.collision_layer = 2
+	body.collision_mask = 0
+	body.set_meta("feedback_kind", &"seesaw_side")
+	for _segment_index in range(2):
+		var collision := CollisionShape2D.new()
+		collision.shape = RectangleShape2D.new()
+		body.add_child(collision)
+		if is_top:
+			top_side_collisions.append(collision)
+		else:
+			bottom_side_collisions.append(collision)
+	side_wall_nodes.append(body)
+	add_child(body)
+
+
+func _sync_side_walls() -> void:
+	if top_side_collisions.size() != 2 or bottom_side_collisions.size() != 2:
+		return
+	var side_points := _get_side_points()
+	_sync_side_segments(top_side_collisions, side_points["top"])
+	_sync_side_segments(bottom_side_collisions, side_points["bottom"])
+	_sync_end_blocker_width(left_end_collision, side_points["top"][0], side_points["bottom"][0])
+	_sync_end_blocker_width(right_end_collision, side_points["top"][2], side_points["bottom"][2])
+
+
+func _sync_side_segments(collisions: Array[CollisionShape2D], points: PackedVector2Array) -> void:
+	for index in range(2):
+		var start := points[index]
+		var end := points[index + 1]
+		var edge := end - start
+		var collision := collisions[index]
+		collision.position = (start + end) * 0.5
+		collision.rotation = edge.angle()
+		var shape := collision.shape as RectangleShape2D
+		shape.size = Vector2(edge.length() + end_lip_thickness, end_lip_thickness)
+
+
+func _sync_end_blocker_width(collision: CollisionShape2D, top: Vector2, bottom: Vector2) -> void:
+	if collision == null:
+		return
+	var shape := collision.shape as RectangleShape2D
+	shape.size.y = top.distance_to(bottom)
+
+
+func _get_side_points() -> Dictionary:
+	var half := plank_size * 0.5
+	var perspective := minf(7.0, half.y * 0.25)
+	# Die angehobene Seite erscheint breiter (naeher), die abgesenkte schmaler.
+	# So stimmt der perspektivische Groessenhinweis mit Farbe und Sperrkante ueberein.
+	var left_outer_half_width := half.y + tilt * perspective
+	var right_outer_half_width := half.y - tilt * perspective
+	return {
+		"top": PackedVector2Array([
+			Vector2(-half.x, -left_outer_half_width),
+			Vector2(0.0, -half.y),
+			Vector2(half.x, -right_outer_half_width),
+		]),
+		"bottom": PackedVector2Array([
+			Vector2(-half.x, left_outer_half_width),
+			Vector2(0.0, half.y),
+			Vector2(half.x, right_outer_half_width),
+		]),
+	}
 
 
 func get_surface_data() -> Dictionary:
@@ -141,8 +214,8 @@ func _draw() -> void:
 	var left_height := tilt
 	var right_height := -tilt
 	var perspective := minf(7.0, half.y * 0.25)
-	var left_outer_half_width := half.y - left_height * perspective
-	var right_outer_half_width := half.y - right_height * perspective
+	var left_outer_half_width := half.y + left_height * perspective
+	var right_outer_half_width := half.y + right_height * perspective
 	var left_panel := PackedVector2Array([
 		Vector2(-half.x, -left_outer_half_width),
 		Vector2(0.0, -half.y),
@@ -160,6 +233,9 @@ func _draw() -> void:
 	draw_colored_polygon(right_panel, base_color.lerp(high_color if right_height > 0.0 else low_color, absf(right_height) * 0.72))
 	draw_polyline(PackedVector2Array([left_panel[0], left_panel[1], left_panel[2], left_panel[3], left_panel[0]]), outline, 2.0)
 	draw_polyline(PackedVector2Array([right_panel[0], right_panel[1], right_panel[2], right_panel[3], right_panel[0]]), outline, 2.0)
+	var side_points := _get_side_points()
+	_draw_side_rail(side_points["top"])
+	_draw_side_rail(side_points["bottom"])
 	draw_line(Vector2(0.0, -half.y + 2.0), Vector2(0.0, half.y - 2.0), Color("#63483a"), 2.0)
 	for y in [-half.y + 10.0, half.y - 10.0]:
 		draw_circle(Vector2(0.0, y), 5.0, Color("#684940"))
@@ -179,6 +255,11 @@ func _draw_raised_lip(x: float, half_width: float) -> void:
 	var end := Vector2(x, half_width)
 	draw_line(start, end, Color("#3f2b24"), end_lip_thickness + 2.0)
 	draw_line(start, end, Color("#f1d28a"), end_lip_thickness)
+
+
+func _draw_side_rail(points: PackedVector2Array) -> void:
+	draw_polyline(points, Color("#3f2b24"), end_lip_thickness + 2.0)
+	draw_polyline(points, Color("#d9c895"), end_lip_thickness)
 
 
 func _draw_downhill_arrow(center: Vector2, direction: Vector2) -> void:

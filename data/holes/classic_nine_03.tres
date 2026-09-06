@@ -1,56 +1,96 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
-[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
 
-[sub_resource type="Resource" id="Wall_top"]
-script = ExtResource("2_wall")
-center = Vector2(400, 12)
-size = Vector2(464, 8)
-
-[sub_resource type="Resource" id="Wall_bottom"]
-script = ExtResource("2_wall")
-center = Vector2(400, 348)
-size = Vector2(464, 8)
-
-[sub_resource type="Resource" id="Wall_left"]
-script = ExtResource("2_wall")
-center = Vector2(172, 180)
-size = Vector2(8, 344)
-
-[sub_resource type="Resource" id="Wall_right"]
-script = ExtResource("2_wall")
-center = Vector2(628, 180)
-size = Vector2(8, 344)
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(184, 232, 280, 232, 360, 152, 440, 152, 520, 72, 520, 40, 616, 40, 616, 136, 536, 136, 456, 216, 376, 216, 296, 296, 184, 296)
+wall_thickness = 4.0
+use_normalized_walls = true
 
 [sub_resource type="Resource" id="Arc_lower"]
-script = ExtResource("2_wall")
+script = ExtResource("3_wall")
 wall_type = 2
-center = Vector2(420, 272)
-radius = 80.0
-thickness = 8.0
-arc_start_degrees = 200.0
-arc_sweep_degrees = 140.0
+center = Vector2(376, 264)
+radius = 48.0
+thickness = 4.0
+arc_start_degrees = 180.0
+arc_sweep_degrees = 90.0
 arc_segments = 24
 
 [sub_resource type="Resource" id="Arc_upper"]
-script = ExtResource("2_wall")
+script = ExtResource("3_wall")
 wall_type = 2
-center = Vector2(390, 92)
-radius = 72.0
-thickness = 8.0
-arc_start_degrees = 20.0
-arc_sweep_degrees = 140.0
+center = Vector2(440, 104)
+radius = 48.0
+thickness = 4.0
+arc_start_degrees = 0.0
+arc_sweep_degrees = 90.0
 arc_segments = 24
 
-[sub_resource type="Resource" id="Slope_assist"]
-script = ExtResource("3_surface")
-rect = Rect2(370, 158, 56, 40)
-surface_type = 1
-deceleration = 120.0
-slope_direction = 1
-slope_strength = 24.0
+[sub_resource type="Resource" id="Arrow_1"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 10)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_2"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(26, 10)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_3"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(27, 10)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_4"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(28, 10)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_5"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 11)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_6"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(26, 11)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_7"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(27, 11)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_8"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(28, 11)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_9"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 12)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_10"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(26, 12)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_11"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(27, 12)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_12"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(28, 12)
+direction = 1
 
 [resource]
 script = ExtResource("1_hole")
@@ -58,11 +98,16 @@ hole_id = &"classic_nine_03"
 display_name = "BOGENSCHUSS"
 par = 1
 course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Lane_outline")
 tee_position = Vector2(220, 286)
 hole_position = Vector2(575, 74)
 initial_aim_offset = Vector2(90, -42)
 camera_center_bounds = Rect2(320, 180, 0, 0)
 grid_spacing = 16
-walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Arc_lower"), SubResource("Arc_upper")])
-surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_assist")])
+walls = Array[ExtResource("3_wall")]([SubResource("Arc_lower"), SubResource("Arc_upper")])
+wall_tiles = Array[ExtResource("4_wall_tile")]([])
+surfaces = []
+arrow_tiles = Array[ExtResource("5_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12")])
 obstacles = []
+triggers = []
+cannons = []

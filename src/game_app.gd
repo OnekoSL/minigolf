@@ -341,7 +341,7 @@ func _show_course_select() -> void:
 	for index in range(first_index, last_index):
 		var course: CourseDefinition = course_catalog.courses[index]
 		var total_par := course.get_total_par(hole_catalog)
-		var best := best_store.get_best(course.course_id)
+		var best := best_store.get_best(course.get_best_score_key())
 		var best_text := "NOCH KEIN BESTWERT" if best < 0 else "BESTWERT %d (%s)" % [best, _format_difference(best - total_par)]
 		_add_option_button(
 			"%s\n%d LOECHER  •  PAR %d  •  %s" % [course.display_name, course.hole_ids.size(), total_par, best_text],
@@ -591,7 +591,7 @@ func _build_score_table(final: bool) -> void:
 			_add_table_label(value, Rect2(start_x + name_width + hole_index * hole_width, y, hole_width, 28), Color("#fff1b0"))
 		_add_table_label(str(session.get_player_total(player_index)), Rect2(start_x + name_width + hole_count * hole_width, y, 48, 28), Color.WHITE)
 		_add_table_label(_format_difference(session.get_player_difference(player_index)), Rect2(start_x + name_width + hole_count * hole_width + 48, y, 48, 28), Color("#f0c45b"))
-	var legend := _label("* MAXIMUM 8", Vector2(start_x, 270), Vector2(180, 18), 9, Color("#8fa5b5"))
+	var legend := _label("* MAX: MIN. 8 ODER PAR + 3", Vector2(start_x, 270), Vector2(220, 18), 9, Color("#8fa5b5"))
 	screen_root.add_child(legend)
 
 
@@ -612,7 +612,7 @@ func _scorecard_subtitle(final: bool, from_pause := false) -> String:
 			session.get_current_player().player_name,
 		]
 	if final and session.config.best_eligible:
-		var best := best_store.get_best(session.config.course_id)
+		var best := best_store.get_best(_active_best_score_key())
 		var course_par := 0
 		for hole_id in session.config.hole_ids:
 			course_par += hole_catalog.get_hole(hole_id).par
@@ -631,7 +631,12 @@ func _update_best_score() -> void:
 	if not session.config.best_eligible or not session.is_complete():
 		return
 	for player_index in range(session.config.players.size()):
-		best_store.submit(session.config.course_id, session.get_player_total(player_index))
+		best_store.submit(_active_best_score_key(), session.get_player_total(player_index))
+
+
+func _active_best_score_key() -> StringName:
+	var course := course_catalog.get_course(session.config.course_id) if course_catalog != null else null
+	return course.get_best_score_key() if course != null else session.config.course_id
 
 
 func _rematch() -> void:

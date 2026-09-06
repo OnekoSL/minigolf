@@ -79,12 +79,16 @@ func _build_from_definition() -> void:
 	obstacle_nodes.clear()
 	trigger_nodes.clear()
 	cannon_nodes.clear()
-	if definition.lane_outline != null:
+	var uses_wall_network := definition.lane_outline != null and definition.lane_outline.use_normalized_walls
+	if uses_wall_network:
+		_add_normalized_wall_network()
+	elif definition.lane_outline != null:
 		_add_lane_boundaries(definition.lane_outline)
 	for wall in definition.walls:
 		_add_wall(wall)
-	for wall_tile in definition.wall_tiles:
-		_add_wall_tile(wall_tile)
+	if not uses_wall_network:
+		for wall_tile in definition.wall_tiles:
+			_add_wall_tile(wall_tile)
 	for surface in definition.surfaces:
 		var zone := surface.instantiate_zone()
 		zones.append(zone)
@@ -187,12 +191,6 @@ func _create_wall_piece_body(segments: Array, variant: int, wall_type: StringNam
 
 
 func _add_lane_boundaries(outline: LaneOutlineDefinition) -> void:
-	if outline.use_normalized_walls:
-		for piece in outline.get_normalized_wall_pieces():
-			var tile_body := _create_wall_piece_body(piece["segments"], piece["variant"], &"normalized_lane_boundary")
-			lane_boundary_nodes.append(tile_body)
-			add_child(tile_body)
-		return
 	for index in range(outline.points.size()):
 		var start := outline.points[index]
 		var end := outline.points[(index + 1) % outline.points.size()]
@@ -209,6 +207,19 @@ func _add_lane_boundaries(outline: LaneOutlineDefinition) -> void:
 		collision.shape = shape
 		body.add_child(collision)
 		lane_boundary_nodes.append(body)
+		add_child(body)
+
+
+func _add_normalized_wall_network() -> void:
+	for piece in definition.get_normalized_wall_network():
+		var wall_type := &"normalized_lane_boundary" if piece["is_boundary"] else &"wall_tile"
+		var body := _create_wall_piece_body(piece["segments"], piece["variant"], wall_type)
+		body.set_meta("wall_is_boundary", piece["is_boundary"])
+		body.set_meta("wall_is_internal", piece["is_internal"])
+		if piece["is_boundary"]:
+			lane_boundary_nodes.append(body)
+		if piece["is_internal"]:
+			wall_tile_nodes.append(body)
 		add_child(body)
 
 

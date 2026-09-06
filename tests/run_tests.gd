@@ -314,24 +314,24 @@ func _test_slope_wall_settling() -> void:
 func _test_wall_tiles() -> void:
 	print("\n[Atomare Wandbausteine]")
 	var signatures: Dictionary = {}
-	for variant in range(8):
+	for variant in range(12):
 		var tile := WallTileDefinition.new()
 		tile.grid_cell = Vector2i(20, 10)
 		tile.variant = variant
 		_check(tile.validate("Test-Wandbaustein", 16).is_empty(), "Wandvariante %d ist im 16-Pixel-Raster gueltig" % variant)
 		_check(tile.get_cell_rect().size == Vector2(16, 16), "Wandvariante %d belegt genau ein Kaestchen" % variant)
 		var segments := tile.get_segments()
-		var expected_count := 2 if variant <= WallTileDefinition.Variant.CORNER_LEFT_UP else 1
+		var expected_count := 2 if variant <= WallTileDefinition.Variant.CORNER_LEFT_UP else (3 if variant >= WallTileDefinition.Variant.T_UP else 1)
 		_check(segments.size() == expected_count, "Wandvariante %d besitzt die normierte Segmentzahl" % variant)
 		var signature_parts := PackedStringArray()
 		for segment in segments:
 			_check(segment.size() == 2 and tile.get_cell_rect().grow(0.1).has_point(segment[0]) and tile.get_cell_rect().grow(0.1).has_point(segment[1]), "Wandvariante %d bleibt in ihrem Kaestchen" % variant)
 			signature_parts.append("%s>%s" % [segment[0], segment[1]])
 		signatures["|".join(signature_parts)] = true
-	_check(signatures.size() == 8, "Alle acht Wandbausteine besitzen eine eigene Geometrie")
+	_check(signatures.size() == 12, "Alle zwoelf Wandbausteine besitzen eine eigene Geometrie")
 	_check(is_equal_approx(WallTileDefinition.THICKNESS, 4.0), "Normierte Wandstaerke betraegt vier Pixel")
 	var invalid := WallTileDefinition.new()
-	invalid.variant = 8
+	invalid.variant = 12
 	_check(not invalid.validate("Ungueltiger Wandbaustein", 16).is_empty(), "Weitere Wandvarianten werden von der Datenvalidierung abgelehnt")
 
 
@@ -994,6 +994,10 @@ func _test_seesaw_obstacle() -> void:
 	_check(seesaw.is_left_end_blocking() and not seesaw.is_right_end_blocking(), "Abgesenkte rechte Wippenseite hebt die linke Sperrkante")
 	seesaw.reset_motion()
 	_check(is_equal_approx(seesaw.tilt, -1.0) and Vector2(seesaw.get_surface_data()["acceleration"]).x < 0.0 and seesaw.is_right_end_blocking(), "Wippenreset stellt die linke Vorzugsposition wieder her")
+	_check(
+		(seesaw.left_end_collision.shape as RectangleShape2D).size.y < (seesaw.right_end_collision.shape as RectangleShape2D).size.y,
+		"Abgesenkte Wippenseite wirkt perspektivisch kleiner als die angehobene Seite"
+	)
 	_check(seesaw.contains_global_point(Vector2(270, 180)) and seesaw.contains_global_point(Vector2(330, 180)) and not seesaw.contains_global_point(Vector2(355, 180)), "Wippe besteht aus zwei befahrbaren Flaechen um den Mittelpunkt")
 	seesaw.advance_tilt(0.35, -30.0)
 	await get_tree().physics_frame
@@ -1019,6 +1023,26 @@ func _test_seesaw_obstacle() -> void:
 	for _step in range(20):
 		test_ball._physics_process(1.0 / 60.0)
 	_check(test_ball.position.x > 354.0, "Abgesenkte Wippenkante gibt den Ausgang frei")
+	seesaw.advance_tilt(0.35, 0.0)
+	await get_tree().physics_frame
+	lip_feedback["kind"] = &""
+	test_ball.reset_to(Vector2(300, 100))
+	test_ball.launch(Vector2.DOWN, 180.0, 1)
+	for _step in range(30):
+		test_ball._physics_process(1.0 / 60.0)
+	_check(test_ball.position.y < 143.0 and lip_feedback["kind"] == &"seesaw_side", "Ball prallt an den beiden seitlichen Wippenbanden ab")
+	seesaw.reset_motion()
+	await get_tree().physics_frame
+	test_ball.reset_to(Vector2(240, 180))
+	test_ball.launch(Vector2.RIGHT, 120.0, 1)
+	for _step in range(30):
+		test_ball._physics_process(1.0 / 60.0)
+	var entered_from_front := test_ball.position.x > 270.0
+	test_ball.reset_to(Vector2(360, 180))
+	test_ball.launch(Vector2.LEFT, 120.0, 1)
+	for _step in range(20):
+		test_ball._physics_process(1.0 / 60.0)
+	_check(entered_from_front and not test_ball.moving and test_ball.position.x > 350.0, "Wippe ist nur ueber ihre abgesenkte Vorderseite befahrbar")
 	test_ball.free()
 	seesaw.free()
 
@@ -1292,49 +1316,136 @@ func _test_classic_nine_course() -> void:
 	var par_counts := {1: 0, 2: 0, 3: 0}
 	var compact_count := 0
 	var wide_count := 0
-	var slope_count := 0
 	var circle_count := 0
 	var arc_count := 0
+	var arrow_count := 0
+	var arrow_hole_counts := {}
+	var outline_signatures := {}
+	var legacy_rectangle_count := 0
 	for hole_id in course.hole_ids:
 		var definition := holes.get_hole(hole_id)
 		_check(definition != null and definition.is_course_hole(), "%s ist eine gueltige Kursbahn" % hole_id)
 		if definition == null:
 			continue
 		par_counts[definition.par] = int(par_counts.get(definition.par, 0)) + 1
-		_check(definition.obstacles.is_empty(), "%s besitzt keine beweglichen Hindernisse" % hole_id)
+		_check(
+			definition.lane_outline != null
+				and definition.lane_outline.use_normalized_walls
+				and is_equal_approx(definition.lane_outline.wall_thickness, 4.0),
+			"%s besitzt eine geschlossene Kontur aus vier Pixel starken Normwaenden" % hole_id
+		)
+		var outline_signature := ""
+		for point in definition.lane_outline.points:
+			outline_signature += "%s;" % point
+		outline_signatures[outline_signature] = true
+		_check(
+			definition.surfaces.is_empty()
+				and definition.obstacles.is_empty()
+				and definition.triggers.is_empty()
+				and definition.cannons.is_empty(),
+			"%s bleibt ohne Legacy-Flaechen und dynamische Mechaniken" % hole_id
+		)
 		if definition.course_rect == Rect2(176, 16, 448, 328) and definition.camera_center_bounds.size == Vector2.ZERO:
 			compact_count += 1
 		elif definition.course_rect == Rect2(176, 16, 832, 328) and definition.camera_center_bounds == Rect2(320, 180, 376, 0):
 			wide_count += 1
-		for surface in definition.surfaces:
-			_check(surface.surface_type == SurfaceZone.SurfaceType.SLOPE, "%s verwendet weder Sand noch Wasser" % hole_id)
-			_check(is_equal_approx(surface.deceleration, 120.0) and is_equal_approx(surface.slope_strength, 24.0), "%s besitzt nur eine schwache Pfeilzone" % hole_id)
-			_check(surface.minimum_flow_speed == 0.0 and surface.maximum_flow_speed == 0.0, "%s verwendet keine automatische Flussfuehrung" % hole_id)
-			slope_count += 1
 		for wall in definition.walls:
 			if wall.wall_type == WallDefinition.WallType.CIRCLE:
 				circle_count += 1
 			elif wall.wall_type == WallDefinition.WallType.ARC:
 				arc_count += 1
+				_check(is_equal_approx(wall.thickness, 4.0), "%s verwendet vier Pixel starke Kreisboegen" % hole_id)
+			else:
+				legacy_rectangle_count += 1
+		for tile in definition.wall_tiles:
+			_check(tile != null and tile.validate("Klassik-Wand", definition.grid_spacing).is_empty(), "%s verwendet nur atomare Normwandbausteine" % hole_id)
+		for tile in definition.arrow_tiles:
+			arrow_count += 1
+			_check(
+				tile.cell_size == 16
+					and tile.slope_grade == SurfaceZone.SlopeGrade.SHALLOW
+					and is_equal_approx(tile.deceleration, 30.0)
+					and is_zero_approx(tile.minimum_flow_speed)
+					and is_zero_approx(tile.maximum_flow_speed)
+					and is_zero_approx(tile.flow_alignment_rate)
+					and is_zero_approx(tile.flow_centering_strength),
+				"%s verwendet nur atomare flache Pfeile ohne Flow-Assistenz" % hole_id
+			)
+		if not definition.arrow_tiles.is_empty():
+			arrow_hole_counts[hole_id] = definition.arrow_tiles.size()
 	_check(par_counts == {1: 3, 2: 3, 3: 3}, "Par-Verteilung besteht aus dreimal eins, zwei und drei")
 	_check(compact_count == 6 and wide_count == 3, "Sechs Bahnen sind kompakt und drei scrollen horizontal")
-	_check(slope_count == 3, "Genau drei Bahnen besitzen je einen kleinen Pfeilbereich")
-	_check(circle_count == 8 and arc_count == 11, "Kurs kombiniert acht Kreisbumper und elf Kreisbogenwaende")
+	_check(outline_signatures.size() == 9, "Alle neun Bahnen besitzen eine eigene geschlossene Silhouette")
+	_check(legacy_rectangle_count == 0, "Klassische Neun enthaelt keine freien rechteckigen Legacy-Waende")
+	_check(circle_count == 8 and arc_count == 7, "Kurs bewahrt exakt acht Kreisbumper und sieben Kreisboegen")
+	_check(
+		arrow_count == 36
+			and arrow_hole_counts == {&"classic_nine_03": 12, &"classic_nine_06": 12, &"classic_nine_08": 12},
+		"Nur Bogenschuss, Engstelle und Kreisallee besitzen je ein kleines Pfeilfeld"
+	)
+	var expected_arrow_shapes := {
+		&"classic_nine_03": [4, 3, SurfaceZone.SlopeDirection.UP_RIGHT],
+		&"classic_nine_06": [3, 4, SurfaceZone.SlopeDirection.UP_RIGHT],
+		&"classic_nine_08": [4, 3, SurfaceZone.SlopeDirection.RIGHT],
+	}
+	for hole_id in expected_arrow_shapes:
+		var definition := holes.get_hole(hole_id)
+		var x_cells := {}
+		var y_cells := {}
+		var expected: Array = expected_arrow_shapes[hole_id]
+		var directions_match := true
+		for tile in definition.arrow_tiles:
+			x_cells[tile.grid_cell.x] = true
+			y_cells[tile.grid_cell.y] = true
+			if tile.direction != expected[2]:
+				directions_match = false
+		_check(x_cells.size() == expected[0] and y_cells.size() == expected[1] and directions_match, "%s besitzt das festgelegte zusammenhaengende Pfeilraster" % hole_id)
 
-	var routes := {
-		&"classic_nine_01": [[Vector2(320, 180), 292.0]],
-		&"classic_nine_02": [[Vector2(295.3766, 220.2858), 348.0]],
-		&"classic_nine_03": [[Vector2(303.99, 231.56), 396.0]],
-		&"classic_nine_04": [[Vector2(201.2061, 263.1596), 340.0], [Vector2(468.6949, 172.4086), 340.0]],
-		&"classic_nine_05": [[Vector2(235.0753, 272.8571), 340.0], [Vector2(584.5403, 58.6901), 180.0]],
-		&"classic_nine_06": [[Vector2(204.6791, 273.1443), 420.0], [Vector2(520.4238, 47.6587), 180.0]],
-		&"classic_nine_07": [[Vector2(240, 286), 420.0], [Vector2(965.4721, 267.2545), 260.0], [Vector2(986.6935, 68.7469), 180.0]],
-		&"classic_nine_08": [[Vector2(470, 320), 248.0], [Vector2(760, 80), 300.0], [Vector2(960, 72), 244.0]],
-		&"classic_nine_09": [[Vector2(238.7939, 279.1596), 380.0], [Vector2(808.3391, 78.3043), 340.0], [Vector2(944.7792, 72.1226), 180.0]],
+	var horseshoe := holes.get_hole(&"classic_nine_04")
+	_check(horseshoe.walls.size() == 1 and horseshoe.wall_tiles.size() == 8, "Das Hufeisen ist ueber zwei Normwandarme an die Zufahrt angeschlossen")
+	var zigzag := holes.get_hole(&"classic_nine_07")
+	var diagonal_down_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN).size()
+	var diagonal_up_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_UP).size()
+	var first_baffle_is_anchored := zigzag.wall_tiles.any(func(tile): return tile.grid_cell == Vector2i(23, 3) and tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN)
+	var second_baffle_is_anchored := zigzag.wall_tiles.any(func(tile): return tile.grid_cell == Vector2i(44, 14) and tile.variant == WallTileDefinition.Variant.DIAGONAL_UP)
+	_check(
+		diagonal_down_count == 12 and diagonal_up_count == 10 and first_baffle_is_anchored and second_baffle_is_anchored,
+		"Der Zickzack-Weg verbindet zwei gegensinnige Diagonalbaender abwechselnd mit der Aussenwand"
+	)
+	var homecoming := holes.get_hole(&"classic_nine_09")
+	_check(
+		homecoming.walls.size() == 2
+			and homecoming.walls.all(func(wall): return wall.wall_type == WallDefinition.WallType.ARC)
+			and homecoming.wall_tiles.size() == 8,
+		"Die Heimkehr schliesst ihre konzentrische Wendekammer mit acht Normwandsegmenten"
+	)
+
+	var safe_routes := {
+		&"classic_nine_01": [[0.0, 292.0]],
+		&"classic_nine_02": [[-12.0, 408.0]],
+		&"classic_nine_03": [[-37.1, 399.0]],
+		&"classic_nine_04": [[-24.0, 180.0], [-147.0, 364.0]],
+		&"classic_nine_05": [[-32.35, 220.0], [-95.0, 372.0]],
+		&"classic_nine_06": [[-28.0, 220.0], [-34.0, 412.0]],
+		&"classic_nine_07": [[-6.0, 420.0], [-8.22, 180.0], [-10.0, 252.0]],
+		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 180.0], [-121.0, 392.0]],
+		&"classic_nine_09": [[-30.0, 420.0], [26.61, 200.0], [-80.0, 312.0]],
 	}
 	for hole_id in course.hole_ids:
-		var completed := await _simulate_hole_route(hole_id, routes[hole_id])
+		var completed := await _simulate_hole_route(hole_id, safe_routes[hole_id])
 		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
+
+	var risk_routes := {
+		&"classic_nine_04": [[-24.0, 244.0]],
+		&"classic_nine_05": [[-32.35, 387.5]],
+		&"classic_nine_06": [[-28.0, 400.0]],
+		&"classic_nine_07": [[-6.0, 420.0], [-8.22, 320.0]],
+		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 320.0]],
+		&"classic_nine_09": [[-30.0, 420.0], [26.61, 350.0]],
+	}
+	for hole_id in risk_routes:
+		var completed := await _simulate_hole_route(hole_id, risk_routes[hole_id])
+		_check(completed, "%s besitzt die festgelegte anspruchsvolle Abkuerzung" % hole_id)
 
 
 func _test_arrow_armageddon_course() -> void:
@@ -1351,13 +1462,23 @@ func _test_arrow_armageddon_course() -> void:
 	var compact_count := 0
 	var wide_count := 0
 	var long_count := 0
-	var gentle_count := 0
-	var strong_count := 0
-	var flow_count := 0
+	var arrow_count := 0
+	var grade_counts := {0: 0, 1: 0, 2: 0}
 	var sand_count := 0
 	var water_count := 0
-	var rotated_count := 0
 	var directions: Dictionary = {}
+	var outline_signatures: Dictionary = {}
+	var core_specs := {
+		&"arrow_armageddon_01": Rect2i(18, 8, 6, 4),
+		&"arrow_armageddon_02": Rect2i(17, 5, 13, 13),
+		&"arrow_armageddon_03": Rect2i(19, 8, 14, 7),
+		&"arrow_armageddon_04": Rect2i(17, 15, 4, 5),
+		&"arrow_armageddon_05": Rect2i(18, 9, 9, 6),
+		&"arrow_armageddon_06": Rect2i(16, 16, 28, 4),
+		&"arrow_armageddon_07": Rect2i(17, 16, 4, 4),
+		&"arrow_armageddon_08": Rect2i(35, 9, 12, 4),
+		&"arrow_armageddon_09": Rect2i(24, 13, 4, 4),
+	}
 	for hole_id in course.hole_ids:
 		var definition := holes.get_hole(hole_id)
 		_check(definition != null and definition.is_course_hole(), "%s ist eine gueltige Kursbahn" % hole_id)
@@ -1365,6 +1486,9 @@ func _test_arrow_armageddon_course() -> void:
 			continue
 		par_counts[definition.par] = int(par_counts.get(definition.par, 0)) + 1
 		_check(definition.obstacles.is_empty() and definition.triggers.is_empty() and definition.cannons.is_empty(), "%s besitzt keine zeitabhaengige Mechanik" % hole_id)
+		_check(definition.lane_outline != null and definition.lane_outline.use_normalized_walls, "%s besitzt eine eigene geschlossene Normwandkontur" % hole_id)
+		_check(definition.walls.is_empty(), "%s verwendet keine freien Legacy-Banden" % hole_id)
+		outline_signatures[str(definition.lane_outline.points)] = true
 		if definition.course_rect == Rect2(176, 16, 448, 328) and definition.camera_center_bounds.size == Vector2.ZERO:
 			compact_count += 1
 		elif definition.course_rect == Rect2(176, 16, 832, 328) and definition.camera_center_bounds == Rect2(320, 180, 376, 0):
@@ -1372,46 +1496,68 @@ func _test_arrow_armageddon_course() -> void:
 		elif definition.course_rect == Rect2(176, 16, 960, 328) and definition.camera_center_bounds == Rect2(320, 180, 504, 0):
 			long_count += 1
 		for surface in definition.surfaces:
-			if not is_zero_approx(surface.rotation_degrees):
-				rotated_count += 1
 			match surface.surface_type:
 				SurfaceZone.SurfaceType.SAND:
 					sand_count += 1
 				SurfaceZone.SurfaceType.WATER:
 					water_count += 1
 				SurfaceZone.SurfaceType.SLOPE:
-					directions[surface.slope_direction] = true
-					if surface.minimum_flow_speed > 0.0:
-						flow_count += 1
-						_check(surface.slope_strength == 150.0 and surface.deceleration == 50.0 and surface.maximum_flow_speed == 105.0 and surface.flow_alignment_rate == 12.0 and surface.flow_centering_strength == 10.0, "%s verwendet die festgelegte Foerderflaeche" % hole_id)
-					elif surface.slope_strength == 150.0:
-						strong_count += 1
-						_check(surface.deceleration == 50.0, "%s verwendet die festgelegte starke Pfeilflaeche" % hole_id)
-					else:
-						gentle_count += 1
-						_check(surface.slope_strength == 90.0 and surface.deceleration == 120.0, "%s verwendet das festgelegte sanfte Gefaelle" % hole_id)
+					_check(false, "%s verwendet keine Legacy-Gefaelleflaeche" % hole_id)
+		var core_spec: Rect2i = core_specs[hole_id]
+		var core_cells := 0
+		for tile in definition.arrow_tiles:
+			arrow_count += 1
+			grade_counts[tile.slope_grade] = int(grade_counts.get(tile.slope_grade, 0)) + 1
+			directions[tile.direction] = true
+			_check(
+				tile.cell_size == 16
+					and is_equal_approx(tile.deceleration, 30.0)
+					and is_zero_approx(tile.minimum_flow_speed)
+					and is_zero_approx(tile.maximum_flow_speed)
+					and is_zero_approx(tile.flow_alignment_rate)
+					and is_zero_approx(tile.flow_centering_strength),
+				"%s Pfeilzelle %s ist atomar und verwendet reines Gefaelle" % [hole_id, tile.grid_cell]
+			)
+			if core_spec.has_point(tile.grid_cell):
+				core_cells += 1
+		var expected_core_cells := core_spec.size.x * core_spec.size.y
+		if hole_id == &"arrow_armageddon_02":
+			expected_core_cells = 36
+		elif hole_id == &"arrow_armageddon_03":
+			expected_core_cells = 84
+		_check(core_cells == expected_core_cells, "%s besitzt sein vollstaendiges, nicht umgehbares Kernfeld" % hole_id)
+		var hole_number := int(String(hole_id).get_slice("_", 2))
+		if hole_number <= 3:
+			_check(definition.arrow_tiles.all(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.SHALLOW), "%s lehrt ausschliesslich flache gruene Pfeile" % hole_id)
+		elif hole_number <= 6:
+			_check(definition.arrow_tiles.any(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.MEDIUM) and definition.arrow_tiles.all(func(tile): return tile.slope_grade != SurfaceZone.SlopeGrade.STEEP), "%s kombiniert mittlere Pfeile ohne steile rote Felder" % hole_id)
+		else:
+			_check(definition.arrow_tiles.any(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.STEEP), "%s verwendet steile rote Pfeile als Hauptgefahr" % hole_id)
 	_check(par_counts == {2: 3, 3: 3, 4: 3}, "Par-Verteilung besteht aus dreimal zwei, drei und vier")
 	_check(compact_count == 5 and wide_count == 3 and long_count == 1, "Fuenf Bahnen sind kompakt und vier scrollen horizontal")
-	_check(gentle_count == 4 and strong_count == 13 and flow_count == 20, "Die drei Wirkungsstufen steigern sich ueber den Kurs")
+	_check(arrow_count == 867 and grade_counts == {0: 174, 1: 600, 2: 93}, "Der Kurs verteilt 867 atomare Pfeilzellen ueber drei ansteigende Wirkungsstufen")
 	_check(sand_count == 1 and water_count == 2, "Nur eine Sand- und zwei Wasserflaechen ergaenzen die Pfeile")
 	_check(directions.size() == 8, "Der Kurs verwendet alle acht Pfeilrichtungen")
-	_check(rotated_count >= 12, "Diagonale Korridore verwenden echte gedrehte Flaechen")
+	_check(outline_signatures.size() == 9, "Alle neun Bahnen besitzen eine eigenstaendige geschlossene Silhouette")
 
-	var first_snapshot := await _simulate_hole_snapshot(&"arrow_armageddon_07", Vector2(430, 235), 300.0, 180)
-	var second_snapshot := await _simulate_hole_snapshot(&"arrow_armageddon_07", Vector2(430, 235), 300.0, 180)
-	_check(Vector2(first_snapshot["position"]).distance_to(Vector2(second_snapshot["position"])) <= 0.1, "Identische Foerderfahrt reproduziert die Position bis auf 0,1 Pixel")
-	_check(Vector2(first_snapshot["velocity"]).distance_to(Vector2(second_snapshot["velocity"])) <= 0.1, "Identische Foerderfahrt reproduziert das Tempo bis auf 0,1 Pixel")
+	var weak_countercurrent := await _simulate_countercurrent_launch(100.0)
+	_check(
+		not weak_countercurrent["crossed"] and weak_countercurrent["reversed"],
+		"Ein zu schwacher Ball stoppt im roten Gegenstrom und rollt zurueck"
+	)
+	var strong_countercurrent := await _simulate_countercurrent_launch(330.0)
+	_check(strong_countercurrent["crossed"], "Ein ausreichend starker Schlag ueberwindet den roten Gegenstrom")
 
 	var routes := {
-		&"arrow_armageddon_01": [[Vector2(490, 180), 250.0], [Vector2(580, 100), 140.0]],
-		&"arrow_armageddon_02": [[Vector2(470, 135), 310.0], [Vector2(575, 70), 65.0]],
-		&"arrow_armageddon_03": [[Vector2(475, 165), 290.0], [Vector2(580, 180), 60.0]],
+		&"arrow_armageddon_01": [[Vector2(490, 180), 250.0], [Vector2(580, 100), 180.0]],
+		&"arrow_armageddon_02": [[Vector2(575, 70), 430.0], [Vector2(575, 140), 250.0]],
+		&"arrow_armageddon_03": [[Vector2(475, 165), 290.0], [Vector2(580, 180), 130.0]],
 		&"arrow_armageddon_04": [[Vector2(350, 235), 245.0], [Vector2(580, 180), 110.0], [Vector2(580, 180), 120.0]],
-		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(400, 80), 160.0], [Vector2(575, 70), 210.0]],
+		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(400, 80), 160.0], [Vector2(575, 82), 195.0]],
 		&"arrow_armageddon_06": [[Vector2(430, 235), 300.0], [Vector2(990, 175), 120.0], [Vector2(960, 100), 180.0]],
-		&"arrow_armageddon_07": [[Vector2(430, 235), 300.0], [Vector2(720, 220), 300.0], [Vector2(960, 70), 65.0], [Vector2(960, 70), 120.0]],
-		&"arrow_armageddon_08": [[Vector2(410, 120), 280.0], [Vector2(650, 220), 340.0], [Vector2(860, 250), 280.0], [Vector2(960, 286), 110.0]],
-		&"arrow_armageddon_09": [[Vector2(430, 235), 300.0], [Vector2(600, 75), 190.0], [Vector2(800, 50), 320.0], [Vector2(1090, 70), 230.0]],
+		&"arrow_armageddon_07": [[Vector2(430, 235), 300.0], [Vector2(960, 70), 155.0], [Vector2(960, 70), 80.0], [Vector2(960, 70), 80.0]],
+		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 430.0], [Vector2(900, 260), 280.0], [Vector2(960, 286), 120.0]],
+		&"arrow_armageddon_09": [[Vector2(430, 235), 300.0], [Vector2(425, 165), 140.0], [Vector2(550, 40), 220.0], [Vector2(1090, 70), 370.0]],
 	}
 	for hole_id in course.hole_ids:
 		var completed := await _simulate_hole_route(hole_id, routes[hole_id])
@@ -1453,24 +1599,81 @@ func _test_labyrinth_nine_course() -> void:
 	_check(obstacle_count == 26, "Der Kurs verteilt insgesamt 26 bewegliche Hindernisse")
 	_check(obstacle_types.size() == 3, "Labyrinth-Neun verwendet Rotoren, Schiebetore und Wippen")
 	_check(diagonal_wall_count >= 30, "Zwei Labyrinthe verwenden zusammen mindestens dreissig Diagonalwaende")
+	var diagonal_trap := holes.get_hole(&"labyrinth_nine_05")
+	var lower_trap_diagonals := 0
+	for tile in diagonal_trap.wall_tiles:
+		if tile.grid_cell.y >= 12 and (tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN or tile.variant == WallTileDefinition.Variant.DIAGONAL_UP):
+			lower_trap_diagonals += 1
+	_check(lower_trap_diagonals == 22 and diagonal_trap.wall_tiles.size() == 64, "Diagonalfalle besitzt drei vollstaendig geschlossene, versetzte Dreiecke")
+	var diagonal_boundary_connections := 0
+	for piece in diagonal_trap.get_normalized_wall_network():
+		if piece["is_boundary"] and not piece["extra_segments"].is_empty():
+			diagonal_boundary_connections += 1
+	_check(diagonal_boundary_connections == 6, "Alle sechs aeusseren Diagonalen der Diagonalfalle schliessen lueckenlos an die Aussenwand an")
+	_check(
+		diagonal_trap.obstacles[1].position == Vector2(752, 144)
+			and is_equal_approx(diagonal_trap.obstacles[1].start_rotation_degrees, 90.0),
+		"Der mittlere Dreher kontrolliert die versetzte Engstelle der Diagonalfalle"
+	)
+	var seesaw_labyrinth := holes.get_hole(&"labyrinth_nine_03")
+	var labyrinth_seesaw: ObstacleDefinition = seesaw_labyrinth.obstacles.filter(func(obstacle): return obstacle.obstacle_type == ObstacleDefinition.ObstacleType.SEESAW)[0]
+	_check(
+		labyrinth_seesaw.position == Vector2(456, 216)
+			and is_equal_approx(labyrinth_seesaw.start_rotation_degrees, 270.0)
+			and is_equal_approx(labyrinth_seesaw.seesaw_preferred_tilt, -1.0),
+		"Wippen-Labyrinth richtet die abgesenkte Vorderseite nach unten zum ankommenden Ball aus"
+	)
+	var closing_cells := [Vector2i(22, 16), Vector2i(23, 16), Vector2i(24, 16), Vector2i(25, 16), Vector2i(31, 16), Vector2i(32, 16), Vector2i(33, 16), Vector2i(34, 16)]
+	var closing_tiles := seesaw_labyrinth.wall_tiles.filter(func(tile): return tile.grid_cell in closing_cells)
+	_check(
+		closing_tiles.size() == closing_cells.size()
+			and closing_tiles.any(func(tile): return tile.grid_cell == Vector2i(22, 16) and tile.variant == WallTileDefinition.Variant.T_RIGHT)
+			and closing_tiles.any(func(tile): return tile.grid_cell == Vector2i(34, 16) and tile.variant == WallTileDefinition.Variant.T_LEFT),
+		"Normwaende schliessen beide Seiten der gedrehten Wippe lueckenlos"
+	)
 	var crossways := holes.get_hole(&"labyrinth_nine_07")
 	var crossways_seesaw: ObstacleDefinition = crossways.obstacles.filter(func(obstacle): return obstacle.obstacle_type == ObstacleDefinition.ObstacleType.SEESAW)[0]
-	_check(is_equal_approx(crossways_seesaw.start_rotation_degrees, 90.0) and is_equal_approx(crossways_seesaw.seesaw_preferred_tilt, 1.0), "Kreuzwege richtet seine Wippe samt passender Vorzugsseite um 90 Grad aus")
+	_check(crossways_seesaw.position == Vector2(1024, 168) and crossways_seesaw.seesaw_size == Vector2(96, 80), "Kreuzwege setzt seine Wippe als Bruecke in die letzte Wandoeffnung")
+	var t_piece_count := 0
+	var boundary_t_piece_count := 0
+	for hole_id in course.hole_ids:
+		var definition := holes.get_hole(hole_id)
+		for tile in definition.wall_tiles:
+			if tile.variant >= WallTileDefinition.Variant.T_UP:
+				t_piece_count += 1
+		for piece in definition.get_normalized_wall_network():
+			if piece["is_boundary"] and piece["variant"] >= WallTileDefinition.Variant.T_UP:
+				boundary_t_piece_count += 1
+	_check(t_piece_count >= 8, "T-Stuecke schliessen mindestens acht Wand- und Hindernisuebergaenge")
+	_check(boundary_t_piece_count >= 24, "Aussen- und Innenwaende bilden an mindestens vierundzwanzig Anschluessen gemeinsame T-Stuecke")
+	var first_network := holes.get_hole(&"labyrinth_nine_01").get_normalized_wall_network()
+	var first_outer_junction: Dictionary = {}
+	for piece in first_network:
+		if piece["grid_cell"] == Vector2i(22, 1):
+			first_outer_junction = piece
+			break
+	_check(
+		not first_outer_junction.is_empty()
+			and first_outer_junction["is_boundary"]
+			and first_outer_junction["variant"] == WallTileDefinition.Variant.T_DOWN
+			and first_outer_junction["segments"].size() == 3,
+		"Eine von oben anschliessende Innenwand ersetzt das Aussenwandkaestchen durch ein lueckenloses T-Stueck"
+	)
 
 	var routes := {
 		&"labyrinth_nine_01": [[Vector2(384, 300), 224.0], [Vector2(608, 64), 284.0], [Vector2(832, 300), 284.0], [Vector2(1056, 64), 284.0], [Vector2(1088, 176), 170.0]],
 		&"labyrinth_nine_02": [[Vector2(432, 64), 242.0], [Vector2(624, 300), 274.0], [Vector2(832, 176), 245.0], [Vector2(1040, 64), 242.0], [Vector2(1088, 176), 174.0]],
-		&"labyrinth_nine_03": [[Vector2(384, 300), 224.0], [Vector2(576, 64), 274.0], [Vector2(800, 300), 284.0], [Vector2(1024, 64), 284.0], [Vector2(1088, 176), 179.0]],
+		&"labyrinth_nine_03": [[Vector2(384, 312), 224.0], [Vector2(456, 300), 135.0], [Vector2(456, 144), 220.0], [Vector2(608, 64), 180.0], [Vector2(816, 300), 275.0], [Vector2(960, 64), 258.0], [Vector2(1024, 64), 124.0], [Vector2(1088, 176), 176.0]],
 		&"labyrinth_nine_04": [[Vector2(352, 304), 210.0], [Vector2(520, 40), 300.0], [Vector2(680, 304), 278.0], [Vector2(840, 40), 278.0], [Vector2(1000, 304), 278.0], [Vector2(1088, 176), 197.0]],
-		&"labyrinth_nine_05": [[Vector2(544, 316), 294.0], [Vector2(928, 300), 308.0], [Vector2(1088, 176), 224.0]],
-		&"labyrinth_nine_06": [[Vector2(432, 300), 245.0], [Vector2(640, 176), 245.0], [Vector2(864, 64), 249.0], [Vector2(1080, 300), 281.0], [Vector2(1088, 176), 175.0]],
-		&"labyrinth_nine_07": [[Vector2(400, 64), 227.0], [Vector2(576, 300), 270.0], [Vector2(752, 64), 270.0], [Vector2(928, 300), 270.0], [Vector2(1088, 176), 224.0]],
+		&"labyrinth_nine_05": [[Vector2(560, 232), 286.0], [Vector2(752, 144), 225.0], [Vector2(944, 232), 225.0], [Vector2(1088, 176), 192.0]],
+		&"labyrinth_nine_06": [[Vector2(432, 300), 245.0], [Vector2(552, 292), 200.0], [Vector2(592, 176), 130.0], [Vector2(864, 64), 300.0], [Vector2(1080, 300), 300.0], [Vector2(1088, 176), 185.0]],
+		&"labyrinth_nine_07": [[Vector2(400, 64), 227.0], [Vector2(576, 300), 270.0], [Vector2(752, 40), 278.0], [Vector2(928, 300), 270.0], [Vector2(960, 176), 180.0], [Vector2(1088, 176), 224.0]],
 		&"labyrinth_nine_08": [[Vector2(368, 304), 217.0], [Vector2(384, 48), 270.0], [Vector2(536, 48), 210.0], [Vector2(688, 176), 220.0], [Vector2(848, 304), 224.0], [Vector2(1008, 40), 286.0], [Vector2(1088, 176), 187.0]],
-		&"labyrinth_nine_09": [[Vector2(352, 304), 210.0], [Vector2(504, 40), 294.0], [Vector2(648, 304), 282.0], [Vector2(792, 40), 282.0], [Vector2(936, 304), 266.0], [Vector2(1080, 36), 282.0], [Vector2(1088, 176), 173.0]],
+		&"labyrinth_nine_09": [[Vector2(352, 304), 210.0], [Vector2(504, 40), 294.0], [Vector2(648, 304), 282.0], [Vector2(792, 40), 282.0], [Vector2(936, 304), 266.0], [Vector2(1064, 20), 340.0], [Vector2(1088, 176), 90.0]],
 	}
 	for hole_id in course.hole_ids:
 		var completed := await _simulate_hole_route(hole_id, routes[hole_id], &"labyrinth_safe")
-		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
+		_check(completed, "%s endet reproduzierbar innerhalb seines Schlaglimits" % hole_id)
 
 
 func _simulate_hole_snapshot(hole_id: StringName, target: Vector2, speed: float, steps: int) -> Dictionary:
@@ -1582,9 +1785,15 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 	var result := {"holed": false}
 	ball.holed.connect(func(_strokes): result["holed"] = true)
 	for index in range(shots.size()):
-		var target: Vector2 = shots[index][0]
+		var aim = shots[index][0]
 		var speed: float = shots[index][1]
-		ball.launch(ball.position.direction_to(target), speed, index + 1)
+		var direction := Vector2.ZERO
+		if typeof(aim) == TYPE_FLOAT or typeof(aim) == TYPE_INT:
+			direction = Vector2.from_angle(deg_to_rad(float(aim)))
+		else:
+			var target: Vector2 = aim
+			direction = ball.position.direction_to(target)
+		ball.launch(direction, speed, index + 1)
 		for _step in range(1800):
 			if obstacle_mode == &"seesaw_weight" or obstacle_mode == &"labyrinth_safe":
 				for obstacle in runtime.obstacle_nodes:
@@ -1607,6 +1816,27 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 	ball.free()
 	runtime.free()
 	return completed
+
+
+func _simulate_countercurrent_launch(speed: float) -> Dictionary:
+	var runtime := _instantiate_hole(&"arrow_armageddon_08")
+	await get_tree().physics_frame
+	var ball := PrototypeBall.new()
+	get_tree().root.add_child(ball)
+	ball.set_physics_process(false)
+	ball.position = Vector2(568, 176)
+	ball.configure_environment(runtime.zones, runtime.get_hole_position())
+	ball.launch(Vector2.RIGHT, speed, 1)
+	var result := {"crossed": false, "reversed": false}
+	for _step in range(900):
+		ball._physics_process(1.0 / 60.0)
+		result["crossed"] = result["crossed"] or ball.position.x > 752.0
+		result["reversed"] = result["reversed"] or ball.velocity.x < -PrototypeBall.STOP_SPEED
+		if not ball.moving:
+			break
+	ball.free()
+	runtime.free()
+	return result
 
 
 func _instantiate_hole(hole_id: StringName) -> HoleRuntime:
@@ -1688,6 +1918,18 @@ func _test_game_shell() -> void:
 	free_config.hole_ids = [&"reference_01", &"reference_01", &"double_gate_03"]
 	_check(free_config.validate(holes).is_empty(), "Freies Spiel erlaubt geordnete Lochwiederholungen")
 	_check(free_config.allows_restart() and not free_config.is_course_mode(), "Freies Spiel erlaubt schnellen Lochneustart")
+	_check(
+		RoundSession.stroke_limit_for_par(1) == 8
+			and RoundSession.stroke_limit_for_par(5) == 8
+			and RoundSession.stroke_limit_for_par(6) == 9
+			and RoundSession.stroke_limit_for_par(7) == 10,
+		"Schlaglimit ist mindestens acht und steigt oberhalb von Par 5 auf Par plus drei"
+	)
+	var long_config := RoundConfig.new()
+	long_config.mode = RoundConfig.GameMode.COURSE_SOLO
+	long_config.course_id = labyrinth_course.course_id
+	long_config.players = [first]
+	long_config.hole_ids = [&"labyrinth_nine_08"]
 
 	var round := RoundSession.new()
 	round.configure(config, holes)
@@ -1696,6 +1938,10 @@ func _test_game_shell() -> void:
 	_check(round.current_player_index == 1 and round.current_hole_index == 0, "Spielerwechsel bleibt am selben Loch")
 	_check(round.record_current_score(8, true) == RoundSession.AdvanceResult.HOLE_COMPLETE, "Nach letztem Spieler erscheint die Lochtabelle")
 	_check(round.scores[1][0] == 8 and round.capped[1][0], "Schlaglimit wird als 8 mit MAX-Markierung gespeichert")
+	var long_round := RoundSession.new()
+	long_round.configure(long_config, holes)
+	long_round.record_current_score(12, true)
+	_check(long_round.get_current_stroke_limit() == 10 and long_round.scores[0][0] == 10 and long_round.capped[0][0], "PAR-7-Ergebnisse werden erst bei zehn Schlaegen mit MAX gewertet")
 	_check(round.advance_hole() and round.current_player_index == 0 and round.current_hole_index == 1, "Weiter setzt Spieler und Loch korrekt fort")
 	round.record_current_score(3, false)
 	round.record_current_score(3, false)
@@ -1741,7 +1987,25 @@ func _test_game_shell() -> void:
 	_check(store.submit(course.course_id, 14) == 14, "Erster Kursbestwert wird gespeichert")
 	_check(store.submit(course.course_id, 16) == 14, "Schlechteres Ergebnis ueberschreibt den Bestwert nicht")
 	_check(store.submit(course.course_id, 10) == 10 and store.get_best(course.course_id) == 10, "Besseres Ergebnis aktualisiert den Bestwert")
-	_check(store.submit(arrow_course.course_id, 27) == 27 and store.get_best(course.course_id) == 10, "Pfeil-Armageddon speichert einen getrennten Kursbestwert")
+	_check(store.submit(arrow_course.course_id, 27) == 27 and store.get_best(course.course_id) == 10, "Alter Pfeil-Armageddon-Bestwert bleibt vom klassischen Kurs getrennt")
+	_check(
+		arrow_course.best_score_revision == 2
+			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v2"
+			and store.get_best(arrow_course.get_best_score_key()) == -1,
+		"Pfeil-Armageddon Revision 2 uebernimmt keinen alten Kursbestwert"
+	)
+	_check(store.submit(classic_course.course_id, 18) == 18, "Alter Klassik-Bestwert bleibt unter seinem bisherigen Schluessel erhalten")
+	_check(
+		classic_course.best_score_revision == 2
+			and classic_course.get_best_score_key() == &"classic_nine_course_v2"
+			and store.get_best(classic_course.get_best_score_key()) == -1
+			and store.get_best(classic_course.course_id) == 18,
+		"Klassische Neun Revision 2 uebernimmt keinen alten Kursbestwert"
+	)
+	_check(
+		course.best_score_revision == 1 and course.get_best_score_key() == course.course_id and store.get_best(course.get_best_score_key()) == 10,
+		"Nicht revidierte Kurse behalten ihren bisherigen Bestwertschluessel"
+	)
 	DirAccess.remove_absolute(absolute_test_path)
 
 	var app_scene := load("res://scenes/game_app.tscn") as PackedScene
@@ -1798,6 +2062,15 @@ func _test_game_shell() -> void:
 	await get_tree().create_timer(0.60).timeout
 	_check(app.current_screen == GameApp.ScreenState.FINAL, "Achter nicht eingelochter Schlag fuehrt zur Endtabelle")
 	_check(app.session.scores[0][0] == 8 and app.session.capped[0][0], "Gameplay meldet das Schlaglimit an die Rundentabelle")
+	app._start_round(long_config)
+	_check(app.gameplay.get_stroke_limit() == 10 and "0/10" in app.gameplay.hud.stroke_label.text, "PAR-7-Gameplay zeigt das dynamische Maximum von zehn Schlaegen")
+	app.gameplay.strokes = 9
+	app.gameplay._on_ball_stopped(app.gameplay.ball.position)
+	_check(app.current_screen == GameApp.ScreenState.GAMEPLAY, "Eine PAR-7-Bahn bleibt nach dem neunten Schlag aktiv")
+	app.gameplay.strokes = 10
+	app.gameplay._on_ball_stopped(app.gameplay.ball.position)
+	await get_tree().create_timer(0.60).timeout
+	_check(app.current_screen == GameApp.ScreenState.FINAL and app.session.scores[0][0] == 10 and app.session.capped[0][0], "Eine PAR-7-Bahn endet nach dem zehnten Schlag mit MAX-Markierung")
 	var nine_config := RoundConfig.new()
 	nine_config.mode = RoundConfig.GameMode.COURSE_SOLO
 	nine_config.course_id = classic_course.course_id

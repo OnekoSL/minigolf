@@ -7,7 +7,8 @@ signal round_finished()
 
 enum AdvanceResult { NEXT_PLAYER, HOLE_COMPLETE, ROUND_COMPLETE }
 
-const MAX_STROKES := 8
+const MIN_STROKE_LIMIT := 8
+const STROKES_OVER_PAR := 3
 
 var config: RoundConfig
 var hole_catalog: HoleCatalog
@@ -35,7 +36,7 @@ func configure(value: RoundConfig, catalog: HoleCatalog) -> void:
 
 
 func record_current_score(strokes: int, reached_limit: bool) -> int:
-	scores[current_player_index][current_hole_index] = clampi(strokes, 0, MAX_STROKES)
+	scores[current_player_index][current_hole_index] = clampi(strokes, 0, get_current_stroke_limit())
 	capped[current_player_index][current_hole_index] = reached_limit
 	if current_player_index + 1 < config.players.size():
 		current_player_index += 1
@@ -63,6 +64,15 @@ func get_current_player() -> PlayerProfile:
 
 func get_current_hole() -> HoleDefinition:
 	return hole_catalog.get_hole(config.hole_ids[current_hole_index])
+
+
+func get_current_stroke_limit() -> int:
+	var hole := get_current_hole()
+	return stroke_limit_for_par(hole.par) if hole != null else MIN_STROKE_LIMIT
+
+
+static func stroke_limit_for_par(par: int) -> int:
+	return maxi(MIN_STROKE_LIMIT, par + STROKES_OVER_PAR)
 
 
 func get_player_total(player_index: int) -> int:

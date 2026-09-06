@@ -180,3 +180,137 @@ func validate() -> PackedStringArray:
 
 func is_course_hole() -> bool:
 	return category == HoleCategory.COURSE
+
+
+func get_normalized_wall_network() -> Array[Dictionary]:
+	var pieces: Array[Dictionary] = []
+	if lane_outline == null or not lane_outline.use_normalized_walls:
+		return pieces
+	var boundary_tiles := lane_outline.get_normalized_wall_tiles()
+	if boundary_tiles.is_empty():
+		for boundary_piece in lane_outline.get_normalized_wall_pieces():
+			pieces.append({
+				"grid_cell": Vector2i(-1, -1),
+				"variant": boundary_piece["variant"],
+				"segments": boundary_piece["segments"],
+				"is_boundary": true,
+				"is_internal": false,
+			})
+		for wall_tile in wall_tiles:
+			if wall_tile != null:
+				pieces.append(_wall_network_piece(wall_tile, false, true))
+		return pieces
+
+	var cells: Dictionary = {}
+	var cell_order: Array[Vector2i] = []
+	for boundary_tile in boundary_tiles:
+		_merge_wall_network_tile(cells, cell_order, boundary_tile, true, false)
+	for wall_tile in wall_tiles:
+		if wall_tile != null:
+			_merge_wall_network_tile(cells, cell_order, wall_tile, false, true)
+
+	var directions := [
+		{"step": Vector2i.UP, "bit": 1, "opposite": 4},
+		{"step": Vector2i.RIGHT, "bit": 2, "opposite": 8},
+		{"step": Vector2i.DOWN, "bit": 4, "opposite": 1},
+		{"step": Vector2i.LEFT, "bit": 8, "opposite": 2},
+	]
+	for cell in cell_order:
+		var source: Dictionary = cells[cell]
+		if not source["is_internal"]:
+			continue
+		var source_mask: int = source["cardinal_mask"]
+		for direction in directions:
+			if not source_mask & int(direction["bit"]):
+				continue
+			var neighbor_cell: Vector2i = cell + direction["step"]
+			if not cells.has(neighbor_cell):
+				continue
+			var neighbor: Dictionary = cells[neighbor_cell]
+			if not neighbor["is_boundary"] or int(neighbor["cardinal_mask"]) == 0:
+				continue
+			neighbor["cardinal_mask"] = int(neighbor["cardinal_mask"]) | int(direction["opposite"])
+			cells[neighbor_cell] = neighbor
+		var diagonal_connections: Array[Dictionary] = []
+		match int(source["variant"]):
+			WallTileDefinition.Variant.DIAGONAL_DOWN:
+				diagonal_connections = [
+					{"step": Vector2i(-1, -1), "endpoint": source["segments"][0][0]},
+					{"step": Vector2i(1, 1), "endpoint": source["segments"][0][1]},
+				]
+			WallTileDefinition.Variant.DIAGONAL_UP:
+				diagonal_connections = [
+					{"step": Vector2i(-1, 1), "endpoint": source["segments"][0][0]},
+					{"step": Vector2i(1, -1), "endpoint": source["segments"][0][1]},
+				]
+		for connection in diagonal_connections:
+			var neighbor_cell: Vector2i = cell + connection["step"]
+			if not cells.has(neighbor_cell):
+				continue
+			var neighbor: Dictionary = cells[neighbor_cell]
+			if not neighbor["is_boundary"]:
+				continue
+			var boundary_center := Rect2(
+				Vector2(neighbor_cell * WallTileDefinition.CELL_SIZE),
+				Vector2(WallTileDefinition.CELL_SIZE, WallTileDefinition.CELL_SIZE)
+			).get_center()
+			var extra_segments: Array = neighbor["extra_segments"]
+			extra_segments.append(PackedVector2Array([boundary_center, connection["endpoint"]]))
+			neighbor["extra_segments"] = extra_segments
+			cells[neighbor_cell] = neighbor
+
+	for cell in cell_order:
+		var piece: Dictionary = cells[cell]
+		var mask: int = piece["cardinal_mask"]
+		if mask != 0:
+			var variant := WallTileDefinition.variant_from_cardinal_mask(mask)
+			piece["variant"] = variant
+			if variant >= 0:
+				var normalized_tile := WallTileDefinition.new()
+				normalized_tile.grid_cell = cell
+				normalized_tile.variant = variant
+				piece["segments"] = normalized_tile.get_segments()
+			else:
+				piece["segments"] = WallTileDefinition.segments_from_cardinal_mask(cell, mask)
+			piece["segments"].append_array(piece["extra_segments"])
+		else:
+			piece["segments"] = piece["extra_segments"]
+		pieces.append(piece)
+	return pieces
+
+
+func _merge_wall_network_tile(
+	cells: Dictionary,
+	cell_order: Array[Vector2i],
+	tile: WallTileDefinition,
+	is_boundary: bool,
+	is_internal: bool
+) -> void:
+	var cell := tile.grid_cell
+	var incoming := _wall_network_piece(tile, is_boundary, is_internal)
+	if not cells.has(cell):
+		cells[cell] = incoming
+		cell_order.append(cell)
+		return
+	var existing: Dictionary = cells[cell]
+	existing["is_boundary"] = existing["is_boundary"] or is_boundary
+	existing["is_internal"] = existing["is_internal"] or is_internal
+	var existing_mask: int = existing["cardinal_mask"]
+	var incoming_mask: int = incoming["cardinal_mask"]
+	existing["cardinal_mask"] = existing_mask | incoming_mask
+	var extra_segments: Array = existing["extra_segments"]
+	extra_segments.append_array(incoming["extra_segments"])
+	existing["extra_segments"] = extra_segments
+	cells[cell] = existing
+
+
+func _wall_network_piece(tile: WallTileDefinition, is_boundary: bool, is_internal: bool) -> Dictionary:
+	return {
+		"grid_cell": tile.grid_cell,
+		"variant": tile.variant,
+		"segments": tile.get_segments(),
+		"cardinal_mask": WallTileDefinition.get_cardinal_mask(tile.variant),
+		"extra_segments": [] if WallTileDefinition.get_cardinal_mask(tile.variant) != 0 else tile.get_segments(),
+		"is_boundary": is_boundary,
+		"is_internal": is_internal,
+	}

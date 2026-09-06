@@ -14,7 +14,7 @@ func _draw() -> void:
 		return
 	if definition.lane_outline != null:
 		if definition.lane_outline.use_normalized_walls:
-			for piece in definition.lane_outline.get_normalized_wall_pieces():
+			for piece in definition.get_normalized_wall_network():
 				_draw_wall_segments(piece["segments"])
 		else:
 			draw_polyline(
@@ -41,8 +41,9 @@ func _draw() -> void:
 					outline.append(outline[0])
 					draw_polyline(outline, Color("#584d43"), 1.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	for wall_tile in definition.wall_tiles:
-		_draw_wall_tile(wall_tile)
+	if definition.lane_outline == null or not definition.lane_outline.use_normalized_walls:
+		for wall_tile in definition.wall_tiles:
+			_draw_wall_tile(wall_tile)
 	for obstacle in definition.obstacles:
 		if obstacle.obstacle_type != ObstacleDefinition.ObstacleType.SLIDING_GATE:
 			continue

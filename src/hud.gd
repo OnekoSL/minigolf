@@ -156,8 +156,8 @@ func _flat_style(background: Color, width: int, border: Color) -> StyleBoxFlat:
 	return style
 
 
-func update_game(strokes: int, par: int, power: float, accuracy: float, shot_state: int, distance_decimeters: int) -> void:
-	stroke_label.text = "SCHLAEGE %d   PAR %d" % [strokes, par]
+func update_game(strokes: int, par: int, power: float, accuracy: float, shot_state: int, distance_decimeters: int, stroke_limit := 0) -> void:
+	stroke_label.text = "SCHLAEGE %d/%d   PAR %d" % [strokes, stroke_limit, par] if stroke_limit > 0 else "SCHLAEGE %d   PAR %d" % [strokes, par]
 	distance_label.text = "ENTFERNUNG %d dm" % distance_decimeters
 	power_bar.set_value(power)
 	accuracy_bar.set_value(accuracy)
