@@ -31,6 +31,7 @@ phase_offset_seconds = 0.25
 [resource]
 script = ExtResource("5_aef5p")
 hole_id = &"double_gate_03"
+garden_presentation = true
 display_name = "DAS DOPPELTOR"
 course_rect = Rect2(176, 16, 832, 328)
 lane_outline = SubResource("Resource_sshwr")

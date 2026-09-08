@@ -9,6 +9,7 @@ enum HoleCategory { COURSE, TECHNICAL }
 @export_range(1, 20, 1) var par := 4
 @export var course_rect := Rect2(176.0, 16.0, 448.0, 328.0)
 @export var lane_outline: LaneOutlineDefinition
+@export var garden_presentation := false
 @export var tee_position := Vector2(220.0, 305.0)
 @export var hole_position := Vector2(575.0, 55.0)
 @export var initial_aim_offset := Vector2(60.0, 0.0)

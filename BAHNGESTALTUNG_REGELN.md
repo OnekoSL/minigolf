@@ -407,7 +407,9 @@ Aktuell Gesamt-PAR 50. Die Routen für 03, 06 und 07 liegen schon unter vereinfa
 | `double_gate_03` | Das Doppeltor / 4 | Drei versetzte Kammern und zwei Tore. Geometrische Routen für 4/3 Schläge bei offen fixierten Toren; gemeinsames Zeitfenster zusätzlich isoliert getestet. |
 | `cannon_workshop_04` | Die Kanonenwerkstatt / 4 | Pflichtschalter, getrennte sichere/riskante Kanone, Maschinenwand und Landebereiche. Routen für 4/3 Schläge sowie Aufnahme, Flug, Landung und Reset getestet. |
 
-Der Prototypkurs hat einschließlich seiner fünf Labore Gesamt-PAR 38 und Bestwertrevision 2. `reference_01` liegt in `data/holes/reference_hole_01.tres`; der Name „Referenz“ im Dateipfad macht diese Bahn nicht zu einer technischen Referenzbahn.
+Der ursprüngliche Prototypkurs hatte einschließlich seiner fünf Labore Gesamt-PAR 38 und Bestwertrevision 2. `reference_01` liegt in `data/holes/reference_hole_01.tres`; der Name „Referenz“ im Dateipfad macht diese Bahn nicht zu einer technischen Referenzbahn.
+
+**Aktualisierung am 08.09.2026 – Revision 3:** Fünf eigenständige Kursfassungen ersetzen die Labore in der offiziellen Runde: Sandufer (PAR 3), Doppelhügel (3), Uferkehre (3), Panoramaweg (5) und Bogenpromenade (4). Damit besitzt der Prototypkurs neun echte Bahnen und Gesamt-PAR 33. Der Gesamtkatalog steigt auf 50 Bahnen: 36 echte und 14 technische. Die fünf ursprünglichen Labore bleiben unverändert für Mechanikregressionen verfügbar. Ihre Legacy-Ausnahmen gelten nicht für die neuen Kursfassungen. Diese verwenden geschlossene Normkonturen, reine atomare Pfeilfelder und im Fall der Bogenpromenade zwei echte Konturbögen. Der frühere Bestandscheck oben beschreibt weiterhin den Stand vor dieser Erweiterung. Aufbau, Prüfung und Aufnahmen sind in [PROTOTYPKURS.md](PROTOTYPKURS.md) dokumentiert.
 
 ### 10.6 Fünf ältere technische Labore
 

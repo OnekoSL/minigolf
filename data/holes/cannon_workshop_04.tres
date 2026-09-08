@@ -373,6 +373,7 @@ grid_cell = Vector2i(41, 18)
 [resource]
 script = ExtResource("5_14he0")
 hole_id = &"cannon_workshop_04"
+garden_presentation = true
 display_name = "DIE KANONENWERKSTATT"
 course_rect = Rect2(176, 16, 960, 328)
 lane_outline = SubResource("Resource_jtxe3")

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_5tiw6"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_74aem"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_faq28"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_gfd5f"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_phjck"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_w68nk"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_6tjhy"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="8_3w0yt"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_l5mgn"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_bl8pg"]
+
+[sub_resource type="Resource" id="Resource_w44p0"]
+script = ExtResource("4_gfd5f")
+points = PackedVector2Array(184, 216, 472, 216, 472, 56, 600, 56, 600, 328, 184, 328)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_dar0d"]
+script = ExtResource("7_6tjhy")
+rect = Rect2(280, 264, 64, 64)
+
+[sub_resource type="Resource" id="Resource_4rdtq"]
+script = ExtResource("7_6tjhy")
+rect = Rect2(392, 216, 80, 40)
+surface_type = 2
+deceleration = 120.0
+
+[resource]
+script = ExtResource("6_w68nk")
+hole_id = &"prototype_04"
+display_name = "SANDUFER"
+par = 3
+lane_outline = SubResource("Resource_w44p0")
+garden_presentation = true
+tee_position = Vector2(220, 280)
+hole_position = Vector2(552, 88)
+initial_aim_offset = Vector2(96, 0)
+surfaces = Array[ExtResource("7_6tjhy")]([SubResource("Resource_dar0d"), SubResource("Resource_4rdtq")])

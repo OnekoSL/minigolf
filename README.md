@@ -1,8 +1,8 @@
 # Putt & Pixel - Spielrahmen-Prototyp
 
-Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit fuenf Kursen, insgesamt einunddreissig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
+Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit fuenf Kursen, insgesamt sechsunddreissig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
 
-Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den Bestandscheck aller 45 Bahnen einschliesslich offener Design- und Testluecken.
+Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
 ## Starten
 
@@ -36,18 +36,18 @@ Direkt spielen:
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus einunddreissig Kurs- und vierzehn technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus sechsunddreissig Kurs- und vierzehn technischen Bahnen.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
 ## Spielmodi und Runde
 
-- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun** (Par 19), **Pfeil-Armageddon** (Par 27), dem **Referenzkurs** (Par 18), **Labyrinth-Neun** (Par 50) und dem **Prototypkurs** (Par 38).
+- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun** (Par 19), **Pfeil-Armageddon** (Par 27), dem **Referenzkurs** (Par 18), **Labyrinth-Neun** (Par 50) und dem **Prototypkurs** (Par 33).
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
 - **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die einunddreissig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die sechsunddreissig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
 ## Controller
 
@@ -73,6 +73,9 @@ Wippen-Regressionsfaelle pruefen ausserdem echten Rueckprall bei 420/520 px/s, b
 
 ## Prototypumfang
 
+Der **Prototypkurs** verwendet Bestwertrevision 3 (`prototype_course_03_v3`) und neun echte Kursbahnen mit PAR `4/3/4/3/3/3/5/4/4` (33). Fuenf eigenstaendige Kursfassungen ersetzen die Labore in der gewerteten Runde; die urspruenglichen Labore bleiben ueber F2 in der Uebung erhalten. Normkonturen, wandbuendige reine Pfeilfelder und zwei echte Konturboegen bringen die Bahnen auf den aktuellen Stand. Dezente Rasenstreifen und Pflanzbeete verbinden alle neun Bahnen optisch. Die Endtabelle zeigt Kursdaten, farbige PAR-Wertungen, nach Ergebnis sortierte Spieler und eine Solo-Auswertung. Details und reproduzierbare Aufnahmen stehen in [PROTOTYPKURS.md](PROTOTYPKURS.md).
+
+
 **Pfeil-Armageddon** verwendet nach der Wegepruefung Bestwertrevision 5 (`arrow_armageddon_course_v5`). Alle neun Bahnen haben wandbuendige Pflichtpassagen; beim Gegenstrom ist die Wasserumgehung geschlossen. Die Schlussbahn fuehrt durch acht Pfeilabschnitte statt um ungenutzte Pfeilinseln. PAR27, Start-/Lochpositionen und reine Gefaellephysik bleiben erhalten. `tests/capture_arrow_harmony.gd` erzeugt die Gesamtansichten nach `.godot/arrow-harmony/`.
 
 Die **Klassischen Neun** verwenden inzwischen Bestwertrevision 7 (`classic_nine_course_v7`). Die PAR-Folge bleibt unveraendert. Gemeinsame Gehrungen beseitigen Wandnaehte; echte Konturboegen ersetzen doppelte Rahmen bei Bogenschuss, Hufeisen, Engstelle und Heimkehr. Kreisallee besitzt freigestellte Pfeile und einen gleichmaessigen Zielkanal. Dauerhafte Bahn-, Spieler- und Rundeninfos stehen in der Seitenleiste statt ueber dem Spielfeld.
@@ -83,8 +86,8 @@ Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare u
 - der vollstaendig neu aufgebaute Kurs **Pfeil-Armageddon** mit je drei Par-2-, Par-3- und Par-4-Bahnen, Gesamt-Par 27, fuenf kompakten und vier horizontal scrollenden Pfeilpuzzles; alle neun besitzen eine eigene Normwandkontur und ein unvermeidbares Pfeil-Kernfeld
 - der sichtbare **Referenzkurs** mit neun Konturbahnen und Gesamt-Par 18
 - der Kurs **Labyrinth-Neun** mit neun langen Irrgaerten, Gesamt-Par 50, 26 in Zwangspassagen eingebundenen Rotoren, Schiebetoren und Wippen sowie zwei Bahnen mit diagonalen Normwaenden
-- der neunloecherige **Prototypkurs** mit **S-Kurve an der Muehle**, **Die Diamantenlinie**, **Das Doppeltor**, **Die Kanonenwerkstatt** und den fuenf fuer diesen Kurs kuratierten technischen Testbahnen, Gesamt-Par 38
-- vierzehn technische Bahnen: Allround-Testloch, Acht-Richtungs-Labor, U-Flussbahn, Scroll-Testbahn, **Kurven-Labor** sowie **Referenz: Tor-Gerade**, **Basis 1: Dreifach-Bumper**, **Basis 1: Rotor**, **Basis 1: Schiebetor**, **Basis 1: Wippe**, **Basis 1: Huegelpass**, **Referenz: Winkel**, **Referenz: MOS-Kurve** und **Basis 1: Huegelloch**; Dreieck/F2 wechselt in der Uebung zyklisch durch alle 45 Bahnen
+- der neunloecherige **Prototypkurs** mit **S-Kurve an der Muehle**, **Die Diamantenlinie**, **Das Doppeltor**, **Die Kanonenwerkstatt** sowie **Sandufer**, **Doppelhuegel**, **Uferkehre**, **Panoramaweg** und **Bogenpromenade**, Gesamt-Par 33
+- vierzehn technische Bahnen: Allround-Testloch, Acht-Richtungs-Labor, U-Flussbahn, Scroll-Testbahn, **Kurven-Labor** sowie **Referenz: Tor-Gerade**, **Basis 1: Dreifach-Bumper**, **Basis 1: Rotor**, **Basis 1: Schiebetor**, **Basis 1: Wippe**, **Basis 1: Huegelpass**, **Referenz: Winkel**, **Referenz: MOS-Kurve** und **Basis 1: Huegelloch**; Dreieck/F2 wechselt in der Uebung zyklisch durch alle 50 Bahnen
 - typisierte `.tres`-Bahndaten fuer freie Bahnkonturen, bei den klassischen, Referenz-, Labyrinth- und Pfeil-Armageddon-Bahnen aus 4-Pixel-Normwaenden erzeugte Aussenkonturen und gerade beziehungsweise diagonale Innenwaende samt L- und T-Anschluessen, atomare achsenparallele 16-x-16-Pixel-Pfeilzellen, zwoelf normierte Wandbausteine im 16-Pixel-Raster, unmarkierte paarweise Tunnelloecher, rechteckige Legacy-Banden fuer aeltere Testbahnen, runde Bumper, Kreisbogenwaende, freie Flaechen, Hindernisse, Trigger, Kanonen, Kamera und Lochregeln; ein gemeinsamer Runtime-Builder erzeugt Darstellung und Kollisionen aller Bahnen
 - Gruen, Sand, Gefaelle und Wasser; atomare Pfeilflaechen verwenden 30 px/s2 Rollwiderstand und unterscheiden flaches Gefaelle in Dunkelgruen, mittleres in Dunkelblau und steiles in Dunkelrot
 - gerade und gedrehte Banden, massive Kreis-Bumper, dicke Kreisbogenwaende, rotierende Hindernisse, zwei deterministische Schiebetore sowie zwei automatisch ausloesende Kanonen mit sichtbarem Bogenflug

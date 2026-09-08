@@ -119,6 +119,7 @@ variant = 5
 [resource]
 script = ExtResource("5_vbodg")
 hole_id = &"classic_diamond_02"
+garden_presentation = true
 display_name = "DIE DIAMANTENLINIE"
 par = 3
 lane_outline = SubResource("Resource_12rqb")

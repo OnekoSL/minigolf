@@ -248,6 +248,8 @@ func _draw() -> void:
 	if definition.lane_outline != null:
 		draw_rect(definition.course_rect, Color("#183626"), true)
 		draw_colored_polygon(definition.lane_outline.get_floor_points(), Color("#347a4a"))
+		if definition.garden_presentation:
+			_draw_garden()
 		return
 	draw_rect(definition.course_rect, Color("#347a4a"), true)
 	var spacing := maxi(8, definition.grid_spacing)
@@ -264,3 +266,38 @@ func _draw() -> void:
 				Vector2(definition.course_rect.end.x, y),
 				Color(0.11, 0.28, 0.18, 0.10), 1.0
 			)
+
+
+func _draw_garden() -> void:
+	var floor_points := definition.lane_outline.get_floor_points()
+	var rect := definition.course_rect
+	# Clip mowing stripes to the exact playable outline, including its arcs.
+	for x in range(int(rect.position.x), int(rect.end.x), 48):
+		var stripe := PackedVector2Array([Vector2(x,rect.position.y), Vector2(x+24,rect.position.y), Vector2(x+24,rect.end.y), Vector2(x,rect.end.y)])
+		for polygon in Geometry2D.intersect_polygons(floor_points, stripe):
+			draw_colored_polygon(polygon, Color(0.64,0.84,0.50,0.045))
+	# Sparse planted beds sit entirely outside the playing surface.
+	for y in range(int(rect.position.y)+32, int(rect.end.y)-16, 48):
+		for x in range(int(rect.position.x)+32, int(rect.end.x)-16, 48):
+			var point := Vector2(x,y)
+			if (x / 48 + y / 48) % 3 != 0 or Geometry2D.is_point_in_polygon(point, floor_points):
+				continue
+			var clearance := INF
+			for index in range(floor_points.size()):
+				clearance = minf(clearance, point.distance_to(Geometry2D.get_closest_point_to_segment(point, floor_points[index], floor_points[(index+1) % floor_points.size()])))
+			if clearance < 22:
+				continue
+			var mechanism_space := false
+			for obstacle in definition.obstacles:
+				if obstacle.obstacle_type == ObstacleDefinition.ObstacleType.SLIDING_GATE:
+					var rail := Rect2(obstacle.position - obstacle.gate_size * 0.5, obstacle.gate_size)
+					rail = rail.merge(Rect2(rail.position + obstacle.open_offset, rail.size))
+					mechanism_space = mechanism_space or rail.grow(16).has_point(point)
+			if mechanism_space:
+				continue
+			draw_circle(point + Vector2(2,3), 12, Color("#112c25"))
+			draw_circle(point + Vector2(-4,1), 8, Color("#244936"))
+			draw_circle(point + Vector2(4,-2), 9, Color("#2c543c"))
+			draw_rect(Rect2(point+Vector2(-3,-5),Vector2(3,2)), Color("#719563"))
+			if (x+y) % 5 == 0:
+				draw_rect(Rect2(point+Vector2(3,1),Vector2(2,2)), Color("#e5bf73"))

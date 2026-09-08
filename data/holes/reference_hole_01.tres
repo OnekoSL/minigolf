@@ -142,6 +142,7 @@ rect = Rect2(536, 224, 128, 32)
 [resource]
 script = ExtResource("5_058vy")
 hole_id = &"reference_01"
+garden_presentation = true
 display_name = "S-KURVE AN DER MUEHLE"
 course_rect = Rect2(176, 16, 960, 328)
 lane_outline = SubResource("Resource_wr0re")

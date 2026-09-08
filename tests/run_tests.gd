@@ -48,6 +48,7 @@ func _run_all() -> void:
 	_test_distance_scale()
 	await _test_feedback_systems()
 	await load("res://tests/sidebar_hud_test.gd").run(self, _check)
+	await load("res://tests/prototype_course_test.gd").run(self, _check)
 	await _test_game_shell()
 	_test_controller_support()
 	print("\nErgebnis: %d Checks, %d Fehler" % [checks, failures])
@@ -1319,7 +1320,7 @@ func _test_hole_catalog() -> void:
 	_check(catalog != null, "Lochkatalog wird als typisierte Resource geladen")
 	if catalog == null:
 		return
-	_check(catalog.holes.size() == 45, "Katalog enthaelt einunddreissig echte Loecher und vierzehn Testbahnen")
+	_check(catalog.holes.size() == 50, "Katalog enthaelt sechsunddreissig echte Loecher und vierzehn Testbahnen")
 	_check(catalog.validate().is_empty(), "Alle Bahndefinitionen bestehen die Datenvalidierung")
 	var found_ids: Dictionary = {}
 	for definition in catalog.holes:
@@ -1339,7 +1340,7 @@ func _test_hole_catalog() -> void:
 		if not runtime.zones.is_empty():
 			_check(runtime.overlay.get_index() > runtime.zones[-1].get_index(), "%s zeichnet Banden ueber den Flaechen" % definition.hole_id)
 		runtime.queue_free()
-	_check(found_ids.size() == 45, "Alle Bahn-IDs sind eindeutig")
+	_check(found_ids.size() == 50, "Alle Bahn-IDs sind eindeutig")
 	await get_tree().process_frame
 
 
@@ -2198,9 +2199,9 @@ func _test_game_shell() -> void:
 	_check(courses != null, "Kurskatalog wird als typisierte Resource geladen")
 	_check(courses.validate(holes).is_empty(), "Kurskatalog verweist nur auf gueltige echte Loecher")
 	var course := courses.get_course(&"prototype_course_03")
-	_check(course != null and course.hole_ids.size() == 9, "Prototypkurs verbindet vier echte und fuenf technische Bahnen")
-	_check(course.get_total_par(holes) == 38, "Vollstaendiger Prototypkurs besitzt Gesamt-Par 38")
-	_check(course.allow_technical_holes, "Prototypkurs erlaubt seine kuratierten Testbahnen ausdruecklich")
+	_check(course != null and course.hole_ids.size() == 9, "Prototypkurs verbindet neun echte Kursbahnen")
+	_check(course.get_total_par(holes) == 33, "Vollstaendiger Prototypkurs besitzt Gesamt-Par 33")
+	_check(not course.allow_technical_holes, "Prototypkurs benoetigt keine Freigabe fuer Techniklabore")
 	var classic_course := courses.get_course(&"classic_nine_course")
 	var arrow_course := courses.get_course(&"arrow_armageddon_course")
 	var reference_course := courses.get_course(&"reference_lanes_course")
@@ -2218,7 +2219,7 @@ func _test_game_shell() -> void:
 			course_holes += 1
 		else:
 			technical_holes += 1
-	_check(course_holes == 31 and technical_holes == 14, "Katalog trennt einunddreissig Kurs- und vierzehn Technikbahnen")
+	_check(course_holes == 36 and technical_holes == 14, "Katalog trennt sechsunddreissig Kurs- und vierzehn Technikbahnen")
 
 	var first := PlayerProfile.create(1, "", 0)
 	var second := PlayerProfile.create(2, "ZWOELFZEICHENPLUS", 1)
@@ -2241,8 +2242,8 @@ func _test_game_shell() -> void:
 	prototype_config.hole_ids = course.hole_ids.duplicate()
 	prototype_config.best_eligible = true
 	prototype_config.allow_technical_holes = course.allow_technical_holes
-	_check(prototype_config.validate(holes).is_empty(), "Kuratierter Prototypkurs akzeptiert alle fuenf technischen Bahnen")
-	prototype_config.allow_technical_holes = false
+	_check(prototype_config.validate(holes).is_empty(), "Prototypkurs akzeptiert alle neun ausgearbeiteten Kursbahnen")
+	prototype_config.hole_ids.append(&"allround_test")
 	_check(not prototype_config.validate(holes).is_empty(), "Technische Bahnen bleiben ohne Kursfreigabe gesperrt")
 	var invalid_solo := RoundConfig.new()
 	invalid_solo.mode = RoundConfig.GameMode.COURSE_SOLO
@@ -2320,7 +2321,7 @@ func _test_game_shell() -> void:
 	_check(four_round.get_competition_rank(0) == 1 and four_round.get_competition_rank(1) == 1, "Vierer-Runde behaelt gemeinsame Spitzenraenge")
 	_check(four_round.get_competition_rank(2) == 3 and four_round.get_competition_rank(3) == 4, "Nach Gleichstand werden die folgenden Raenge uebersprungen")
 
-	var test_path := "user://putt_pixel_best_score_test.cfg"
+	var test_path := "res://.godot/putt_pixel_best_score_test.cfg"
 	var absolute_test_path := ProjectSettings.globalize_path(test_path)
 	if FileAccess.file_exists(test_path):
 		DirAccess.remove_absolute(absolute_test_path)
@@ -2362,11 +2363,11 @@ func _test_game_shell() -> void:
 		"Klassische Neun Revision 7 uebernimmt keine aelteren Bestwerte"
 	)
 	_check(
-		course.best_score_revision == 2
-			and course.get_best_score_key() == &"prototype_course_03_v2"
+		course.best_score_revision == 3
+			and course.get_best_score_key() == &"prototype_course_03_v3"
 			and store.get_best(course.get_best_score_key()) == -1
 			and store.get_best(course.course_id) == 10,
-		"Prototypkurs Revision 2 uebernimmt keinen alten Kursbestwert"
+		"Prototypkurs Revision 3 uebernimmt keinen alten Kursbestwert"
 	)
 	_check(
 		reference_course.best_score_revision == 1
@@ -2410,9 +2411,9 @@ func _test_game_shell() -> void:
 	_check(app.option_buttons.size() == 8 and app.option_buttons[5].disabled and not app.option_buttons[7].disabled, "Uebung zeigt fuenf Bahnen mit Seitennavigation")
 	app._change_hole_page(1)
 	_check(app.hole_select_page == 1 and app.option_buttons.size() == 8, "Uebungsseite wechselt controllerfreundlich weiter")
-	app.free_select_page = 6
+	app.free_select_page = 7
 	app._show_free_builder()
-	_check(app.free_select_page == 6 and app.option_buttons.size() == 6, "Freies Spiel erreicht die letzte Seite aller einunddreissig Kursbahnen")
+	_check(app.free_select_page == 7 and app.option_buttons.size() == 6, "Freies Spiel erreicht die letzte Seite aller sechsunddreissig Kursbahnen")
 	app.free_hole_ids = [&"reference_01", &"classic_diamond_02", &"reference_01"]
 	_check(app._free_sequence_text() == "FOLGE: 1-2-1", "Freie Auswahl bewahrt Reihenfolge und Wiederholung")
 	var practice_config := RoundConfig.new()
