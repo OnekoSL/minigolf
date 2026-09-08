@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
-points = PackedVector2Array(184, 248, 280, 248, 504, 24, 616, 24, 616, 104, 504, 104, 280, 328, 184, 328)
+points = PackedVector2Array(184, 248, 280, 248, 504, 24, 616, 24, 616, 88, 504, 88, 280, 312, 184, 312)
 wall_thickness = 4.0
 use_normalized_walls = true
 

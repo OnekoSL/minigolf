@@ -2,6 +2,8 @@
 
 Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit fuenf Kursen, insgesamt einunddreissig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
 
+Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den Bestandscheck aller 45 Bahnen einschliesslich offener Design- und Testluecken.
+
 ## Starten
 
 Die portable Godot-Version liegt lokal unter `.tools/godot-4.7.2/` und wird nicht versioniert.
@@ -59,7 +61,7 @@ Wenn SDL das Geraet auf einem anderen Rechner gar nicht erkennt, ist Steam Input
 & '.\.tools\godot-4.7.2\Godot_v4.7.2-stable_win64_console.exe' --headless --path . res://tests/test_runner.tscn
 ```
 
-Die Headless-Suite prueft Schusszustaende samt verzoegertem Kontakt und Abbruch, Genauigkeitsfehler, Reibung, alle acht Gefaellerichtungen, atomare 16-Pixel-Pfeilzellen mit drei Steigungsstufen sowie abgestufter Bergab-Beschleunigung und Bergauf-Bremsung, alle zwoelf atomaren Wandbausteine einschliesslich vier T-Stuecken, das gemeinsame Wandnetz fuer Innen- und Aussenwaende, lueckenlose Anschluesse diagonaler Innenwaende, verborgene paarweise Tunnelloecher mit Geschwindigkeits- und Richtungserhalt, um 90 Grad gedrehte Hindernisse, gemischte gerade und diagonale Aussenkonturen, die Symmetrieachsen und Proportionen der neun Referenzbahnen, das sichere Ausrollen nach wiederholtem Gefaelle-Wandkontakt, freie Bahnkonturen, aus Normwand-Kaestchen erzeugte Aussenbanden, Rechteck-, Kreis- und Kreisbogenkollisionen, Dreher- und Torimpuls, die gewichtsgesteuerte Wippenneigung samt Vorzugsstellung, perspektivisch eindeutiger Hoehendarstellung, dynamischer Sperrkante, mitkippenden Seitenbanden und ausschliesslichem Einstieg ueber die abgesenkte Vorderseite, die um 90 Grad gedrehte und beidseitig an Normwaende angeschlossene Labyrinth-Wippe, Triggerverkettung, verriegelte Kanonen und reproduzierbaren Bogenflug. Fuer die Klassischen Neun werden neun eigene geschlossene Silhouetten, exakt acht Kreisbumper, sieben Kreisboegen, drei flache atomare Pfeilfelder sowie sichere PAR- und riskante Abkuerzungsrouten geprueft. Fuer Pfeil-Armageddon werden zusaetzlich neun unterschiedliche Normwandkonturen, 761 reine Gefaellezellen, unvermeidbare Kernfelder, alle acht Richtungen, die exakte Sand- und Wasserverteilung, die mit L- und T-Stuecken geschlossene Pfeilspirale, ihr verborgenes Tunnelpaar, das zur Mitte und in den inneren Reihen diagonal nach links gerichtete rote Wasserfeld, dessen Festhaengeschutz sowie neun PAR-Routen geprueft. Weitere Tests decken Wasser-Ruecksetzung, Lochgeschwindigkeit, Bahn- und Kurskatalog, kuratierte technische Kursbahnen, paginierte Auswahl, Spieler- und Rundendaten, Hotseat-Wechsel, das dynamische Schlaglimit `max(8, PAR + 3)`, Neun-Loch-Tabelle, kursweise revisionierte Bestwerte sowie Kamera-, Audio-, Effekt-, Eingabe- und Fokusverhalten ab.
+Die Headless-Suite prueft Schusszustaende samt verzoegertem Kontakt und Abbruch, Genauigkeitsfehler, Reibung, alle acht Gefaellerichtungen, atomare 16-Pixel-Pfeilzellen mit drei Steigungsstufen sowie abgestufter Bergab-Beschleunigung und Bergauf-Bremsung, alle zwoelf atomaren Wandbausteine einschliesslich vier T-Stuecken, das gemeinsame Wandnetz fuer Innen- und Aussenwaende, lueckenlose Anschluesse diagonaler Innenwaende, verborgene paarweise Tunnelloecher mit Geschwindigkeits- und Richtungserhalt, um 90 Grad gedrehte Hindernisse, gemischte gerade und diagonale Aussenkonturen, die Symmetrieachsen und Proportionen der neun Referenzbahnen, das sichere Ausrollen nach wiederholtem Gefaelle-Wandkontakt, freie Bahnkonturen, aus Normwand-Kaestchen erzeugte Aussenbanden, Rechteck-, Kreis- und Kreisbogenkollisionen, Dreher- und Torimpuls, die gewichtsgesteuerte Wippenneigung samt Vorzugsstellung, perspektivisch eindeutiger Hoehendarstellung, dynamischer Sperrkante, mitkippenden Seitenbanden und ausschliesslichem Einstieg ueber die abgesenkte Vorderseite, die um 90 Grad gedrehte und beidseitig an Normwaende angeschlossene Labyrinth-Wippe, Triggerverkettung, verriegelte Kanonen und reproduzierbaren Bogenflug. Fuer die Klassischen Neun werden neun eigene geschlossene Silhouetten, exakt acht Kreisbumper, sieben Kreisboegen, drei flache atomare Pfeilfelder sowie sichere PAR- und riskante Abkuerzungsrouten geprueft. Fuer Pfeil-Armageddon werden zusaetzlich neun unterschiedliche Normwandkonturen, 834 reine Gefaellezellen, kontinuierlich abgesicherte Pflichtquerschnitte, alle acht Richtungen, die exakte Sand- und Wasserverteilung, die mit L- und T-Stuecken geschlossene Pfeilspirale, ihr verborgenes Tunnelpaar, das zur Mitte und in den inneren Reihen diagonal nach links gerichtete rote Wasserfeld, dessen Festhaengeschutz sowie neun PAR-Routen geprueft. Weitere Tests decken Wasser-Ruecksetzung, Lochgeschwindigkeit, Bahn- und Kurskatalog, kuratierte technische Kursbahnen, paginierte Auswahl, Spieler- und Rundendaten, Hotseat-Wechsel, das dynamische Schlaglimit `max(8, PAR + 3)`, Neun-Loch-Tabelle, kursweise revisionierte Bestwerte sowie Kamera-, Audio-, Effekt-, Eingabe- und Fokusverhalten ab.
 
 Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 
@@ -67,7 +69,15 @@ Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 & '.\.tools\godot-4.7.2\Godot_v4.7.2-stable_win64_console.exe' --path . res://tests/controller_probe.tscn
 ```
 
+Wippen-Regressionsfaelle pruefen ausserdem echten Rueckprall bei 420/520 px/s, beide Fahrtrichtungen, vier rechtwinklige Orientierungen, dosiertes Ueberqueren sowie geschlossene Zwischenstellungen. Live-Physiktests sichern Kippwechsel und Reset gegen einen um einen Frame verspaeteten Kollisionsschluss ab.
+
 ## Prototypumfang
+
+**Pfeil-Armageddon** verwendet nach der Wegepruefung Bestwertrevision 5 (`arrow_armageddon_course_v5`). Alle neun Bahnen haben wandbuendige Pflichtpassagen; beim Gegenstrom ist die Wasserumgehung geschlossen. Die Schlussbahn fuehrt durch acht Pfeilabschnitte statt um ungenutzte Pfeilinseln. PAR27, Start-/Lochpositionen und reine Gefaellephysik bleiben erhalten. `tests/capture_arrow_harmony.gd` erzeugt die Gesamtansichten nach `.godot/arrow-harmony/`.
+
+Die **Klassischen Neun** verwenden inzwischen Bestwertrevision 7 (`classic_nine_course_v7`). Die PAR-Folge bleibt unveraendert. Gemeinsame Gehrungen beseitigen Wandnaehte; echte Konturboegen ersetzen doppelte Rahmen bei Bogenschuss, Hufeisen, Engstelle und Heimkehr. Kreisallee besitzt freigestellte Pfeile und einen gleichmaessigen Zielkanal. Dauerhafte Bahn-, Spieler- und Rundeninfos stehen in der Seitenleiste statt ueber dem Spielfeld.
+
+Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare und physische Wandkanten, legale Schlagstaerken sowie kleine Routenabweichungen. `godot --path . --script res://tests/capture_classic_harmony.gd` rendert alle neun Gesamtansichten nach `.godot/classic-harmony/`; `tests/capture_classic_nine.tscn` prueft die Spielansichten und Kameraenden.
 
 - der vollstaendig neu aufgebaute Kurs **Klassische Neun** mit der Par-Folge `1/2/2/1/1/2/3/3/4`, Gesamt-Par 19, neun eigenen geschlossenen Normwand-Silhouetten, acht Kreisbumpern, sieben angeschlossenen Kreisboegen und drei kleinen flachen Pfeilfeldern; alle neun Bahnen besitzen reproduzierbare PAR-Routen
 - der vollstaendig neu aufgebaute Kurs **Pfeil-Armageddon** mit je drei Par-2-, Par-3- und Par-4-Bahnen, Gesamt-Par 27, fuenf kompakten und vier horizontal scrollenden Pfeilpuzzles; alle neun besitzen eine eigene Normwandkontur und ein unvermeidbares Pfeil-Kernfeld
@@ -87,6 +97,6 @@ Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 - persistenter Titel- und Menuefluss mit vier vollstaendig spielbaren Modi
 - ein bis vier lokale Spieler mit Namen, Farbvariante und Controller-Uebergabe
 - Loch- und Endtabellen, gemeinsamer Rang bei Gleichstand und lokaler Kursbestwert
-- maximales Lochergebnis von acht Schlaegen
+- dynamisches Schlagmaximum `max(8, PAR + 3)`
 
 Noch nicht enthalten sind weitere Golferprofile, ein final ausgearbeiteter Produktionskurs, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor.

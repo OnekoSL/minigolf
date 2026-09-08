@@ -2,28 +2,32 @@ class_name HoleOverlay
 extends Node2D
 
 var definition: HoleDefinition
+var wall_geometry: WallJoinGeometry
 
 
-func configure(hole_definition: HoleDefinition) -> void:
+func configure(hole_definition: HoleDefinition, joined_walls: WallJoinGeometry = null) -> void:
 	definition = hole_definition
+	wall_geometry = joined_walls
+	if wall_geometry == null and definition != null and definition.lane_outline != null and definition.lane_outline.use_normalized_walls:
+		wall_geometry = WallJoinGeometry.build(definition)
 	queue_redraw()
 
 
 func _draw() -> void:
 	if definition == null:
 		return
-	if definition.lane_outline != null:
-		if definition.lane_outline.use_normalized_walls:
-			for piece in definition.get_normalized_wall_network():
-				_draw_wall_segments(piece["segments"])
-		else:
-			draw_polyline(
-				definition.lane_outline.get_closed_points(),
-				Color("#dad1af"),
-				definition.lane_outline.wall_thickness,
-				true
-			)
+	if wall_geometry != null:
+		_draw_joined_walls()
+	elif definition.lane_outline != null:
+		draw_polyline(
+			definition.lane_outline.get_closed_points(),
+			Color("#dad1af"),
+			definition.lane_outline.wall_thickness,
+			true
+		)
 	for wall in definition.walls:
+		if wall_geometry != null and wall.wall_type != WallDefinition.WallType.CIRCLE:
+			continue
 		draw_set_transform(wall.center, deg_to_rad(wall.rotation_degrees), Vector2.ONE)
 		match wall.wall_type:
 			WallDefinition.WallType.RECTANGLE:
@@ -41,7 +45,7 @@ func _draw() -> void:
 					outline.append(outline[0])
 					draw_polyline(outline, Color("#584d43"), 1.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	if definition.lane_outline == null or not definition.lane_outline.use_normalized_walls:
+	if wall_geometry == null and (definition.lane_outline == null or not definition.lane_outline.use_normalized_walls):
 		for wall_tile in definition.wall_tiles:
 			_draw_wall_tile(wall_tile)
 	for obstacle in definition.obstacles:
@@ -83,6 +87,15 @@ func _draw() -> void:
 
 func _draw_wall_tile(wall_tile: WallTileDefinition) -> void:
 	_draw_wall_segments(wall_tile.get_segments())
+
+
+func _draw_joined_walls() -> void:
+	# Only the external boundary gets a border. Fill and collision share these
+	# actual joined regions, including miter corners and arc connections.
+	if not wall_geometry.boundary_segments.is_empty():
+		draw_multiline(wall_geometry.boundary_segments, Color("#584d43"), 2.0, false)
+	for polygon in wall_geometry.polygons:
+		draw_colored_polygon(polygon, Color("#dad1af"))
 
 
 func _draw_wall_segments(segments: Array) -> void:

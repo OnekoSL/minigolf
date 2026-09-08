@@ -11,6 +11,7 @@ var obstacle_nodes: Array[Node2D] = []
 var trigger_nodes: Array[BallSwitch] = []
 var cannon_nodes: Array[AdventureCannon] = []
 var overlay: HoleOverlay
+var wall_geometry: WallJoinGeometry
 
 
 func configure(hole_definition: HoleDefinition) -> void:
@@ -83,13 +84,16 @@ func _build_from_definition() -> void:
 	obstacle_nodes.clear()
 	trigger_nodes.clear()
 	cannon_nodes.clear()
+	wall_geometry = null
 	var uses_wall_network := definition.lane_outline != null and definition.lane_outline.use_normalized_walls
 	if uses_wall_network:
-		_add_normalized_wall_network()
+		wall_geometry = WallJoinGeometry.build(definition)
+		_add_joined_wall_network()
 	elif definition.lane_outline != null:
 		_add_lane_boundaries(definition.lane_outline)
 	for wall in definition.walls:
-		_add_wall(wall)
+		if not uses_wall_network or wall.wall_type == WallDefinition.WallType.CIRCLE:
+			_add_wall(wall)
 	if not uses_wall_network:
 		for wall_tile in definition.wall_tiles:
 			_add_wall_tile(wall_tile)
@@ -117,7 +121,7 @@ func _build_from_definition() -> void:
 		trigger_nodes.append(trigger)
 		add_child(trigger)
 	overlay = HoleOverlay.new()
-	overlay.configure(definition)
+	overlay.configure(definition, wall_geometry)
 	add_child(overlay)
 	queue_redraw()
 
@@ -214,15 +218,26 @@ func _add_lane_boundaries(outline: LaneOutlineDefinition) -> void:
 		add_child(body)
 
 
-func _add_normalized_wall_network() -> void:
-	for piece in definition.get_normalized_wall_network():
-		var wall_type := &"normalized_lane_boundary" if piece["is_boundary"] else &"wall_tile"
-		var body := _create_wall_piece_body(piece["segments"], piece["variant"], wall_type)
+func _add_joined_wall_network() -> void:
+	for piece in wall_geometry.pieces:
+		var body := StaticBody2D.new()
+		body.collision_layer = 2
+		body.collision_mask = 0
+		body.set_meta("wall_type", piece["wall_type"])
+		body.set_meta("wall_variant", piece["variant"])
 		body.set_meta("wall_is_boundary", piece["is_boundary"])
 		body.set_meta("wall_is_internal", piece["is_internal"])
+		body.set_meta("wall_thickness", WallTileDefinition.THICKNESS)
+		var segments: PackedVector2Array = piece["collision_segments"]
+		if not segments.is_empty():
+			var shape := ConcavePolygonShape2D.new()
+			shape.segments = segments
+			var collision := CollisionShape2D.new()
+			collision.shape = shape
+			body.add_child(collision)
 		if piece["is_boundary"]:
 			lane_boundary_nodes.append(body)
-		if piece["is_internal"]:
+		if piece["is_internal"] and not piece.get("is_legacy_definition", false):
 			wall_tile_nodes.append(body)
 		add_child(body)
 
@@ -232,7 +247,7 @@ func _draw() -> void:
 		return
 	if definition.lane_outline != null:
 		draw_rect(definition.course_rect, Color("#183626"), true)
-		draw_colored_polygon(definition.lane_outline.points, Color("#347a4a"))
+		draw_colored_polygon(definition.lane_outline.get_floor_points(), Color("#347a4a"))
 		return
 	draw_rect(definition.course_rect, Color("#347a4a"), true)
 	var spacing := maxi(8, definition.grid_spacing)

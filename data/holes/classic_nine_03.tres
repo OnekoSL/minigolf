@@ -6,12 +6,6 @@
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
 [ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
 
-[sub_resource type="Resource" id="Lane_outline"]
-script = ExtResource("2_outline")
-points = PackedVector2Array(184, 232, 280, 232, 360, 152, 440, 152, 520, 72, 520, 40, 616, 40, 616, 136, 536, 136, 456, 216, 376, 216, 296, 296, 184, 296)
-wall_thickness = 4.0
-use_normalized_walls = true
-
 [sub_resource type="Resource" id="Arc_lower"]
 script = ExtResource("3_wall")
 wall_type = 2
@@ -31,6 +25,13 @@ thickness = 4.0
 arc_start_degrees = 0.0
 arc_sweep_degrees = 90.0
 arc_segments = 24
+
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(184, 232, 280, 232, 360, 152, 440, 152, 488, 104, 488, 40, 616, 40, 616, 136, 536, 136, 456, 216, 376, 216, 328, 264, 328, 296, 184, 296)
+wall_thickness = 4.0
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_lower"), SubResource("Arc_upper")])
 
 [sub_resource type="Resource" id="Arrow_1"]
 script = ExtResource("5_arrow")
@@ -104,7 +105,7 @@ hole_position = Vector2(575, 74)
 initial_aim_offset = Vector2(90, -42)
 camera_center_bounds = Rect2(320, 180, 0, 0)
 grid_spacing = 16
-walls = Array[ExtResource("3_wall")]([SubResource("Arc_lower"), SubResource("Arc_upper")])
+walls = Array[ExtResource("3_wall")]([])
 wall_tiles = Array[ExtResource("4_wall_tile")]([])
 surfaces = []
 arrow_tiles = Array[ExtResource("5_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12")])

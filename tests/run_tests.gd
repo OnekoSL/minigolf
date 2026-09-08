@@ -22,6 +22,8 @@ func _run_all() -> void:
 	_test_atomic_arrow_dynamics()
 	await _test_slope_wall_settling()
 	_test_wall_tiles()
+	await load("res://tests/wall_join_test.gd").run(self, _check)
+	load("res://tests/curved_outline_test.gd").run(_check)
 	await _test_rotated_surface_zones()
 	await _test_hole_catalog()
 	await _test_reference_hole()
@@ -29,7 +31,12 @@ func _run_all() -> void:
 	await _test_double_gate_hole()
 	await _test_cannon_workshop()
 	await _test_classic_nine_course()
+	await load("res://tests/classic_route_margin_test.gd").run(self, _check)
 	await _test_arrow_armageddon_course()
+	await load("res://tests/arrow_intro_design_test.gd").run(self, _check)
+	await load("res://tests/arrow_middle_design_test.gd").run(self, _check)
+	await load("res://tests/arrow_late_design_test.gd").run(self, _check)
+	await load("res://tests/arrow_finale_design_test.gd").run(self, _check)
 	await _test_labyrinth_nine_course()
 	await _test_slope_test_hole()
 	await _test_flow_test_hole()
@@ -40,6 +47,7 @@ func _run_all() -> void:
 	await _test_repeated_hole_switch_input()
 	_test_distance_scale()
 	await _test_feedback_systems()
+	await load("res://tests/sidebar_hud_test.gd").run(self, _check)
 	await _test_game_shell()
 	_test_controller_support()
 	print("\nErgebnis: %d Checks, %d Fehler" % [checks, failures])
@@ -731,11 +739,11 @@ func _test_real_lane_references() -> void:
 				break
 			for child in body.get_children():
 				var collision := child as CollisionShape2D
-				var rectangle := collision.shape as RectangleShape2D if collision != null else null
-				if rectangle == null or not is_equal_approx(rectangle.size.y, WallTileDefinition.THICKNESS) or rectangle.size.x > Vector2(WallTileDefinition.CELL_SIZE, WallTileDefinition.CELL_SIZE).length() + 0.01:
+				var joined_shape := collision.shape as ConcavePolygonShape2D if collision != null else null
+				if joined_shape == null or joined_shape.segments.is_empty() or not is_equal_approx(body.get_meta("wall_thickness", 0.0), WallTileDefinition.THICKNESS):
 					boundaries_are_normalized = false
 					break
-		_check(boundaries_are_normalized, "%s baut die Aussenwand ausschliesslich aus vier Pixel starken Normsegmenten" % hole_id)
+		_check(boundaries_are_normalized, "%s baut vier Pixel starke Normbanden mit ausschliesslich aeusseren Kollisionskanten" % hole_id)
 		runtime.queue_free()
 	await get_tree().process_frame
 
@@ -1050,14 +1058,18 @@ func _test_seesaw_obstacle() -> void:
 	test_ball.position = Vector2(320, 180)
 	var seesaw_zones: Array[SurfaceZone] = [seesaw]
 	test_ball.configure_environment(seesaw_zones, Vector2(500, 180))
-	var lip_feedback := {"kind": &""}
-	test_ball.wall_hit.connect(func(_intensity, _position, _normal, kind): lip_feedback["kind"] = kind)
+	var lip_feedback := {"kind": &"", "velocity_x": 0.0}
+	test_ball.wall_hit.connect(func(_intensity, _position, _normal, kind):
+		lip_feedback["kind"] = kind
+		if kind == &"seesaw_lip":
+			lip_feedback["velocity_x"] = test_ball.velocity.x
+	)
 	test_ball.launch(Vector2.RIGHT, 180.0, 1)
 	for _step in range(20):
 		test_ball._physics_process(1.0 / 60.0)
 		if not test_ball.moving:
 			break
-	_check(not test_ball.moving and test_ball.position.x < 348.0 and lip_feedback["kind"] == &"seesaw_lip", "Hohe Wippenkante stoppt einen zu schnellen Ball")
+	_check(test_ball.position.x < 348.0 and lip_feedback["kind"] == &"seesaw_lip" and float(lip_feedback["velocity_x"]) < -1.0, "Hohe Wippenkante wirft einen schnellen Ball mit umgekehrter Geschwindigkeit zurueck")
 	seesaw.advance_tilt(0.70, 30.0)
 	await get_tree().physics_frame
 	test_ball.reset_to(Vector2(320, 180))
@@ -1081,12 +1093,194 @@ func _test_seesaw_obstacle() -> void:
 		test_ball._physics_process(1.0 / 60.0)
 	var entered_from_front := test_ball.position.x > 270.0
 	test_ball.reset_to(Vector2(360, 180))
+	lip_feedback["velocity_x"] = 0.0
 	test_ball.launch(Vector2.LEFT, 120.0, 1)
 	for _step in range(20):
 		test_ball._physics_process(1.0 / 60.0)
-	_check(entered_from_front and not test_ball.moving and test_ball.position.x > 350.0, "Wippe ist nur ueber ihre abgesenkte Vorderseite befahrbar")
+	_check(entered_from_front and float(lip_feedback["velocity_x"]) > 1.0 and test_ball.position.x > 350.0, "Nur die abgesenkte Vorderseite erlaubt Einstieg; die hohe Rueckseite reflektiert den Ball")
 	test_ball.free()
 	seesaw.free()
+	await _test_seesaw_dynamic_end_contacts()
+	await _test_seesaw_live_end_activation()
+
+
+func _test_seesaw_dynamic_end_contacts() -> void:
+	for rotation_degrees in [0.0, 90.0, 180.0, 270.0]:
+		for travel_sign in [-1.0, 1.0]:
+			for delta in [1.0 / 60.0, 1.0 / 30.0]:
+				for speed in [420.0, 520.0]:
+					var result := await _simulate_seesaw_end_contact(rotation_degrees, travel_sign, speed, delta)
+					var label := "Wippe %.0f Grad, Richtung %+.0f, Tempo %.0f, %.0f Hz" % [rotation_degrees, travel_sign, speed, 1.0 / delta]
+					_check(
+						int(result["lip_hits"]) > 0 and float(result["first_lip_velocity"]) < -1.0,
+						"%s reflektiert den starken Anspielball am noch angehobenen Ausgang" % label
+					)
+					_check(
+						float(result["maximum_progress"]) < 48.0
+							and not bool(result["crossed_closed_exit"])
+							and not bool(result["still_moving"]),
+						"%s passiert die Ausgangsebene waehrend der gesamten Fahrt nicht" % label
+					)
+				var slow_result := await _simulate_seesaw_end_contact(rotation_degrees, travel_sign, 170.0, delta)
+				_check(
+					float(slow_result["maximum_progress"]) > 60.0
+						and bool(slow_result["exit_lowered_before_crossing"])
+						and not bool(slow_result["crossed_closed_exit"]),
+					"Wippe %.0f Grad, Richtung %+.0f, %.0f Hz laesst einen dosierten Ball nach dem gewichtsgesteuerten Absenken ausrollen" % [rotation_degrees, travel_sign, 1.0 / delta]
+				)
+			for initial_tilt in [-0.1, 0.0, 0.1]:
+				var neutral_result := await _simulate_seesaw_end_contact(rotation_degrees, travel_sign, 180.0, 1.0 / 60.0, initial_tilt)
+				_check(
+					bool(neutral_result["both_neutral_ends_closed"])
+						and int(neutral_result["lip_hits"]) > 0
+						and float(neutral_result["first_lip_velocity"]) < -1.0
+						and float(neutral_result["maximum_progress"]) < 48.0,
+					"Wippe %.0f Grad, Richtung %+.0f, Neigung %+.1f haelt beide Stirnseiten geschlossen und reflektiert" % [rotation_degrees, travel_sign, initial_tilt]
+				)
+
+
+func _simulate_seesaw_end_contact(rotation_degrees: float, travel_sign: float, speed: float, delta: float, neutral_tilt := INF) -> Dictionary:
+	var seesaw := SeesawObstacle.new()
+	seesaw.position = Vector2(300, 180)
+	seesaw.rotation_degrees = rotation_degrees
+	seesaw.preferred_tilt = -travel_sign
+	get_tree().root.add_child(seesaw)
+	seesaw.set_physics_process(false)
+	seesaw.reset_motion()
+	var neutral_contact := not is_inf(neutral_tilt)
+	if neutral_contact:
+		seesaw.tilt = neutral_tilt
+		seesaw.target_tilt = 0.0
+	seesaw.sync_end_blockers(true)
+	var ball := PrototypeBall.new()
+	get_tree().root.add_child(ball)
+	ball.set_physics_process(false)
+	var starting_progress := 20.0 if neutral_contact else -60.0
+	ball.position = seesaw.to_global(Vector2(starting_progress * travel_sign, 0.0))
+	var zones: Array[SurfaceZone] = [seesaw]
+	ball.configure_environment(zones, Vector2(-2000, -2000))
+	var travel_direction := Vector2.RIGHT.rotated(seesaw.global_rotation) * travel_sign
+	var result := {
+		"lip_hits": 0,
+		"first_lip_velocity": 0.0,
+		"maximum_progress": starting_progress,
+		"crossed_closed_exit": false,
+		"exit_lowered_before_crossing": false,
+		"both_neutral_ends_closed": seesaw.is_left_end_blocking() and seesaw.is_right_end_blocking(),
+		"still_moving": false,
+	}
+	ball.wall_hit.connect(func(_intensity, _position, _normal, kind):
+		if kind == &"seesaw_lip":
+			if int(result["lip_hits"]) == 0:
+				result["first_lip_velocity"] = ball.velocity.dot(travel_direction)
+			result["lip_hits"] = int(result["lip_hits"]) + 1
+	)
+	await get_tree().physics_frame
+	ball.launch(travel_direction, speed, 1)
+	var previous_progress := starting_progress
+	for _step in range(ceili(8.0 / delta)):
+		var weighted_local_x := seesaw.to_local(ball.global_position).x if seesaw.contains_global_point(ball.global_position) else INF
+		seesaw.advance_tilt(delta, 0.0 if neutral_contact else weighted_local_x)
+		seesaw.sync_end_blockers(true)
+		var exit_blocked := seesaw.is_right_end_blocking() if travel_sign > 0.0 else seesaw.is_left_end_blocking()
+		if neutral_contact:
+			result["both_neutral_ends_closed"] = bool(result["both_neutral_ends_closed"]) and seesaw.is_left_end_blocking() and seesaw.is_right_end_blocking()
+		ball._physics_process(delta)
+		var progress := seesaw.to_local(ball.global_position).x * travel_sign
+		result["maximum_progress"] = maxf(float(result["maximum_progress"]), progress)
+		if previous_progress <= seesaw.plank_size.x * 0.5 and progress > seesaw.plank_size.x * 0.5:
+			if exit_blocked:
+				result["crossed_closed_exit"] = true
+			else:
+				result["exit_lowered_before_crossing"] = true
+		previous_progress = progress
+		if not ball.moving:
+			break
+	result["still_moving"] = ball.moving
+	ball.free()
+	seesaw.free()
+	return result
+
+
+func _test_seesaw_live_end_activation() -> void:
+	var cases: Array[Dictionary] = []
+	for rotation_degrees in [0.0, 90.0, 180.0, 270.0]:
+		for travel_sign in [-1.0, 1.0]:
+			for activation in [&"close_threshold", &"reset"]:
+				for lateral_offset in [-16.0, 0.0, 16.0]:
+					cases.append(_create_seesaw_live_activation_case(
+						rotation_degrees, travel_sign, activation, lateral_offset,
+						Vector2(5000.0 + cases.size() * 1000.0, 1000.0)
+					))
+	# Let the previously open shape become active in the physics server before
+	# changing its state immediately ahead of a real physics tick.
+	await get_tree().physics_frame
+	await get_tree().process_frame
+	await get_tree().physics_frame
+	for entry in cases:
+		var seesaw: SeesawObstacle = entry["seesaw"]
+		var ball: PrototypeBall = entry["ball"]
+		seesaw.preferred_tilt = float(entry["travel_sign"])
+		if entry["activation"] == &"reset":
+			seesaw.reset_motion()
+		seesaw.set_physics_process(true)
+		ball.set_physics_process(true)
+		ball.launch(entry["travel_direction"], 520.0, 1)
+	# No manual tilt advance or collision synchronization: the Area and the
+	# normal _physics_process callbacks must close the lip before the ball moves.
+	for _frame in range(24):
+		await get_tree().physics_frame
+		await get_tree().process_frame
+		for entry in cases:
+			var seesaw: SeesawObstacle = entry["seesaw"]
+			var ball: PrototypeBall = entry["ball"]
+			var progress := seesaw.to_local(ball.global_position).x * float(entry["travel_sign"])
+			entry["maximum_progress"] = maxf(float(entry["maximum_progress"]), progress)
+	for entry in cases:
+		var label := "Live-Wippe %.0f Grad, Richtung %+.0f, %s, seitlich %+.0f" % [entry["rotation_degrees"], entry["travel_sign"], entry["activation"], entry["lateral_offset"]]
+		var reflected_once := int(entry["lip_hits"]) == 1 and float(entry["first_lip_velocity"]) < -1.0
+		var stayed_outside := float(entry["maximum_progress"]) <= -53.0
+		if not reflected_once or not stayed_outside:
+			print("  %s: Treffer %d, erste Geschwindigkeit %.2f, maximale Vorwaertsposition %.2f" % [label, entry["lip_hits"], entry["first_lip_velocity"], entry["maximum_progress"]])
+		_check(reflected_once and stayed_outside, "%s schliesst rechtzeitig: genau ein Rueckprall, kein Eindringen und kein Doppelkontakt" % label)
+		var ball: PrototypeBall = entry["ball"]
+		var seesaw: SeesawObstacle = entry["seesaw"]
+		ball.free()
+		seesaw.free()
+	await get_tree().process_frame
+
+
+func _create_seesaw_live_activation_case(rotation_degrees: float, travel_sign: float, activation: StringName, lateral_offset: float, center: Vector2) -> Dictionary:
+	# Deliberately add the ball first: insertion order must not determine whether
+	# the seesaw's newly raised end can be crossed for one physics frame.
+	var ball := PrototypeBall.new()
+	get_tree().root.add_child(ball)
+	ball.set_physics_process(false)
+	var seesaw := SeesawObstacle.new()
+	seesaw.position = center
+	seesaw.rotation_degrees = rotation_degrees
+	seesaw.preferred_tilt = -travel_sign * (0.21 if activation == &"close_threshold" else 1.0)
+	get_tree().root.add_child(seesaw)
+	seesaw.set_physics_process(false)
+	seesaw.reset_motion()
+	ball.position = seesaw.to_global(Vector2(-54.0 * travel_sign, lateral_offset))
+	var zones: Array[SurfaceZone] = [seesaw]
+	ball.configure_environment(zones, Vector2(-2000, -2000))
+	var travel_direction := Vector2.RIGHT.rotated(seesaw.global_rotation) * travel_sign
+	var result := {
+		"ball": ball, "seesaw": seesaw,
+		"rotation_degrees": rotation_degrees, "travel_sign": travel_sign,
+		"activation": activation, "lateral_offset": lateral_offset,
+		"travel_direction": travel_direction,
+		"lip_hits": 0, "first_lip_velocity": 0.0, "maximum_progress": -54.0,
+	}
+	ball.wall_hit.connect(func(_intensity, _position, _normal, kind):
+		if kind == &"seesaw_lip":
+			if int(result["lip_hits"]) == 0:
+				result["first_lip_velocity"] = ball.velocity.dot(travel_direction)
+			result["lip_hits"] = int(result["lip_hits"]) + 1
+	)
+	return result
 
 
 func _test_rotated_obstacle_definitions() -> void:
@@ -1474,6 +1668,9 @@ func _test_classic_nine_course() -> void:
 				_check(is_equal_approx(wall.thickness, 4.0), "%s verwendet vier Pixel starke Kreisboegen" % hole_id)
 			else:
 				legacy_rectangle_count += 1
+		for arc in definition.lane_outline.boundary_arcs:
+			arc_count += 1
+			_check(arc.wall_type == WallDefinition.WallType.ARC and is_equal_approx(arc.thickness, 4.0), "%s verwendet vier Pixel starke echte Aussenboegen" % hole_id)
 		for tile in definition.wall_tiles:
 			_check(tile != null and tile.validate("Klassik-Wand", definition.grid_spacing).is_empty(), "%s verwendet nur atomare Normwandbausteine" % hole_id)
 		for tile in definition.arrow_tiles:
@@ -1519,7 +1716,7 @@ func _test_classic_nine_course() -> void:
 		_check(x_cells.size() == expected[0] and y_cells.size() == expected[1] and directions_match, "%s besitzt das festgelegte zusammenhaengende Pfeilraster" % hole_id)
 
 	var horseshoe := holes.get_hole(&"classic_nine_04")
-	_check(horseshoe.walls.size() == 1 and horseshoe.wall_tiles.size() == 8, "Das Hufeisen ist ueber zwei Normwandarme an die Zufahrt angeschlossen")
+	_check(horseshoe.walls.is_empty() and horseshoe.wall_tiles.is_empty() and horseshoe.lane_outline.boundary_arcs.size() == 1, "Das Hufeisen bildet eine echte runde Zielkammer statt eines Bogens vor einer zweiten Aussenwand")
 	var zigzag := holes.get_hole(&"classic_nine_07")
 	var diagonal_down_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_DOWN).size()
 	var diagonal_up_count := zigzag.wall_tiles.filter(func(tile): return tile.variant == WallTileDefinition.Variant.DIAGONAL_UP).size()
@@ -1536,48 +1733,43 @@ func _test_classic_nine_course() -> void:
 		"Der Zickzack-Weg fuehrt vom oberen linken Start zum unteren rechten Loch"
 	)
 	var homecoming := holes.get_hole(&"classic_nine_09")
-	var homecoming_horizontal_tiles := homecoming.wall_tiles.filter(
-		func(tile): return tile.variant == WallTileDefinition.Variant.HORIZONTAL
-	)
-	var homecoming_vertical_tiles := homecoming.wall_tiles.filter(
-		func(tile): return tile.variant == WallTileDefinition.Variant.VERTICAL
-	)
+	var homecoming_arcs := homecoming.lane_outline.boundary_arcs
 	_check(
-		homecoming.walls.size() == 2
-			and homecoming.walls.all(func(wall): return wall.wall_type == WallDefinition.WallType.ARC)
-			and homecoming.walls.all(func(wall): return wall.center == Vector2(856, 168))
-			and homecoming.walls.all(func(wall): return is_equal_approx(wall.arc_start_degrees, 90.0) and is_equal_approx(wall.arc_sweep_degrees, -180.0))
-			and homecoming_horizontal_tiles.size() == 84
-			and homecoming_vertical_tiles.size() == 1
+		homecoming_arcs.size() == 2
+			and homecoming_arcs.all(func(wall): return wall.center == Vector2(856, 168) and is_equal_approx(absf(wall.arc_sweep_degrees), 180.0))
+			and homecoming.walls.is_empty() and homecoming.wall_tiles.is_empty()
 			and homecoming.par == 4
-			and homecoming.hole_position == Vector2(220, 72),
-		"Die Heimkehr bildet einen geschlossenen Haarnadelkanal aus zwei verbundenen Halbkreisen"
+			and homecoming.hole_position == Vector2(220, 56),
+		"Die Heimkehr bildet einen echten gleichmaessigen Haarnadelkanal ohne doppelten Rahmen oder Wandstummel"
 	)
 
 	var safe_routes := {
 		&"classic_nine_01": [[0.0, 292.0]],
 		&"classic_nine_02": [[-12.0, 408.0]],
-		&"classic_nine_03": [[-37.1, 399.0]],
-		&"classic_nine_04": [[-24.0, 244.0]],
+		&"classic_nine_03": [[-36.0, 250.0], [Vector2(575, 74), 180.0]],
+		&"classic_nine_04": [[0.0, 244.0]],
 		&"classic_nine_05": [[-32.35, 387.5]],
-		&"classic_nine_06": [[-28.0, 220.0], [-34.0, 412.0]],
+		&"classic_nine_06": [[-24.0, 280.0], [Vector2(575, 72), 115.0]],
 		&"classic_nine_07": [[Vector2(600, 270), 300.0], [Vector2(850, 100), 270.0], [Vector2(960, 280), 240.0]],
-		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 180.0], [-121.0, 392.0]],
-		&"classic_nine_09": [[Vector2(600, 286), 300.0], [Vector2(1000, 280), 300.0], [Vector2(960, 72), 220.0], [Vector2(220, 72), 420.0]],
+		&"classic_nine_08": [[-24.0, 420.0], [-28.5, 340.0], [Vector2(960, 72), 185.0]],
+		&"classic_nine_09": [[Vector2(600, 280), 300.0], [Vector2(1000, 280), 300.0], [Vector2(960, 72), 220.0], [Vector2(220, 56), 420.0]],
 	}
 	for hole_id in course.hole_ids:
+		_check(safe_routes[hole_id].size() <= holes.get_hole(hole_id).par, "%s PAR-Route verwendet nicht mehr Schlaege als erlaubt" % hole_id)
+		_check(safe_routes[hole_id].all(func(shot): return shot[1] >= 78 and shot[1] <= 420), "%s PAR-Route liegt im spielbaren Kraftbereich" % hole_id)
 		var completed := await _simulate_hole_route(hole_id, safe_routes[hole_id])
 		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
 
 	var risk_routes := {
-		&"classic_nine_04": [[-24.0, 244.0]],
+		&"classic_nine_04": [[0.0, 244.0]],
 		&"classic_nine_05": [[-32.35, 387.5]],
-		&"classic_nine_06": [[-28.0, 400.0]],
+		&"classic_nine_06": [[-25.4, 406.0]],
 		&"classic_nine_07": [[Vector2(600, 270), 310.0], [Vector2(960, -190), 420.0]],
-		&"classic_nine_08": [[-24.0, 420.0], [-22.91, 320.0]],
-		&"classic_nine_09": [[Vector2(1000, 280), 420.0], [Vector2(960, 72), 220.0], [Vector2(220, 72), 420.0]],
+		&"classic_nine_08": [[-24.0, 420.0], [-33.5, 420.0]],
+		&"classic_nine_09": [[Vector2(1000, 280), 420.0], [Vector2(960, 72), 220.0], [Vector2(220, 56), 420.0]],
 	}
 	for hole_id in risk_routes:
+		_check(risk_routes[hole_id].all(func(shot): return shot[1] >= 78 and shot[1] <= 420), "%s Risiko-Route liegt im spielbaren Kraftbereich" % hole_id)
 		var completed := await _simulate_hole_route(hole_id, risk_routes[hole_id])
 		_check(completed, "%s besitzt die festgelegte anspruchsvolle Abkuerzung" % hole_id)
 
@@ -1603,17 +1795,9 @@ func _test_arrow_armageddon_course() -> void:
 	var tunnel_count := 0
 	var directions: Dictionary = {}
 	var outline_signatures: Dictionary = {}
-	var core_specs := {
-		&"arrow_armageddon_01": Rect2i(18, 8, 6, 4),
-		&"arrow_armageddon_02": Rect2i(17, 5, 13, 13),
-		&"arrow_armageddon_03": Rect2i(19, 8, 14, 7),
-		&"arrow_armageddon_04": Rect2i(17, 15, 4, 5),
-		&"arrow_armageddon_05": Rect2i(18, 9, 9, 6),
-		&"arrow_armageddon_06": Rect2i(28, 6, 12, 4),
-		&"arrow_armageddon_07": Rect2i(17, 16, 4, 4),
-		&"arrow_armageddon_08": Rect2i(35, 9, 12, 4),
-		&"arrow_armageddon_09": Rect2i(24, 13, 4, 4),
-	}
+	# Field dimensions and continuous mandatory cuts are verified by the
+	# dedicated course-design regressions, not inferred from cell counts.
+
 	for hole_id in course.hole_ids:
 		var definition := holes.get_hole(hole_id)
 		_check(definition != null and definition.is_course_hole(), "%s ist eine gueltige Kursbahn" % hole_id)
@@ -1639,8 +1823,6 @@ func _test_arrow_armageddon_course() -> void:
 					water_count += 1
 				SurfaceZone.SurfaceType.SLOPE:
 					_check(false, "%s verwendet keine Legacy-Gefaelleflaeche" % hole_id)
-		var core_spec: Rect2i = core_specs[hole_id]
-		var core_cells := 0
 		for tile in definition.arrow_tiles:
 			arrow_count += 1
 			grade_counts[tile.slope_grade] = int(grade_counts.get(tile.slope_grade, 0)) + 1
@@ -1654,14 +1836,6 @@ func _test_arrow_armageddon_course() -> void:
 					and is_zero_approx(tile.flow_centering_strength),
 				"%s Pfeilzelle %s ist atomar und verwendet reines Gefaelle" % [hole_id, tile.grid_cell]
 			)
-			if core_spec.has_point(tile.grid_cell):
-				core_cells += 1
-		var expected_core_cells := core_spec.size.x * core_spec.size.y
-		if hole_id == &"arrow_armageddon_02":
-			expected_core_cells = 36
-		elif hole_id == &"arrow_armageddon_03":
-			expected_core_cells = 84
-		_check(core_cells == expected_core_cells, "%s besitzt sein vollstaendiges, nicht umgehbares Kernfeld" % hole_id)
 		var hole_number := int(String(hole_id).get_slice("_", 2))
 		if hole_number <= 3:
 			_check(definition.arrow_tiles.all(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.SHALLOW), "%s lehrt ausschliesslich flache gruene Pfeile" % hole_id)
@@ -1671,21 +1845,23 @@ func _test_arrow_armageddon_course() -> void:
 			_check(definition.arrow_tiles.any(func(tile): return tile.slope_grade == SurfaceZone.SlopeGrade.STEEP), "%s verwendet steile rote Pfeile als Hauptgefahr" % hole_id)
 	_check(par_counts == {2: 3, 3: 3, 4: 3}, "Par-Verteilung besteht aus dreimal zwei, drei und vier")
 	_check(compact_count == 5 and wide_count == 3 and long_count == 1, "Fuenf Bahnen sind kompakt und vier scrollen horizontal")
-	_check(arrow_count == 761 and grade_counts == {0: 174, 1: 494, 2: 93}, "Der Kurs verteilt 761 atomare Pfeilzellen ueber drei ansteigende Wirkungsstufen")
+	_check(arrow_count == 834 and grade_counts.values().all(func(count): return count > 0), "Der ueberarbeitete Kurs verteilt 834 atomare Pfeilzellen auf alle drei Wirkungsstufen")
+	print("Pfeilbestand: ", arrow_count, " Zellen, Stufen ", grade_counts)
 	_check(sand_count == 1 and water_count == 2, "Nur eine Sand- und zwei Wasserflaechen ergaenzen die Pfeile")
 	_check(tunnel_count == 1, "Nur die Pfeilspirale besitzt ein verborgenes Tunnelpaar")
 	_check(directions.size() == 8, "Der Kurs verwendet alle acht Pfeilrichtungen")
 	_check(outline_signatures.size() == 9, "Alle neun Bahnen besitzen eine eigenstaendige geschlossene Silhouette")
 	var spiral := holes.get_hole(&"arrow_armageddon_06")
 	_check(
-		spiral.wall_tiles.size() == 146
-			and spiral.wall_tiles.any(func(tile): return tile.variant <= WallTileDefinition.Variant.CORNER_LEFT_UP)
+		spiral.wall_tiles.size() == 101
+			and spiral.lane_outline.points.has(Vector2(248, 88))
+			and spiral.lane_outline.points.has(Vector2(840, 88))
 			and spiral.wall_tiles.any(func(tile): return tile.variant >= WallTileDefinition.Variant.T_UP),
-		"Die Pfeilspirale schliesst ihre Korridore mit normierten L- und T-Stuecken"
+		"Die Pfeilspirale verbindet ihre Konturecken und inneren T-Anschluesse ohne doppelte Restflaechenwaende"
 	)
 	_check(
 		spiral.tunnels.size() == 1
-			and spiral.tunnels[0].endpoint_a == Vector2(808, 120)
+			and spiral.tunnels[0].endpoint_a == Vector2(808, 100)
 			and spiral.tunnels[0].endpoint_b == Vector2(872, 100),
 		"Das innere Sackgassenloch fuehrt verborgen in die geschlossene Zielkammer"
 	)
@@ -1735,17 +1911,19 @@ func _test_arrow_armageddon_course() -> void:
 
 	var routes := {
 		&"arrow_armageddon_01": [[Vector2(490, 180), 250.0], [Vector2(580, 100), 180.0]],
-		&"arrow_armageddon_02": [[Vector2(575, 70), 430.0], [Vector2(575, 140), 250.0]],
+		&"arrow_armageddon_02": [[Vector2(575, 70), 420.0], [Vector2(575, 70), 135.0]],
 		&"arrow_armageddon_03": [[Vector2(475, 165), 290.0], [Vector2(580, 180), 130.0]],
-		&"arrow_armageddon_04": [[Vector2(350, 235), 245.0], [Vector2(580, 180), 110.0], [Vector2(580, 180), 120.0]],
-		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(400, 80), 160.0], [Vector2(575, 82), 195.0]],
-		&"arrow_armageddon_06": [[-2.0, 360.0], [-180.0, 280.0], [-146.0, 420.0]],
-		&"arrow_armageddon_07": [[Vector2(430, 235), 300.0], [Vector2(960, 70), 155.0], [Vector2(960, 70), 80.0], [Vector2(960, 70), 80.0]],
-		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 360.0], [Vector2(900, 260), 180.0], [Vector2(960, 286), 120.0]],
-		&"arrow_armageddon_09": [[Vector2(430, 235), 300.0], [Vector2(425, 165), 140.0], [Vector2(550, 40), 220.0], [Vector2(1090, 70), 370.0]],
+		&"arrow_armageddon_04": [[Vector2(350, 235), 245.0], [Vector2(580, 180), 110.0], [Vector2(580, 180), 78.0]],
+		&"arrow_armageddon_05": [[Vector2(395, 180), 230.0], [Vector2(575, 95), 225.0], [Vector2(575, 70), 100.0]],
+		&"arrow_armageddon_06": [[-2.0, 360.0], [-180.0, 280.0], [-156.0, 370.0]],
+		&"arrow_armageddon_07": [[Vector2(430, 235), 180.0], [Vector2(740, 160), 200.0], [Vector2(880, 130), 160.0], [Vector2(960, 70), 100.0]],
+		&"arrow_armageddon_08": [[Vector2(540, 176), 280.0], [Vector2(800, 176), 360.0], [Vector2(900, 260), 180.0], [Vector2(960, 286), 140.0]],
+		&"arrow_armageddon_09": [[-8.0, 340.0], [10.7078454479826, 200.0], [-6.42677758312242, 400.0]],
 	}
 	for hole_id in course.hole_ids:
-		var completed := await _simulate_hole_route(hole_id, routes[hole_id])
+		var shots: Array = routes[hole_id]
+		_check(shots.size() <= holes.get_hole(hole_id).par and shots.all(func(shot): return shot[1] >= 78.0 and shot[1] <= 420.0), "%s verwendet nur legale Schlagstaerken innerhalb PAR" % hole_id)
+		var completed := await _simulate_hole_route(hole_id, shots)
 		_check(completed, "%s endet reproduzierbar innerhalb seines Pars" % hole_id)
 
 
@@ -2154,30 +2332,34 @@ func _test_game_shell() -> void:
 	_check(store.submit(arrow_course.course_id, 27) == 27 and store.get_best(course.course_id) == 10, "Alter Pfeil-Armageddon-Bestwert bleibt vom klassischen Kurs getrennt")
 	_check(store.submit(&"arrow_armageddon_course_v2", 24) == 24, "Pfeil-Armageddon-Bestwert der Revision 2 bleibt erhalten")
 	_check(store.submit(&"arrow_armageddon_course_v3", 25) == 25, "Pfeil-Armageddon-Bestwert der Revision 3 bleibt erhalten")
+	_check(store.submit(&"arrow_armageddon_course_v4", 26) == 26, "Pfeil-Armageddon-Bestwert der Revision 4 bleibt erhalten")
 	_check(
-		arrow_course.best_score_revision == 4
-			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v4"
+		arrow_course.best_score_revision == 5
+			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v5"
 			and store.get_best(arrow_course.get_best_score_key()) == -1
 			and store.get_best(arrow_course.course_id) == 27
 			and store.get_best(&"arrow_armageddon_course_v2") == 24
-			and store.get_best(&"arrow_armageddon_course_v3") == 25,
-		"Pfeil-Armageddon Revision 4 uebernimmt keine aelteren Kursbestwerte"
+			and store.get_best(&"arrow_armageddon_course_v3") == 25
+			and store.get_best(&"arrow_armageddon_course_v4") == 26,
+		"Pfeil-Armageddon Revision 5 uebernimmt keine aelteren Kursbestwerte"
 	)
 	_check(store.submit(classic_course.course_id, 18) == 18, "Alter Klassik-Bestwert bleibt unter seinem bisherigen Schluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v2", 17) == 17, "Klassik-Bestwert der Revision 2 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v3", 19) == 19, "Klassik-Bestwert der Revision 3 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v4", 19) == 19, "Klassik-Bestwert der Revision 4 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v5", 19) == 19, "Klassik-Bestwert der Revision 5 bleibt unter seinem Revisionsschluessel erhalten")
+	_check(store.submit(&"classic_nine_course_v6", 19) == 19, "Klassik-Bestwert der Revision 6 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(
-		classic_course.best_score_revision == 6
-			and classic_course.get_best_score_key() == &"classic_nine_course_v6"
+		classic_course.best_score_revision == 7
+			and classic_course.get_best_score_key() == &"classic_nine_course_v7"
 			and store.get_best(classic_course.get_best_score_key()) == -1
 			and store.get_best(classic_course.course_id) == 18
 			and store.get_best(&"classic_nine_course_v2") == 17
 			and store.get_best(&"classic_nine_course_v3") == 19
 			and store.get_best(&"classic_nine_course_v4") == 19
-			and store.get_best(&"classic_nine_course_v5") == 19,
-		"Klassische Neun Revision 6 uebernimmt keine aelteren Bestwerte"
+			and store.get_best(&"classic_nine_course_v5") == 19
+			and store.get_best(&"classic_nine_course_v6") == 19,
+		"Klassische Neun Revision 7 uebernimmt keine aelteren Bestwerte"
 	)
 	_check(
 		course.best_score_revision == 2

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=59 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=71 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
 [ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
@@ -8,319 +8,455 @@
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
-points = PackedVector2Array(184, 248, 280, 248, 328, 200, 456, 200, 504, 152, 632, 152, 680, 104, 808, 104, 856, 56, 1000, 56, 1000, 152, 888, 152, 840, 200, 712, 200, 664, 248, 536, 248, 488, 296, 360, 296, 328, 328, 184, 328)
+points = PackedVector2Array(184, 248, 344, 248, 392, 200, 520, 200, 568, 152, 696, 152, 744, 104, 856, 104, 904, 56, 1000, 56, 1000, 120, 904, 120, 856, 168, 744, 168, 696, 216, 568, 216, 520, 264, 392, 264, 344, 312, 184, 312)
 wall_thickness = 4.0
 use_normalized_walls = true
 
 [sub_resource type="Resource" id="Arrow_1"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(17, 16)
+grid_cell = Vector2i(17, 15)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_2"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(18, 16)
+grid_cell = Vector2i(18, 15)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_3"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(19, 16)
+grid_cell = Vector2i(19, 15)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_4"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(20, 16)
+grid_cell = Vector2i(20, 15)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_5"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(17, 17)
+grid_cell = Vector2i(17, 16)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_6"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(18, 17)
+grid_cell = Vector2i(18, 16)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_7"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(19, 17)
+grid_cell = Vector2i(19, 16)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_8"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(20, 17)
+grid_cell = Vector2i(20, 16)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_9"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(17, 18)
+grid_cell = Vector2i(17, 17)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_10"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(18, 18)
+grid_cell = Vector2i(18, 17)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_11"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(19, 18)
+grid_cell = Vector2i(19, 17)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_12"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(20, 18)
+grid_cell = Vector2i(20, 17)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_13"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(17, 19)
+grid_cell = Vector2i(17, 18)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_14"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(18, 19)
+grid_cell = Vector2i(18, 18)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_15"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(19, 19)
+grid_cell = Vector2i(19, 18)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_16"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(20, 19)
+grid_cell = Vector2i(20, 18)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 0
 
 [sub_resource type="Resource" id="Arrow_17"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(23, 13)
+grid_cell = Vector2i(26, 12)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_18"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(24, 13)
+grid_cell = Vector2i(27, 12)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_19"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(25, 13)
+grid_cell = Vector2i(28, 12)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_20"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(26, 13)
+grid_cell = Vector2i(29, 12)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_21"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(23, 14)
+grid_cell = Vector2i(26, 13)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_22"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(24, 14)
+grid_cell = Vector2i(27, 13)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_23"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(25, 14)
+grid_cell = Vector2i(28, 13)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_24"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(26, 14)
+grid_cell = Vector2i(29, 13)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_25"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(23, 15)
+grid_cell = Vector2i(26, 14)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_26"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(24, 15)
+grid_cell = Vector2i(27, 14)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_27"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(25, 15)
+grid_cell = Vector2i(28, 14)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_28"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(26, 15)
+grid_cell = Vector2i(29, 14)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_29"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(32, 10)
-direction = 2
+grid_cell = Vector2i(26, 15)
+grid_offset = Vector2i(8, 8)
+direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_30"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(33, 10)
-direction = 2
+grid_cell = Vector2i(27, 15)
+grid_offset = Vector2i(8, 8)
+direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_31"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(34, 10)
-direction = 2
+grid_cell = Vector2i(28, 15)
+grid_offset = Vector2i(8, 8)
+direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_32"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(35, 10)
-direction = 2
+grid_cell = Vector2i(29, 15)
+grid_offset = Vector2i(8, 8)
+direction = 1
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_33"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(32, 11)
+grid_cell = Vector2i(37, 9)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_34"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(33, 11)
+grid_cell = Vector2i(38, 9)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_35"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(34, 11)
+grid_cell = Vector2i(39, 9)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_36"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(35, 11)
+grid_cell = Vector2i(40, 9)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_37"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(32, 12)
+grid_cell = Vector2i(37, 10)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_38"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(33, 12)
+grid_cell = Vector2i(38, 10)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_39"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(34, 12)
+grid_cell = Vector2i(39, 10)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_40"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(35, 12)
+grid_cell = Vector2i(40, 10)
+grid_offset = Vector2i(8, 8)
 direction = 2
 slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_41"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(43, 7)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(37, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_42"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(44, 7)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(38, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_43"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(45, 7)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(39, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_44"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(46, 7)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(40, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_45"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(43, 8)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(37, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_46"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(44, 8)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(38, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_47"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(45, 8)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(39, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_48"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(46, 8)
-direction = 1
-slope_grade = 2
+grid_cell = Vector2i(40, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
 
 [sub_resource type="Resource" id="Arrow_49"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(43, 9)
+grid_cell = Vector2i(48, 6)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_50"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(44, 9)
+grid_cell = Vector2i(49, 6)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_51"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(45, 9)
+grid_cell = Vector2i(50, 6)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 2
 
 [sub_resource type="Resource" id="Arrow_52"]
 script = ExtResource("3_arrow")
-grid_cell = Vector2i(46, 9)
+grid_cell = Vector2i(51, 6)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_53"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(48, 7)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_54"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(49, 7)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_55"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(50, 7)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_56"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(51, 7)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_57"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(48, 8)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_58"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(49, 8)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_59"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(50, 8)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_60"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(51, 8)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_61"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(48, 9)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_62"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(49, 9)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_63"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(50, 9)
+grid_offset = Vector2i(8, 8)
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_64"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(51, 9)
+grid_offset = Vector2i(8, 8)
 direction = 1
 slope_grade = 2
 
@@ -339,8 +475,7 @@ grid_spacing = 16
 walls = []
 wall_tiles = Array[ExtResource("4_wall_tile")]([])
 surfaces = Array[ExtResource("5_surface")]([])
-arrow_tiles = Array[ExtResource("3_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12"), SubResource("Arrow_13"), SubResource("Arrow_14"), SubResource("Arrow_15"), SubResource("Arrow_16"), SubResource("Arrow_17"), SubResource("Arrow_18"), SubResource("Arrow_19"), SubResource("Arrow_20"), SubResource("Arrow_21"), SubResource("Arrow_22"), SubResource("Arrow_23"), SubResource("Arrow_24"), SubResource("Arrow_25"), SubResource("Arrow_26"), SubResource("Arrow_27"), SubResource("Arrow_28"), SubResource("Arrow_29"), SubResource("Arrow_30"), SubResource("Arrow_31"), SubResource("Arrow_32"), SubResource("Arrow_33"), SubResource("Arrow_34"), SubResource("Arrow_35"), SubResource("Arrow_36"), SubResource("Arrow_37"), SubResource("Arrow_38"), SubResource("Arrow_39"), SubResource("Arrow_40"), SubResource("Arrow_41"), SubResource("Arrow_42"), SubResource("Arrow_43"), SubResource("Arrow_44"), SubResource("Arrow_45"), SubResource("Arrow_46"), SubResource("Arrow_47"), SubResource("Arrow_48"), SubResource("Arrow_49"), SubResource("Arrow_50"), SubResource("Arrow_51"), SubResource("Arrow_52")])
+arrow_tiles = Array[ExtResource("3_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12"), SubResource("Arrow_13"), SubResource("Arrow_14"), SubResource("Arrow_15"), SubResource("Arrow_16"), SubResource("Arrow_17"), SubResource("Arrow_18"), SubResource("Arrow_19"), SubResource("Arrow_20"), SubResource("Arrow_21"), SubResource("Arrow_22"), SubResource("Arrow_23"), SubResource("Arrow_24"), SubResource("Arrow_25"), SubResource("Arrow_26"), SubResource("Arrow_27"), SubResource("Arrow_28"), SubResource("Arrow_29"), SubResource("Arrow_30"), SubResource("Arrow_31"), SubResource("Arrow_32"), SubResource("Arrow_33"), SubResource("Arrow_34"), SubResource("Arrow_35"), SubResource("Arrow_36"), SubResource("Arrow_37"), SubResource("Arrow_38"), SubResource("Arrow_39"), SubResource("Arrow_40"), SubResource("Arrow_41"), SubResource("Arrow_42"), SubResource("Arrow_43"), SubResource("Arrow_44"), SubResource("Arrow_45"), SubResource("Arrow_46"), SubResource("Arrow_47"), SubResource("Arrow_48"), SubResource("Arrow_49"), SubResource("Arrow_50"), SubResource("Arrow_51"), SubResource("Arrow_52"), SubResource("Arrow_53"), SubResource("Arrow_54"), SubResource("Arrow_55"), SubResource("Arrow_56"), SubResource("Arrow_57"), SubResource("Arrow_58"), SubResource("Arrow_59"), SubResource("Arrow_60"), SubResource("Arrow_61"), SubResource("Arrow_62"), SubResource("Arrow_63"), SubResource("Arrow_64")])
 obstacles = []
 triggers = []
 cannons = []
-

@@ -34,7 +34,7 @@ func validate() -> PackedStringArray:
 		errors.append("Bahn %s besitzt kein gueltiges Spielfeld" % hole_id)
 	if lane_outline != null:
 		errors.append_array(lane_outline.validate("Bahn %s, Kontur" % hole_id))
-		for point in lane_outline.points:
+		for point in lane_outline.get_floor_points():
 			if not course_rect.grow(0.1).has_point(point):
 				errors.append("Bahn %s: Konturpunkt liegt ausserhalb des Spielfelds" % hole_id)
 				break

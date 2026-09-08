@@ -8,19 +8,19 @@
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
-points = PackedVector2Array(184, 24, 520, 24, 568, 72, 760, 72, 808, 120, 1000, 120, 1000, 328, 664, 328, 632, 296, 424, 296, 376, 248, 184, 248)
+points = PackedVector2Array(184, 24, 520, 24, 568, 72, 760, 72, 808, 120, 1000, 120, 1000, 328, 808, 328, 760, 280, 552, 280, 520, 248, 184, 248)
 wall_thickness = 4.0
 use_normalized_walls = true
 
 [sub_resource type="Resource" id="Water_top"]
 script = ExtResource("5_surface")
-rect = Rect2(560, 80, 192, 64)
+rect = Rect2(560, 72, 192, 72)
 surface_type = 2
 deceleration = 0.0
 
 [sub_resource type="Resource" id="Water_bottom"]
 script = ExtResource("5_surface")
-rect = Rect2(560, 208, 192, 64)
+rect = Rect2(560, 208, 192, 72)
 surface_type = 2
 deceleration = 0.0
 

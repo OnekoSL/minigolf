@@ -1,66 +1,25 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=15 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
 [ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
 [ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
-[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
-[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
-
-[sub_resource type="Resource" id="Lane_outline"]
-script = ExtResource("2_outline")
-points = PackedVector2Array(184, 232, 280, 232, 328, 184, 328, 88, 520, 88, 584, 152, 584, 248, 520, 312, 328, 312, 312, 328, 184, 328)
-wall_thickness = 4.0
-use_normalized_walls = true
 
 [sub_resource type="Resource" id="Arc_horseshoe"]
 script = ExtResource("3_wall")
 wall_type = 2
-center = Vector2(452, 176)
-radius = 76.0
+center = Vector2(464, 176)
+radius = 101.823376490863
 thickness = 4.0
-arc_start_degrees = 227.5
-arc_sweep_degrees = 265.0
-arc_segments = 36
+arc_start_degrees = -135.0
+arc_sweep_degrees = 270.0
+arc_segments = 64
 
-[sub_resource type="Resource" id="WallTile_upper_2"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(21, 7)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_upper_3"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(22, 7)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_upper_4"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(23, 7)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_upper_5"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(24, 7)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_lower_2"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(21, 14)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_lower_3"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(22, 14)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_lower_4"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(23, 14)
-variant = 6
-
-[sub_resource type="Resource" id="WallTile_lower_5"]
-script = ExtResource("4_wall_tile")
-grid_cell = Vector2i(24, 14)
-variant = 6
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(200, 152, 344, 152, 392, 104, 392, 248, 344, 200, 200, 200)
+wall_thickness = 4.0
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_horseshoe")])
 
 [resource]
 script = ExtResource("1_hole")
@@ -69,15 +28,15 @@ display_name = "DAS HUFEISEN"
 par = 1
 course_rect = Rect2(176, 16, 448, 328)
 lane_outline = SubResource("Lane_outline")
-tee_position = Vector2(220, 270)
-hole_position = Vector2(452, 172)
-initial_aim_offset = Vector2(92, -36)
+tee_position = Vector2(220, 176)
+hole_position = Vector2(464, 176)
+initial_aim_offset = Vector2(92, 0)
 camera_center_bounds = Rect2(320, 180, 0, 0)
 grid_spacing = 16
-walls = Array[ExtResource("3_wall")]([SubResource("Arc_horseshoe")])
-wall_tiles = Array[ExtResource("4_wall_tile")]([SubResource("WallTile_upper_2"), SubResource("WallTile_upper_3"), SubResource("WallTile_upper_4"), SubResource("WallTile_upper_5"), SubResource("WallTile_lower_2"), SubResource("WallTile_lower_3"), SubResource("WallTile_lower_4"), SubResource("WallTile_lower_5")])
+walls = []
+wall_tiles = []
 surfaces = []
-arrow_tiles = Array[ExtResource("5_arrow")]([])
+arrow_tiles = []
 obstacles = []
 triggers = []
 cannons = []

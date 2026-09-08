@@ -22,6 +22,9 @@ var bottom_side_collisions: Array[CollisionShape2D] = []
 
 
 func _ready() -> void:
+	# Update the raised lips before balls move, even after a hole switch has
+	# placed this obstacle later in the scene tree than the existing ball.
+	process_physics_priority = -10
 	zone_size = plank_size
 	surface_type = SurfaceType.SLOPE
 	deceleration = 70.0
@@ -76,11 +79,13 @@ func reset_motion() -> void:
 
 
 func is_left_end_blocking() -> bool:
-	return tilt >= blocker_tilt_threshold
+	# Only the sufficiently lowered end is traversable. Both lips remain
+	# closed around level so a fast shot cannot use a transient open window.
+	return tilt > -blocker_tilt_threshold
 
 
 func is_right_end_blocking() -> bool:
-	return tilt <= -blocker_tilt_threshold
+	return tilt < blocker_tilt_threshold
 
 
 func _create_end_blocker(local_x: float) -> StaticBody2D:
@@ -104,7 +109,9 @@ func _create_end_blocker(local_x: float) -> StaticBody2D:
 
 
 func _update_end_blockers() -> void:
-	sync_end_blockers(false)
+	# Deferring a closing lip leaves one physics frame open and can activate
+	# the shape inside a fast ball. Tilt/reset updates must apply atomically.
+	sync_end_blockers(true)
 	_sync_side_walls()
 
 

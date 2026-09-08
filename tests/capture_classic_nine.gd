@@ -14,6 +14,7 @@ func _capture_all() -> void:
 		main.configure_attempt(definition, PlayerProfile.create(1, "SPIELER 1", 0), true, index + 1, 9, 0, false)
 		add_child(main)
 		await get_tree().process_frame
+		await get_tree().process_frame
 		await RenderingServer.frame_post_draw
 		var path := "res://.godot/classic-nine-%02d.png" % (index + 1)
 		var result := get_viewport().get_texture().get_image().save_png(path)

@@ -78,23 +78,25 @@ func _build_hud() -> void:
 	state_label = _label("ZIELEN", Vector2(7, 99), Vector2(88, 12), 9, Color("#ffffff"))
 	golfer_panel.add_child(state_label)
 
-	stroke_label = _label("SCHLAEGE 0   PAR 4", Vector2(185, 19), Vector2(210, 22), 14, Color("#fff3ba"))
+	# Keep the entire playable area clear, including upper return corridors.
+	stroke_label = _label("SCHLAEGE 0   PAR 4", Vector2(8, 86), Vector2(152, 20), 11, Color("#fff3ba"))
 	root.add_child(stroke_label)
-	player_label = _label("SPIELER 1", Vector2(185, 42), Vector2(230, 18), 12, Color("#49d6cf"))
+	player_label = _label("SPIELER 1", Vector2(8, 110), Vector2(152, 18), 10, Color("#49d6cf"))
+	player_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	root.add_child(player_label)
-	round_label = _label("LOCH 1/1   GESAMT 0", Vector2(415, 42), Vector2(200, 18), 10, Color("#d7edcf"))
-	round_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	round_label = _label("LOCH 1/1   GESAMT 0", Vector2(8, 132), Vector2(152, 16), 9, Color("#d7edcf"))
 	root.add_child(round_label)
-	distance_label = _label("ENTFERNUNG 0 dm", Vector2(8, 82), Vector2(160, 22), 12, Color("#d7edcf"))
+	distance_label = _label("ENTFERNUNG 0 dm", Vector2(8, 148), Vector2(152, 18), 10, Color("#d7edcf"))
 	root.add_child(distance_label)
-	controller_label = _label("Controller wird gesucht ...", Vector2(8, 8), Vector2(165, 38), 10, Color("#c9d6df"))
+	controller_label = _label("Controller wird gesucht ...", Vector2(8, 8), Vector2(152, 38), 10, Color("#c9d6df"))
 	controller_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(controller_label)
-	help_label = _label("Stick/D-Pad: Zielen/Schauen\nKreuz: Schlagphasen\nKreis: Abbrechen\nDreieck/F2: Loch wechseln\nF3: Diagnose", Vector2(8, 112), Vector2(154, 106), 9, Color("#9fb2c1"))
+	help_label = _label("Stick/D-Pad/Maus: Zielen\nKreuz/Leertaste: Schlag\nKreis: Abbruch  |  F3: Diagnose\nDreieck/F2: Loch wechseln", Vector2(8, 168), Vector2(152, 46), 7, Color("#9fb2c1"))
 	help_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	help_label.add_theme_constant_override("line_spacing", 0)
 	root.add_child(help_label)
-	course_label = _label("", Vector2(415, 18), Vector2(200, 18), 10, Color("#d7edcf"))
-	course_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	course_label = _label("", Vector2(8, 50), Vector2(152, 32), 10, Color("#d7edcf"))
+	course_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(course_label)
 
 	diagnostics_panel = Panel.new()
@@ -127,11 +129,17 @@ func _build_hud() -> void:
 
 func _label(text: String, position: Vector2, size: Vector2, font_size: int, color: Color) -> Label:
 	var label := Label.new()
+	# Apply font metrics before assigning bounds; otherwise the default font's
+	# minimum size can permanently enlarge narrow sidebar labels.
+	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_color_override("font_color", color)
+	label.clip_text = true
 	label.text = text
 	label.position = position
 	label.size = size
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", color)
+	# Reapply once the label is in the tree and its real font/wrapping metrics
+	# are available (the detached default font can report a larger minimum).
+	label.set_deferred("size", size)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return label
 

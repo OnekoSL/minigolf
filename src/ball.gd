@@ -182,7 +182,9 @@ func _physics_process(delta: float) -> void:
 					collision_kind = StringName(collider.get_meta("feedback_kind"))
 				if collision_kind == &"seesaw_lip":
 					_reset_wall_contact_memory()
-					velocity = remove_inward_wall_velocity(velocity, contact_normal)
+					# A raised lip is a barrier, not a brake that lets a fast ball
+					# wait at the exit until its own weight opens the way.
+					velocity = calculate_bounce(velocity, contact_normal, WALL_RESTITUTION)
 				else:
 					var same_wall_hits := _register_static_wall_hit(contact_normal)
 					if should_settle_static_wall_contact(velocity, contact_normal, same_wall_hits):

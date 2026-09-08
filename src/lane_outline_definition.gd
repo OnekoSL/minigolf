@@ -4,6 +4,9 @@ extends Resource
 @export var points := PackedVector2Array()
 @export_range(2.0, 24.0, 0.5) var wall_thickness := 4.0
 @export var use_normalized_walls := false
+# Each arc replaces exactly one edge between its two endpoint anchors.
+# Straight/diagonal edges retain the existing normalized wall grid.
+@export var boundary_arcs: Array[WallDefinition] = []
 
 
 func validate(label: String) -> PackedStringArray:
@@ -13,6 +16,22 @@ func validate(label: String) -> PackedStringArray:
 		return errors
 	if wall_thickness <= 0.0:
 		errors.append("%s besitzt keine gueltige Bandenstaerke" % label)
+	if not boundary_arcs.is_empty() and not use_normalized_walls:
+		errors.append("%s: Aussenboegen erfordern das gemeinsame Normwandnetz" % label)
+	for arc_index in range(boundary_arcs.size()):
+		var arc := boundary_arcs[arc_index]
+		if arc == null or arc.wall_type != WallDefinition.WallType.ARC:
+			errors.append("%s: Aussenbogen %d ist kein Kreisbogen" % [label, arc_index])
+			continue
+		errors.append_array(arc.validate("%s, Aussenbogen %d" % [label, arc_index]))
+		if not is_equal_approx(arc.thickness, wall_thickness):
+			errors.append("%s: Aussenbogen %d hat eine abweichende Wandstaerke" % [label, arc_index])
+		var anchor_count := 0
+		for edge_index in range(points.size()):
+			if _arc_matches_edge(arc, edge_index):
+				anchor_count += 1
+		if anchor_count != 1 or boundary_arcs.count(arc) != 1:
+			errors.append("%s: Aussenbogen %d braucht genau eine eigene Ankerkante" % [label, arc_index])
 	if use_normalized_walls and not is_equal_approx(wall_thickness, WallTileDefinition.THICKNESS):
 		errors.append("%s muss fuer Normwaende exakt %.0f Pixel stark sein" % [label, WallTileDefinition.THICKNESS])
 	var uses_orthogonal_grid := use_normalized_walls and _uses_orthogonal_grid()
@@ -27,6 +46,14 @@ func validate(label: String) -> PackedStringArray:
 		var end := points[next_index]
 		if start.distance_to(end) <= wall_thickness:
 			errors.append("%s besitzt eine zu kurze Konturkante %d" % [label, index])
+		var matched_arcs := 0
+		for arc in boundary_arcs:
+			if _arc_matches_edge(arc, index):
+				matched_arcs += 1
+		if matched_arcs > 1:
+			errors.append("%s: Konturkante %d wird mehrfach durch Boegen ersetzt" % [label, index])
+		if matched_arcs > 0:
+			continue
 		if uses_orthogonal_grid:
 			if not _is_cell_center(start):
 				errors.append("%s: Konturpunkt %d liegt nicht im 16-Pixel-Wandzentrumraster" % [label, index])
@@ -53,17 +80,21 @@ func validate(label: String) -> PackedStringArray:
 				errors.append("%s: Gemischte Normwandkante %d besitzt keine gueltige Richtung" % [label, index])
 			elif int(round(maxf(absf(edge.x), absf(edge.y)))) % WallTileDefinition.CELL_SIZE != 0:
 				errors.append("%s: Gemischte Normwandkante %d besitzt keine ganze Kaestchenlaenge" % [label, index])
+	var floor_points := get_floor_points()
+	for index in range(floor_points.size()):
+		var start := floor_points[index]
+		var end := floor_points[(index + 1) % floor_points.size()]
 		signed_area += start.x * end.y - end.x * start.y
 	if absf(signed_area) < 1.0:
 		errors.append("%s besitzt keine gueltige Flaeche" % label)
-	for first_index in range(points.size()):
-		var first_next := (first_index + 1) % points.size()
-		for second_index in range(first_index + 1, points.size()):
-			var second_next := (second_index + 1) % points.size()
+	for first_index in range(floor_points.size()):
+		var first_next := (first_index + 1) % floor_points.size()
+		for second_index in range(first_index + 1, floor_points.size()):
+			var second_next := (second_index + 1) % floor_points.size()
 			if second_index == first_next or second_next == first_index:
 				continue
 			var intersection = Geometry2D.segment_intersects_segment(
-				points[first_index], points[first_next], points[second_index], points[second_next]
+				floor_points[first_index], floor_points[first_next], floor_points[second_index], floor_points[second_next]
 			)
 			if intersection != null:
 				errors.append("%s ueberschneidet sich an den Kanten %d und %d" % [label, first_index, second_index])
@@ -77,19 +108,64 @@ func validate(label: String) -> PackedStringArray:
 
 
 func contains_point(point: Vector2) -> bool:
-	return points.size() >= 3 and Geometry2D.is_point_in_polygon(point, points)
+	return points.size() >= 3 and Geometry2D.is_point_in_polygon(point, get_floor_points())
 
 
 func get_closed_points() -> PackedVector2Array:
-	var closed := points.duplicate()
+	var closed := get_floor_points()
 	if not closed.is_empty():
 		closed.append(closed[0])
 	return closed
 
 
+func get_floor_points() -> PackedVector2Array:
+	if boundary_arcs.is_empty():
+		return points.duplicate()
+	var floor_points := PackedVector2Array()
+	for index in range(points.size()):
+		var arc := get_boundary_arc(index)
+		if arc == null:
+			floor_points.append(points[index])
+			continue
+		var arc_points := _arc_world_points(arc)
+		if arc_points[0].distance_to(points[index]) >= 0.01:
+			arc_points.reverse()
+		# Use exact grid anchors at the join, avoiding trigonometric roundoff.
+		arc_points[0] = points[index]
+		for arc_index in range(arc_points.size() - 1):
+			floor_points.append(arc_points[arc_index])
+	return floor_points
+
+
+func get_boundary_arc(edge_index: int) -> WallDefinition:
+	for arc in boundary_arcs:
+		if _arc_matches_edge(arc, edge_index):
+			return arc
+	return null
+
+
+func _arc_matches_edge(arc: WallDefinition, edge_index: int) -> bool:
+	if arc == null or arc.wall_type != WallDefinition.WallType.ARC or points.is_empty():
+		return false
+	var arc_points := _arc_world_points(arc)
+	if arc_points.size() < 2:
+		return false
+	var start := points[edge_index]
+	var end := points[(edge_index + 1) % points.size()]
+	return (arc_points[0].distance_to(start) < 0.01 and arc_points[-1].distance_to(end) < 0.01) \
+		or (arc_points[-1].distance_to(start) < 0.01 and arc_points[0].distance_to(end) < 0.01)
+
+
+static func _arc_world_points(arc: WallDefinition) -> PackedVector2Array:
+	var arc_points := arc.get_arc_centerline()
+	for index in range(arc_points.size()):
+		arc_points[index] = arc.center + arc_points[index].rotated(deg_to_rad(arc.rotation_degrees))
+	return arc_points
+
+
 func get_normalized_wall_tiles() -> Array[WallTileDefinition]:
 	var tiles: Array[WallTileDefinition] = []
-	if not use_normalized_walls or points.size() < 3:
+	if not use_normalized_walls or points.size() < 3 or not boundary_arcs.is_empty():
 		return tiles
 	if _uses_diagonal_grid():
 		for index in range(points.size()):
@@ -136,9 +212,11 @@ func get_normalized_wall_pieces() -> Array[Dictionary]:
 		for tile in tiles:
 			pieces.append({"variant": tile.variant, "segments": tile.get_segments()})
 		return pieces
-	if not _uses_mixed_grid():
+	if not _uses_mixed_grid() and boundary_arcs.is_empty():
 		return pieces
 	for index in range(points.size()):
+		if get_boundary_arc(index) != null:
+			continue
 		var start := points[index]
 		var end := points[(index + 1) % points.size()]
 		var edge := end - start
@@ -168,6 +246,8 @@ static func _is_grid_corner(point: Vector2) -> bool:
 
 func _uses_orthogonal_grid() -> bool:
 	for index in range(points.size()):
+		if get_boundary_arc(index) != null:
+			continue
 		var edge := points[(index + 1) % points.size()] - points[index]
 		if not (is_zero_approx(edge.x) != is_zero_approx(edge.y)):
 			return false
@@ -176,6 +256,8 @@ func _uses_orthogonal_grid() -> bool:
 
 func _uses_diagonal_grid() -> bool:
 	for index in range(points.size()):
+		if get_boundary_arc(index) != null:
+			continue
 		var edge := points[(index + 1) % points.size()] - points[index]
 		if is_zero_approx(edge.x) or is_zero_approx(edge.y) or not is_equal_approx(absf(edge.x), absf(edge.y)):
 			return false
@@ -186,6 +268,8 @@ func _uses_mixed_grid() -> bool:
 	var has_cardinal := false
 	var has_diagonal := false
 	for index in range(points.size()):
+		if get_boundary_arc(index) != null:
+			continue
 		if not _is_cell_center(points[index]):
 			return false
 		var edge := points[(index + 1) % points.size()] - points[index]
