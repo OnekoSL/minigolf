@@ -396,7 +396,7 @@ Alle folgenden IDs haben den Präfix `labyrinth_nine_`. Alle neun verwenden dies
 | 08 | Das Getriebe / 7 | Tor, zwei Rotoren und diagonale Innenführungen. | 7 |
 | 09 | Der große Irrgarten / 7 | Sechs Riegel, zwei Tore und ein Rotor. | 7 |
 
-Aktuell Gesamt-PAR 50. Die Routen für 03, 06 und 07 liegen schon unter vereinfachten Bedingungen über PAR. Alle neun benötigen für eine vollständige Abnahme Nachweise mit aktiven Mechanismen; das heutige Schlaglimit-Ergebnis genügt nicht.
+Aktuell Gesamt-PAR 50. Die Routen für 03, 06 und 07 liegen schon unter vereinfachten Bedingungen über PAR. Aktualisierung vom 10.09.2026: Die Diagonalfalle (05) ist mit aktiven Mechanismen nach 150 Physikticks Startwartezeit zweimal in vier Schlägen innerhalb PAR 5 bestätigt. Für die übrigen acht Bahnen bleibt ein vollständiger Live-Nachweis offen. Alle 54 untersuchten Startvarianten und die Grenzen des Nachweises stehen in [LABYRINTH_LIVE_PRUEFUNG.md](LABYRINTH_LIVE_PRUEFUNG.md).
 
 ### 10.5 Vier echte Prototypbahnen
 

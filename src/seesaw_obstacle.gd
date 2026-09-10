@@ -195,20 +195,20 @@ func _get_side_points() -> Dictionary:
 	}
 
 
-func get_surface_data() -> Dictionary:
+func get_surface_data() -> SurfaceSample:
 	var reference_sine := sin(deg_to_rad(16.0))
 	var angle_scale := sin(deg_to_rad(max_tilt_degrees)) / reference_sine
 	var downhill := Vector2.RIGHT.rotated(global_rotation) * seesaw_slope_strength * angle_scale * tilt
-	return {
-		"type": SurfaceType.SLOPE,
-		"deceleration": deceleration,
-		"acceleration": downhill,
-		"minimum_flow_speed": 0.0,
-		"maximum_flow_speed": 0.0,
-		"flow_alignment_rate": 0.0,
-		"flow_centering_strength": 0.0,
-		"center": global_position,
-	}
+	var sample := SurfaceSample.new()
+	sample.surface_type = SurfaceType.SLOPE
+	sample.deceleration = deceleration
+	sample.acceleration = downhill
+	sample.minimum_flow_speed = 0.0
+	sample.maximum_flow_speed = 0.0
+	sample.flow_alignment_rate = 0.0
+	sample.flow_centering_strength = 0.0
+	sample.center = global_position
+	return sample
 
 
 func _draw() -> void:

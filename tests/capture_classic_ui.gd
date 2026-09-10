@@ -28,7 +28,6 @@ func _capture_ui() -> void:
 		PlayerProfile.create(4, "JULE", 3),
 	]
 	config.hole_ids = course.hole_ids.duplicate()
-	config.best_eligible = true
 	app.session = RoundSession.new()
 	app.session.configure(config, holes)
 	for player_index in range(4):

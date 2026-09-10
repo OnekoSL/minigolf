@@ -1,0 +1,75 @@
+extends RefCounted
+
+
+static func run(host: Node, check: Callable) -> void:
+	print("\n[Pixelgolfer: Schlag und Reaktionen]")
+	var main := (load("res://scenes/prototype_main.tscn") as PackedScene).instantiate() as PrototypeMain
+	host.add_child(main)
+	await host.get_tree().process_frame
+	main.set_process(false)
+	main.shot_controller.set_process(false)
+	main.ball.set_physics_process(false)
+	var golfer := main.hud.golfer
+	golfer.set_process(false)
+	var shot := main.shot_controller
+	for power in [0.0, 0.5, 1.0]:
+		main.restart_hole()
+		shot.action_pressed()
+		shot.power_value = power
+		main._update_hud()
+		var pose := golfer.get_pose_frame()
+		shot.action_pressed()
+		golfer.advance_animation(12.0)
+		check.call(golfer.get_pose_frame() == pose, "Kraft %.1f: Ausholen bleibt waehrend Genauigkeit stehen" % power)
+		shot.accuracy_value = 0.0
+		shot.action_pressed()
+		golfer.advance_animation(12.0)
+		check.call(golfer.get_pose_frame() == pose, "Kraft %.1f: Vorbereiteter Putt bleibt beliebig lange stehen" % power)
+		shot.action_released()
+		shot.advance_swing(0.05)
+		golfer.advance_animation(1.0)
+		check.call(not golfer.contact_seen and not main.ball.moving and golfer._perfect_left == 0.0, "Kraft %.1f: Animationszeit loest weder Ball noch Perfektglanz aus" % power)
+		check.call(is_equal_approx(golfer.swing_progress, 0.5), "Kraft %.1f: Pose folgt dem echten halben Abschwung" % power)
+		shot.advance_swing(0.05)
+		check.call(main.ball.moving and main.strokes == 1 and golfer.contact_seen and golfer.get_pose_frame() == 8, "Kraft %.1f: Kontaktpose und echter Ballstart nach exakt 0,10 s" % power)
+		golfer._process(1.0 / 60.0)
+		check.call(golfer.get_pose_frame() == 8, "Kontaktpose bleibt trotz nachfolgendem Child-Process einen Renderframe sichtbar")
+		check.call(golfer._perfect_left > 0.0 and golfer.get_inset_ball_position() == golfer.BALL_POSITION, "Perfektglanz und Einblendungsball beginnen am Kontakt")
+		golfer.advance_animation(0.12)
+		check.call(golfer.get_pose_frame() in [9, 10, 11] and golfer.get_inset_ball_position().x > golfer.BALL_POSITION.x, "Durchschwingen bewegt den Einblendungsball nach rechts")
+		golfer.advance_animation(0.2)
+		check.call(golfer.get_pose_frame() == 3 and not golfer.is_inset_ball_visible(), "Nach Durchschwingen beobachtet der Golfer den echten Ball")
+
+	main.restart_hole()
+	shot.action_pressed()
+	shot.action_pressed()
+	shot.action_pressed()
+	shot.action_released()
+	shot.advance_swing(0.05)
+	shot.cancel_shot()
+	shot.advance_swing(1.0)
+	golfer.advance_animation(1.0)
+	check.call(not golfer.contact_seen and not main.ball.moving and golfer._perfect_left == 0.0 and not golfer._perfect_pending, "Abbruch entfernt vorbereiteten Kontakt und Perfektglanz")
+	shot.notify_external_motion_started()
+	check.call(golfer.get_pose_frame() == 3 and not golfer.is_inset_ball_visible(), "Externe Ballbewegung startet Beobachten ohne falschen Golfschwung")
+	golfer.play_reaction("success")
+	check.call(golfer.get_pose_frame() == 12, "Einlochen startet sofort sichtbaren Jubel")
+	golfer.advance_animation(0.2)
+	check.call(golfer.get_pose_frame() == 13, "Zweite Jubelpose erscheint vor dem Tabellenwechsel")
+	golfer.play_reaction("frustration")
+	check.call(golfer.get_pose_frame() == 14, "Wasser und Schlaglimit starten sofort sichtbaren Aerger")
+	main.set_external_paused(true)
+	var clock_before := golfer._time
+	golfer.advance_animation(10.0)
+	check.call(golfer._time == clock_before and golfer.get_pose_frame() == 14, "Externe Pause friert auch den Golfer ein")
+	main.set_external_paused(false)
+	golfer.advance_animation(0.4)
+	check.call(golfer.get_pose_frame() == 15, "Nach Pause setzt die Reaktion am selben Punkt fort")
+	main.hud.set_player_context(PlayerProfile.create(2, "ZWEI", 1), 1, 9, 0)
+	check.call(golfer.reaction.is_empty() and not golfer.contact_seen and golfer.palette_id == 1, "Spielerfarbe wechselt und entfernt die vorherige Reaktion")
+	golfer.play_reaction("success")
+	main.restart_hole()
+	check.call(golfer.reaction.is_empty() and golfer.swing_progress == 0.0, "Lochneustart entfernt alle alten Animationen")
+	check.call(golfer.process_mode == Node.PROCESS_MODE_PAUSABLE, "Golfer folgt der Spielpause trotz dauerhaft aktivem HUD")
+	main.queue_free()
+	await host.get_tree().process_frame

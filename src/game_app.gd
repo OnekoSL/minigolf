@@ -56,6 +56,8 @@ var selected_option := 0
 var option_columns := 1
 var name_value_label: Label
 
+var _screen_generation := 0
+var _best_save_error: Error = OK
 var _menu_input_locked := true
 var _neutral_elapsed := 0.0
 var _nav_was_active := false
@@ -95,7 +97,7 @@ func _process(delta: float) -> void:
 		else:
 			_neutral_elapsed = 0.0
 		return
-	if current_screen == ScreenState.GAMEPLAY:
+	if current_screen == ScreenState.GAMEPLAY or not _can_use_menu():
 		return
 	var aim := ControllerSupport.get_aim_vector()
 	var active := aim.length() >= MENU_NAV_THRESHOLD
@@ -132,7 +134,7 @@ func _input(event: InputEvent) -> void:
 		_refresh_diagnostics()
 		get_viewport().set_input_as_handled()
 		return
-	if _menu_input_locked or diagnostics_visible:
+	if not _can_use_menu():
 		return
 	if current_screen == ScreenState.PLAYER_NAME and event is InputEventKey and event.pressed:
 		if event.physical_keycode == KEY_BACKSPACE:
@@ -156,6 +158,8 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	if ControllerSupport.event_is_pressed(event, &"menu_confirm"):
+		if event is InputEventMouseButton:
+			return # The clicked Button supplies its own index through pressed.
 		_activate_selected()
 		get_viewport().set_input_as_handled()
 
@@ -163,7 +167,7 @@ func _input(event: InputEvent) -> void:
 func _show_title() -> void:
 	current_screen = ScreenState.TITLE
 	var root := _build_screen("PUTT & PIXEL", "RETRO MINIGOLF  •  GRUNDPROTOTYP")
-	var mark := _label("●", Vector2(296, 82), Vector2(48, 48), 38, Color("#f0c45b"))
+	var mark := MenuWidgets.label("●", Vector2(296, 82), Vector2(48, 48), 38, Color("#f0c45b"))
 	mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(mark)
 	_add_option_button("SPIEL STARTEN", Rect2(205, 190, 230, 38), _show_mode)
@@ -226,7 +230,7 @@ func _show_player_name() -> void:
 		"SPIELER %d/%d" % [setup_player_index + 1, desired_player_count],
 		"NAME EINGEBEN  •  MAXIMAL 12 ZEICHEN"
 	)
-	name_value_label = _label(setup_name, Vector2(66, 62), Vector2(508, 34), 19, Color("#fff1b0"))
+	name_value_label = MenuWidgets.label(setup_name, Vector2(66, 62), Vector2(508, 34), 19, Color("#fff1b0"))
 	name_value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(name_value_label)
 	var keys := [
@@ -369,8 +373,6 @@ func _start_course(course: CourseDefinition) -> void:
 	config.course_id = course.course_id
 	config.players = working_players.duplicate()
 	config.hole_ids = course.hole_ids.duplicate()
-	config.best_eligible = true
-	config.allow_technical_holes = course.allow_technical_holes
 	_start_round(config)
 
 
@@ -410,7 +412,6 @@ func _start_practice(hole_id: StringName) -> void:
 	config.mode = RoundConfig.GameMode.PRACTICE
 	config.players = working_players.duplicate()
 	config.hole_ids = [hole_id]
-	config.best_eligible = false
 	_start_round(config)
 
 
@@ -468,16 +469,16 @@ func _start_free_round() -> void:
 	config.mode = RoundConfig.GameMode.FREE_PLAY
 	config.players = working_players.duplicate()
 	config.hole_ids = free_hole_ids.duplicate()
-	config.best_eligible = false
 	_start_round(config)
 
 
 func _start_round(config: RoundConfig) -> void:
-	var errors := config.validate(hole_catalog)
+	var errors := config.validate(hole_catalog, course_catalog)
 	if not errors.is_empty():
 		for error in errors:
 			push_error(error)
 		return
+	_best_save_error = OK
 	session = RoundSession.new()
 	session.configure(config, hole_catalog)
 	_start_current_attempt()
@@ -530,7 +531,7 @@ func _show_handoff(completed_player: int) -> void:
 		_last_attempt_strokes,
 		"  •  MAX" if _last_attempt_capped else "",
 	])
-	var label := _label(
+	var label := MenuWidgets.label(
 		"CONTROLLER AN\nP%d  %s\nWEITERGEBEN" % [next.player_id, next.player_name],
 		Vector2(145, 105), Vector2(350, 92), 20, next.get_color()
 	)
@@ -560,90 +561,9 @@ func _show_scorecard(final: bool, from_pause: bool) -> void:
 
 
 func _build_score_table(final: bool) -> void:
-	var hole_count := session.config.hole_ids.size()
-	var name_width := 132
-	var hole_width := 288 / maxi(1, hole_count)
-	var table_width := name_width + hole_count * hole_width + 96
-	var start_x := (640 - table_width) / 2
-	var course := course_catalog.get_course(session.config.course_id)
-	var total_par := 0
-	for hole_id in session.config.hole_ids:
-		total_par += hole_catalog.get_hole(hole_id).par
-	var course_title := course.display_name if course != null and session.config.is_course_mode() else "DEINE RUNDE"
-	_score_panel(Rect2(start_x, 76, table_width, 23), Color("#173c39"))
-	var course_label := _label(course_title, Vector2(start_x + 10, 78), Vector2(330, 18), 10, Color("#b6e0c8"))
-	screen_root.add_child(course_label)
-	var course_info := _label("%d %s   /   PAR %d" % [hole_count, "LOCH" if hole_count == 1 else "LOECHER", total_par], Vector2(start_x + table_width - 160, 78), Vector2(150,18), 9, Color("#8fd5cc"))
-	course_info.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	screen_root.add_child(course_info)
-	var header_y := 105
-	_add_table_label("SPIELER", Rect2(start_x, header_y, name_width, 22), Color("#d7edcf"), HORIZONTAL_ALIGNMENT_LEFT)
-	for hole_index in range(hole_count):
-		_add_table_label(str(hole_index + 1), Rect2(start_x + name_width + hole_index * hole_width, header_y, hole_width, 22), Color("#d7edcf"))
-	_add_table_label("TOTAL", Rect2(start_x + name_width + hole_count * hole_width, header_y, 48, 22), Color("#d7edcf"))
-	_add_table_label("+/-", Rect2(start_x + name_width + hole_count * hole_width + 48, header_y, 48, 22), Color("#d7edcf"))
-	var par_y := header_y + 21
-	_add_table_label("PAR", Rect2(start_x, par_y, name_width, 20), Color("#8fa5b5"), HORIZONTAL_ALIGNMENT_LEFT)
-	for hole_index in range(hole_count):
-		var hole := hole_catalog.get_hole(session.config.hole_ids[hole_index])
-		_add_table_label(str(hole.par), Rect2(start_x + name_width + hole_index * hole_width, par_y, hole_width, 20), Color("#8fa5b5"))
-	_add_table_label(str(total_par), Rect2(start_x + name_width + hole_count * hole_width, par_y, 48, 20), Color("#8fa5b5"))
-	var player_order := range(session.config.players.size())
-	if final:
-		player_order.sort_custom(func(a, b): return session.get_player_total(a) < session.get_player_total(b))
-	for row in range(player_order.size()):
-		var player_index: int = player_order[row]
-		var y := par_y + 27 + row * 30
-		var profile := session.config.players[player_index]
-		var winner := final and session.get_competition_rank(player_index) == 1
-		_score_panel(Rect2(start_x,y,table_width,28), Color("#233a36") if winner else Color("#12232c"))
-		_score_panel(Rect2(start_x,y+4,3,20), profile.get_color())
-		var prefix := "%d. " % session.get_competition_rank(player_index) if final else "P%d " % profile.player_id
-		_add_table_label(prefix + profile.player_name, Rect2(start_x, y, name_width, 28), profile.get_color(), HORIZONTAL_ALIGNMENT_LEFT)
-		for hole_index in range(hole_count):
-			var score: int = session.scores[player_index][hole_index]
-			var value := "–" if score < 0 else str(score) + ("*" if session.capped[player_index][hole_index] else "")
-			var par := hole_catalog.get_hole(session.config.hole_ids[hole_index]).par
-			var ink := Color("#8398a2") if score < 0 else Color("#e9e4ce")
-			if score >= 0 and score != par:
-				ink = Color("#9de0bd") if score < par else Color("#efb48e")
-				_score_panel(Rect2(start_x + name_width + hole_index * hole_width + 3,y+4,hole_width-6,20), Color("#254c40") if score < par else Color("#483830"))
-			_add_table_label(value, Rect2(start_x + name_width + hole_index * hole_width, y, hole_width, 28), ink)
-		_add_table_label(str(session.get_player_total(player_index)), Rect2(start_x + name_width + hole_count * hole_width, y, 48, 28), Color.WHITE)
-		_add_table_label(_format_difference(session.get_player_difference(player_index)), Rect2(start_x + name_width + hole_count * hole_width + 48, y, 48, 28), Color("#f0c45b"))
-	if final and player_order.size() == 1:
-		var under_par := 0
-		for hole_index in range(hole_count):
-			if session.scores[0][hole_index] >= 0 and session.scores[0][hole_index] < hole_catalog.get_hole(session.config.hole_ids[hole_index]).par:
-				under_par += 1
-		var stats := [["SCHLAEGE", str(session.get_player_total(0))], ["ZU PAR", _format_difference(session.get_player_difference(0))], ["LOECHER UNTER PAR", str(under_par)]]
-		var stat_width := (table_width - 16) / 3.0
-		for index in range(3):
-			var x := start_x + index * (stat_width + 8)
-			_score_panel(Rect2(x,205,stat_width,53), Color("#12262c"))
-			screen_root.add_child(_label(stats[index][0], Vector2(x+12,211), Vector2(stat_width-24,14), 8, Color("#8fa5a7")))
-			screen_root.add_child(_label(stats[index][1], Vector2(x+12,226), Vector2(stat_width-24,26), 20, Color("#e9dfae")))
-	var legend := _label("GRUEN: UNTER PAR   /   APRICOT: UEBER PAR     * LIMIT: MIN. 8 ODER PAR + 3", Vector2(start_x, 276), Vector2(table_width, 16), 8, Color("#8fa5b5"))
-	screen_root.add_child(legend)
-
-
-func _add_table_label(text: String, rect: Rect2, color: Color, alignment := HORIZONTAL_ALIGNMENT_CENTER) -> void:
-	var label := _label(text, rect.position, rect.size, 10, color)
-	label.horizontal_alignment = alignment
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	if alignment == HORIZONTAL_ALIGNMENT_LEFT:
-		label.position.x += 8
-		label.size.x -= 10
-	screen_root.add_child(label)
-
-
-func _score_panel(rect: Rect2, color: Color) -> void:
-	var panel := Panel.new()
-	panel.position = rect.position
-	panel.size = rect.size
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_theme_stylebox_override("panel", _panel_style(color, color, 0))
-	screen_root.add_child(panel)
+	var table := ScorecardView.new()
+	table.configure(session, hole_catalog, course_catalog, final)
+	screen_root.add_child(table)
 
 
 func _scorecard_subtitle(final: bool, from_pause := false) -> String:
@@ -654,7 +574,9 @@ func _scorecard_subtitle(final: bool, from_pause := false) -> String:
 			session.get_current_player().player_id,
 			session.get_current_player().player_name,
 		]
-	if final and session.config.best_eligible:
+	if final and _best_save_error != OK:
+		return "BESTWERT KONNTE NICHT GESPEICHERT WERDEN"
+	if final and session.config.is_best_eligible(hole_catalog, course_catalog):
 		var best := best_store.get_best(_active_best_score_key())
 		var course_par := 0
 		for hole_id in session.config.hole_ids:
@@ -671,15 +593,18 @@ func _continue_after_hole() -> void:
 
 
 func _update_best_score() -> void:
-	if not session.config.best_eligible or not session.is_complete():
+	_best_save_error = OK
+	if not session.config.is_best_eligible(hole_catalog, course_catalog) or not session.is_complete():
 		return
 	for player_index in range(session.config.players.size()):
-		best_store.submit(_active_best_score_key(), session.get_player_total(player_index))
+		var result := best_store.submit(_active_best_score_key(), session.get_player_total(player_index))
+		if result.error != OK:
+			_best_save_error = result.error
 
 
 func _active_best_score_key() -> StringName:
 	var course := course_catalog.get_course(session.config.course_id) if course_catalog != null else null
-	return course.get_best_score_key() if course != null else session.config.course_id
+	return course.get_best_score_key() if course != null else &""
 
 
 func _rematch() -> void:
@@ -833,13 +758,13 @@ func _build_screen(title: String, subtitle: String) -> Control:
 		line.color = Color(0.15, 0.28, 0.32, 0.22)
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		screen_root.add_child(line)
-	var title_label := _label(title, Vector2(20, 17), Vector2(600, 32), 23, Color("#fff1b0"))
+	var title_label := MenuWidgets.label(title, Vector2(20, 17), Vector2(600, 32), 23, Color("#fff1b0"))
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	screen_root.add_child(title_label)
-	var subtitle_label := _label(subtitle, Vector2(20, 50), Vector2(600, 22), 10, Color("#8fd5cc"))
+	var subtitle_label := MenuWidgets.label(subtitle, Vector2(20, 50), Vector2(600, 22), 10, Color("#8fd5cc"))
 	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	screen_root.add_child(subtitle_label)
-	controller_status_label = _label("", Vector2(12, 8), Vector2(160, 32), 8, Color("#9fb2c1"))
+	controller_status_label = MenuWidgets.label("", Vector2(12, 8), Vector2(160, 32), 8, Color("#9fb2c1"))
 	screen_root.add_child(controller_status_label)
 	_update_screen_controller_status()
 	_build_diagnostics_overlay()
@@ -852,21 +777,17 @@ func _build_screen(title: String, subtitle: String) -> Control:
 
 
 func _add_option_button(text: String, rect: Rect2, action: Callable) -> Button:
-	var button := Button.new()
-	button.text = text
-	button.position = rect.position
-	button.size = rect.size
-	button.focus_mode = Control.FOCUS_NONE
-	button.add_theme_font_size_override("font_size", 11)
-	button.add_theme_color_override("font_color", Color("#d7edcf"))
-	button.add_theme_color_override("font_disabled_color", Color("#52616b"))
-	button.add_theme_stylebox_override("normal", _panel_style(Color("#122331"), Color("#40596a"), 2))
-	button.add_theme_stylebox_override("hover", _panel_style(Color("#19394a"), Color("#75d4c7"), 2))
-	button.add_theme_stylebox_override("pressed", _panel_style(Color("#274a54"), Color("#fff1b0"), 2))
-	button.add_theme_stylebox_override("disabled", _panel_style(Color("#0b141b"), Color("#293741"), 1))
+	var button := MenuWidgets.button(text, rect)
 	var index := option_buttons.size()
-	button.mouse_entered.connect(func(): _select_option(index))
-	button.pressed.connect(func(): _invoke_option(index))
+	var generation := _screen_generation
+	button.mouse_entered.connect(func():
+		if generation == _screen_generation and _can_use_menu():
+			_select_option(index)
+	)
+	button.pressed.connect(func():
+		if generation == _screen_generation:
+			_invoke_option(index)
+	)
 	screen_root.add_child(button)
 	option_buttons.append(button)
 	option_actions.append(action)
@@ -913,7 +834,13 @@ func _activate_selected() -> void:
 	_invoke_option(selected_option)
 
 
+func _can_use_menu() -> bool:
+	return not _menu_input_locked and ControllerSupport.focused and not diagnostics_visible and not ControllerSupport.is_calibrating()
+
+
 func _invoke_option(index: int) -> void:
+	if not _can_use_menu():
+		return
 	if index < 0 or index >= option_actions.size() or option_buttons[index].disabled:
 		return
 	option_actions[index].call()
@@ -923,40 +850,17 @@ func _refresh_option_styles() -> void:
 	for index in range(option_buttons.size()):
 		var button := option_buttons[index]
 		if index == selected_option and not button.disabled:
-			button.add_theme_stylebox_override("normal", _panel_style(Color("#24505a"), Color("#f0c45b"), 3))
+			button.add_theme_stylebox_override("normal", MenuWidgets.panel_style(Color("#24505a"), Color("#f0c45b"), 3))
 		else:
-			button.add_theme_stylebox_override("normal", _panel_style(Color("#122331"), Color("#40596a"), 2))
+			button.add_theme_stylebox_override("normal", MenuWidgets.panel_style(Color("#122331"), Color("#40596a"), 2))
 
 
 func _add_footer(left_text: String, right_text: String) -> void:
-	var left := _label(left_text, Vector2(14, 334), Vector2(300, 18), 8, Color("#8fa5b5"))
+	var left := MenuWidgets.label(left_text, Vector2(14, 334), Vector2(300, 18), 8, Color("#8fa5b5"))
 	screen_root.add_child(left)
-	var right := _label(right_text, Vector2(326, 334), Vector2(300, 18), 8, Color("#8fa5b5"))
+	var right := MenuWidgets.label(right_text, Vector2(326, 334), Vector2(300, 18), 8, Color("#8fa5b5"))
 	right.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	screen_root.add_child(right)
-
-
-func _label(text: String, position: Vector2, size: Vector2, font_size: int, color: Color) -> Label:
-	var label := Label.new()
-	label.text = text
-	label.position = position
-	label.size = size
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", color)
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return label
-
-
-func _panel_style(background: Color, border: Color, width: int) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = background
-	style.border_color = border
-	style.set_border_width_all(width)
-	style.corner_radius_top_left = 2
-	style.corner_radius_top_right = 2
-	style.corner_radius_bottom_left = 2
-	style.corner_radius_bottom_right = 2
-	return style
 
 
 func _arm_input_gate() -> void:
@@ -967,6 +871,7 @@ func _arm_input_gate() -> void:
 
 
 func _clear_screen() -> void:
+	_screen_generation += 1
 	if screen_layer != null and is_instance_valid(screen_layer):
 		screen_layer.queue_free()
 	screen_layer = null
@@ -987,13 +892,14 @@ func _remove_gameplay() -> void:
 
 func _build_diagnostics_overlay() -> void:
 	diagnostics_panel = Panel.new()
+	diagnostics_panel.z_index = 1
 	diagnostics_panel.position = Vector2(82, 58)
 	diagnostics_panel.size = Vector2(476, 244)
 	diagnostics_panel.process_mode = Node.PROCESS_MODE_ALWAYS
-	diagnostics_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.03, 0.06, 0.09, 0.98), Color("#75d4c7"), 2))
+	diagnostics_panel.add_theme_stylebox_override("panel", MenuWidgets.panel_style(Color(0.03, 0.06, 0.09, 0.98), Color("#75d4c7"), 2))
 	diagnostics_panel.visible = diagnostics_visible
 	screen_root.add_child(diagnostics_panel)
-	diagnostics_label = _label("", Vector2(12, 10), Vector2(452, 222), 11, Color("#dcecf0"))
+	diagnostics_label = MenuWidgets.label("", Vector2(12, 10), Vector2(452, 222), 11, Color("#dcecf0"))
 	diagnostics_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	diagnostics_panel.add_child(diagnostics_label)
 	_refresh_diagnostics()

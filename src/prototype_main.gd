@@ -131,6 +131,7 @@ func _connect_signals() -> void:
 	shot_controller.state_changed.connect(_on_shot_state_changed)
 	shot_controller.swing_started.connect(_on_swing_started)
 	shot_controller.shot_committed.connect(_on_shot_committed)
+	shot_controller.swing_progress_changed.connect(hud.golfer.set_swing_progress)
 	ball.stopped.connect(_on_ball_stopped)
 	ball.wall_hit.connect(_on_wall_hit)
 	ball.hazard_entered.connect(_on_hazard_entered)
@@ -208,6 +209,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_shot_committed(direction: Vector2, speed: float, accuracy: float) -> void:
 	strokes += 1
+	hud.golfer.notify_ball_contact()
 	if audio_feedback != null:
 		audio_feedback.play_hit(speed, _pending_perfect)
 	if _pending_perfect and feedback_effects != null:
@@ -315,6 +317,7 @@ func restart_hole() -> void:
 	strokes = 0
 	_attempt_reported = false
 	hole.reset_mechanisms()
+	hud.golfer.reset_animation()
 	ball.reset_to(hole.get_tee_position())
 	shot_controller.reset_aim()
 	_update_camera_focus()
@@ -327,6 +330,7 @@ func restart_hole() -> void:
 
 
 func switch_test_hole() -> void:
+	hud.golfer.reset_animation()
 	active_hole_index = (active_hole_index + 1) % hole_catalog.holes.size()
 	shot_controller.cancel_shot()
 	remove_child(hole)
@@ -405,6 +409,7 @@ func _update_hud() -> void:
 func set_external_paused(value: bool) -> void:
 	prototype_paused = value
 	if hud != null:
+		hud.golfer.animation_paused = value
 		hud.set_paused(false)
 	if audio_feedback != null:
 		audio_feedback.set_game_paused(value)

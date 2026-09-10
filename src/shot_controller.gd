@@ -5,15 +5,19 @@ signal state_changed(state: int)
 signal swing_started(direction: Vector2, speed: float, accuracy: float, perfect: bool)
 signal shot_committed(direction: Vector2, speed: float, accuracy: float)
 signal cancelled()
+signal swing_progress_changed(progress: float)
 
 enum ShotState { AIMING, POWER, ACCURACY, ARMED, SWINGING, BALL_MOVING, HOLE_COMPLETE }
+
+const MINIMUM_BALL_SPEED := 27.7128129211 # One decimeter on level grass.
+const MAXIMUM_BALL_SPEED := 420.0
 
 @export var cursor_speed := 120.0
 @export var power_cycle_seconds := 4.0
 @export var accuracy_cycle_seconds := 2.4
-@export var minimum_power := 0.05
-@export var minimum_ball_speed := 60.0
-@export var maximum_ball_speed := 420.0
+@export var minimum_power := 0.0
+@export var minimum_ball_speed := MINIMUM_BALL_SPEED
+@export var maximum_ball_speed := MAXIMUM_BALL_SPEED
 @export var perfect_accuracy_window := 0.05
 @export var maximum_error_degrees := 8.0
 @export var swing_contact_delay := 0.10
@@ -169,6 +173,7 @@ func advance_swing(delta: float) -> void:
 	if state != ShotState.SWINGING:
 		return
 	_swing_elapsed += maxf(delta, 0.0)
+	swing_progress_changed.emit(clampf(_swing_elapsed / swing_contact_delay, 0.0, 1.0))
 	if _swing_elapsed + 0.000001 < swing_contact_delay:
 		return
 	_set_state(ShotState.BALL_MOVING)

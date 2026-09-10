@@ -18,15 +18,19 @@ func get_best(course_id: StringName) -> int:
 	return int(value) if value is int or value is float else -1
 
 
-func submit(course_id: StringName, strokes: int) -> int:
-	var previous := get_best(course_id)
-	if previous >= 0 and strokes >= previous:
-		return previous
+func submit(course_id: StringName, strokes: int) -> BestScoreResult:
+	if course_id == &"" or strokes < 0:
+		return BestScoreResult.new(-1, false, ERR_INVALID_PARAMETER)
 	var config := ConfigFile.new()
-	config.load(storage_path)
+	var load_error := config.load(storage_path)
+	if load_error != OK and load_error != ERR_FILE_NOT_FOUND:
+		return BestScoreResult.new(-1, false, load_error)
+	var value = config.get_value("course_best", String(course_id), -1)
+	var previous := int(value) if value is int or value is float else -1
+	if previous >= 0 and strokes >= previous:
+		return BestScoreResult.new(previous)
 	config.set_value("course_best", String(course_id), strokes)
 	var error := config.save(storage_path)
 	if error != OK:
-		push_warning("Bestwert konnte nicht gespeichert werden: %s" % error_string(error))
-		return previous
-	return strokes
+		return BestScoreResult.new(previous, false, error)
+	return BestScoreResult.new(strokes, true)

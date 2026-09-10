@@ -20,6 +20,14 @@ Direkt spielen:
 
 ## Steuerung
 
+Das Golferfenster zeigt Figur und beide Anzeigen ohne Phasentext, Anzeigenueberschriften oder dauerhafte Steuerungshinweise. Die verlaengerte Kraftskala erlaubt kurze Schlaege ab etwa 1 dm; bis 10 dm besitzt sie einzelne Dezimeterstriche, darueber 10-dm-Striche. Die erwartete Weite gilt fuer ebenes Gruen.
+
+Der Allrounder ist jetzt ein grosser Pixelgolfer mit Cap, Polo, Hose und Golfschuhen. Seine Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur das Polo um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
+
+`godot --path . res://tests/capture_golfer.tscn` rendert alle Posen, Spielerfarben und Schlagfolgen nach `.godot/golfer/`. `tests/golfer_animation_test.gd` prueft die Verbindung zum echten Schlagsystem einschliesslich des sichtbaren Kontaktframes.
+
+Mit dem erweiterten Kraftbereich gelten neue Bestwertrevisionen: Klassische Neun 8, Pfeil-Armageddon 6, Referenzbahnen 2, Labyrinth-Neun 2 und Prototypkurs 4. Aeltere Bestwerte bleiben gespeichert und werden getrennt gewertet; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
+
 | Funktion | Controller | Tastatur | Maus |
 |---|---|---|---|
 | Menue waehlen | linker Stick / D-Pad | WASD / Pfeile | bewegen |
@@ -49,9 +57,13 @@ Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spie
 
 Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die sechsunddreissig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
+Die Kursfreigabe wird aus Kurs-ID und exakter vollständiger Lochfolge abgeleitet. Beschädigte Bestwertdateien werden nicht überschrieben; fehlgeschlagenes Speichern wird in der Endtabelle angezeigt. Menüaktionen beachten Eingabesperre, Fokus, Diagnose und Kalibrierung auch bei Mausklicks und verspäteten Signalen alter Bildschirme.
+
 ## Controller
 
 Der angeschlossene Controller `054C:0268` wird unter Windows 10 von Godot/SDL als `PS3 Controller` erkannt. F3 zeigt Name, GUID, Achsen und gedrueckte Tasten. Falls die Belegung nicht stimmt, startet F4 die lokale Kalibrierung; das Ergebnis landet in `user://controller_mappings.cfg`.
+
+Scheitert das Speichern einer Kalibrierung, bleibt das neue Profil für diese Sitzung aktiv. Die Diagnose zeigt den Fehler dauerhaft an; eine Erfolgsmeldung erfolgt nur nach erfolgreichem Schreiben. Vorhandene beschädigte Kalibrierdateien bleiben erhalten.
 
 Wenn SDL das Geraet auf einem anderen Rechner gar nicht erkennt, ist Steam Input der vorgesehene Fallback. Es werden keine zusaetzlichen Systemtreiber benoetigt.
 
@@ -62,6 +74,14 @@ Wenn SDL das Geraet auf einem anderen Rechner gar nicht erkennt, ist Steam Input
 ```
 
 Die Headless-Suite prueft Schusszustaende samt verzoegertem Kontakt und Abbruch, Genauigkeitsfehler, Reibung, alle acht Gefaellerichtungen, atomare 16-Pixel-Pfeilzellen mit drei Steigungsstufen sowie abgestufter Bergab-Beschleunigung und Bergauf-Bremsung, alle zwoelf atomaren Wandbausteine einschliesslich vier T-Stuecken, das gemeinsame Wandnetz fuer Innen- und Aussenwaende, lueckenlose Anschluesse diagonaler Innenwaende, verborgene paarweise Tunnelloecher mit Geschwindigkeits- und Richtungserhalt, um 90 Grad gedrehte Hindernisse, gemischte gerade und diagonale Aussenkonturen, die Symmetrieachsen und Proportionen der neun Referenzbahnen, das sichere Ausrollen nach wiederholtem Gefaelle-Wandkontakt, freie Bahnkonturen, aus Normwand-Kaestchen erzeugte Aussenbanden, Rechteck-, Kreis- und Kreisbogenkollisionen, Dreher- und Torimpuls, die gewichtsgesteuerte Wippenneigung samt Vorzugsstellung, perspektivisch eindeutiger Hoehendarstellung, dynamischer Sperrkante, mitkippenden Seitenbanden und ausschliesslichem Einstieg ueber die abgesenkte Vorderseite, die um 90 Grad gedrehte und beidseitig an Normwaende angeschlossene Labyrinth-Wippe, Triggerverkettung, verriegelte Kanonen und reproduzierbaren Bogenflug. Fuer die Klassischen Neun werden neun eigene geschlossene Silhouetten, exakt acht Kreisbumper, sieben Kreisboegen, drei flache atomare Pfeilfelder sowie sichere PAR- und riskante Abkuerzungsrouten geprueft. Fuer Pfeil-Armageddon werden zusaetzlich neun unterschiedliche Normwandkonturen, 834 reine Gefaellezellen, kontinuierlich abgesicherte Pflichtquerschnitte, alle acht Richtungen, die exakte Sand- und Wasserverteilung, die mit L- und T-Stuecken geschlossene Pfeilspirale, ihr verborgenes Tunnelpaar, das zur Mitte und in den inneren Reihen diagonal nach links gerichtete rote Wasserfeld, dessen Festhaengeschutz sowie neun PAR-Routen geprueft. Weitere Tests decken Wasser-Ruecksetzung, Lochgeschwindigkeit, Bahn- und Kurskatalog, kuratierte technische Kursbahnen, paginierte Auswahl, Spieler- und Rundendaten, Hotseat-Wechsel, das dynamische Schlaglimit `max(8, PAR + 3)`, Neun-Loch-Tabelle, kursweise revisionierte Bestwerte sowie Kamera-, Audio-, Effekt-, Eingabe- und Fokusverhalten ab.
+
+Der zentrale Testrunner registriert Fachmodule für Ball/Oberflächen, Mechanik, Spielrahmen und Kursgruppen. Gemeinsame Szenen- und Geometrieroutenhilfen liegen in `tests/test_support.gd`; `tests/cleanup_regression_test.gd` prüft Menü- und Speicherfehler mit isolierten Testdateien. Bei den absichtlich beschädigten Testdateien sind zwei `ConfigFile parse error`-Meldungen erwartete Negativfälle; GDScript-Parserfehler sind weiterhin Fehler.
+
+Die Labyrinth-Geometrierouten setzen Hinderniskollisionen teilweise aus. Zusätzlich ist die Diagonalfalle mit aktiven Mechanismen in vier Schlägen innerhalb PAR 5 zweimal reproduziert. Für die übrigen acht Bahnen fehlt nach 54 untersuchten Startvarianten weiterhin ein vollständiger Live-Nachweis. Ergebnisse, genaue Grenzen und der separate Auditor stehen in [LABYRINTH_LIVE_PRUEFUNG.md](LABYRINTH_LIVE_PRUEFUNG.md).
+
+`ScorecardView` zeichnet die Ergebnistabelle, `MenuWidgets` bündelt gemeinsame UI-Bausteine. `GameApp` behält Navigation und Rundenaktionen. `SurfaceSample` verbindet Ball, Oberflächen und dynamische Wippen mit typisierten Physikdaten.
+
+Die Ergebnistabelle begrenzt Kurskopf und Tabellenbeschriftungen auf ihre vorgesehenen Felder und richtet sie vertikal mittig aus. Kursname und Loch-/PAR-Angabe behalten getrennte Bereiche mit Innenabstand; lange Texte werden bei Bedarf mit Auslassungspunkten begrenzt. Die Begriffe `TOTAL` und `E` bleiben erhalten.
 
 Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 

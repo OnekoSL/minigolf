@@ -32,12 +32,22 @@ func _capture() -> void:
 	config.mode = RoundConfig.GameMode.COURSE_SOLO
 	config.players = [PlayerProfile.create(1,"SPIELER 1",0)]
 	config.hole_ids = course.hole_ids.duplicate()
-	config.best_eligible = true
 	app.session = RoundSession.new()
 	app.session.configure(config,catalog)
 	app.session.scores[0] = [4,2,5,3,2,3,5,4,3]
 	app._show_scorecard(true,false)
 	await _save("endtabelle-solo")
+	app._best_save_error = ERR_FILE_CANT_WRITE
+	app._show_scorecard(true, false)
+	await _save("bestwert-speicherfehler")
+	app._best_save_error = OK
+	app._show_scorecard(true, false)
+	var previous_status: String = ControllerSupport._calibration_status
+	ControllerSupport._calibration_status = "Nur fuer diese Sitzung aktiv – Speichern fehlgeschlagen"
+	app._toggle_diagnostics()
+	await _save("kalibrierung-speicherfehler")
+	ControllerSupport._calibration_status = previous_status
+	app._toggle_diagnostics()
 	config.mode = RoundConfig.GameMode.COURSE_LOCAL
 	config.players = [PlayerProfile.create(1,"ALEXANDER123",0), PlayerProfile.create(2,"BEATRIX",1),PlayerProfile.create(3,"CHARLIE",2),PlayerProfile.create(4,"DOROTHEA",3)]
 	app.session = RoundSession.new()
@@ -52,7 +62,6 @@ func _capture() -> void:
 	app._show_scorecard(false,true)
 	await _save("zwischenstand")
 	config.mode = RoundConfig.GameMode.PRACTICE
-	config.best_eligible = false
 	config.players = [PlayerProfile.create(1,"SPIELER 1",0)]
 	config.hole_ids = [&"prototype_04"]
 	app.session = RoundSession.new()

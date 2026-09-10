@@ -17,11 +17,10 @@ func _ready() -> void:
 	result = await _capture("res://.godot/shell-name.png") if result == OK else result
 
 	var config := RoundConfig.new()
-	config.mode = RoundConfig.GameMode.COURSE_LOCAL
+	config.mode = RoundConfig.GameMode.FREE_PLAY
 	config.course_id = &"prototype_course_03"
 	config.players = [PlayerProfile.create(1, "ANNA", 0), PlayerProfile.create(2, "BERT", 1)]
 	config.hole_ids = [&"reference_01", &"classic_diamond_02", &"double_gate_03"]
-	config.best_eligible = true
 	app.session = RoundSession.new()
 	app.session.configure(config, app.hole_catalog)
 	app.session.scores[0] = [4, 3, 4]

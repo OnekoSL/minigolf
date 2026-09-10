@@ -209,17 +209,17 @@ func _draw_slope_arrow(center: Vector2, direction: Vector2, is_strong: bool, is_
 		draw_line(tail - direction * 3.0 * visual_scale, tail + direction * visual_scale, color, stroke)
 
 
-func get_surface_data() -> Dictionary:
-	return {
-		"type": surface_type,
-		"deceleration": deceleration,
-		"acceleration": acceleration,
-		"minimum_flow_speed": minimum_flow_speed,
-		"maximum_flow_speed": maximum_flow_speed,
-		"flow_alignment_rate": flow_alignment_rate,
-		"flow_centering_strength": flow_centering_strength,
-		"center": global_position,
-	}
+func get_surface_data() -> SurfaceSample:
+	var sample := SurfaceSample.new()
+	sample.surface_type = surface_type
+	sample.deceleration = deceleration
+	sample.acceleration = acceleration
+	sample.minimum_flow_speed = minimum_flow_speed
+	sample.maximum_flow_speed = maximum_flow_speed
+	sample.flow_alignment_rate = flow_alignment_rate
+	sample.flow_centering_strength = flow_centering_strength
+	sample.center = global_position
+	return sample
 
 
 func contains_global_point(point: Vector2) -> bool:

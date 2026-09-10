@@ -35,7 +35,6 @@ var current_surface_type := -1
 var _slow_time := 0.0
 var _hazard_generation := 0
 var _stuck_time := 0.0
-var _last_motion_position := Vector2.ZERO
 var _last_static_wall_normal := Vector2.ZERO
 var _same_wall_hit_count := 0
 var _cannon_active := false
@@ -79,7 +78,7 @@ func configure_environment(
 	zones = surface_zones
 	hole_position = target_hole
 	tunnels = tunnel_pairs
-	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
+	_set_current_surface_type(_surface_at(global_position).surface_type)
 
 
 func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
@@ -93,7 +92,6 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 	moving = true
 	_slow_time = 0.0
 	_stuck_time = 0.0
-	_last_motion_position = global_position
 	_reset_wall_contact_memory()
 	visible = true
 	scale = Vector2.ONE
@@ -107,12 +105,11 @@ func reset_to(target_position: Vector2) -> void:
 	moving = false
 	velocity = Vector2.ZERO
 	global_position = target_position
-	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
+	_set_current_surface_type(_surface_at(global_position).surface_type)
 	visible = true
 	scale = Vector2.ONE
 	_slow_time = 0.0
 	_stuck_time = 0.0
-	_last_motion_position = global_position
 	_reset_wall_contact_memory()
 
 
@@ -127,29 +124,29 @@ func _physics_process(delta: float) -> void:
 		return
 	var tick_start_position := global_position
 	var surface := _surface_at(global_position)
-	_set_current_surface_type(int(surface.get("type", -1)))
-	if int(surface.get("type", -1)) == SurfaceZone.SurfaceType.WATER:
+	_set_current_surface_type(surface.surface_type)
+	if surface.surface_type == SurfaceZone.SurfaceType.WATER:
 		_enter_hazard("Wasser")
 		return
 	velocity = apply_surface_acceleration(
 		velocity,
-		Vector2(surface.get("acceleration", Vector2.ZERO)),
+		surface.acceleration,
 		delta
 	)
 	velocity = apply_flow_assist(
 		velocity,
-		Vector2(surface.get("acceleration", Vector2.ZERO)).normalized(),
-		float(surface.get("minimum_flow_speed", 0.0)),
-		float(surface.get("maximum_flow_speed", 0.0)),
-		float(surface.get("flow_alignment_rate", 0.0)),
+		surface.acceleration.normalized(),
+		surface.minimum_flow_speed,
+		surface.maximum_flow_speed,
+		surface.flow_alignment_rate,
 		delta
 	)
 	velocity = apply_flow_centering(
 		velocity,
 		global_position,
-		Vector2(surface.get("center", global_position)),
-		Vector2(surface.get("acceleration", Vector2.ZERO)).normalized(),
-		float(surface.get("flow_centering_strength", 0.0)),
+		surface.center,
+		surface.acceleration.normalized(),
+		surface.flow_centering_strength,
 		delta
 	)
 
@@ -196,7 +193,7 @@ func _physics_process(delta: float) -> void:
 				_finish_stopped()
 				return
 		var stepped_surface := _surface_at(global_position)
-		if int(stepped_surface.get("type", -1)) == SurfaceZone.SurfaceType.WATER:
+		if stepped_surface.surface_type == SurfaceZone.SurfaceType.WATER:
 			_enter_hazard("Wasser")
 			return
 		var tunnel_entry := _find_tunnel_entry(global_position)
@@ -205,8 +202,8 @@ func _physics_process(delta: float) -> void:
 			return
 
 	surface = _surface_at(global_position)
-	_set_current_surface_type(int(surface.get("type", -1)))
-	var deceleration := float(surface.get("deceleration", GRASS_DECELERATION))
+	_set_current_surface_type(surface.surface_type)
+	var deceleration := surface.deceleration
 	velocity = apply_deceleration(velocity, deceleration, delta)
 
 	if can_capture_hole(global_position.distance_to(hole_position), velocity.length()):
@@ -217,7 +214,6 @@ func _physics_process(delta: float) -> void:
 		_stuck_time += delta
 	else:
 		_stuck_time = 0.0
-	_last_motion_position = global_position
 	if _stuck_time >= STUCK_SETTLE_TIME:
 		_finish_stopped()
 		return
@@ -230,20 +226,20 @@ func _physics_process(delta: float) -> void:
 		_slow_time = 0.0
 
 
-func _surface_at(point: Vector2) -> Dictionary:
+func _surface_at(point: Vector2) -> SurfaceSample:
 	for zone in zones:
 		if zone.contains_global_point(point):
 			return zone.get_surface_data()
-	return {
-		"type": -1,
-		"deceleration": GRASS_DECELERATION,
-		"acceleration": Vector2.ZERO,
-		"minimum_flow_speed": 0.0,
-		"maximum_flow_speed": 0.0,
-		"flow_alignment_rate": 0.0,
-		"flow_centering_strength": 0.0,
-		"center": global_position,
-	}
+	var sample := SurfaceSample.new()
+	sample.surface_type = -1
+	sample.deceleration = GRASS_DECELERATION
+	sample.acceleration = Vector2.ZERO
+	sample.minimum_flow_speed = 0.0
+	sample.maximum_flow_speed = 0.0
+	sample.flow_alignment_rate = 0.0
+	sample.flow_centering_strength = 0.0
+	sample.center = global_position
+	return sample
 
 
 func _enter_hazard(hazard_type: String) -> void:
@@ -338,7 +334,6 @@ func apply_moving_obstacle_contact(
 	moving = true
 	_slow_time = 0.0
 	_stuck_time = 0.0
-	_last_motion_position = global_position
 	wall_hit.emit(
 		maxf(transferred_velocity.length(), (transferred_velocity - previous_velocity).length()),
 		global_position,
@@ -411,8 +406,7 @@ func _advance_tunnel_sequence(delta: float) -> void:
 	collision_mask = 2
 	_tunnel_active = false
 	_tunnel_elapsed = 0.0
-	_last_motion_position = global_position
-	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
+	_set_current_surface_type(_surface_at(global_position).surface_type)
 	queue_redraw()
 
 
@@ -498,8 +492,7 @@ func _advance_cannon_sequence(delta: float) -> void:
 	_visual_lift = 0.0
 	collision_mask = 2
 	_cannon_active = false
-	_set_current_surface_type(int(_surface_at(global_position).get("type", -1)))
-	_last_motion_position = global_position
+	_set_current_surface_type(_surface_at(global_position).surface_type)
 	var landed_id := _cannon_id
 	_cannon_id = &""
 	cannon_feedback.emit(

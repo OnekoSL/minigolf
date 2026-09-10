@@ -14,7 +14,7 @@ func _ready() -> void:
 		ShotController.ShotState.SWINGING,
 		42
 	)
-	main.hud.golfer._state_time = 0.055
+	main.hud.golfer.set_swing_progress(0.55)
 	main.hud.play_golfer_reaction("perfect_swing")
 	main.feedback_effects.spawn_wall(Vector2(405, 82), Vector2.DOWN, 360.0, &"windmill")
 	main.feedback_effects.spawn_water(Vector2(500, 165))

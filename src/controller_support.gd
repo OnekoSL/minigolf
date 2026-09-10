@@ -16,6 +16,8 @@ var active_device_guid := ""
 var focused := true
 var last_input_kind := "Tastatur"
 
+var user_mapping_path := USER_MAPPING_PATH
+var _calibration_status := ""
 var _profiles: Dictionary = {}
 var _last_axes: Dictionary = {}
 var _last_buttons: Dictionary = {}
@@ -175,7 +177,7 @@ static func parse_mapping_lines(text: String) -> PackedStringArray:
 
 func _load_user_profiles() -> void:
 	var config := ConfigFile.new()
-	if config.load(USER_MAPPING_PATH) != OK:
+	if config.load(user_mapping_path) != OK:
 		return
 	for section in config.get_sections():
 		var profile: Dictionary = {}
@@ -184,12 +186,14 @@ func _load_user_profiles() -> void:
 		_profiles[section] = profile
 
 
-func _save_user_profile(guid: String, profile: Dictionary) -> void:
+func _save_user_profile(guid: String, profile: Dictionary) -> Error:
 	var config := ConfigFile.new()
-	config.load(USER_MAPPING_PATH)
+	var load_error := config.load(user_mapping_path)
+	if load_error != OK and load_error != ERR_FILE_NOT_FOUND:
+		return load_error
 	for key in profile.keys():
 		config.set_value(guid, key, profile[key])
-	config.save(USER_MAPPING_PATH)
+	return config.save(user_mapping_path)
 
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
@@ -338,6 +342,7 @@ func begin_calibration() -> bool:
 	if active_device_id < 0:
 		mapping_required.emit(-1, "")
 		return false
+	_calibration_status = ""
 	_calibration_step = 0
 	_calibration_profile = {}
 	calibration_updated.emit(get_calibration_prompt())
@@ -356,7 +361,7 @@ func is_calibrating() -> bool:
 
 func get_calibration_prompt() -> String:
 	if _calibration_step < 0:
-		return "F4: Controller kalibrieren"
+		return _calibration_status + "\nF4: Controller kalibrieren" if not _calibration_status.is_empty() else "F4: Controller kalibrieren"
 	var prompts := {
 		"shot_button": "Kreuz / Schlagtaste druecken",
 		"cancel_button": "Kreis / Abbruchtaste druecken",
@@ -404,10 +409,14 @@ func _advance_calibration() -> void:
 		calibration_updated.emit(get_calibration_prompt())
 		return
 	_profiles[active_device_guid] = _calibration_profile.duplicate(true)
-	_save_user_profile(active_device_guid, _calibration_profile)
+	var error := _save_user_profile(active_device_guid, _calibration_profile)
 	_calibration_step = -1
-	calibration_finished.emit(active_device_guid)
-	calibration_updated.emit("Kalibrierung gespeichert")
+	if error == OK:
+		_calibration_status = "Kalibrierung gespeichert"
+		calibration_finished.emit(active_device_guid)
+	else:
+		_calibration_status = "Nur fuer diese Sitzung aktiv – Speichern fehlgeschlagen"
+	calibration_updated.emit(_calibration_status)
 
 
 func get_diagnostics_text() -> String:

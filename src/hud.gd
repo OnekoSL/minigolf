@@ -4,10 +4,8 @@ extends CanvasLayer
 var power_bar: PowerDistanceMeter
 var accuracy_bar: AccuracyMeter
 var stroke_label: Label
-var state_label: Label
 var distance_label: Label
 var controller_label: Label
-var help_label: Label
 var diagnostics_panel: Panel
 var diagnostics_label: Label
 var result_panel: Panel
@@ -50,8 +48,8 @@ func _build_hud() -> void:
 		root.add_child(border_edge)
 
 	var golfer_panel := Panel.new()
-	golfer_panel.position = Vector2(8, 218)
-	golfer_panel.size = Vector2(160, 134)
+	golfer_panel.position = Vector2(8, 168)
+	golfer_panel.size = Vector2(160, 184)
 	golfer_panel.add_theme_stylebox_override("panel", _panel_style(Color("#172332"), Color("#d5c477")))
 	root.add_child(golfer_panel)
 
@@ -59,24 +57,19 @@ func _build_hud() -> void:
 	golfer_panel.add_child(golfer_title)
 
 	golfer = PlaceholderGolfer.new()
-	golfer.position = Vector2(15, 20)
-	golfer.size = Vector2(88, 78)
+	golfer.position = Vector2(15, 24)
+	golfer.size = Vector2(88, 144)
 	golfer_panel.add_child(golfer)
 
 	power_bar = PowerDistanceMeter.new()
-	power_bar.position = Vector2(96, 12)
-	power_bar.size = Vector2(60, 106)
+	power_bar.position = Vector2(96, 24)
+	power_bar.size = Vector2(60, 160)
 	golfer_panel.add_child(power_bar)
 
-	var accuracy_title := _label("GENAU", Vector2(15, 113), Vector2(88, 10), 8, Color("#d6e1e8"))
-	golfer_panel.add_child(accuracy_title)
 	accuracy_bar = AccuracyMeter.new()
-	accuracy_bar.position = Vector2(15, 126)
+	accuracy_bar.position = Vector2(15, 176)
 	accuracy_bar.size = Vector2(88, 5)
 	golfer_panel.add_child(accuracy_bar)
-
-	state_label = _label("ZIELEN", Vector2(7, 99), Vector2(88, 12), 9, Color("#ffffff"))
-	golfer_panel.add_child(state_label)
 
 	# Keep the entire playable area clear, including upper return corridors.
 	stroke_label = _label("SCHLAEGE 0   PAR 4", Vector2(8, 86), Vector2(152, 20), 11, Color("#fff3ba"))
@@ -91,10 +84,6 @@ func _build_hud() -> void:
 	controller_label = _label("Controller wird gesucht ...", Vector2(8, 8), Vector2(152, 38), 10, Color("#c9d6df"))
 	controller_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(controller_label)
-	help_label = _label("Stick/D-Pad/Maus: Zielen\nKreuz/Leertaste: Schlag\nKreis: Abbruch  |  F3: Diagnose\nDreieck/F2: Loch wechseln", Vector2(8, 168), Vector2(152, 46), 7, Color("#9fb2c1"))
-	help_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	help_label.add_theme_constant_override("line_spacing", 0)
-	root.add_child(help_label)
 	course_label = _label("", Vector2(8, 50), Vector2(152, 32), 10, Color("#d7edcf"))
 	course_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(course_label)
@@ -170,16 +159,7 @@ func update_game(strokes: int, par: int, power: float, accuracy: float, shot_sta
 	power_bar.set_value(power)
 	accuracy_bar.set_value(accuracy)
 	golfer.set_shot_state(shot_state)
-	var names := {
-		ShotController.ShotState.AIMING: "ZIELEN",
-		ShotController.ShotState.POWER: "KRAFT",
-		ShotController.ShotState.ACCURACY: "GENAUIGKEIT",
-		ShotController.ShotState.ARMED: "BEREIT ...",
-		ShotController.ShotState.SWINGING: "SCHWUNG",
-		ShotController.ShotState.BALL_MOVING: "BALL LAEUFT",
-		ShotController.ShotState.HOLE_COMPLETE: "GESCHAFFT!",
-	}
-	state_label.text = names.get(shot_state, "")
+	golfer.set_power(power)
 
 
 func set_controller_status(text: String) -> void:
