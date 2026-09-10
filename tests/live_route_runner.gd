@@ -10,6 +10,7 @@ var shots: Array[RouteShot] = []
 var runtime: HoleRuntime
 var ball: PrototypeBall
 var controller: ShotController
+var golfer_id := &"allrounder"
 var _ticks := 0
 var _shot_index := 0
 var _wait_left := 0
@@ -25,10 +26,11 @@ var _swing_tick := 0
 var _contact_delays: Array[int] = []
 
 
-static func play(host: Node, hole: HoleDefinition, route: Array[RouteShot]) -> Dictionary:
+static func play(host: Node, hole: HoleDefinition, route: Array[RouteShot], golfer := &"allrounder") -> Dictionary:
 	var runner := LiveRouteRunner.new()
 	runner.definition = hole
 	runner.shots = route
+	runner.golfer_id = golfer
 	host.get_tree().root.add_child(runner)
 	var result: Dictionary = await runner.finished
 	runner.queue_free()
@@ -49,6 +51,7 @@ func _ready() -> void:
 	controller = ShotController.new()
 	add_child(controller)
 	controller.configure(ball, definition.course_rect)
+	controller.apply_golfer(GolferDefinition.get_golfer(golfer_id))
 	# Only the input/timing driver is replaced. World physics runs normally.
 	controller.set_process(false)
 	controller.set_process_unhandled_input(false)
@@ -113,15 +116,23 @@ func _physics_process(delta: float) -> void:
 
 
 func _prepare_shot(shot: RouteShot) -> void:
+	var target := shot.target
+	if not is_nan(shot.angle_degrees):
+		var direction := Vector2.from_angle(deg_to_rad(shot.angle_degrees))
+		var distance := 40.0
+		target = ball.global_position + direction * distance
+		while not controller._clamp_cursor(target).is_equal_approx(target) and distance > 0.01:
+			distance *= 0.5
+			target = ball.global_position + direction * distance
 	var minimum_speed := lerpf(controller.minimum_ball_speed, controller.maximum_ball_speed, controller.minimum_power)
 	if shot.speed < minimum_speed or shot.speed > controller.maximum_ball_speed or shot.wait_ticks < 0:
 		_finish("Ungueltige Schlagstaerke oder Wartezeit")
 		return
-	if not controller._clamp_cursor(shot.target).is_equal_approx(shot.target):
+	if not controller._clamp_cursor(target).is_equal_approx(target):
 		_finish("Zielpunkt liegt ausserhalb des erreichbaren Zielbereichs")
 		return
 	controller.reset_aim()
-	controller.cursor_position = shot.target
+	controller.cursor_position = target
 	controller.action_pressed()
 	controller.power_value = inverse_lerp(controller.minimum_ball_speed, controller.maximum_ball_speed, shot.speed)
 	controller.action_pressed()

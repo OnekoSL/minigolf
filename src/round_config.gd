@@ -39,6 +39,8 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 		if used_palettes.has(player.palette_id):
 			errors.append("Spielerfarben muessen eindeutig sein")
 		used_palettes[player.palette_id] = true
+		if player.golfer_id not in GolferDefinition.IDS:
+			errors.append("Spieler verweist auf unbekannten Golfer")
 	for hole_id in hole_ids:
 		var hole := hole_catalog.get_hole(hole_id) if hole_catalog != null else null
 		if hole == null:

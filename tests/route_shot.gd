@@ -4,6 +4,7 @@ extends RefCounted
 var target: Vector2
 var speed: float
 var wait_ticks: int
+var angle_degrees := NAN
 
 
 func _init(aim: Vector2, strength: float, wait := 0) -> void:

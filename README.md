@@ -22,11 +22,11 @@ Direkt spielen:
 
 Das Golferfenster zeigt Figur und beide Anzeigen ohne Phasentext, Anzeigenueberschriften oder dauerhafte Steuerungshinweise. Die verlaengerte Kraftskala erlaubt kurze Schlaege ab etwa 1 dm; bis 10 dm besitzt sie einzelne Dezimeterstriche, darueber 10-dm-Striche. Die erwartete Weite gilt fuer ebenes Gruen.
 
-Der Allrounder ist jetzt ein grosser Pixelgolfer mit Cap, Polo, Hose und Golfschuhen. Seine Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur das Polo um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
+Vier erwachsene Pixelgolfer sind sofort verfuegbar: Allrounder, Mara, Bruno und Nika. Jeder besitzt einen eigenen Atlas und ein festes Spielprofil. Die Spieleranlage fuehrt vom Namen ueber die Figur zur kosmetischen Farbe; mehrere Spieler duerfen dieselbe Figur waehlen. Details und Werte stehen in [GOLFER.md](GOLFER.md). Seine Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur Polo beziehungsweise Weste um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
 
 `godot --path . res://tests/capture_golfer.tscn` rendert alle Posen, Spielerfarben und Schlagfolgen nach `.godot/golfer/`. `tests/golfer_animation_test.gd` prueft die Verbindung zum echten Schlagsystem einschliesslich des sichtbaren Kontaktframes.
 
-Mit dem erweiterten Kraftbereich gelten neue Bestwertrevisionen: Klassische Neun 8, Pfeil-Armageddon 6, Referenzbahnen 2, Labyrinth-Neun 2 und Prototypkurs 4. Aeltere Bestwerte bleiben gespeichert und werden getrennt gewertet; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
+Mit den vier Golferprofilen gelten neue gemeinsame Bestwertrevisionen: Klassische Neun 9, Pfeil-Armageddon 7, Referenzbahnen 3, Labyrinth-Neun 3 und Prototypkurs 5. Aeltere Bestwerte bleiben gespeichert und werden getrennt gewertet; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
 
 | Funktion | Controller | Tastatur | Maus |
 |---|---|---|---|
@@ -112,7 +112,7 @@ Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare u
 - Gruen, Sand, Gefaelle und Wasser; atomare Pfeilflaechen verwenden 30 px/s2 Rollwiderstand und unterscheiden flaches Gefaelle in Dunkelgruen, mittleres in Dunkelblau und steiles in Dunkelrot
 - gerade und gedrehte Banden, massive Kreis-Bumper, dicke Kreisbogenwaende, rotierende Hindernisse, zwei deterministische Schiebetore sowie zwei automatisch ausloesende Kanonen mit sichtbarem Bogenflug
 - reproduzierbare Ballphysik mit festen Physikschritten
-- animierter Platzhaltergolfer mit getrennten Posen fuer Zielen, Timing, Abschwung, Beobachten, Wasser, Erfolg und perfekte Treffer
+- vier animierte Pixelgolfer mit eigenen Spielprofilen und getrennten Posen fuer Zielen, Timing, Abschwung, Beobachten, Wasser, Erfolg und perfekte Treffer
 - Schlagzahl, Dezimeter-Entfernung, vertikale Kraft-/Weitenskala, eingerahmte Genauigkeitsanzeige und Ergebnisanzeige
 - prozedurale Retro-Sounds fuer Schlagphasen, Treffer, Bande, Windmuehle, Tor, Schalter, Kanone, Wasser und Loch sowie materialabhaengiges Rollfeedback
 - kurze codebasierte Splitter-, Staub-, Wasser-, Loch- und Perfekt-Effekte ohne Einfluss auf die Physik
@@ -122,4 +122,4 @@ Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare u
 - Loch- und Endtabellen, gemeinsamer Rang bei Gleichstand und lokaler Kursbestwert
 - dynamisches Schlagmaximum `max(8, PAR + 3)`
 
-Noch nicht enthalten sind weitere Golferprofile, ein final ausgearbeiteter Produktionskurs, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor.
+Noch nicht enthalten sind Turniersieg-Reaktionen, ein final ausgearbeiteter Produktionskurs, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor.

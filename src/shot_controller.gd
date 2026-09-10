@@ -51,6 +51,17 @@ func configure(target_ball: PrototypeBall, bounds: Rect2, aim_offset := Vector2(
 	reset_aim()
 
 
+func apply_golfer(definition: GolferDefinition) -> void:
+	cancel_shot()
+	power_cycle_seconds = definition.power_cycle_seconds
+	accuracy_cycle_seconds = definition.accuracy_cycle_seconds
+	minimum_ball_speed = MINIMUM_BALL_SPEED
+	maximum_ball_speed = definition.get_maximum_ball_speed()
+	perfect_accuracy_window = definition.perfect_accuracy_window
+	maximum_error_degrees = definition.maximum_error_degrees
+	reset_aim()
+
+
 func reset_aim() -> void:
 	if ball == null:
 		return

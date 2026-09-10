@@ -1,0 +1,320 @@
+[
+	{
+		"golfer": "mara",
+		"hole_id": "classic_nine_02",
+		"shots": [
+			{
+				"angle": -12.0,
+				"speed": 387.220867206301,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 91.6007545939852,
+				"target": [
+					575.0,
+					72.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "mara",
+		"hole_id": "classic_nine_05",
+		"shots": [
+			{
+				"angle": -32.35,
+				"speed": 387.220867206301,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 88.1192754955872,
+				"target": [
+					575.0,
+					72.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "mara",
+		"hole_id": "classic_nine_08",
+		"shots": [
+			{
+				"angle": -24.0,
+				"speed": 387.220867206301,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": -28.5,
+				"speed": 340.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 185.0,
+				"target": [
+					960.0,
+					72.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 150.927643069064,
+				"target": [
+					960.0,
+					72.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "mara",
+		"hole_id": "classic_nine_09",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 300.0,
+				"target": [
+					600.0,
+					280.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 300.0,
+				"target": [
+					1000.0,
+					280.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 220.0,
+				"target": [
+					960.0,
+					72.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 387.220867206301,
+				"target": [
+					220.0,
+					56.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 151.193651532304,
+				"target": [
+					220.0,
+					56.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "mara",
+		"hole_id": "arrow_armageddon_02",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 387.220867206301,
+				"target": [
+					575.0,
+					70.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 135.0,
+				"target": [
+					575.0,
+					70.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 78.7965124917301,
+				"target": [
+					575.0,
+					70.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "mara",
+		"hole_id": "arrow_armageddon_09",
+		"shots": [
+			{
+				"angle": -8.0,
+				"speed": 340.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": 10.7078454479826,
+				"speed": 200.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": -6.42677758312242,
+				"speed": 387.220867206301,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 54.9597152216167,
+				"target": [
+					1090.0,
+					70.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "nika",
+		"hole_id": "classic_nine_08",
+		"shots": [
+			{
+				"angle": -24.0,
+				"speed": 409.365362481976,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": -28.5,
+				"speed": 340.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 185.0,
+				"target": [
+					960.0,
+					72.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 68.7824109060509,
+				"target": [
+					960.0,
+					72.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "nika",
+		"hole_id": "classic_nine_09",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 300.0,
+				"target": [
+					600.0,
+					280.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 300.0,
+				"target": [
+					1000.0,
+					280.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 220.0,
+				"target": [
+					960.0,
+					72.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 409.365362481976,
+				"target": [
+					220.0,
+					56.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 71.9408135334559,
+				"target": [
+					220.0,
+					56.0
+				]
+			}
+		]
+	},
+	{
+		"golfer": "bruno",
+		"hole_id": "classic_nine_08",
+		"shots": [
+			{
+				"angle": -24.0,
+				"speed": 420.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": -28.5,
+				"speed": 340.0,
+				"target": [
+					0.0,
+					0.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 185.0,
+				"target": [
+					960.0,
+					72.0
+				]
+			},
+			{
+				"angle": null,
+				"speed": 43.7151328520342,
+				"target": [
+					960.0,
+					72.0
+				]
+			}
+		]
+	}
+]

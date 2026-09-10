@@ -20,6 +20,8 @@ func _run_all() -> void:
 	var labyrinth_course_test := preload("res://tests/labyrinth_course_test.gd").new(self, _check)
 	await ball_physics_test._test_shot_state_machine()
 	await load("res://tests/golfer_animation_test.gd").run(self, _check)
+	await load("res://tests/golfer_profiles_test.gd").run(self, _check)
+	await load("res://tests/golfer_routes_test.gd").run(self, _check)
 	ball_physics_test._test_ball_math()
 	await ball_physics_test._test_hazard_reset()
 	await ball_physics_test._test_tunnel_pair()

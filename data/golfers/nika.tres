@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GolferDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/golfer_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/golfer/nika_atlas.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+golfer_id = &"nika"
+display_name = "NIKA"
+description = "Geringe Richtungsfehler.\nSchnelles Genauigkeitstiming."
+atlas = ExtResource("2")
+range_factor = 0.95
+power_cycle_seconds = 4.0
+accuracy_cycle_seconds = 1.8
+perfect_accuracy_window = 0.025
+maximum_error_degrees = 4.0

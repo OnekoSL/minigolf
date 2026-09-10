@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GolferDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/golfer_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/golfer/mara_atlas.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+golfer_id = &"mara"
+display_name = "MARA"
+description = "Fein dosierbare kurze Putts.\nWeniger Reichweite."
+atlas = ExtResource("2")
+range_factor = 0.85
+power_cycle_seconds = 5.2
+accuracy_cycle_seconds = 2.4
+perfect_accuracy_window = 0.05
+maximum_error_degrees = 8.0

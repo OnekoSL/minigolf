@@ -11,6 +11,7 @@ const REACTION_SECONDS := 1.25
 var shot_state := ShotController.ShotState.AIMING
 var reaction := ""
 var palette_id := 0
+var golfer_id := &"allrounder"
 var power_value := 0.0
 var swing_progress := 0.0
 var contact_seen := false
@@ -30,11 +31,11 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	clip_contents = true
 	_sprite = Sprite2D.new()
-	_sprite.texture = ATLAS
+	_sprite.texture = GolferDefinition.get_golfer(golfer_id).atlas
 	_sprite.hframes = 4
 	_sprite.vframes = 4
 	_sprite.centered = false
-	_sprite.scale = FRAME_SIZE / (ATLAS.get_size() / 4.0)
+	_sprite.scale = FRAME_SIZE / (_sprite.texture.get_size() / 4.0)
 	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var palette := ShaderMaterial.new()
 	palette.shader = PALETTE_SHADER
@@ -42,6 +43,16 @@ func _ready() -> void:
 	add_child(_sprite)
 	_apply_palette()
 	_update_sprite()
+
+
+func set_golfer(definition: GolferDefinition) -> void:
+	if golfer_id == definition.golfer_id:
+		return
+	golfer_id = definition.golfer_id
+	if _sprite != null:
+		_sprite.texture = definition.atlas
+		_sprite.scale = FRAME_SIZE / (definition.atlas.get_size() / 4.0)
+	reset_animation()
 
 
 func _process(delta: float) -> void:

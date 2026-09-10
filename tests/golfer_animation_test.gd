@@ -3,7 +3,14 @@ extends RefCounted
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Pixelgolfer: Schlag und Reaktionen]")
+	for id in GolferDefinition.IDS:
+		await _test_golfer(host, check, id)
+
+
+static func _test_golfer(host: Node, check: Callable, id: StringName) -> void:
+	print("  Golfer: ", id)
 	var main := (load("res://scenes/prototype_main.tscn") as PackedScene).instantiate() as PrototypeMain
+	main.attempt_profile = PlayerProfile.create(1, "TEST", 0, id)
 	host.add_child(main)
 	await host.get_tree().process_frame
 	main.set_process(false)

@@ -141,14 +141,14 @@ func _test_game_shell() -> void:
 	_check(store.submit(&"arrow_armageddon_course_v3", 25).best_score == 25, "Pfeil-Armageddon-Bestwert der Revision 3 bleibt erhalten")
 	_check(store.submit(&"arrow_armageddon_course_v4", 26).best_score == 26, "Pfeil-Armageddon-Bestwert der Revision 4 bleibt erhalten")
 	_check(
-		arrow_course.best_score_revision == 6
-			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v6"
+		arrow_course.best_score_revision == 7
+			and arrow_course.get_best_score_key() == &"arrow_armageddon_course_v7"
 			and store.get_best(arrow_course.get_best_score_key()) == -1
 			and store.get_best(arrow_course.course_id) == 27
 			and store.get_best(&"arrow_armageddon_course_v2") == 24
 			and store.get_best(&"arrow_armageddon_course_v3") == 25
 			and store.get_best(&"arrow_armageddon_course_v4") == 26,
-		"Pfeil-Armageddon Revision 6 uebernimmt keine aelteren Kursbestwerte"
+		"Pfeil-Armageddon Revision 7 uebernimmt keine aelteren Kursbestwerte"
 	)
 	_check(store.submit(classic_course.course_id, 18).best_score == 18, "Alter Klassik-Bestwert bleibt unter seinem bisherigen Schluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v2", 17).best_score == 17, "Klassik-Bestwert der Revision 2 bleibt unter seinem Revisionsschluessel erhalten")
@@ -157,8 +157,8 @@ func _test_game_shell() -> void:
 	_check(store.submit(&"classic_nine_course_v5", 19).best_score == 19, "Klassik-Bestwert der Revision 5 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(store.submit(&"classic_nine_course_v6", 19).best_score == 19, "Klassik-Bestwert der Revision 6 bleibt unter seinem Revisionsschluessel erhalten")
 	_check(
-		classic_course.best_score_revision == 8
-			and classic_course.get_best_score_key() == &"classic_nine_course_v8"
+		classic_course.best_score_revision == 9
+			and classic_course.get_best_score_key() == &"classic_nine_course_v9"
 			and store.get_best(classic_course.get_best_score_key()) == -1
 			and store.get_best(classic_course.course_id) == 18
 			and store.get_best(&"classic_nine_course_v2") == 17
@@ -166,21 +166,21 @@ func _test_game_shell() -> void:
 			and store.get_best(&"classic_nine_course_v4") == 19
 			and store.get_best(&"classic_nine_course_v5") == 19
 			and store.get_best(&"classic_nine_course_v6") == 19,
-		"Klassische Neun Revision 8 uebernimmt keine aelteren Bestwerte"
+		"Klassische Neun Revision 9 uebernimmt keine aelteren Bestwerte"
 	)
 	_check(
-		course.best_score_revision == 4
-			and course.get_best_score_key() == &"prototype_course_03_v4"
+		course.best_score_revision == 5
+			and course.get_best_score_key() == &"prototype_course_03_v5"
 			and store.get_best(course.get_best_score_key()) == -1
 			and store.get_best(course.course_id) == 10,
-		"Prototypkurs Revision 4 uebernimmt keinen alten Kursbestwert"
+		"Prototypkurs Revision 5 uebernimmt keinen alten Kursbestwert"
 	)
 	_check(
-		reference_course.best_score_revision == 2
-			and reference_course.get_best_score_key() == &"reference_lanes_course_v2"
-			and labyrinth_course.best_score_revision == 2
-			and labyrinth_course.get_best_score_key() == &"labyrinth_nine_course_v2",
-		"Referenz- und Labyrinthkurs trennen Bestwerte fuer den erweiterten Kraftbereich"
+		reference_course.best_score_revision == 3
+			and reference_course.get_best_score_key() == &"reference_lanes_course_v3"
+			and labyrinth_course.best_score_revision == 3
+			and labyrinth_course.get_best_score_key() == &"labyrinth_nine_course_v3",
+		"Referenz- und Labyrinthkurs trennen Bestwerte fuer die vier Golferprofile"
 	)
 	DirAccess.remove_absolute(absolute_test_path)
 

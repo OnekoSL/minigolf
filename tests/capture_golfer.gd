@@ -1,8 +1,19 @@
 extends Node
 
+var golfer_id := &"allrounder"
+
 
 func _ready() -> void:
-	call_deferred("_capture")
+	call_deferred("_capture_all")
+
+
+func _capture_all() -> void:
+	for id in GolferDefinition.IDS:
+		golfer_id = id
+		await _capture()
+	await _capture_games()
+	print("Alle Golferaufnahmen abgeschlossen")
+	get_tree().quit()
 
 
 func _capture() -> void:
@@ -22,6 +33,7 @@ func _capture() -> void:
 		golfer.size = golfer.FRAME_SIZE
 		viewport.add_child(golfer)
 		golfer.set_process(false)
+		golfer.set_golfer(GolferDefinition.get_golfer(golfer_id))
 		golfer.set_shot_state(ShotController.ShotState.HOLE_COMPLETE)
 		golfer._sprite.frame = frame
 		var label := Label.new()
@@ -31,7 +43,7 @@ func _capture() -> void:
 		viewport.add_child(label)
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
-	var error := viewport.get_texture().get_image().save_png("res://.godot/golfer/poses.png")
+	var error := viewport.get_texture().get_image().save_png("res://.godot/golfer/%s-poses.png" % golfer_id)
 	if error != OK:
 		get_tree().quit(1)
 		return
@@ -51,6 +63,7 @@ func _capture() -> void:
 		golfer.size = golfer.FRAME_SIZE
 		colors.add_child(golfer)
 		golfer.set_process(false)
+		golfer.set_golfer(GolferDefinition.get_golfer(golfer_id))
 		golfer.set_palette(palette)
 		var label := Label.new()
 		label.position = golfer.position + Vector2(0, 145)
@@ -59,11 +72,12 @@ func _capture() -> void:
 		colors.add_child(label)
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
-	error = colors.get_texture().get_image().save_png("res://.godot/golfer/colors.png")
+	error = colors.get_texture().get_image().save_png("res://.godot/golfer/%s-colors.png" % golfer_id)
 	if error == OK:
 		error = await _capture_sequence()
 	print("Golferaufnahmen: ", error_string(error))
-	get_tree().quit(0 if error == OK else 1)
+	colors.queue_free()
+	await get_tree().process_frame
 
 
 func _capture_sequence() -> Error:
@@ -83,6 +97,7 @@ func _capture_sequence() -> Error:
 			golfer.size = golfer.FRAME_SIZE
 			viewport.add_child(golfer)
 			golfer.set_process(false)
+			golfer.set_golfer(GolferDefinition.get_golfer(golfer_id))
 			golfer.set_shot_state(ShotController.ShotState.POWER)
 			golfer.set_power(float(row) * 0.5)
 			match column:
@@ -117,4 +132,44 @@ func _capture_sequence() -> Error:
 			viewport.add_child(label)
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
-	return viewport.get_texture().get_image().save_png("res://.godot/golfer/sequences.png")
+	var error := viewport.get_texture().get_image().save_png("res://.godot/golfer/%s-sequences.png" % golfer_id)
+	viewport.queue_free()
+	await get_tree().process_frame
+	return error
+
+
+func _capture_games() -> void:
+	var viewport := SubViewport.new()
+	viewport.size = Vector2i(640, 360)
+	viewport.world_2d = World2D.new()
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	get_tree().root.add_child(viewport)
+	for index in range(GolferDefinition.IDS.size()):
+		var id := GolferDefinition.IDS[index]
+		var main := (load("res://scenes/prototype_main.tscn") as PackedScene).instantiate() as PrototypeMain
+		main.attempt_profile = PlayerProfile.create(index + 1, "SPIELER %d" % (index + 1), index, id)
+		viewport.add_child(main)
+		main.set_process(false)
+		main.shot_controller.set_process(false)
+		main.shot_controller.action_pressed()
+		main.shot_controller.power_value = 0.5
+		main._update_hud()
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var screenshot := viewport.get_texture().get_image()
+		screenshot.save_png("res://.godot/golfer/%s-game-native.png" % id)
+		screenshot.resize(1280, 720, Image.INTERPOLATE_NEAREST)
+		screenshot.save_png("res://.godot/golfer/%s-game-2x.png" % id)
+		main.queue_free()
+		await get_tree().process_frame
+	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
+	viewport.add_child(app)
+	app.set_process(false)
+	app._select_mode(RoundConfig.GameMode.COURSE_SOLO)
+	app._confirm_player_name()
+	app._select_option(3)
+	await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	viewport.get_texture().get_image().save_png("res://.godot/golfer/selection.png")
+	viewport.queue_free()
+	await get_tree().process_frame

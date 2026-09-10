@@ -7,6 +7,16 @@ const GRASS_DECELERATION := 120.0
 const PIXELS_PER_METER := 32.0
 
 var value := 0.0
+var minimum_ball_speed := MINIMUM_BALL_SPEED
+var maximum_ball_speed := MAXIMUM_BALL_SPEED
+
+
+func set_golfer(definition: GolferDefinition) -> void:
+	var new_maximum := definition.get_maximum_ball_speed()
+	if is_equal_approx(maximum_ball_speed, new_maximum):
+		return
+	maximum_ball_speed = new_maximum
+	queue_redraw()
 
 
 func _ready() -> void:
@@ -20,7 +30,7 @@ func set_value(new_value: float) -> void:
 
 
 func distance_dm_for_power(power: float) -> int:
-	var speed := lerpf(MINIMUM_BALL_SPEED, MAXIMUM_BALL_SPEED, power)
+	var speed := lerpf(minimum_ball_speed, maximum_ball_speed, power)
 	var distance_pixels := speed * speed / (2.0 * GRASS_DECELERATION)
 	return int(round(distance_pixels / PIXELS_PER_METER * 10.0))
 
@@ -28,7 +38,7 @@ func distance_dm_for_power(power: float) -> int:
 func power_for_distance_dm(distance_dm: float) -> float:
 	var distance_pixels := maxf(distance_dm, 0.0) * PIXELS_PER_METER / 10.0
 	var speed := sqrt(2.0 * GRASS_DECELERATION * distance_pixels)
-	return clampf(inverse_lerp(MINIMUM_BALL_SPEED, MAXIMUM_BALL_SPEED, speed), 0.0, 1.0)
+	return clampf(inverse_lerp(minimum_ball_speed, maximum_ball_speed, speed), 0.0, 1.0)
 
 
 func _draw() -> void:

@@ -95,6 +95,8 @@ func _build_game() -> void:
 	shot_controller.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(shot_controller)
 	shot_controller.configure(ball, hole.get_course_rect(), hole.get_initial_aim_offset())
+	if attempt_profile != null:
+		shot_controller.apply_golfer(GolferDefinition.get_golfer(attempt_profile.golfer_id))
 
 	course_camera = CourseCamera.new()
 	course_camera.process_mode = Node.PROCESS_MODE_PAUSABLE

@@ -221,14 +221,14 @@ Die Physik ist eine kontrollierte 2D-Simulation. Realismus ist weniger wichtig a
 
 ## 9. Golferfiguren
 
-Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bessere Ausruestung zu benoetigen. Namen und finales Erscheinungsbild sind noch offen.
+Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bessere Ausruestung zu benoetigen. Allrounder, Mara (ruhig), Bruno (kraftvoll) und Nika (technisch) sind als animierte Pixelgolfer umgesetzt; feste Startwerte und Pruefstand stehen in `GOLFER.md`.
 
-| Rolle | Maximalkraft | Kraft-Timing | Genauigkeitsprofil | Spielgefuehl |
+| Rolle | Maximale Weite auf ebenem Gruen | Kraft-Timing | Genauigkeitsprofil | Spielgefuehl |
 |---|---:|---|---|---|
-| Allrounder | 100 % | normal | normal | verlaessliche Referenzfigur |
-| Feinfuehlige Figur | ca. 75-85 % | langsam | gut dosierbar | stark auf kurzen technischen Bahnen |
-| Kraftfigur | ca. 125-130 % | schnell | normal bis anspruchsvoll | hohe Reichweite, schwerer zu kontrollieren |
-| Technische Figur | ca. 90-100 % | normal | kleines Perfektfenster, geringe Fehlerwirkung | Perfektion schwierig, normale Fehler weniger drastisch |
+| Allrounder | 100 % Reichweite | 4,0 s | 2,4-s-Zyklus, Perfektfenster +/-0,05, maximal 8 Grad | verlaessliche Referenzfigur |
+| Mara | 85 % Reichweite | 5,2 s | normal, gut dosierbare Kraft | stark auf kurzen technischen Bahnen |
+| Bruno | 125 % Reichweite | 3,2 s | normal | hohe Reichweite, schwerer zu dosieren |
+| Nika | 95 % Reichweite | 4,0 s | 1,8-s-Zyklus, halbes Perfektfenster, halbe Fehlerwirkung | reaktionssicheres Timing belohnt Richtungstreue |
 
 ### Verbindliche Regeln fuer Figurenunterschiede
 
@@ -242,7 +242,7 @@ Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bess
 
 ### Benoetigte Animationsgruppen
 
-Aktueller Allrounder: Ein zusammengehoeriger Pixelatlas ersetzt die Linienfigur in einem 88 x 144 Pixel grossen Fenster links neben der Kraftskala. Spriteposen decken Ruhe, Blinzeln, Atmen, drei Ausholweiten, Kontakt, drei Durchschwungweiten, Beobachten, Jubel und Aerger ab. Die Kraft bestimmt das Ausholen, Genauigkeit und Bereithalten frieren es ein. Der Abschwung liest den Fortschritt des Schlagsystems; Kontaktpose, Einblendungsball und Perfektglanz starten erst bei dessen Ballkontakt. Mindestens ein Renderframe zeigt die Kontaktpose. Vier kosmetische Polofarben erhalten Haut, Hose, Schuhe und Putter. Pause, Abbruch und Neustart sind angebunden. Weitere Charaktere und differenzierte Turnierreaktionen bleiben spaetere Erweiterungen. Spielwerte und Bestwertrevisionen aendern sich durch diesen Grafikwechsel nicht.
+Aktueller Allrounder: Ein zusammengehoeriger Pixelatlas ersetzt die Linienfigur in einem 88 x 144 Pixel grossen Fenster links neben der Kraftskala. Spriteposen decken Ruhe, Blinzeln, Atmen, drei Ausholweiten, Kontakt, drei Durchschwungweiten, Beobachten, Jubel und Aerger ab. Die Kraft bestimmt das Ausholen, Genauigkeit und Bereithalten frieren es ein. Der Abschwung liest den Fortschritt des Schlagsystems; Kontaktpose, Einblendungsball und Perfektglanz starten erst bei dessen Ballkontakt. Mindestens ein Renderframe zeigt die Kontaktpose. Vier kosmetische Polofarben erhalten Haut, Hose, Schuhe und Putter. Pause, Abbruch und Neustart sind angebunden. Mara, Bruno und Nika verwenden dieselbe Animationssteuerung mit eigenen Atlanten und Profilen. Die gemeinsame Kurswertung beginnt wegen der neuen Spielprofile mit neuen Revisionen; alte Rekorde bleiben gespeichert. Differenzierte Turnierreaktionen bleiben eine spaetere Erweiterung.
 
 - Idle
 - Zielen

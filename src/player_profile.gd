@@ -12,13 +12,15 @@ const PALETTE_COLORS := [
 @export_range(1, 4, 1) var player_id := 1
 @export var player_name := "SPIELER 1"
 @export_range(0, 3, 1) var palette_id := 0
+@export var golfer_id := &"allrounder"
 
 
-static func create(id: int, name: String, palette: int) -> PlayerProfile:
+static func create(id: int, name: String, palette: int, golfer := &"allrounder") -> PlayerProfile:
 	var profile := PlayerProfile.new()
 	profile.player_id = clampi(id, 1, 4)
 	profile.player_name = sanitize_name(name, profile.player_id)
 	profile.palette_id = clampi(palette, 0, PALETTE_COLORS.size() - 1)
+	profile.golfer_id = golfer
 	return profile
 
 

@@ -6,6 +6,7 @@ enum ScreenState {
 	MODE,
 	PLAYER_COUNT,
 	PLAYER_NAME,
+	PLAYER_GOLFER,
 	PLAYER_COLOR,
 	COURSE_SELECT,
 	HOLE_SELECT,
@@ -38,6 +39,9 @@ var desired_player_count := 1
 var working_players: Array[PlayerProfile] = []
 var setup_player_index := 0
 var setup_name := ""
+var setup_golfer_id := &"allrounder"
+var golfer_preview: PlaceholderGolfer
+var golfer_description: Label
 var selected_practice_hole := &"reference_01"
 var free_hole_ids: Array[StringName] = []
 var course_select_page := 0
@@ -189,6 +193,7 @@ func _show_mode() -> void:
 
 func _select_mode(mode: int) -> void:
 	selected_mode = mode
+	setup_golfer_id = &"allrounder"
 	working_players.clear()
 	setup_player_index = 0
 	course_select_page = 0
@@ -283,6 +288,32 @@ func _remove_name_character() -> void:
 
 func _confirm_player_name() -> void:
 	setup_name = PlayerProfile.sanitize_name(setup_name, setup_player_index + 1)
+	_show_player_golfer()
+
+
+func _show_player_golfer() -> void:
+	current_screen = ScreenState.PLAYER_GOLFER
+	_build_screen(setup_name, "GOLFER WAEHLEN")
+	golfer_preview = PlaceholderGolfer.new()
+	golfer_preview.position = Vector2(390, 86)
+	golfer_preview.size = Vector2(88, 144)
+	screen_root.add_child(golfer_preview)
+	golfer_preview.set_palette(setup_player_index % 4)
+	golfer_description = MenuWidgets.label("", Vector2(310, 239), Vector2(280, 54), 11, Color("#d7edcf"))
+	golfer_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	screen_root.add_child(golfer_description)
+	for index in range(GolferDefinition.IDS.size()):
+		var id := GolferDefinition.IDS[index]
+		var definition := GolferDefinition.get_golfer(id)
+		_add_option_button(definition.display_name, Rect2(58, 88 + index * 51, 220, 42), func(): _confirm_player_golfer(id))
+	_add_footer("JEDE FIGUR IST SOFORT VERFUEGBAR", "MEHRFACHE FIGURENWAHL MOEGLICH")
+	_finalize_options()
+	selected_option = maxi(0, GolferDefinition.IDS.find(setup_golfer_id))
+	_refresh_option_styles()
+
+
+func _confirm_player_golfer(id: StringName) -> void:
+	setup_golfer_id = id
 	_show_player_color()
 
 
@@ -309,9 +340,10 @@ func _show_player_color() -> void:
 
 
 func _confirm_player_color(palette: int) -> void:
-	working_players.append(PlayerProfile.create(setup_player_index + 1, setup_name, palette))
+	working_players.append(PlayerProfile.create(setup_player_index + 1, setup_name, palette, setup_golfer_id))
 	setup_player_index += 1
 	setup_name = ""
+	setup_golfer_id = &"allrounder"
 	if setup_player_index < desired_player_count:
 		_show_player_name()
 	else:
@@ -721,11 +753,14 @@ func _go_back() -> void:
 				setup_player_index -= 1
 				var previous: PlayerProfile = working_players.pop_back()
 				setup_name = previous.player_name
+				setup_golfer_id = previous.golfer_id
 				_show_player_name()
 			else:
 				_show_mode()
-		ScreenState.PLAYER_COLOR:
+		ScreenState.PLAYER_GOLFER:
 			_show_player_name()
+		ScreenState.PLAYER_COLOR:
+			_show_player_golfer()
 		ScreenState.COURSE_SELECT, ScreenState.HOLE_SELECT, ScreenState.FREE_BUILD:
 			_show_mode()
 		ScreenState.PAUSE:
@@ -847,6 +882,10 @@ func _invoke_option(index: int) -> void:
 
 
 func _refresh_option_styles() -> void:
+	if current_screen == ScreenState.PLAYER_GOLFER and golfer_preview != null and not option_buttons.is_empty():
+		var definition := GolferDefinition.get_golfer(GolferDefinition.IDS[selected_option])
+		golfer_preview.set_golfer(definition)
+		golfer_description.text = definition.description
 	for index in range(option_buttons.size()):
 		var button := option_buttons[index]
 		if index == selected_option and not button.disabled:
@@ -871,6 +910,8 @@ func _arm_input_gate() -> void:
 
 
 func _clear_screen() -> void:
+	golfer_preview = null
+	golfer_description = null
 	_screen_generation += 1
 	if screen_layer != null and is_instance_valid(screen_layer):
 		screen_layer.queue_free()
