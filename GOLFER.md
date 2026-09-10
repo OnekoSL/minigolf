@@ -6,12 +6,14 @@ Stand: 10.09.2026. Alle Figuren sind direkt verfuegbar, ohne Ausruestungsboni od
 |---|---|---:|---:|---:|---:|---:|
 | Allrounder | Cap, Polo; freundlicher Jubel | 100 %, 230 dm | 4,0 s | 2,4 s | +/-0,05 | 8 Grad |
 | Mara | Visor, brauner Zopf, gerade Hose; kleines Faustzeichen und Nicken, bei Fehlern Schultern senken | 85 %, 195 dm | 5,2 s | 2,4 s | +/-0,05 | 8 Grad |
-| Bruno | Breite Statur, Cap, hochgekrempelte Aermel; erhobene Faust, unglaeubiger Blick | 125 %, 287 dm | 3,2 s | 2,4 s | +/-0,05 | 8 Grad |
+| Bruno | Breite Statur, Cap, hochgekrempelte Aermel; erhobene Faust, unglaeubiger Blick | 125 %, 287 dm | 3,2 s | 2,4 s | +/-0,05 | 10 Grad |
 | Nika | Kurze dunkle Haare, Weste ueber hellem Shirt; kleine Faustbewegung, skeptische Putterpruefung | 95 %, 218 dm | 4,0 s | 1,8 s | +/-0,025 | 4 Grad |
 
 Zykluszeiten gelten fuer hin und zurueck. Alle Figuren beginnen bei etwa 1 dm. Maximale Ballgeschwindigkeit: `420 * sqrt(range_factor)`. Die Weiten sind gerundet und gelten ausschliesslich fuer ebenes Gruen. Die bestehende nichtlineare Winkel-Fehlerkurve bleibt bestehen; keine Zufallsfehler. Allrounder-Werte sind unveraendert.
 
 ## Ressourcen und Ablauf
+
+Die Figurenauswahl zeigt fuenf segmentierte Vergleichsbalken: Reichweite, Kraft-Ruhe, Ziel-Ruhe, Richtungstreue und Perfektfenster. Laengere Balken bedeuten mehr Weite beziehungsweise leichtere Kontrolle; der helle Strich markiert den Allrounder. Werte kommen direkt aus den Profilen, jeder Balken wird auf den hoechsten Wert der vier Figuren normiert. Richtungstreue verwendet den Kehrwert des maximalen Winkelfehlers (der echte Fehlerwinkel steht daneben). Das Perfektfenster zeigt seinen Anteil an der gesamten Genauigkeitsskala. Die Anzeige aendert weder Spielwerte noch Bestwertrevisionen.
 
 `data/golfers/*.tres` verwenden `GolferDefinition`. Diese Ressourcen enthalten ID, Anzeigename, Beschreibung, Atlas und Spielwerte. `PlayerProfile.golfer_id` ist standardmaessig `allrounder`; der vierte Parameter von `PlayerProfile.create` ist optional. Unbekannte IDs werden in der Rundenvalidierung abgelehnt, die isolierte Darstellung faellt auf den Allrounder zurueck.
 
@@ -19,7 +21,7 @@ Die Schlagsteuerung uebernimmt das Profil beim Erstellen des Spieler-Versuchs. H
 
 Alle Atlanten verwenden dieselben 16 Posen in 4 x 4 Zellen, intern 88 x 144 Pixel. Die Genauigkeits- und Haltephase bewahren die erreichte Ausholpose. Der Abschwung liest den Fortschritt des Schlagsystems. Kontaktpose, Schlagton und echter Ballstart erfolgen bei 0,10 Sekunden; Animationen starten keine Physik. Jubel beginnt sofort, die zweite Pose nach 0,16 Sekunden; Aerger wechselt nach 0,30 Sekunden. Pause friert ein. Quelle und Promptset: [assets/golfer/README.md](assets/golfer/README.md).
 
-Gemeinsame Kursbestwerte bleiben bestehen. Neue Revisionen: Klassische Neun 9, Pfeil-Armageddon 7, Prototypkurs 5, Referenzbahnen 3, Labyrinth-Neun 3. Alte Eintraege und Controllerkalibrierungen werden nicht geloescht.
+Gemeinsame Kursbestwerte bleiben bestehen. Nach Brunos erhoehter maximaler Richtungsabweichung (8 auf 10 Grad) gelten Revisionen: Klassische Neun 10, Pfeil-Armageddon 8, Prototypkurs 6, Referenzbahnen 4, Labyrinth-Neun 4. Alte Eintraege und Controllerkalibrierungen werden nicht geloescht.
 
 ## Pruefung
 

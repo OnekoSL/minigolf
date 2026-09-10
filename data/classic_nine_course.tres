@@ -7,4 +7,4 @@ script = ExtResource("1_course")
 course_id = &"classic_nine_course"
 display_name = "KLASSISCHE NEUN"
 hole_ids = Array[StringName]([&"classic_nine_01", &"classic_nine_02", &"classic_nine_03", &"classic_nine_04", &"classic_nine_05", &"classic_nine_06", &"classic_nine_07", &"classic_nine_08", &"classic_nine_09"])
-best_score_revision = 9
+best_score_revision = 10

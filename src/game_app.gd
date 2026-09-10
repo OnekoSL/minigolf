@@ -42,6 +42,7 @@ var setup_name := ""
 var setup_golfer_id := &"allrounder"
 var golfer_preview: PlaceholderGolfer
 var golfer_description: Label
+var golfer_stats: GolferStatsView
 var selected_practice_hole := &"reference_01"
 var free_hole_ids: Array[StringName] = []
 var course_select_page := 0
@@ -295,17 +296,21 @@ func _show_player_golfer() -> void:
 	current_screen = ScreenState.PLAYER_GOLFER
 	_build_screen(setup_name, "GOLFER WAEHLEN")
 	golfer_preview = PlaceholderGolfer.new()
-	golfer_preview.position = Vector2(390, 86)
+	golfer_preview.position = Vector2(224, 102)
 	golfer_preview.size = Vector2(88, 144)
 	screen_root.add_child(golfer_preview)
 	golfer_preview.set_palette(setup_player_index % 4)
-	golfer_description = MenuWidgets.label("", Vector2(310, 239), Vector2(280, 54), 11, Color("#d7edcf"))
+	golfer_stats = GolferStatsView.new()
+	golfer_stats.position = Vector2(330, 84)
+	golfer_stats.size = Vector2(272, 208)
+	screen_root.add_child(golfer_stats)
+	golfer_description = MenuWidgets.label("", Vector2(32, 281), Vector2(280, 38), 10, Color("#d7edcf"))
 	golfer_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	screen_root.add_child(golfer_description)
 	for index in range(GolferDefinition.IDS.size()):
 		var id := GolferDefinition.IDS[index]
 		var definition := GolferDefinition.get_golfer(id)
-		_add_option_button(definition.display_name, Rect2(58, 88 + index * 51, 220, 42), func(): _confirm_player_golfer(id))
+		_add_option_button(definition.display_name, Rect2(32, 88 + index * 45, 178, 38), func(): _confirm_player_golfer(id))
 	_add_footer("JEDE FIGUR IST SOFORT VERFUEGBAR", "MEHRFACHE FIGURENWAHL MOEGLICH")
 	_finalize_options()
 	selected_option = maxi(0, GolferDefinition.IDS.find(setup_golfer_id))
@@ -886,6 +891,7 @@ func _refresh_option_styles() -> void:
 		var definition := GolferDefinition.get_golfer(GolferDefinition.IDS[selected_option])
 		golfer_preview.set_golfer(definition)
 		golfer_description.text = definition.description
+		golfer_stats.set_golfer(definition)
 	for index in range(option_buttons.size()):
 		var button := option_buttons[index]
 		if index == selected_option and not button.disabled:
@@ -912,6 +918,7 @@ func _arm_input_gate() -> void:
 func _clear_screen() -> void:
 	golfer_preview = null
 	golfer_description = null
+	golfer_stats = null
 	_screen_generation += 1
 	if screen_layer != null and is_instance_valid(screen_layer):
 		screen_layer.queue_free()

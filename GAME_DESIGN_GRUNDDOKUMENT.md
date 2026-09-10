@@ -227,7 +227,7 @@ Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bess
 |---|---:|---|---|---|
 | Allrounder | 100 % Reichweite | 4,0 s | 2,4-s-Zyklus, Perfektfenster +/-0,05, maximal 8 Grad | verlaessliche Referenzfigur |
 | Mara | 85 % Reichweite | 5,2 s | normal, gut dosierbare Kraft | stark auf kurzen technischen Bahnen |
-| Bruno | 125 % Reichweite | 3,2 s | normal | hohe Reichweite, schwerer zu dosieren |
+| Bruno | 125 % Reichweite | 3,2 s | 2,4-s-Zyklus, maximal 10 Grad Abweichung | hohe Reichweite, schwerer zu dosieren |
 | Nika | 95 % Reichweite | 4,0 s | 1,8-s-Zyklus, halbes Perfektfenster, halbe Fehlerwirkung | reaktionssicheres Timing belohnt Richtungstreue |
 
 ### Verbindliche Regeln fuer Figurenunterschiede

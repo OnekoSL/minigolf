@@ -167,9 +167,15 @@ func _capture_games() -> void:
 	app.set_process(false)
 	app._select_mode(RoundConfig.GameMode.COURSE_SOLO)
 	app._confirm_player_name()
-	app._select_option(3)
-	await get_tree().process_frame
-	await RenderingServer.frame_post_draw
-	viewport.get_texture().get_image().save_png("res://.godot/golfer/selection.png")
+	for index in range(GolferDefinition.IDS.size()):
+		app._select_option(index)
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var screenshot := viewport.get_texture().get_image()
+		screenshot.save_png("res://.godot/golfer/%s-selection.png" % GolferDefinition.IDS[index])
+		if index == 3:
+			screenshot.save_png("res://.godot/golfer/selection.png")
+		screenshot.resize(1280, 720, Image.INTERPOLATE_NEAREST)
+		screenshot.save_png("res://.godot/golfer/%s-selection-2x.png" % GolferDefinition.IDS[index])
 	viewport.queue_free()
 	await get_tree().process_frame

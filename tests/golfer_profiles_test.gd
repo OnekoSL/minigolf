@@ -7,6 +7,7 @@ static func run(host: Node, check: Callable) -> void:
 	var maxima := [230, 195, 287, 218]
 	var power_times := [4.0, 5.2, 3.2, 4.0]
 	var accuracy_times := [2.4, 2.4, 2.4, 1.8]
+	var maximum_errors := [8.0, 8.0, 10.0, 4.0]
 	var scene := load("res://scenes/prototype_main.tscn") as PackedScene
 	for index in range(4):
 		var id := GolferDefinition.IDS[index]
@@ -28,7 +29,7 @@ static func run(host: Node, check: Callable) -> void:
 		check.call(is_equal_approx(shot.accuracy_at_time(accuracy_times[index] / 4.0), 0.0) and is_equal_approx(shot.accuracy_at_time(accuracy_times[index]), -1.0), "%s: Genauigkeitszyklus besitzt vereinbarte Dauer" % id)
 		var window := 0.025 if id == &"nika" else 0.05
 		check.call(shot.accuracy_to_angle(window) == 0.0 and shot.accuracy_to_angle(window + 0.001) > 0.0, "%s: Perfektfenster besitzt wirksame Grenze" % id)
-		check.call(is_equal_approx(rad_to_deg(shot.accuracy_to_angle(1.0)), 4.0 if id == &"nika" else 8.0), "%s: maximale Richtungsabweichung" % id)
+		check.call(is_equal_approx(rad_to_deg(shot.accuracy_to_angle(1.0)), maximum_errors[index]) and is_equal_approx(rad_to_deg(shot.accuracy_to_angle(-1.0)), -maximum_errors[index]), "%s: maximale Richtungsabweichung" % id)
 		for power in [0.0, 0.5, 1.0]:
 			main.restart_hole()
 			shot.action_pressed()
