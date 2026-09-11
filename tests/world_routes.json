@@ -1,0 +1,2468 @@
+[
+  {
+    "id": "classic_nine_01",
+    "key": "K1-01",
+    "par": 1.0,
+    "shots": [
+      {
+        "angle": 0.0,
+        "speed": 300.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_02",
+    "key": "K1-02",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": -12.0,
+        "speed": 408.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 125.0,
+        "target": [
+          575.0,
+          72.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_03",
+    "key": "K1-03",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": -36.0,
+        "speed": 250.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 180.0,
+        "target": [
+          575.0,
+          74.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_04",
+    "key": "K1-04",
+    "par": 1.0,
+    "shots": [
+      {
+        "angle": 0.0,
+        "speed": 282.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_05",
+    "key": "K1-05",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": -32.35,
+        "speed": 387.5,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 125.0,
+        "target": [
+          575.0,
+          72.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_06",
+    "key": "K1-06",
+    "par": 6.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 216.03423657732,
+        "target": [
+          240.0,
+          88.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 274.520116983251,
+        "target": [
+          552.0,
+          88.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 215.663592077632,
+        "target": [
+          552.0,
+          280.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 240.970983658539,
+        "target": [
+          312.0,
+          280.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 152.808235469771,
+        "target": [
+          312.0,
+          184.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 157.273710904275,
+        "target": [
+          400.0,
+          176.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "stadtpark_07",
+    "key": "K1-07",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 206.523721258642,
+        "target": [
+          400.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.981837462644,
+        "target": [
+          400.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.629730771753,
+        "target": [
+          568.0,
+          256.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "stadtpark_08",
+    "key": "K1-08",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 162.600817506441,
+        "target": [
+          296.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 219.221115665431,
+        "target": [
+          496.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 167.826847763039,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "stadtpark_09",
+    "key": "K1-09",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.389966920934,
+        "target": [
+          328.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.456656175632,
+        "target": [
+          488.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 205.42235395852,
+        "target": [
+          544.0,
+          80.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_01",
+    "key": "K2-01",
+    "par": 1.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 337.559772484815,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "prototype_04",
+    "key": "K2-02",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 230.0,
+        "target": [
+          368.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 268.0,
+        "target": [
+          544.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 220.0,
+        "target": [
+          552.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_03",
+    "key": "K2-03",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 182.132474693722,
+        "target": [
+          280.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 164.196716679475,
+        "target": [
+          392.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 164.924445263307,
+        "target": [
+          392.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 186.963400900848,
+        "target": [
+          536.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 182.23254361165,
+        "target": [
+          568.0,
+          240.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_04",
+    "key": "K2-04",
+    "par": 1.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 293.530236943317,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_05",
+    "key": "K2-05",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 162.600817506441,
+        "target": [
+          296.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 219.221115665431,
+        "target": [
+          496.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 167.826847763039,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "prototype_06",
+    "key": "K2-06",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.0,
+        "target": [
+          264.0,
+          264.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 262.0,
+        "target": [
+          552.0,
+          264.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 162.0,
+        "target": [
+          552.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "prototype_08",
+    "key": "K2-07",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 204.0,
+        "target": [
+          275.0,
+          264.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 192.0,
+        "target": [
+          408.0,
+          344.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 198.0,
+        "target": [
+          552.0,
+          264.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 202.0,
+        "target": [
+          552.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_08",
+    "key": "K2-08",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 237.502279447438,
+        "target": [
+          400.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 197.059415569857,
+        "target": [
+          400.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.67432545237,
+        "target": [
+          568.0,
+          256.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "duenenkueste_09",
+    "key": "K2-09",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 256.046933249451,
+        "target": [
+          232.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 236.424847958093,
+        "target": [
+          552.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 206.221944114527,
+        "target": [
+          552.0,
+          96.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_01",
+    "key": "K3-01",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 210.142808,
+        "target": [
+          408.0,
+          176.0
+        ],
+        "wait": 99.0
+      },
+      {
+        "angle": null,
+        "speed": 195.959179,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 226.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_02",
+    "key": "K3-02",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 60.0
+      },
+      {
+        "angle": null,
+        "speed": 182.77132949869,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 220.0,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_03",
+    "key": "K3-03",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 192.514013795912,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_04",
+    "key": "K3-04",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.389966920934,
+        "target": [
+          328.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.456656175632,
+        "target": [
+          488.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 198.120668574498,
+        "target": [
+          528.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "reference_01",
+    "key": "K3-05",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 245.0,
+        "target": [
+          480.0,
+          250.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 310.0,
+        "target": [
+          710.0,
+          242.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 285.0,
+        "target": [
+          850.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 210.0,
+        "target": [
+          1090.0,
+          65.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 98.674944590516,
+        "target": [
+          1090.0,
+          65.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_06",
+    "key": "K3-06",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.389966920934,
+        "target": [
+          328.0,
+          232.0
+        ],
+        "wait": 120.0
+      },
+      {
+        "angle": null,
+        "speed": 196.456656175632,
+        "target": [
+          488.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 198.120668574498,
+        "target": [
+          528.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "double_gate_03",
+    "key": "K3-07",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 225.0,
+        "target": [
+          410.0,
+          173.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 280.0,
+        "target": [
+          735.0,
+          173.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 190.0,
+        "target": [
+          850.0,
+          70.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 160.0,
+        "target": [
+          960.0,
+          70.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 279.724539272288,
+        "target": [
+          960.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_08",
+    "key": "K3-08",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 237.697,
+        "target": [
+          664.0,
+          176.0
+        ],
+        "wait": 120.0
+      }
+    ]
+  },
+  {
+    "id": "muehlental_09",
+    "key": "K3-09",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 105.0
+      },
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          656.0,
+          176.0
+        ],
+        "wait": 150.0
+      },
+      {
+        "angle": null,
+        "speed": 145.32721699668,
+        "target": [
+          656.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_01",
+    "key": "K4-01",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 250.0,
+        "target": [
+          490.0,
+          180.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 180.0,
+        "target": [
+          580.0,
+          100.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_02",
+    "key": "K4-02",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 420.0,
+        "target": [
+          575.0,
+          70.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 135.0,
+        "target": [
+          575.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_03",
+    "key": "K4-03",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 290.0,
+        "target": [
+          475.0,
+          165.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 130.0,
+        "target": [
+          580.0,
+          180.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "prototype_05",
+    "key": "K4-04",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 262.0,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 230.0,
+        "target": [
+          840.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 160.0,
+        "target": [
+          936.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "bergpass_05",
+    "key": "K4-05",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 206.523721258642,
+        "target": [
+          400.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.981837462644,
+        "target": [
+          400.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.629730771753,
+        "target": [
+          568.0,
+          256.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_04",
+    "key": "K4-06",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 245.0,
+        "target": [
+          350.0,
+          235.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 110.0,
+        "target": [
+          580.0,
+          180.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_05",
+    "key": "K4-07",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 230.0,
+        "target": [
+          395.0,
+          180.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 225.0,
+        "target": [
+          575.0,
+          95.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 100.0,
+        "target": [
+          575.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "bergpass_08",
+    "key": "K4-08",
+    "par": 1.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 235.457002444183,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "bergpass_09",
+    "key": "K4-09",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 226.503056336052,
+        "target": [
+          232.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 319.852317866265,
+        "target": [
+          552.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.492061491898,
+        "target": [
+          552.0,
+          96.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "schlossgarten_01",
+    "key": "K5-01",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 162.600817506441,
+        "target": [
+          296.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 219.221115665431,
+        "target": [
+          496.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 167.826847763039,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_diamond_02",
+    "key": "K5-02",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 200.0,
+        "target": [
+          380.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 215.0,
+        "target": [
+          540.0,
+          240.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 265.0,
+        "target": [
+          575.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_07",
+    "key": "K5-03",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 300.0,
+        "target": [
+          600.0,
+          270.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 270.0,
+        "target": [
+          850.0,
+          100.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 240.0,
+        "target": [
+          960.0,
+          280.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_08",
+    "key": "K5-04",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": -24.0,
+        "speed": 420.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": -28.5,
+        "speed": 340.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 185.0,
+        "target": [
+          960.0,
+          72.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 66.4154563356377,
+        "target": [
+          960.0,
+          72.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "schlossgarten_05",
+    "key": "K5-05",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 206.523721258642,
+        "target": [
+          400.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.981837462644,
+        "target": [
+          400.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.629730771753,
+        "target": [
+          568.0,
+          256.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_02",
+    "key": "K5-06",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 191.86497126466,
+        "target": [
+          280.0,
+          248.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 164.240563860375,
+        "target": [
+          392.0,
+          248.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 186.871787889403,
+        "target": [
+          392.0,
+          104.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 186.963066125752,
+        "target": [
+          536.0,
+          104.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 192.229692396029,
+        "target": [
+          568.0,
+          240.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_05",
+    "key": "K5-07",
+    "par": 6.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 176.271218401653,
+        "target": [
+          232.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.975670997823,
+        "target": [
+          392.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 164.942344393254,
+        "target": [
+          392.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 206.583199469939,
+        "target": [
+          568.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 157.776722236171,
+        "target": [
+          584.0,
+          248.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 116.386491611731,
+        "target": [
+          584.0,
+          248.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "classic_nine_09",
+    "key": "K5-08",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 300.0,
+        "target": [
+          600.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 300.0,
+        "target": [
+          1000.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 220.0,
+        "target": [
+          960.0,
+          72.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 420.0,
+        "target": [
+          220.0,
+          56.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "schlossgarten_09",
+    "key": "K5-09",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.389966920934,
+        "target": [
+          328.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.456656175632,
+        "target": [
+          488.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 205.42235395852,
+        "target": [
+          544.0,
+          80.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_01",
+    "key": "K6-01",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 60.0
+      },
+      {
+        "angle": null,
+        "speed": 182.77132949869,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 220.0,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "uhrwerkfabrik_02",
+    "key": "K6-02",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 105
+      },
+      {
+        "angle": null,
+        "speed": 182.77132949869,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_03",
+    "key": "K6-03",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 189.456591334268,
+        "target": [
+          360.0,
+          88.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 102.4829206426,
+        "target": [
+          360.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "uhrwerkfabrik_04",
+    "key": "K6-04",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 206.523721258642,
+        "target": [
+          400.0,
+          96.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.981837462644,
+        "target": [
+          400.0,
+          256.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 209.629730771753,
+        "target": [
+          568.0,
+          256.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_06",
+    "key": "K6-05",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 230.481253063976,
+        "target": [
+          648.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 222.355675239957,
+        "target": [
+          856.0,
+          176.0
+        ],
+        "wait": 140
+      },
+      {
+        "angle": null,
+        "speed": 80.9379826240437,
+        "target": [
+          872.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_04",
+    "key": "K6-06",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 63
+      },
+      {
+        "angle": null,
+        "speed": 222.371540372106,
+        "target": [
+          648.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 222.429184591965,
+        "target": [
+          856.0,
+          176.0
+        ],
+        "wait": 30.0
+      },
+      {
+        "angle": null,
+        "speed": 80.9355393102282,
+        "target": [
+          872.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_07",
+    "key": "K6-07",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 228.683991532123,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 105
+      },
+      {
+        "angle": null,
+        "speed": 222.371540372106,
+        "target": [
+          648.0,
+          176.0
+        ],
+        "wait": 180.0
+      },
+      {
+        "angle": null,
+        "speed": 222.429184591965,
+        "target": [
+          856.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 69.4608265041038,
+        "target": [
+          864.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 157.231757484051,
+        "target": [
+          864.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "uhrwerkfabrik_08",
+    "key": "K6-08",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 297.28918899176,
+        "target": [
+          440.0,
+          176.0
+        ],
+        "wait": 110
+      },
+      {
+        "angle": null,
+        "speed": 160.0,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_08",
+    "key": "K6-09",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.0,
+        "target": [
+          324.0,
+          176.0
+        ],
+        "wait": 195.0
+      },
+      {
+        "angle": null,
+        "speed": 80.0,
+        "target": [
+          576.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_01",
+    "key": "K7-01",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 180.391988545085,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_02",
+    "key": "K7-02",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 180.391988545085,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_03",
+    "key": "K7-03",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 159.220531449827,
+        "target": [
+          280.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 106.78756933903,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 205.316424049259,
+        "target": [
+          568.0,
+          280.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_04",
+    "key": "K7-04",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 190.389966920934,
+        "target": [
+          328.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 196.456656175632,
+        "target": [
+          488.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 198.120668574498,
+        "target": [
+          528.0,
+          88.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_06",
+    "key": "K7-05",
+    "par": 4,
+    "shots": [
+      {
+        "angle": -2.3,
+        "speed": 360.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": -180.0,
+        "speed": 280.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": -156.0,
+        "speed": 370.0,
+        "target": [
+          0.0,
+          0.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "target": [
+          960,
+          100
+        ],
+        "angle": null,
+        "speed": 80,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_06",
+    "key": "K7-06",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 146.812446420907,
+        "target": [
+          536.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 170.041154255742,
+        "target": [
+          760.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_07",
+    "key": "K7-07",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 159.220531449827,
+        "target": [
+          280.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 106.78756933903,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 160.134848937888,
+        "target": [
+          552.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 169.58127502142,
+        "target": [
+          568.0,
+          280.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "tempelruinen_08",
+    "key": "K7-08",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 125.0
+      },
+      {
+        "angle": null,
+        "speed": 180.391988545085,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "labyrinth_nine_09",
+    "key": "K7-09",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 159.220531449827,
+        "target": [
+          280.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 106.78756933903,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 147.574678415267,
+        "target": [
+          536.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 197.615024727491,
+        "target": [
+          760.0,
+          280.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "sternwarte_01",
+    "key": "K8-01",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 184.726835912517,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "sternwarte_02",
+    "key": "K8-02",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 184.726835912517,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_07",
+    "key": "K8-03",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 180.0,
+        "target": [
+          430.0,
+          235.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 200.0,
+        "target": [
+          740.0,
+          160.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 160.0,
+        "target": [
+          880.0,
+          130.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 100.0,
+        "target": [
+          960.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "prototype_07",
+    "key": "K8-04",
+    "par": 5.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 274.0,
+        "target": [
+          416.0,
+          112.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 260.0,
+        "target": [
+          416.0,
+          272.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 270.0,
+        "target": [
+          784.0,
+          272.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 190.0,
+        "target": [
+          784.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 256.0,
+        "target": [
+          1064.0,
+          120.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_08",
+    "key": "K8-05",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 280.0,
+        "target": [
+          540.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 360.0,
+        "target": [
+          800.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 180.0,
+        "target": [
+          900.0,
+          260.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 140.0,
+        "target": [
+          960.0,
+          286.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "cannon_workshop_04",
+    "key": "K8-06",
+    "par": 4.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 196.0,
+        "target": [
+          380.0,
+          280.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 238.0,
+        "target": [
+          590.0,
+          265.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 243.0,
+        "target": [
+          1045.0,
+          260.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 218.0,
+        "target": [
+          1090.0,
+          70.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "sternwarte_07",
+    "key": "K8-07",
+    "par": 3.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 152.142329961695,
+        "target": [
+          536.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 174.022998210725,
+        "target": [
+          760.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "arrow_armageddon_09",
+    "key": "K8-08",
+    "par": 6.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 273.198712040583,
+        "target": [
+          280.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 133.498674350273,
+        "target": [
+          392.0,
+          232.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 141.897887973057,
+        "target": [
+          392.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 163.989479001144,
+        "target": [
+          536.0,
+          120.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 247.259215852956,
+        "target": [
+          568.0,
+          240.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 85.6342750593558,
+        "target": [
+          568.0,
+          240.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  },
+  {
+    "id": "sternwarte_09",
+    "key": "K8-09",
+    "par": 2.0,
+    "shots": [
+      {
+        "angle": null,
+        "speed": 158.987341265052,
+        "target": [
+          328.0,
+          176.0
+        ],
+        "wait": 0.0
+      },
+      {
+        "angle": null,
+        "speed": 184.726835912517,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0.0
+      }
+    ]
+  }
+]

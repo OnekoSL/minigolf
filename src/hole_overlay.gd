@@ -21,7 +21,7 @@ func _draw() -> void:
 	elif definition.lane_outline != null:
 		draw_polyline(
 			definition.lane_outline.get_closed_points(),
-			Color("#dad1af"),
+			_wall_color(),
 			definition.lane_outline.wall_thickness,
 			true
 		)
@@ -32,18 +32,18 @@ func _draw() -> void:
 		match wall.wall_type:
 			WallDefinition.WallType.RECTANGLE:
 				var local_rect := Rect2(-wall.size * 0.5, wall.size)
-				draw_rect(local_rect, Color("#dad1af"), true)
-				draw_rect(local_rect, Color("#584d43"), false, 1.0)
+				draw_rect(local_rect, _wall_color(), true)
+				draw_rect(local_rect, _trim_color(), false, 1.0)
 			WallDefinition.WallType.CIRCLE:
-				draw_circle(Vector2.ZERO, wall.radius, Color("#dad1af"))
-				draw_circle(Vector2.ZERO, wall.radius, Color("#584d43"), false, 1.0)
+				draw_circle(Vector2.ZERO, wall.radius, _wall_color())
+				draw_circle(Vector2.ZERO, wall.radius, _trim_color(), false, 1.0)
 			WallDefinition.WallType.ARC:
 				var polygon := wall.get_arc_polygon()
-				draw_colored_polygon(polygon, Color("#dad1af"))
+				draw_colored_polygon(polygon, _wall_color())
 				var outline := polygon.duplicate()
 				if not outline.is_empty():
 					outline.append(outline[0])
-					draw_polyline(outline, Color("#584d43"), 1.0)
+					draw_polyline(outline, _trim_color(), 1.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if wall_geometry == null and (definition.lane_outline == null or not definition.lane_outline.use_normalized_walls):
 		for wall_tile in definition.wall_tiles:
@@ -93,13 +93,21 @@ func _draw_joined_walls() -> void:
 	# Only the external boundary gets a border. Fill and collision share these
 	# actual joined regions, including miter corners and arc connections.
 	if not wall_geometry.boundary_segments.is_empty():
-		draw_multiline(wall_geometry.boundary_segments, Color("#584d43"), 2.0, false)
+		draw_multiline(wall_geometry.boundary_segments, _trim_color(), 2.0, false)
 	for polygon in wall_geometry.polygons:
-		draw_colored_polygon(polygon, Color("#dad1af"))
+		draw_colored_polygon(polygon, _wall_color())
 
 
 func _draw_wall_segments(segments: Array) -> void:
 	for segment in segments:
-		draw_line(segment[0], segment[1], Color("#584d43"), WallTileDefinition.THICKNESS + 2.0, false)
+		draw_line(segment[0], segment[1], _trim_color(), WallTileDefinition.THICKNESS + 2.0, false)
 	for segment in segments:
-		draw_line(segment[0], segment[1], Color("#dad1af"), WallTileDefinition.THICKNESS, false)
+		draw_line(segment[0], segment[1], _wall_color(), WallTileDefinition.THICKNESS, false)
+
+
+func _wall_color() -> Color:
+	return definition.theme.wall if definition.theme != null else Color('dad1af')
+
+
+func _trim_color() -> Color:
+	return definition.theme.trim if definition.theme != null else Color('584d43')

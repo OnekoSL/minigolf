@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="9_2win6"]
 [ext_resource type="Script" path="res://src/wall_definition.gd" id="10_7pu11"]
 
+[ext_resource type="Resource" path="res://data/themes/muehlental.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_rn4ix"]
 script = ExtResource("1_fl00j")
 grid_cell = Vector2i(45, 8)
@@ -142,7 +144,7 @@ rect = Rect2(536, 224, 128, 32)
 [resource]
 script = ExtResource("5_058vy")
 hole_id = &"reference_01"
-garden_presentation = true
+garden_presentation = false
 display_name = "S-KURVE AN DER MUEHLE"
 course_rect = Rect2(176, 16, 960, 328)
 lane_outline = SubResource("Resource_wr0re")
@@ -153,3 +155,6 @@ camera_center_bounds = Rect2(320, 180, 504, 0)
 surfaces = Array[ExtResource("6_32b7t")]([SubResource("Resource_ar0y1"), SubResource("Resource_kebv5")])
 arrow_tiles = Array[ExtResource("1_fl00j")]([SubResource("Resource_rn4ix"), SubResource("Resource_ebyjm"), SubResource("Resource_vkwah"), SubResource("Resource_era0i"), SubResource("Resource_87ss1"), SubResource("Resource_34xjl"), SubResource("Resource_6x0c8"), SubResource("Resource_8643k"), SubResource("Resource_an6t5"), SubResource("Resource_uw7ex"), SubResource("Resource_wix78"), SubResource("Resource_nnq4a"), SubResource("Resource_3nlo5"), SubResource("Resource_k3mag"), SubResource("Resource_tc7qy"), SubResource("Resource_fbfde"), SubResource("Resource_407l6"), SubResource("Resource_dk5s4")])
 obstacles = Array[ExtResource("4_tgceu")]([SubResource("Resource_ho3r5")])
+
+par = 5
+theme = ExtResource("world_theme")

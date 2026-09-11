@@ -6,6 +6,8 @@ const DECELERATION := 30.0
 
 @export var grid_cell := Vector2i.ZERO
 @export var grid_offset := Vector2i.ZERO
+# Optional cut edge, in cell-local coordinates (0..16). The grid stays square.
+@export var clip_polygon := PackedVector2Array()
 @export_range(8, 128, 1) var cell_size := CELL_SIZE
 @export_enum("Oben", "Oben rechts", "Rechts", "Unten rechts", "Unten", "Unten links", "Links", "Oben links") var direction: int = SurfaceZone.SlopeDirection.UP
 @export_enum("Flach", "Mittel", "Steil") var slope_grade: int = SurfaceZone.SlopeGrade.SHALLOW
@@ -32,6 +34,13 @@ func validate(label: String, grid_spacing: int) -> PackedStringArray:
 		errors.append("%s besitzt keine gueltige Steigungsstufe" % label)
 	if deceleration < 0.0:
 		errors.append("%s besitzt negative Reibung" % label)
+	if not clip_polygon.is_empty():
+		if Geometry2D.triangulate_polygon(clip_polygon).is_empty():
+			errors.append("%s besitzt keinen gueltigen Zellzuschnitt" % label)
+		for point in clip_polygon:
+			if not Rect2(-0.01,-0.01,cell_size+0.02,cell_size+0.02).has_point(point):
+				errors.append("%s: Zellzuschnitt verlaesst die Rasterzelle" % label)
+				break
 	return errors
 
 
@@ -43,6 +52,14 @@ func get_rect() -> Rect2:
 
 
 func get_inset_corners() -> PackedVector2Array:
+	if not clip_polygon.is_empty():
+		var center := Vector2.ZERO
+		for point in clip_polygon:
+			center += point/clip_polygon.size()
+		var inset := PackedVector2Array()
+		for point in clip_polygon:
+			inset.append(get_rect().position+point.lerp(center,0.001))
+		return inset
 	var rect := get_rect().grow(-0.1)
 	return PackedVector2Array([
 		rect.position,
@@ -58,6 +75,8 @@ func get_strength() -> float:
 
 func instantiate_zone() -> SurfaceZone:
 	var zone := SurfaceZone.new()
+	for point in clip_polygon:
+		zone.clip_polygon.append(point-Vector2.ONE*cell_size*0.5)
 	zone.configure_arrow_tile(
 		get_rect(),
 		direction as SurfaceZone.SlopeDirection,

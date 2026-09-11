@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_7fcg6"]
+
+[resource]
+script = ExtResource("1_7fcg6")
+theme_id = &"duenenkueste"
+background = Color(0.76862746, 0.7058824, 0.5137255, 1)
+turf = Color(0.2784314, 0.49411765, 0.4, 1)
+wall = Color(0.9607843, 0.89411765, 0.7019608, 1)
+trim = Color(0.4627451, 0.3882353, 0.29411766, 1)
+accent = Color(0.8, 0.4392157, 0.34509805, 1)
+foliage = Color(0.40784314, 0.49411765, 0.31764707, 1)
+motif = 1

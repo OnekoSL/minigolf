@@ -1,342 +1,145 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=64 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
 
-[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
-[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="3_wall_tile"]
-[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_obstacle"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_ysr0h"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_rg4g5"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_yk4p0"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_qjv0j"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_0rs2d"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_p2s6x"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_4rbkh"]
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="8_b78mv"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_2dg7h"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_3epuq"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_cvpko"]
 
-[sub_resource type="Resource" id="Lane_outline"]
-script = ExtResource("2_outline")
-points = PackedVector2Array(184, 24, 1128, 24, 1128, 344, 184, 344)
-wall_thickness = 4.0
+[sub_resource type="Resource" id="Resource_fysq5"]
+script = ExtResource("4_qjv0j")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
 use_normalized_walls = true
 
-[sub_resource type="Resource" id="Wall_1"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 7)
+[sub_resource type="Resource" id="Resource_q2458"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 3)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_txllc"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 4)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_2"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 8)
+[sub_resource type="Resource" id="Resource_dxssw"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 5)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_3"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 9)
+[sub_resource type="Resource" id="Resource_fis1y"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 6)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_4"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 10)
+[sub_resource type="Resource" id="Resource_yar3u"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 7)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_5"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 11)
+[sub_resource type="Resource" id="Resource_1v0cq"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 8)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_6"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 12)
+[sub_resource type="Resource" id="Resource_t75ao"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 9)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_7"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 13)
+[sub_resource type="Resource" id="Resource_441jb"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 10)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_8"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 14)
+[sub_resource type="Resource" id="Resource_u5cbr"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 11)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_9"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 15)
+[sub_resource type="Resource" id="Resource_62d12"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 12)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_10"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 16)
+[sub_resource type="Resource" id="Resource_sxddd"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 18)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_11"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 17)
+[sub_resource type="Resource" id="Resource_8l6md"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(20, 19)
+variant = 8
+
+[sub_resource type="Resource" id="Resource_7ccm7"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 9)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_12"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 18)
+[sub_resource type="Resource" id="Resource_mg3tr"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 10)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_13"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 19)
+[sub_resource type="Resource" id="Resource_72j37"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 11)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_14"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(24, 20)
+[sub_resource type="Resource" id="Resource_rdjeu"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 12)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_15"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 2)
+[sub_resource type="Resource" id="Resource_p80jj"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 13)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_16"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 3)
+[sub_resource type="Resource" id="Resource_lg63x"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 14)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_17"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 4)
+[sub_resource type="Resource" id="Resource_nogtq"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 15)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_18"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 5)
+[sub_resource type="Resource" id="Resource_g3dpp"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 16)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_19"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 6)
+[sub_resource type="Resource" id="Resource_u6rbh"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 17)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_20"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 7)
+[sub_resource type="Resource" id="Resource_3wbs7"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 18)
 variant = 7
 
-[sub_resource type="Resource" id="Wall_21"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 8)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_22"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 9)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_23"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 10)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_24"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 11)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_25"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 12)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_26"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 13)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_27"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(37, 14)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_28"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 2)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_29"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 3)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_30"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 4)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_31"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 5)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_32"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 6)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_33"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 7)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_34"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 13)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_35"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 14)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_36"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 15)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_37"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 16)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_38"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 17)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_39"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 18)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_40"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 19)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_41"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 20)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_42"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 7)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_43"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 8)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_44"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 9)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_45"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 10)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_46"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 11)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_47"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 12)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_48"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 13)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_49"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 14)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_50"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 15)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_51"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 16)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_52"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 17)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_53"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 18)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_54"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 19)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_55"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(63, 20)
-variant = 7
-
-[sub_resource type="Resource" id="Wall_56"]
-script = ExtResource("3_wall_tile")
-grid_cell = Vector2i(50, 8)
-variant = 11
-
-[sub_resource type="Resource" id="Obstacle_1"]
-script = ExtResource("4_obstacle")
-position = Vector2(408, 72)
-start_rotation_degrees = 0.0
-blade_size = Vector2(72, 8)
-seconds_per_revolution = 3.2
-impulse_multiplier = 1.1
-minimum_kick_speed = 45.0
-
-[sub_resource type="Resource" id="Obstacle_2"]
-script = ExtResource("4_obstacle")
-position = Vector2(808, 168)
-obstacle_type = 1
-start_rotation_degrees = 0.0
-gate_size = Vector2(8, 88)
-open_offset = Vector2(0, -80)
-cycle_seconds = 3.4
-transition_seconds = 0.35
-open_hold_seconds = 1.25
-phase_offset_seconds = 0.0
-
-[sub_resource type="Resource" id="Obstacle_3"]
-script = ExtResource("4_obstacle")
-position = Vector2(1016, 72)
-start_rotation_degrees = 90.0
-blade_size = Vector2(72, 8)
-seconds_per_revolution = 3.2
-impulse_multiplier = 1.1
-minimum_kick_speed = 45.0
+[sub_resource type="Resource" id="Resource_p3ux3"]
+script = ExtResource("11_cvpko")
+grid_cell = Vector2i(29, 19)
+variant = 8
 
 [resource]
-script = ExtResource("1_hole")
+script = ExtResource("6_p2s6x")
 hole_id = &"labyrinth_nine_02"
-display_name = "ZICKZACK-KAMMERN"
+display_name = "GARTENKAMMERN"
 par = 5
-course_rect = Rect2(176, 16, 960, 336)
-lane_outline = SubResource("Lane_outline")
-tee_position = Vector2(224, 176)
-hole_position = Vector2(1088, 176)
-initial_aim_offset = Vector2(96, 0)
-camera_center_bounds = Rect2(320, 180, 504, 0)
-grid_spacing = 16
-walls = []
-wall_tiles = Array[ExtResource("3_wall_tile")]([SubResource("Wall_1"), SubResource("Wall_2"), SubResource("Wall_3"), SubResource("Wall_4"), SubResource("Wall_5"), SubResource("Wall_6"), SubResource("Wall_7"), SubResource("Wall_8"), SubResource("Wall_9"), SubResource("Wall_10"), SubResource("Wall_11"), SubResource("Wall_12"), SubResource("Wall_13"), SubResource("Wall_14"), SubResource("Wall_15"), SubResource("Wall_16"), SubResource("Wall_17"), SubResource("Wall_18"), SubResource("Wall_19"), SubResource("Wall_20"), SubResource("Wall_21"), SubResource("Wall_22"), SubResource("Wall_23"), SubResource("Wall_24"), SubResource("Wall_25"), SubResource("Wall_26"), SubResource("Wall_27"), SubResource("Wall_28"), SubResource("Wall_29"), SubResource("Wall_30"), SubResource("Wall_31"), SubResource("Wall_32"), SubResource("Wall_33"), SubResource("Wall_34"), SubResource("Wall_35"), SubResource("Wall_36"), SubResource("Wall_37"), SubResource("Wall_38"), SubResource("Wall_39"), SubResource("Wall_40"), SubResource("Wall_41"), SubResource("Wall_42"), SubResource("Wall_43"), SubResource("Wall_44"), SubResource("Wall_45"), SubResource("Wall_46"), SubResource("Wall_47"), SubResource("Wall_48"), SubResource("Wall_49"), SubResource("Wall_50"), SubResource("Wall_51"), SubResource("Wall_52"), SubResource("Wall_53"), SubResource("Wall_54"), SubResource("Wall_55"), SubResource("Wall_56")])
-surfaces = []
-arrow_tiles = []
-obstacles = Array[ExtResource("4_obstacle")]([SubResource("Obstacle_1"), SubResource("Obstacle_2"), SubResource("Obstacle_3")])
-triggers = []
-cannons = []
+lane_outline = SubResource("Resource_fysq5")
+theme = ExtResource("8_b78mv")
+tee_position = Vector2(232, 104)
+hole_position = Vector2(568, 240)
+initial_aim_offset = Vector2(20.238577, 60.715733)
+wall_tiles = Array[ExtResource("11_cvpko")]([SubResource("Resource_q2458"), SubResource("Resource_txllc"), SubResource("Resource_dxssw"), SubResource("Resource_fis1y"), SubResource("Resource_yar3u"), SubResource("Resource_1v0cq"), SubResource("Resource_t75ao"), SubResource("Resource_441jb"), SubResource("Resource_u5cbr"), SubResource("Resource_62d12"), SubResource("Resource_sxddd"), SubResource("Resource_8l6md"), SubResource("Resource_7ccm7"), SubResource("Resource_mg3tr"), SubResource("Resource_72j37"), SubResource("Resource_rdjeu"), SubResource("Resource_p80jj"), SubResource("Resource_lg63x"), SubResource("Resource_nogtq"), SubResource("Resource_g3dpp"), SubResource("Resource_u6rbh"), SubResource("Resource_3wbs7"), SubResource("Resource_p3ux3")])

@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_l5mgn"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_bl8pg"]
 
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_w44p0"]
 script = ExtResource("4_gfd5f")
 points = PackedVector2Array(184, 216, 472, 216, 472, 56, 600, 56, 600, 328, 184, 328)
@@ -32,8 +34,9 @@ hole_id = &"prototype_04"
 display_name = "SANDUFER"
 par = 3
 lane_outline = SubResource("Resource_w44p0")
-garden_presentation = true
+garden_presentation = false
 tee_position = Vector2(220, 280)
 hole_position = Vector2(552, 88)
 initial_aim_offset = Vector2(96, 0)
 surfaces = Array[ExtResource("7_6tjhy")]([SubResource("Resource_dar0d"), SubResource("Resource_4rdtq")])
+theme = ExtResource("world_theme")

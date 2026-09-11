@@ -1,126 +1,118 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
 
-[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
-[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
-[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
-[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_8ut85"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_afomj"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_5yxf1"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_6v2mq"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_u6qvp"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_72myd"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_vb6us"]
+[ext_resource type="Resource" path="res://data/themes/stadtpark.tres" id="8_24bav"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_4hxx4"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_s7pyu"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_d2e10"]
 
-[sub_resource type="Resource" id="Arc_lower"]
-script = ExtResource("3_wall")
+[sub_resource type="Resource" id="Resource_hn0c7"]
+script = ExtResource("3_5yxf1")
 wall_type = 2
-center = Vector2(376, 296)
+center = Vector2(264, 120)
 radius = 64.0
 thickness = 4.0
-arc_start_degrees = 180.0
-arc_sweep_degrees = 90.0
-arc_segments = 20
+arc_start_degrees = 180.00000500895632
+arc_sweep_degrees = 90.00000250447816
 
-[sub_resource type="Resource" id="Arc_upper"]
-script = ExtResource("3_wall")
+[sub_resource type="Resource" id="Resource_0v614"]
+script = ExtResource("3_5yxf1")
 wall_type = 2
-center = Vector2(440, 104)
+center = Vector2(520, 120)
 radius = 64.0
 thickness = 4.0
-arc_start_degrees = 0.0
-arc_sweep_degrees = 90.0
-arc_segments = 20
+arc_start_degrees = -90.00000250447816
+arc_sweep_degrees = 90.00000250447816
 
-[sub_resource type="Resource" id="Lane_outline"]
-script = ExtResource("2_outline")
-points = PackedVector2Array(184, 232, 296, 232, 360, 168, 440, 168, 504, 104, 504, 40, 616, 40, 616, 152, 536, 152, 456, 232, 376, 232, 312, 296, 312, 312, 184, 312)
-wall_thickness = 4.0
+[sub_resource type="Resource" id="Resource_sw5sd"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(520, 248)
+radius = 64.0
+thickness = 4.0
+arc_sweep_degrees = 90.00000250447816
+
+[sub_resource type="Resource" id="Resource_x2jvu"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(344, 248)
+radius = 64.0
+thickness = 4.0
+arc_start_degrees = 90.00000250447816
+arc_sweep_degrees = 90.00000250447816
+
+[sub_resource type="Resource" id="Resource_rcvny"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(344, 216)
+radius = 64.0
+thickness = 4.0
+arc_start_degrees = 180.00000500895632
+arc_sweep_degrees = 90.00000250447816
+
+[sub_resource type="Resource" id="Resource_e284r"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(344, 216)
+radius = 16.0
+thickness = 4.0
+arc_start_degrees = -90.00000250447816
+arc_sweep_degrees = -90.00000250447816
+
+[sub_resource type="Resource" id="Resource_wrqol"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(344, 248)
+radius = 16.0
+thickness = 4.0
+arc_start_degrees = 180.00000500895632
+arc_sweep_degrees = -90.00000250447816
+
+[sub_resource type="Resource" id="Resource_28qa4"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(520, 248)
+radius = 16.0
+thickness = 4.0
+arc_start_degrees = 90.00000250447816
+arc_sweep_degrees = -90.00000250447816
+
+[sub_resource type="Resource" id="Resource_01lq3"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(520, 120)
+radius = 16.0
+thickness = 4.0
+arc_sweep_degrees = -90.00000250447816
+
+[sub_resource type="Resource" id="Resource_b8ta4"]
+script = ExtResource("3_5yxf1")
+wall_type = 2
+center = Vector2(264, 120)
+radius = 16.0
+thickness = 4.0
+arc_start_degrees = -90.00000250447816
+arc_sweep_degrees = -90.00000250447816
+
+[sub_resource type="Resource" id="Resource_m3dhs"]
+script = ExtResource("4_6v2mq")
+points = PackedVector2Array(200, 312, 200, 120, 264, 56, 520, 56, 584, 120, 584, 248, 520, 312, 344, 312, 280, 248, 280, 216, 344, 152, 424, 152, 424, 200, 344, 200, 328, 216, 328, 248, 344, 264, 520, 264, 536, 248, 536, 120, 520, 104, 264, 104, 248, 120, 248, 312)
 use_normalized_walls = true
-boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_lower"), SubResource("Arc_upper")])
-
-[sub_resource type="Resource" id="Arrow_1"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(23, 10)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_2"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(24, 10)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_3"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(25, 10)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_4"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(23, 11)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_5"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(24, 11)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_6"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(25, 11)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_7"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(23, 12)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_8"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(24, 12)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_9"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(25, 12)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_10"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(23, 13)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_11"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(24, 13)
-grid_offset = Vector2i(0, 8)
-direction = 1
-
-[sub_resource type="Resource" id="Arrow_12"]
-script = ExtResource("5_arrow")
-grid_cell = Vector2i(25, 13)
-grid_offset = Vector2i(0, 8)
-direction = 1
+boundary_arcs = Array[ExtResource("3_5yxf1")]([SubResource("Resource_hn0c7"), SubResource("Resource_0v614"), SubResource("Resource_sw5sd"), SubResource("Resource_x2jvu"), SubResource("Resource_rcvny"), SubResource("Resource_e284r"), SubResource("Resource_wrqol"), SubResource("Resource_28qa4"), SubResource("Resource_01lq3"), SubResource("Resource_b8ta4")])
 
 [resource]
-script = ExtResource("1_hole")
+script = ExtResource("6_72myd")
 hole_id = &"classic_nine_06"
-display_name = "DIE ENGSTELLE"
-par = 2
-course_rect = Rect2(176, 16, 448, 328)
-lane_outline = SubResource("Lane_outline")
-tee_position = Vector2(220, 286)
-hole_position = Vector2(575, 72)
-initial_aim_offset = Vector2(86, -34)
-camera_center_bounds = Rect2(320, 180, 0, 0)
-grid_spacing = 16
-walls = Array[ExtResource("3_wall")]([])
-wall_tiles = Array[ExtResource("4_wall_tile")]([])
-surfaces = []
-arrow_tiles = Array[ExtResource("5_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12")])
-obstacles = []
-triggers = []
-cannons = []
+display_name = "GARTENSPIRALE"
+par = 6
+lane_outline = SubResource("Resource_m3dhs")
+theme = ExtResource("8_24bav")
+tee_position = Vector2(224, 280)
+hole_position = Vector2(400, 176)
+initial_aim_offset = Vector2(5.314911, -63.77893)

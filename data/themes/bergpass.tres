@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_75svq"]
+
+[resource]
+script = ExtResource("1_75svq")
+theme_id = &"bergpass"
+background = Color(0.20392157, 0.27058825, 0.31764707, 1)
+turf = Color(0.32156864, 0.49019608, 0.40784314, 1)
+wall = Color(0.8627451, 0.88235295, 0.8039216, 1)
+trim = Color(0.3529412, 0.40784314, 0.44313726, 1)
+accent = Color(0.81960785, 0.7882353, 0.5764706, 1)
+foliage = Color(0.4, 0.49019608, 0.5254902, 1)
+motif = 3

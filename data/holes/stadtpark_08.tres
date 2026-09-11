@@ -1,0 +1,148 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_w8p4y"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_rfgh8"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_bf6k8"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_elrld"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_obith"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_hmrx2"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_m6j4m"]
+[ext_resource type="Resource" path="res://data/themes/stadtpark.tres" id="8_slatq"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_3fx6i"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_5i03y"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_oqsx0"]
+
+[sub_resource type="Resource" id="Resource_hvc7g"]
+script = ExtResource("4_elrld")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_gyach"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 9)
+variant = 1
+
+[sub_resource type="Resource" id="Resource_pu1c4"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(22, 9)
+
+[sub_resource type="Resource" id="Resource_wtnrk"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(23, 9)
+
+[sub_resource type="Resource" id="Resource_i7rws"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(24, 9)
+
+[sub_resource type="Resource" id="Resource_ogoka"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(25, 9)
+
+[sub_resource type="Resource" id="Resource_4dljf"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(26, 9)
+
+[sub_resource type="Resource" id="Resource_lflt7"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(27, 9)
+
+[sub_resource type="Resource" id="Resource_k7qdj"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 9)
+variant = 2
+
+[sub_resource type="Resource" id="Resource_05jc6"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 10)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_c5fev"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_cs0ow"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_pkhk2"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_edr1y"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_q3r6w"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(28, 15)
+variant = 3
+
+[sub_resource type="Resource" id="Resource_yly0j"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(27, 15)
+
+[sub_resource type="Resource" id="Resource_37jom"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(26, 15)
+
+[sub_resource type="Resource" id="Resource_uibiy"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(25, 15)
+
+[sub_resource type="Resource" id="Resource_u3kw1"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(24, 15)
+
+[sub_resource type="Resource" id="Resource_7nnl8"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(23, 15)
+
+[sub_resource type="Resource" id="Resource_3lupi"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(22, 15)
+
+[sub_resource type="Resource" id="Resource_eb0is"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 15)
+variant = 0
+
+[sub_resource type="Resource" id="Resource_by2dk"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_k40io"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_qq4v7"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_og313"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_y281b"]
+script = ExtResource("11_oqsx0")
+grid_cell = Vector2i(21, 10)
+variant = 7
+
+[resource]
+script = ExtResource("6_hmrx2")
+hole_id = &"stadtpark_08"
+display_name = "ZWEI ALLEEN"
+par = 3
+lane_outline = SubResource("Resource_hvc7g")
+theme = ExtResource("8_slatq")
+tee_position = Vector2(232, 184)
+hole_position = Vector2(552, 184)
+initial_aim_offset = Vector2(37.642986, -51.75911)
+wall_tiles = Array[ExtResource("11_oqsx0")]([SubResource("Resource_gyach"), SubResource("Resource_pu1c4"), SubResource("Resource_wtnrk"), SubResource("Resource_i7rws"), SubResource("Resource_ogoka"), SubResource("Resource_4dljf"), SubResource("Resource_lflt7"), SubResource("Resource_k7qdj"), SubResource("Resource_05jc6"), SubResource("Resource_c5fev"), SubResource("Resource_cs0ow"), SubResource("Resource_pkhk2"), SubResource("Resource_edr1y"), SubResource("Resource_q3r6w"), SubResource("Resource_yly0j"), SubResource("Resource_37jom"), SubResource("Resource_uibiy"), SubResource("Resource_u3kw1"), SubResource("Resource_7nnl8"), SubResource("Resource_3lupi"), SubResource("Resource_eb0is"), SubResource("Resource_by2dk"), SubResource("Resource_k40io"), SubResource("Resource_qq4v7"), SubResource("Resource_og313"), SubResource("Resource_y281b")])

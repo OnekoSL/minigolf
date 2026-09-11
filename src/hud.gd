@@ -53,7 +53,7 @@ func _build_hud() -> void:
 	golfer_panel.add_theme_stylebox_override("panel", _panel_style(Color("#172332"), Color("#d5c477")))
 	root.add_child(golfer_panel)
 
-	golfer_title = _label("P1  ALLROUNDER", Vector2(7, 4), Vector2(146, 16), 11, Color("#f0df9b"))
+	golfer_title = _label("P1  BEN", Vector2(7, 4), Vector2(146, 16), 11, Color("#f0df9b"))
 	golfer_panel.add_child(golfer_title)
 
 	golfer = PlaceholderGolfer.new()

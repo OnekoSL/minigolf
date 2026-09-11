@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_jagqv"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_5cpdb"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_cid5l"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_wsbnd"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_g0tm3"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_b1ri3"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_7enip"]
+[ext_resource type="Resource" path="res://data/themes/muehlental.tres" id="8_adq4i"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_63wd8"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_m2lg3"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_iis7q"]
+
+[sub_resource type="Resource" id="Resource_5d1r4"]
+script = ExtResource("4_wsbnd")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_0h6gt"]
+script = ExtResource("5_g0tm3")
+obstacle_type = 2
+position = Vector2(360, 176)
+seesaw_size = Vector2(96, 88)
+
+[resource]
+script = ExtResource("6_b1ri3")
+hole_id = &"muehlental_03"
+display_name = "KIPPSTEG"
+par = 2
+lane_outline = SubResource("Resource_5d1r4")
+theme = ExtResource("8_adq4i")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+obstacles = Array[ExtResource("5_g0tm3")]([SubResource("Resource_0h6gt")])

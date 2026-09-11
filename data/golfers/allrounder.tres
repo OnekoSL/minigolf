@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1")
 golfer_id = &"allrounder"
-display_name = "ALLROUNDER"
+display_name = "BEN"
 description = "Ausgewogene Reichweite\nund ruhiges Timing."
 atlas = ExtResource("2")
 range_factor = 1.0

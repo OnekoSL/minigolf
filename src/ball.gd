@@ -52,6 +52,7 @@ var _cannon_fire_emitted := false
 var _visual_lift := 0.0
 var _tunnel_active := false
 var _tunnel_elapsed := 0.0
+var _tunnel_duration := TUNNEL_DURATION
 var _tunnel_entry := Vector2.ZERO
 var _tunnel_exit_hole := Vector2.ZERO
 var _tunnel_exit_position := Vector2.ZERO
@@ -369,6 +370,7 @@ func _start_tunnel_sequence(entry: Vector2, exit_hole: Vector2) -> bool:
 		return false
 	_tunnel_active = true
 	_tunnel_elapsed = 0.0
+	_tunnel_duration = TUNNEL_DURATION
 	_tunnel_entry = entry
 	_tunnel_exit_hole = exit_hole
 	_tunnel_velocity = velocity
@@ -383,6 +385,17 @@ func _start_tunnel_sequence(entry: Vector2, exit_hole: Vector2) -> bool:
 	return true
 
 
+func start_directed_tunnel(entry: Vector2, exit_hole: Vector2, exit_direction: Vector2, clearance: float, duration: float) -> bool:
+	if exit_direction.is_zero_approx() or clearance < TUNNEL_EXIT_CLEARANCE or duration < TUNNEL_DURATION:
+		return false
+	if not _start_tunnel_sequence(entry,exit_hole):
+		return false
+	_tunnel_velocity = exit_direction.normalized()*_tunnel_velocity.length()
+	_tunnel_exit_position = exit_hole+exit_direction.normalized()*clearance
+	_tunnel_duration = duration
+	return true
+
+
 func advance_tunnel_sequence(delta: float) -> void:
 	if _tunnel_active:
 		_advance_tunnel_sequence(delta)
@@ -390,7 +403,12 @@ func advance_tunnel_sequence(delta: float) -> void:
 
 func _advance_tunnel_sequence(delta: float) -> void:
 	_tunnel_elapsed += maxf(0.0, delta)
-	var progress := clampf(_tunnel_elapsed / TUNNEL_DURATION, 0.0, 1.0)
+	var animation_half := TUNNEL_DURATION*0.5
+	var progress := 0.5
+	if _tunnel_elapsed < animation_half:
+		progress = _tunnel_elapsed/TUNNEL_DURATION
+	elif _tunnel_elapsed > _tunnel_duration-animation_half:
+		progress = 0.5+clampf((_tunnel_elapsed-(_tunnel_duration-animation_half))/TUNNEL_DURATION,0.0,0.5)
 	if progress < 0.5:
 		global_position = _tunnel_entry
 		scale = Vector2.ONE * (1.0 - progress * 2.0)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_tlpdr"]
+
+[resource]
+script = ExtResource("1_tlpdr")
+theme_id = &"muehlental"
+background = Color(0.14117648, 0.24313726, 0.21176471, 1)
+turf = Color(0.29411766, 0.5019608, 0.3137255, 1)
+wall = Color(0.85882354, 0.7372549, 0.53333336, 1)
+trim = Color(0.34117648, 0.28627452, 0.23137255, 1)
+accent = Color(0.8627451, 0.7254902, 0.44313726, 1)
+foliage = Color(0.58431375, 0.4509804, 0.3137255, 1)
+motif = 2

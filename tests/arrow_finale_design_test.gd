@@ -11,7 +11,7 @@ const FIELD_DIRECTIONS := [2, 1, 0, 5, 6, 4, 3, 7]
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Armageddon: acht verpflichtende Gefaelleabschnitte]")
-	var definition := HoleCatalog.load_default().get_hole(&"arrow_armageddon_09")
+	var definition := LegacyCourseFixtures.holes().get_hole(&"arrow_armageddon_09")
 	check.call(definition.validate().is_empty(), "Armageddon: neuer Zickzack-Grundriss ist kataloggueltig")
 	check.call(definition.walls.is_empty() and definition.wall_tiles.is_empty(), "Armageddon: die geschlossene Kontur fuehrt den Weg ohne lose Innenhindernisse")
 	check.call(definition.arrow_tiles.size() == 48, "Armageddon: 48 Zellen bilden acht kurze, getrennte Vollbreitenfelder")

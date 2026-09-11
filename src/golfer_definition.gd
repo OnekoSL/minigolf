@@ -4,7 +4,7 @@ extends Resource
 const IDS: Array[StringName] = [&"allrounder", &"mara", &"bruno", &"nika"]
 
 @export var golfer_id := &"allrounder"
-@export var display_name := "ALLROUNDER"
+@export var display_name := "BEN"
 @export var description := "Ausgewogene Reichweite\nund ruhiges Timing."
 @export var atlas: Texture2D
 @export var range_factor := 1.0

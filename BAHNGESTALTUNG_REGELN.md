@@ -127,6 +127,8 @@ Pfeilflächen MÜSSEN aus eigenständigen `ArrowTileDefinition`-Zellen von exakt
 
 Zusammenhängende Felder verwenden ein konsistentes Raster. Ein bewusst gemeinsamer Halbrasterversatz ist erlaubt: `grid_offset` darf je Achse 0 oder 8 sein. Das Hügelloch nutzt dies, um das Ziel exakt in die mittlere Zelle zu setzen. Beliebige Versätze und überlappende Zellen sind unzulässig.
 
+Bei vollflächigen Feldern an Kreisbögen dürfen Randzellen über `ArrowTileDefinition.clip_polygon` zugeschnitten werden. Das Grundraster bleibt 16 × 16 Pixel; der Zuschnitt liegt vollständig innerhalb seiner Zelle. Sichtbare Fläche, Pfeilzeichnung, Flächenkollision und Abfrage am Ballzentrum verwenden denselben Zuschnitt. Damit darf kein neutraler Streifen am befahrbaren Rand entstehen. Am Pavillon im Stadtpark wird diese Variante für den vollständig roten, nach links abfallenden Kreis eingesetzt.
+
 ### P02 – Farbe bezeichnet die Stärke des Gefälles
 
 | Stufe | Farbe | Beschleunigung in Pfeilrichtung | Netto bergab bei 30 Rollwiderstand | Bremsung genau gegen den Pfeil |

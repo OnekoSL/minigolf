@@ -1,0 +1,126 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
+
+[sub_resource type="Resource" id="Arc_lower"]
+script = ExtResource("3_wall")
+wall_type = 2
+center = Vector2(376, 296)
+radius = 64.0
+thickness = 4.0
+arc_start_degrees = 180.0
+arc_sweep_degrees = 90.0
+arc_segments = 20
+
+[sub_resource type="Resource" id="Arc_upper"]
+script = ExtResource("3_wall")
+wall_type = 2
+center = Vector2(440, 104)
+radius = 64.0
+thickness = 4.0
+arc_start_degrees = 0.0
+arc_sweep_degrees = 90.0
+arc_segments = 20
+
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(184, 232, 296, 232, 360, 168, 440, 168, 504, 104, 504, 40, 616, 40, 616, 152, 536, 152, 456, 232, 376, 232, 312, 296, 312, 312, 184, 312)
+wall_thickness = 4.0
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_lower"), SubResource("Arc_upper")])
+
+[sub_resource type="Resource" id="Arrow_1"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(23, 10)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_2"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(24, 10)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_3"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 10)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_4"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(23, 11)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_5"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(24, 11)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_6"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 11)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_7"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(23, 12)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_8"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(24, 12)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_9"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 12)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_10"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(23, 13)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_11"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(24, 13)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[sub_resource type="Resource" id="Arrow_12"]
+script = ExtResource("5_arrow")
+grid_cell = Vector2i(25, 13)
+grid_offset = Vector2i(0, 8)
+direction = 1
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"classic_nine_06"
+display_name = "DIE ENGSTELLE"
+par = 2
+course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Lane_outline")
+tee_position = Vector2(220, 286)
+hole_position = Vector2(575, 72)
+initial_aim_offset = Vector2(86, -34)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("3_wall")]([])
+wall_tiles = Array[ExtResource("4_wall_tile")]([])
+surfaces = []
+arrow_tiles = Array[ExtResource("5_arrow")]([SubResource("Arrow_1"), SubResource("Arrow_2"), SubResource("Arrow_3"), SubResource("Arrow_4"), SubResource("Arrow_5"), SubResource("Arrow_6"), SubResource("Arrow_7"), SubResource("Arrow_8"), SubResource("Arrow_9"), SubResource("Arrow_10"), SubResource("Arrow_11"), SubResource("Arrow_12")])
+obstacles = []
+triggers = []
+cannons = []

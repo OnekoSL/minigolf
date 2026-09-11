@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_fq0j3"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_qd1fx"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_dhq5v"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_pshsi"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_kldj6"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_h5auh"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_2n8bw"]
+[ext_resource type="Resource" path="res://data/themes/stadtpark.tres" id="8_u17sn"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_ywqf6"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_oa7xk"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_s0adx"]
+
+[sub_resource type="Resource" id="Resource_h31hc"]
+script = ExtResource("3_dhq5v")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 80.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_vmtil"]
+script = ExtResource("3_dhq5v")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 160.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_vlq7a"]
+script = ExtResource("4_pshsi")
+points = PackedVector2Array(248, 56, 328, 56, 328, 136, 488, 136, 488, 56, 568, 56, 568, 136, 248, 136)
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_dhq5v")]([SubResource("Resource_h31hc"), SubResource("Resource_vmtil")])
+
+[resource]
+script = ExtResource("6_h5auh")
+hole_id = &"stadtpark_09"
+display_name = "PAVILLONRUNDE"
+par = 3
+lane_outline = SubResource("Resource_vlq7a")
+theme = ExtResource("8_u17sn")
+tee_position = Vector2(288, 88)
+hole_position = Vector2(544, 80)
+initial_aim_offset = Vector2(17.129208, 61.665146)

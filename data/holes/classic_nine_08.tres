@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=23 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
 [ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
 [ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
 [ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
+
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="world_theme"]
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
@@ -106,7 +108,7 @@ direction = 2
 script = ExtResource("1_hole")
 hole_id = &"classic_nine_08"
 display_name = "KREISALLEE"
-par = 3
+par = 4
 course_rect = Rect2(176, 16, 832, 328)
 lane_outline = SubResource("Lane_outline")
 tee_position = Vector2(220, 286)
@@ -121,3 +123,6 @@ arrow_tiles = Array[ExtResource("5_arrow")]([SubResource("Arrow_1"), SubResource
 obstacles = []
 triggers = []
 cannons = []
+
+garden_presentation = false
+theme = ExtResource("world_theme")

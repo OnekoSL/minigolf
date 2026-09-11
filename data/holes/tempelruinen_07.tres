@@ -1,0 +1,127 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_lwij3"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_hvtfc"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_18pdx"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_jeewa"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_p68dq"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_0b16b"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_etg4a"]
+[ext_resource type="Resource" path="res://data/themes/tempelruinen.tres" id="8_t7r1i"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_8k7ja"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_1krtd"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_tlbab"]
+
+[sub_resource type="Resource" id="Resource_d3vpd"]
+script = ExtResource("4_jeewa")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_erpkm"]
+script = ExtResource("7_etg4a")
+rect = Rect2(472, 216, 32, 96)
+surface_type = 2
+deceleration = 120.0
+
+[sub_resource type="Resource" id="Resource_h3rt1"]
+script = ExtResource("10_1krtd")
+endpoint_a = Vector2(328, 176)
+endpoint_b = Vector2(424, 176)
+
+[sub_resource type="Resource" id="Resource_2owds"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 3)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_h7f88"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 4)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_xjcg3"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 5)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ako8f"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 6)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_qwl2h"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 7)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ebim5"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 8)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_qkmyi"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 9)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_aryrr"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 10)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_pb7tv"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ncd7y"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_1ugl7"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_afw5h"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_twx36"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 15)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_4i1dq"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 16)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_g4hfx"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 17)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_nwq1t"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 18)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_vadvv"]
+script = ExtResource("11_tlbab")
+grid_cell = Vector2i(23, 19)
+variant = 8
+
+[resource]
+script = ExtResource("6_0b16b")
+hole_id = &"tempelruinen_07"
+display_name = "VERSUNKENER HOF"
+lane_outline = SubResource("Resource_d3vpd")
+theme = ExtResource("8_t7r1i")
+tee_position = Vector2(224, 88)
+hole_position = Vector2(568, 280)
+initial_aim_offset = Vector2(64, 0)
+wall_tiles = Array[ExtResource("11_tlbab")]([SubResource("Resource_2owds"), SubResource("Resource_h7f88"), SubResource("Resource_xjcg3"), SubResource("Resource_ako8f"), SubResource("Resource_qwl2h"), SubResource("Resource_ebim5"), SubResource("Resource_qkmyi"), SubResource("Resource_aryrr"), SubResource("Resource_pb7tv"), SubResource("Resource_ncd7y"), SubResource("Resource_1ugl7"), SubResource("Resource_afw5h"), SubResource("Resource_twx36"), SubResource("Resource_4i1dq"), SubResource("Resource_g4hfx"), SubResource("Resource_nwq1t"), SubResource("Resource_vadvv")])
+surfaces = Array[ExtResource("7_etg4a")]([SubResource("Resource_erpkm")])
+tunnels = Array[ExtResource("10_1krtd")]([SubResource("Resource_h3rt1")])

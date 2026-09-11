@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_eypd8"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_dinem"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_jw7tl"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_77dbr"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_swjvh"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_0b4w5"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_1is4a"]
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="8_udgcl"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_rloik"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_lumhx"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_byje3"]
+
+[sub_resource type="Resource" id="Resource_iahwt"]
+script = ExtResource("3_jw7tl")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 80.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_54rqt"]
+script = ExtResource("3_jw7tl")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 160.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_edn3b"]
+script = ExtResource("4_77dbr")
+points = PackedVector2Array(248, 56, 328, 56, 328, 136, 488, 136, 488, 56, 568, 56, 568, 136, 248, 136)
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_jw7tl")]([SubResource("Resource_iahwt"), SubResource("Resource_54rqt")])
+
+[sub_resource type="Resource" id="Resource_yss1k"]
+script = ExtResource("3_jw7tl")
+wall_type = 1
+center = Vector2(408, 264)
+radius = 12.0
+
+[resource]
+script = ExtResource("6_0b4w5")
+hole_id = &"schlossgarten_09"
+display_name = "SCHLOSSPARTERRE"
+par = 3
+lane_outline = SubResource("Resource_edn3b")
+theme = ExtResource("8_udgcl")
+tee_position = Vector2(288, 88)
+hole_position = Vector2(544, 80)
+initial_aim_offset = Vector2(17.129208, 61.665146)
+walls = Array[ExtResource("3_jw7tl")]([SubResource("Resource_yss1k")])

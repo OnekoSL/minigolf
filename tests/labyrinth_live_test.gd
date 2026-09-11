@@ -3,7 +3,7 @@ extends RefCounted
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Labyrinth: bestaetigte Route mit aktiven Hindernissen]")
-	var hole := HoleCatalog.load_default().get_hole(&"labyrinth_nine_05")
+	var hole := LegacyCourseFixtures.holes().get_hole(&"labyrinth_nine_05")
 	var route := LabyrinthRoutes.live_route(hole.hole_id, 150)
 	var first := await LiveRouteRunner.play(host, hole, route)
 	var second := await LiveRouteRunner.play(host, hole, route)

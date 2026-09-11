@@ -42,7 +42,9 @@ static func run(check: Callable) -> void:
 	check.call(symmetric and horseshoe.tee_position.y == 176 and horseshoe.hole_position.y == 176, "Hufeisen: Kontur, Zufahrt und Ziel liegen auf einer gemeinsamen Symmetrieachse")
 	var opener := holes.get_hole(&"classic_nine_01")
 	check.call(opener.tee_position.y == 176 and opener.hole_position.y == 176, "Auftakt: Start und Loch stimmen mit der Konturachse ueberein")
-	var neck := holes.get_hole(&"classic_nine_06")
+	# The former narrow lane is retained as a historical geometry regression.
+	# The production resource now contains the separately tested park spiral.
+	var neck := LegacyCourseFixtures.holes().get_hole(&"classic_nine_06")
 	check.call(neck.arrow_tiles.all(func(tile): return tile.grid_offset == Vector2i(0, 8)), "Engstelle: Das komplette Pfeilraster schliesst an die Halswaende an")
 	check.call(neck.lane_outline.contains_point(Vector2(392, 169)) and neck.lane_outline.contains_point(Vector2(392, 231)) and not neck.lane_outline.contains_point(Vector2(392, 165)) and not neck.lane_outline.contains_point(Vector2(392, 235)), "Engstelle: Kein neutraler Seitenstreifen neben dem 64 Pixel hohen Pflichtfeld")
 

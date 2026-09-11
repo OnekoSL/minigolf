@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_8qbsu"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_f6l31"]
 
+[ext_resource type="Resource" path="res://data/themes/bergpass.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_aayml"]
 script = ExtResource("1_0shwl")
 grid_cell = Vector2i(22, 8)
@@ -283,9 +285,10 @@ display_name = "DOPPELHUEGEL"
 par = 3
 course_rect = Rect2(176, 16, 816, 328)
 lane_outline = SubResource("Resource_c1tih")
-garden_presentation = true
+garden_presentation = false
 tee_position = Vector2(232, 176)
 hole_position = Vector2(936, 176)
 initial_aim_offset = Vector2(96, 0)
 camera_center_bounds = Rect2(320, 180, 360, 0)
 arrow_tiles = Array[ExtResource("1_0shwl")]([SubResource("Resource_aayml"), SubResource("Resource_yfadn"), SubResource("Resource_xuols"), SubResource("Resource_2v38l"), SubResource("Resource_u1qau"), SubResource("Resource_dbav2"), SubResource("Resource_warwx"), SubResource("Resource_davjm"), SubResource("Resource_lkhbw"), SubResource("Resource_5nrde"), SubResource("Resource_a21me"), SubResource("Resource_p3w7d"), SubResource("Resource_phrf6"), SubResource("Resource_etgob"), SubResource("Resource_ks6bs"), SubResource("Resource_w3lau"), SubResource("Resource_mmnmc"), SubResource("Resource_s830x"), SubResource("Resource_is6wd"), SubResource("Resource_4sdqo"), SubResource("Resource_t16ik"), SubResource("Resource_fupmt"), SubResource("Resource_hcr1i"), SubResource("Resource_74vj7"), SubResource("Resource_02nme"), SubResource("Resource_h23r0"), SubResource("Resource_8pia6"), SubResource("Resource_u2h75"), SubResource("Resource_4qdol"), SubResource("Resource_po2og"), SubResource("Resource_yl68c"), SubResource("Resource_3nmbu"), SubResource("Resource_vpcrs"), SubResource("Resource_08sni"), SubResource("Resource_dd73q"), SubResource("Resource_wj3xs"), SubResource("Resource_oak88"), SubResource("Resource_fiyuy"), SubResource("Resource_s7ppj"), SubResource("Resource_wm0bg")])
+theme = ExtResource("world_theme")

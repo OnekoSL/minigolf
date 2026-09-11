@@ -1,11 +1,1111 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
 
-[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
-[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
-[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_epydk"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_y2otb"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_4ch1a"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_dvg8x"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_754bc"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_xbibf"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_2unlj"]
+[ext_resource type="Resource" path="res://data/themes/stadtpark.tres" id="8_o6xmv"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_cu8no"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_u6btj"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_m6meu"]
 
-[sub_resource type="Resource" id="Arc_horseshoe"]
-script = ExtResource("3_wall")
+[sub_resource type="Resource" id="Resource_bsiv5"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 4)
+clip_polygon = PackedVector2Array(16, 16, 14.103302, 16, 16, 15.399132)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_2tfse"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 4)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 15.399132, 4.842407, 13.865067, 12.135254, 12.133133, 16, 11.511284)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_jw45c"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 4)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 11.511284, 3.535736, 10.942375, 11.003754, 10.299271, 16, 10.237953)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_l46cj"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 4)
+clip_polygon = PackedVector2Array(9.980438, 10.666931, 16, 11.484474, 16, 16, 0, 16, 0, 10.237953, 2.4988708, 10.207291)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_5smuv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 4)
+clip_polygon = PackedVector2Array(1.4079285, 11.675697, 8.741058, 13.228142, 15.9401245, 15.315834, 16, 15.338089, 16, 16, 0, 16, 0, 11.484474)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_0ij5h"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 4)
+clip_polygon = PackedVector2Array(1.7807007, 16, 0, 16, 0, 15.338089)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ag6fo"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 5)
+clip_polygon = PackedVector2Array(16, 16, 1.1132202, 16, 3.343872, 14.214699, 9.524719, 9.974152, 16, 6.2002487)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yd00s"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 5)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 6.2002487, 0.00079345703, 6.199791, 6.736969, 2.9120712, 13.696747, 0.12879944, 14.103302, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ed0vu"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 5)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_vg0jv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 5)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_owhkx"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 5)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_0q4k1"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 5)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ixja0"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 5)
+clip_polygon = PackedVector2Array(6.9661255, 1.9274673, 13.780945, 5.0488815, 16, 6.270241, 16, 16, 0, 16, 0, 0, 1.7807007, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_7ervn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 5)
+clip_polygon = PackedVector2Array(4.3476563, 8.6631775, 10.630737, 12.750748, 14.901306, 16, 0, 16, 0, 6.270241)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_867f6"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 6)
+clip_polygon = PackedVector2Array(16, 16, 0.8798523, 16, 3.2543945, 13.081306, 8, 8, 13.49173, 2.8984375, 16, 0.89095306)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_xvqgf"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 6)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0.89095306, 1.1132202, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_51ry7"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_kjj23"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_erion"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_jp5qf"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1i44y"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_wyxl7"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 6)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_142dd"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 6)
+clip_polygon = PackedVector2Array(16, 0.8359451, 16, 16, 0, 16, 0, 0, 14.901306, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_cm5vl"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 6)
+clip_polygon = PackedVector2Array(0.59606934, 1.2894669, 6.2113647, 6.254715, 11.446167, 11.619598, 15.131958, 16, 0, 16, 0, 0.8359451)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_mt7dr"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 7)
+clip_polygon = PackedVector2Array(16, 16, 6.2576294, 16, 7.244568, 14.095322, 10.857117, 8.154785, 14.866608, 2.4746094, 16, 1.0814819)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ctv3l"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 7)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 1.0814819, 0.8798523, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ijh6d"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_8vd3r"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_4yv0p"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_af110"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_mo78j"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_7lvrc"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_5agxa"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_fhfhs"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 7)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1ery8"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 7)
+clip_polygon = PackedVector2Array(16, 1.031662, 16, 16, 0, 16, 0, 0, 15.131958, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_2jrn4"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 7)
+clip_polygon = PackedVector2Array(0.27209473, 1.3550415, 4.663025, 7.429962, 8.595215, 13.8114395, 9.730713, 16, 0, 16, 0, 1.031662)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_7btnb"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 8)
+clip_polygon = PackedVector2Array(16, 16, 15.372986, 16, 16, 14.2357025)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yv2c2"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 14.2357025, 1.2759094, 10.64566, 4.045868, 4.2685394, 6.2576294, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ys87e"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_3j458"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lpafv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_hn1ms"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_c8uyg"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_vv7bp"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_nmg8f"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yua2q"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_gd10t"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_08fy7"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 8)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_jsxho"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 8)
+clip_polygon = PackedVector2Array(12.047241, 4.464905, 15.000488, 11.354279, 16, 14.259644, 16, 16, 0, 16, 0, 0, 9.730713, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_hhhtp"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 8)
+clip_polygon = PackedVector2Array(0.5987549, 16, 0, 16, 0, 14.259644)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ruob8"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 9)
+clip_polygon = PackedVector2Array(16, 16, 11.478363, 16, 11.657166, 14.699142, 13.071747, 7.8918457, 14.947571, 1.1969452, 15.372986, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_d4xwc"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yc2yn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_33k7l"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_l5tqp"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_nykao"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_w5i6x"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_abcwa"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_8ggx2"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_rlsre"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_nixqm"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_8rdln"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lrn77"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 9)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_cnppn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 9)
+clip_polygon = PackedVector2Array(1.4389038, 2.4422302, 3.3493042, 9.690369, 4.524048, 16, 0, 16, 0, 0, 0.5987549, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_pgx0o"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 10)
+clip_polygon = PackedVector2Array(16, 16, 10.235992, 16, 10.235992, 12.523636, 10.710449, 5.5871124, 11.478363, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_kgh0l"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_q37mt"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_k4vrn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_c4wvu"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_tduue"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lo2uw"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_87a1t"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_g7pvi"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yp5eg"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_0lw86"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1cu6j"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ohdta"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 10)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_tcolg"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 10)
+clip_polygon = PackedVector2Array(4.7213135, 1.0594025, 5.5474854, 8.509399, 5.8233643, 16, 0, 16, 0, 0, 4.524048, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1mqwq"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 11)
+clip_polygon = PackedVector2Array(16, 16, 11.478363, 16, 10.710449, 10.412872, 10.235992, 3.4763489, 10.235992, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_javdr"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lwqer"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_wdiuw"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_4idwq"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_6xn21"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_sv24d"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_h23g0"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1tplj"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_t3b74"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_c6gyi"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_n62bn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_wnbu6"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 11)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_4savr"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 11)
+clip_polygon = PackedVector2Array(5.8233643, 0, 5.5474854, 7.4906006, 4.7213135, 14.940598, 4.524048, 16, 0, 16, 0, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_e5l6c"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 12)
+clip_polygon = PackedVector2Array(16, 16, 15.372955, 16, 14.947571, 14.80307, 13.071747, 8.10817, 11.657166, 1.3008575, 11.478363, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_y4eyd"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_rqnr3"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_excyh"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_guqht"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_k8ian"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_uplds"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_jix32"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_al485"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_8kf13"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_v2qfr"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_58a55"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_dtx2t"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 12)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_62lgp"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 12)
+clip_polygon = PackedVector2Array(3.3493042, 6.3096313, 1.4389038, 13.55777, 0.5987549, 16, 0, 16, 0, 0, 4.524048, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_fa1a2"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(22, 13)
+clip_polygon = PackedVector2Array(16, 1.7642975, 15.372955, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_22yrt"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 13)
+clip_polygon = PackedVector2Array(16, 16, 6.25766, 16, 4.0458984, 11.731461, 1.2759094, 5.3543396, 0, 1.7642975, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_6m4kn"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_i0nxf"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1mp3h"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_wiuj1"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_nse04"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ey8i1"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_xgphv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ooufv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_n4pot"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_gl3ee"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 13)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_exe5u"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 13)
+clip_polygon = PackedVector2Array(16, 1.7403564, 15.000488, 4.6457214, 12.047241, 11.535095, 9.730713, 16, 0, 16, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_y5meg"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(35, 13)
+clip_polygon = PackedVector2Array(0, 1.7403564, 0, 0, 0.5987549, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_50ypk"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(23, 14)
+clip_polygon = PackedVector2Array(16, 14.918518, 14.866608, 13.525391, 10.857117, 7.84523, 7.244568, 1.9046783, 6.25766, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yledp"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 14)
+clip_polygon = PackedVector2Array(16, 16, 0.8798523, 16, 0, 14.918518, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_uav5s"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_2kjpk"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_fox47"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_j4o8l"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_fgq5p"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_o2ohj"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_beccx"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_xckxq"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 14)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_wobnk"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 14)
+clip_polygon = PackedVector2Array(16, 14.968323, 15.131958, 16, 0, 16, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_xaknu"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(34, 14)
+clip_polygon = PackedVector2Array(8.595215, 2.188568, 4.663025, 8.570038, 0.27209473, 14.6449585, 0, 14.968323, 0, 0, 9.730713, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_v6cic"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(24, 15)
+clip_polygon = PackedVector2Array(16, 15.109039, 13.49173, 13.1015625, 8, 8, 3.2543945, 2.9187012, 0.8798523, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_fr1f6"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 15)
+clip_polygon = PackedVector2Array(16, 16, 1.1132202, 16, 0, 15.109039, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_vcfhv"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_ue0kt"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lpghh"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_l2xio"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_mtu6e"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_qeo36"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 15)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_lfuqf"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 15)
+clip_polygon = PackedVector2Array(16, 15.1640625, 14.901306, 16, 0, 16, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_e4opf"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(33, 15)
+clip_polygon = PackedVector2Array(11.446167, 4.3804016, 6.2113647, 9.745285, 0.59606934, 14.710541, 0, 15.1640625, 0, 0, 15.131958, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_cu2p6"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(25, 16)
+clip_polygon = PackedVector2Array(16, 9.799744, 9.524719, 6.0258484, 3.343872, 1.7853088, 1.1132202, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_rcr7d"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 16)
+clip_polygon = PackedVector2Array(16, 16, 14.1032715, 16, 13.696747, 15.871216, 6.736969, 13.087921, 0.00079345703, 9.800201, 0, 9.799744, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_587ac"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 16)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_e1dhe"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 16)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_6asht"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 16)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_yudqa"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 16)
+clip_polygon = PackedVector2Array()
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_y8mtc"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 16)
+clip_polygon = PackedVector2Array(16, 9.729736, 13.780945, 10.951111, 6.9661255, 14.07254, 1.7807312, 16, 0, 16, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_6wn55"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(32, 16)
+clip_polygon = PackedVector2Array(10.630737, 3.2492676, 4.3476563, 7.3368225, 0, 9.729736, 0, 0, 14.901306, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_efr27"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(26, 17)
+clip_polygon = PackedVector2Array(16, 0.6008911, 14.1032715, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_o45og"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(27, 17)
+clip_polygon = PackedVector2Array(16, 4.4887085, 12.135254, 3.8668823, 4.842407, 2.1349487, 0, 0.6008911, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_nm3kj"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(28, 17)
+clip_polygon = PackedVector2Array(16, 5.7620544, 11.003754, 5.7007446, 3.535736, 5.057617, 0, 4.4887085, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_65jgq"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(29, 17)
+clip_polygon = PackedVector2Array(16, 4.5155334, 9.980438, 5.333069, 2.4988708, 5.7927246, 0, 5.7620544, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_8ya1a"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(30, 17)
+clip_polygon = PackedVector2Array(16, 0.66192627, 15.9401245, 0.6841736, 8.741058, 2.7718506, 1.4079285, 4.3243103, 0, 4.5155334, 0, 0, 16, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_tne2y"]
+script = ExtResource("1_epydk")
+grid_cell = Vector2i(31, 17)
+clip_polygon = PackedVector2Array(0, 0.66192627, 0, 0, 1.7807312, 0)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_1xybj"]
+script = ExtResource("3_4ch1a")
 wall_type = 2
 center = Vector2(464, 176)
 radius = 101.823376490863
@@ -14,29 +1114,20 @@ arc_start_degrees = -135.0
 arc_sweep_degrees = 270.0
 arc_segments = 64
 
-[sub_resource type="Resource" id="Lane_outline"]
-script = ExtResource("2_outline")
+[sub_resource type="Resource" id="Resource_jgn8i"]
+script = ExtResource("4_dvg8x")
 points = PackedVector2Array(200, 152, 344, 152, 392, 104, 392, 248, 344, 200, 200, 200)
-wall_thickness = 4.0
 use_normalized_walls = true
-boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_horseshoe")])
+boundary_arcs = Array[ExtResource("3_4ch1a")]([SubResource("Resource_1xybj")])
 
 [resource]
-script = ExtResource("1_hole")
+script = ExtResource("6_xbibf")
 hole_id = &"classic_nine_04"
-display_name = "DAS HUFEISEN"
+display_name = "AM PAVILLON"
 par = 1
-course_rect = Rect2(176, 16, 448, 328)
-lane_outline = SubResource("Lane_outline")
+lane_outline = SubResource("Resource_jgn8i")
+theme = ExtResource("8_o6xmv")
 tee_position = Vector2(220, 176)
 hole_position = Vector2(464, 176)
 initial_aim_offset = Vector2(92, 0)
-camera_center_bounds = Rect2(320, 180, 0, 0)
-grid_spacing = 16
-walls = []
-wall_tiles = []
-surfaces = []
-arrow_tiles = []
-obstacles = []
-triggers = []
-cannons = []
+arrow_tiles = Array[ExtResource("1_epydk")]([SubResource("Resource_bsiv5"), SubResource("Resource_2tfse"), SubResource("Resource_jw45c"), SubResource("Resource_l46cj"), SubResource("Resource_5smuv"), SubResource("Resource_0ij5h"), SubResource("Resource_ag6fo"), SubResource("Resource_yd00s"), SubResource("Resource_ed0vu"), SubResource("Resource_vg0jv"), SubResource("Resource_owhkx"), SubResource("Resource_0q4k1"), SubResource("Resource_ixja0"), SubResource("Resource_7ervn"), SubResource("Resource_867f6"), SubResource("Resource_xvqgf"), SubResource("Resource_51ry7"), SubResource("Resource_kjj23"), SubResource("Resource_erion"), SubResource("Resource_jp5qf"), SubResource("Resource_1i44y"), SubResource("Resource_wyxl7"), SubResource("Resource_142dd"), SubResource("Resource_cm5vl"), SubResource("Resource_mt7dr"), SubResource("Resource_ctv3l"), SubResource("Resource_ijh6d"), SubResource("Resource_8vd3r"), SubResource("Resource_4yv0p"), SubResource("Resource_af110"), SubResource("Resource_mo78j"), SubResource("Resource_7lvrc"), SubResource("Resource_5agxa"), SubResource("Resource_fhfhs"), SubResource("Resource_1ery8"), SubResource("Resource_2jrn4"), SubResource("Resource_7btnb"), SubResource("Resource_yv2c2"), SubResource("Resource_ys87e"), SubResource("Resource_3j458"), SubResource("Resource_lpafv"), SubResource("Resource_hn1ms"), SubResource("Resource_c8uyg"), SubResource("Resource_vv7bp"), SubResource("Resource_nmg8f"), SubResource("Resource_yua2q"), SubResource("Resource_gd10t"), SubResource("Resource_08fy7"), SubResource("Resource_jsxho"), SubResource("Resource_hhhtp"), SubResource("Resource_ruob8"), SubResource("Resource_d4xwc"), SubResource("Resource_yc2yn"), SubResource("Resource_33k7l"), SubResource("Resource_l5tqp"), SubResource("Resource_nykao"), SubResource("Resource_w5i6x"), SubResource("Resource_abcwa"), SubResource("Resource_8ggx2"), SubResource("Resource_rlsre"), SubResource("Resource_nixqm"), SubResource("Resource_8rdln"), SubResource("Resource_lrn77"), SubResource("Resource_cnppn"), SubResource("Resource_pgx0o"), SubResource("Resource_kgh0l"), SubResource("Resource_q37mt"), SubResource("Resource_k4vrn"), SubResource("Resource_c4wvu"), SubResource("Resource_tduue"), SubResource("Resource_lo2uw"), SubResource("Resource_87a1t"), SubResource("Resource_g7pvi"), SubResource("Resource_yp5eg"), SubResource("Resource_0lw86"), SubResource("Resource_1cu6j"), SubResource("Resource_ohdta"), SubResource("Resource_tcolg"), SubResource("Resource_1mqwq"), SubResource("Resource_javdr"), SubResource("Resource_lwqer"), SubResource("Resource_wdiuw"), SubResource("Resource_4idwq"), SubResource("Resource_6xn21"), SubResource("Resource_sv24d"), SubResource("Resource_h23g0"), SubResource("Resource_1tplj"), SubResource("Resource_t3b74"), SubResource("Resource_c6gyi"), SubResource("Resource_n62bn"), SubResource("Resource_wnbu6"), SubResource("Resource_4savr"), SubResource("Resource_e5l6c"), SubResource("Resource_y4eyd"), SubResource("Resource_rqnr3"), SubResource("Resource_excyh"), SubResource("Resource_guqht"), SubResource("Resource_k8ian"), SubResource("Resource_uplds"), SubResource("Resource_jix32"), SubResource("Resource_al485"), SubResource("Resource_8kf13"), SubResource("Resource_v2qfr"), SubResource("Resource_58a55"), SubResource("Resource_dtx2t"), SubResource("Resource_62lgp"), SubResource("Resource_fa1a2"), SubResource("Resource_22yrt"), SubResource("Resource_6m4kn"), SubResource("Resource_i0nxf"), SubResource("Resource_1mp3h"), SubResource("Resource_wiuj1"), SubResource("Resource_nse04"), SubResource("Resource_ey8i1"), SubResource("Resource_xgphv"), SubResource("Resource_ooufv"), SubResource("Resource_n4pot"), SubResource("Resource_gl3ee"), SubResource("Resource_exe5u"), SubResource("Resource_y5meg"), SubResource("Resource_50ypk"), SubResource("Resource_yledp"), SubResource("Resource_uav5s"), SubResource("Resource_2kjpk"), SubResource("Resource_fox47"), SubResource("Resource_j4o8l"), SubResource("Resource_fgq5p"), SubResource("Resource_o2ohj"), SubResource("Resource_beccx"), SubResource("Resource_xckxq"), SubResource("Resource_wobnk"), SubResource("Resource_xaknu"), SubResource("Resource_v6cic"), SubResource("Resource_fr1f6"), SubResource("Resource_vcfhv"), SubResource("Resource_ue0kt"), SubResource("Resource_lpghh"), SubResource("Resource_l2xio"), SubResource("Resource_mtu6e"), SubResource("Resource_qeo36"), SubResource("Resource_lfuqf"), SubResource("Resource_e4opf"), SubResource("Resource_cu2p6"), SubResource("Resource_rcr7d"), SubResource("Resource_587ac"), SubResource("Resource_e1dhe"), SubResource("Resource_6asht"), SubResource("Resource_yudqa"), SubResource("Resource_y8mtc"), SubResource("Resource_6wn55"), SubResource("Resource_efr27"), SubResource("Resource_o45og"), SubResource("Resource_nm3kj"), SubResource("Resource_65jgq"), SubResource("Resource_8ya1a"), SubResource("Resource_tne2y")])

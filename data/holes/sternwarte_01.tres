@@ -1,0 +1,123 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_rthes"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_t1kn8"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_n12q2"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_4qntk"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_y4d42"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_qhiq6"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_kvpw2"]
+[ext_resource type="Resource" path="res://data/themes/sternwarte.tres" id="8_03824"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_1xx12"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_d1r4p"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_ti4q1"]
+
+[sub_resource type="Resource" id="Resource_bubf0"]
+script = ExtResource("2_t1kn8")
+mechanism_id = &"cannon_0"
+position = Vector2(328, 176)
+landing_position = Vector2(432, 176)
+landing_velocity = Vector2(45, 0)
+
+[sub_resource type="Resource" id="Resource_ya4xx"]
+script = ExtResource("4_4qntk")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_nree4"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 3)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_uiopm"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 4)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_dojts"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 5)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_q5ofs"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 6)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_6hg5v"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 7)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_f0may"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 8)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_636lu"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 9)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_r7bxp"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 10)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_vtg45"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_56ahf"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_qmeol"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_m71af"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_dfkr8"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 15)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_p75dx"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 16)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_mw14h"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 17)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_rkyt5"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 18)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_oxxqo"]
+script = ExtResource("11_ti4q1")
+grid_cell = Vector2i(23, 19)
+variant = 8
+
+[resource]
+script = ExtResource("6_qhiq6")
+hole_id = &"sternwarte_01"
+display_name = "ERSTE FLUGBAHN"
+par = 2
+lane_outline = SubResource("Resource_ya4xx")
+theme = ExtResource("8_03824")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+wall_tiles = Array[ExtResource("11_ti4q1")]([SubResource("Resource_nree4"), SubResource("Resource_uiopm"), SubResource("Resource_dojts"), SubResource("Resource_q5ofs"), SubResource("Resource_6hg5v"), SubResource("Resource_f0may"), SubResource("Resource_636lu"), SubResource("Resource_r7bxp"), SubResource("Resource_vtg45"), SubResource("Resource_56ahf"), SubResource("Resource_qmeol"), SubResource("Resource_m71af"), SubResource("Resource_dfkr8"), SubResource("Resource_p75dx"), SubResource("Resource_mw14h"), SubResource("Resource_rkyt5"), SubResource("Resource_oxxqo")])
+cannons = Array[ExtResource("2_t1kn8")]([SubResource("Resource_bubf0")])

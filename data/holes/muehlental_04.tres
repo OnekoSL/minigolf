@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_efqy1"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_0a063"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_mbx25"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_60jlp"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_hgwdb"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_rqwi7"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_dewo6"]
+[ext_resource type="Resource" path="res://data/themes/muehlental.tres" id="8_5c6dg"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_o0ocn"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_0hsly"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_ykhyy"]
+
+[sub_resource type="Resource" id="Resource_7s0aw"]
+script = ExtResource("3_mbx25")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 80.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_j3k14"]
+script = ExtResource("3_mbx25")
+wall_type = 2
+center = Vector2(408, 136)
+radius = 160.0
+thickness = 4.0
+arc_sweep_degrees = 180.0
+arc_segments = 48
+
+[sub_resource type="Resource" id="Resource_4ua63"]
+script = ExtResource("4_60jlp")
+points = PackedVector2Array(248, 56, 328, 56, 328, 136, 488, 136, 488, 56, 568, 56, 568, 136, 248, 136)
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("3_mbx25")]([SubResource("Resource_7s0aw"), SubResource("Resource_j3k14")])
+
+[sub_resource type="Resource" id="Resource_uusar"]
+script = ExtResource("7_dewo6")
+rect = Rect2(400, 248, 48, 32)
+surface_type = 2
+deceleration = 120.0
+
+[resource]
+script = ExtResource("6_rqwi7")
+hole_id = &"muehlental_04"
+display_name = "MUEHLTEICH"
+par = 3
+lane_outline = SubResource("Resource_4ua63")
+theme = ExtResource("8_5c6dg")
+tee_position = Vector2(288, 88)
+hole_position = Vector2(528, 88)
+initial_aim_offset = Vector2(17.129208, 61.665146)
+surfaces = Array[ExtResource("7_dewo6")]([SubResource("Resource_uusar")])

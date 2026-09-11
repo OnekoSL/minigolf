@@ -1,10 +1,27 @@
 # Putt & Pixel - Spielrahmen-Prototyp
 
-Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit fuenf Kursen, insgesamt sechsunddreissig echten Loechern, neun Referenzbahnen, vier Spielmodi, Hotseat und Ergebnistabelle.
+Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit acht Themenkursen, 72 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle.
 
 Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
+Die acht Welten ersetzen die fuenf bisherigen Kurszusammenstellungen. [Kursplan](KURSPLAN_8_WELTEN.md) und [Umsetzungsbericht](ACHT_WELTEN_UMSETZUNG.md) dokumentieren Bahnideen, Herkunft, Bauplaene und Pruefstand.
+
+| Kurs | PAR | Schwerpunkt |
+| --- | ---: | --- |
+| Stadtpark | 23 | Zielen, roter Pavillon-Kreis und Gartenspirale |
+| Duenenkueste | 26 | Sand, Wasser und Dosierung |
+| Muehlental | 28 | Rotoren, Schleusen und Wippen |
+| Bergpass | 22 | Gefaelle und Kuppen |
+| Schlossgarten | 35 | Wegwahl und geometrische Praezision |
+| Uhrwerkfabrik | 27 | Mechanikketten und verborgenes Tunnelzahnrad |
+| Tempelruinen | 27 | Tunnel und getrennte Kammern |
+| Sternwarte | 32 | Schalter, Kanonen und Landungen |
+
+Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. Alte Bestwerte und technische Testbahnen bleiben erhalten. Gemeinsame Themenressourcen steuern Umgebung, Rasen, Banden und Dekoration ohne Einfluss auf die Ballphysik.
+
 ## Starten
+
+Der lokal erstellte [Windows-Build mit acht Welten und langsamerem Zahnrad](build/windows/PuttAndPixel-AchtWelten-Zahnrad16s.exe) kann direkt gestartet werden. Export und kurzer Headless-Start wurden mit Godot 4.7.2 erfolgreich geprueft.
 
 Die portable Godot-Version liegt lokal unter `.tools/godot-4.7.2/` und wird nicht versioniert.
 
@@ -22,11 +39,11 @@ Direkt spielen:
 
 Das Golferfenster zeigt Figur und beide Anzeigen ohne Phasentext, Anzeigenueberschriften oder dauerhafte Steuerungshinweise. Die verlaengerte Kraftskala erlaubt kurze Schlaege ab etwa 1 dm; bis 10 dm besitzt sie einzelne Dezimeterstriche, darueber 10-dm-Striche. Die erwartete Weite gilt fuer ebenes Gruen.
 
-Vier erwachsene Pixelgolfer sind sofort verfuegbar: Allrounder, Mara, Bruno und Nika. Jeder besitzt einen eigenen Atlas und ein festes Spielprofil. Die Spieleranlage fuehrt vom Namen ueber die Figur zur kosmetischen Farbe; mehrere Spieler duerfen dieselbe Figur waehlen. Fuenf Vergleichsbalken zeigen ihre Staerken und Schwaechen direkt in der Auswahl; ein heller Strich markiert den Allrounder. Details und Werte stehen in [GOLFER.md](GOLFER.md). Ihre Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur Polo beziehungsweise Weste um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
+Vier erwachsene Pixelgolfer sind sofort verfuegbar: Ben (Allrounder), Mara, Bruno und Nika. Jeder besitzt einen eigenen Atlas und ein festes Spielprofil. Die Spieleranlage fuehrt vom Namen ueber die Figur zur kosmetischen Farbe; mehrere Spieler duerfen dieselbe Figur waehlen. Fuenf Vergleichsbalken zeigen ihre Staerken und Schwaechen direkt in der Auswahl; ein heller Strich markiert Ben. Details und Werte stehen in [GOLFER.md](GOLFER.md). Ihre Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur Polo beziehungsweise Weste um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
 
 `godot --path . res://tests/capture_golfer.tscn` rendert alle Posen, Spielerfarben und Schlagfolgen nach `.godot/golfer/`. `tests/golfer_animation_test.gd` prueft die Verbindung zum echten Schlagsystem einschliesslich des sichtbaren Kontaktframes.
 
-Brunos maximale Richtungsabweichung betraegt jetzt 10 Grad. Fuer dieses Balancing gelten gemeinsame Bestwertrevisionen: Klassische Neun 10, Pfeil-Armageddon 8, Referenzbahnen 4, Labyrinth-Neun 4 und Prototypkurs 6. Aeltere Bestwerte bleiben gespeichert und werden getrennt gewertet; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
+Brunos maximale Richtungsabweichung betraegt 10 Grad. Die Themenkurse verwenden Bestwertrevision 1; Stadtpark verwendet nach den Bahnkorrekturen einschliesslich der Parkbank-Diagonalen Revision 3, Muehlental nach dem zweiten Rotor auf Bahn 1 ebenfalls Revision 3, Uhrwerkfabrik nach der Zahnrad-Tempoanpassung ebenfalls Revision 3, Tempelruinen nach der Rotor-Korrektur Revision 2. Historisch galten nach dem Figurenbalancing: Klassische Neun 10, Pfeil-Armageddon 8, Referenzbahnen 4, Labyrinth-Neun 4 und Prototypkurs 6. Diese alten Bestwerte bleiben gespeichert; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
 
 | Funktion | Controller | Tastatur | Maus |
 |---|---|---|---|
@@ -44,18 +61,20 @@ Brunos maximale Richtungsabweichung betraegt jetzt 10 Grad. Fuer dieses Balancin
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus sechsunddreissig Kurs- und vierzehn technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 72 Kurs- und 14 technischen Bahnen.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
 ## Spielmodi und Runde
 
-- **Einzelner Kurs:** ein Spieler waehlt zwischen **Klassische Neun** (Par 19), **Pfeil-Armageddon** (Par 27), dem **Referenzkurs** (Par 18), **Labyrinth-Neun** (Par 50) und dem **Prototypkurs** (Par 33).
+- **Einzelner Kurs:** ein Spieler waehlt einen der acht Themenkurse auf drei Seiten mit 3/3/2 Eintraegen.
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
 - **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die sechsunddreissig echten Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+Beim Markieren eines Kurses erscheint rechts eine **3×3-Vorschau aller neun Bahnen** mit Bahnnummer und PAR. Controller, Tastatur und Maus aktualisieren dieselbe Uebersicht; Bestaetigen startet den angezeigten Kurs. Auch lange Bahnen sind vollstaendig abgebildet.
+
+Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 72 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
 Die Kursfreigabe wird aus Kurs-ID und exakter vollständiger Lochfolge abgeleitet. Beschädigte Bestwertdateien werden nicht überschrieben; fehlgeschlagenes Speichern wird in der Endtabelle angezeigt. Menüaktionen beachten Eingabesperre, Fokus, Diagnose und Kalibrierung auch bei Mausklicks und verspäteten Signalen alter Bildschirme.
 
@@ -91,7 +110,9 @@ Hardware-Erkennung des angeschlossenen PS3-Controllers pruefen:
 
 Wippen-Regressionsfaelle pruefen ausserdem echten Rueckprall bei 420/520 px/s, beide Fahrtrichtungen, vier rechtwinklige Orientierungen, dosiertes Ueberqueren sowie geschlossene Zwischenstellungen. Live-Physiktests sichern Kippwechsel und Reset gegen einen um einen Frame verspaeteten Kollisionsschluss ab.
 
-## Prototypumfang
+## Historischer Prototypumfang vor den acht Welten
+
+Die folgenden Kursnamen, PAR-Werte und Revisionen dokumentieren den abgeloesten Entwicklungsstand. Fuer den aktuellen Spielbestand gelten die Tabelle oben und [ACHT_WELTEN_UMSETZUNG.md](ACHT_WELTEN_UMSETZUNG.md). Geometrie-Regressionsfaelle dieses Standes liegen getrennt unter `tests/fixtures/legacy/` und werden nicht exportiert.
 
 Der **Prototypkurs** verwendet Bestwertrevision 3 (`prototype_course_03_v3`) und neun echte Kursbahnen mit PAR `4/3/4/3/3/3/5/4/4` (33). Fuenf eigenstaendige Kursfassungen ersetzen die Labore in der gewerteten Runde; die urspruenglichen Labore bleiben ueber F2 in der Uebung erhalten. Normkonturen, wandbuendige reine Pfeilfelder und zwei echte Konturboegen bringen die Bahnen auf den aktuellen Stand. Dezente Rasenstreifen und Pflanzbeete verbinden alle neun Bahnen optisch. Die Endtabelle zeigt Kursdaten, farbige PAR-Wertungen, nach Ergebnis sortierte Spieler und eine Solo-Auswertung. Details und reproduzierbare Aufnahmen stehen in [PROTOTYPKURS.md](PROTOTYPKURS.md).
 
@@ -122,4 +143,4 @@ Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare u
 - Loch- und Endtabellen, gemeinsamer Rang bei Gleichstand und lokaler Kursbestwert
 - dynamisches Schlagmaximum `max(8, PAR + 3)`
 
-Noch nicht enthalten sind Turniersieg-Reaktionen, ein final ausgearbeiteter Produktionskurs, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor.
+Weiterhin offen sind Turniersieg-Reaktionen, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor. Die acht Themenkurse sind als spielbare Kursfassung umgesetzt; menschliche Langzeit- und Controller-Spieltests bleiben Teil des weiteren Balancings.

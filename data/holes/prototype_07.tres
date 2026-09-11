@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_eyqus"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_0a51f"]
 
+[ext_resource type="Resource" path="res://data/themes/sternwarte.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_os42g"]
 script = ExtResource("1_6ce33")
 grid_cell = Vector2i(33, 13)
@@ -149,14 +151,15 @@ rect = Rect2(880, 56, 64, 48)
 [resource]
 script = ExtResource("6_kr4ev")
 hole_id = &"prototype_07"
-display_name = "PANORAMAWEG"
+display_name = "PANORAMADECK"
 par = 5
 course_rect = Rect2(176, 16, 944, 328)
 lane_outline = SubResource("Resource_8me13")
-garden_presentation = true
+garden_presentation = false
 tee_position = Vector2(224, 112)
 hole_position = Vector2(1064, 120)
 initial_aim_offset = Vector2(96, 0)
 camera_center_bounds = Rect2(320, 180, 488, 0)
 surfaces = Array[ExtResource("7_it4o2")]([SubResource("Resource_ilop5")])
 arrow_tiles = Array[ExtResource("1_6ce33")]([SubResource("Resource_os42g"), SubResource("Resource_2srp7"), SubResource("Resource_1jy1w"), SubResource("Resource_dkalt"), SubResource("Resource_clutg"), SubResource("Resource_qkj4k"), SubResource("Resource_marna"), SubResource("Resource_bsop0"), SubResource("Resource_c7t3i"), SubResource("Resource_xddim"), SubResource("Resource_vpopk"), SubResource("Resource_1nqh4"), SubResource("Resource_mojbl"), SubResource("Resource_fhnhk"), SubResource("Resource_ydkd2"), SubResource("Resource_uv5kq"), SubResource("Resource_2bdsn"), SubResource("Resource_mkwyk"), SubResource("Resource_i355r"), SubResource("Resource_j2gkq"), SubResource("Resource_7ud5d")])
+theme = ExtResource("world_theme")

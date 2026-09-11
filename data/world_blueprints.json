@@ -1,0 +1,1902 @@
+[
+	{
+		"cup": [
+			580.0,
+			176.0
+		],
+		"id": "classic_nine_01",
+		"key": "K1-01",
+		"par": 1,
+		"rebuilt": false,
+		"risk": "Faire Ass-Aufgabe genügt.",
+		"source": "classic_nine_01",
+		"task": "Freie Gerade; vom Abschlag kontrolliert in das breite Zielfeld putten.",
+		"tee": [
+			220.0,
+			176.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			575.0,
+			72.0
+		],
+		"id": "classic_nine_02",
+		"key": "K1-02",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "Präzise Bandenlinie am Kreis vorbei.",
+		"source": "classic_nine_02",
+		"task": "Einzelnen Kreis umspielen; seitlich vorlegen, dann zum Loch.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			575.0,
+			74.0
+		],
+		"id": "classic_nine_03",
+		"key": "K1-03",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "Bogen und Ziel in einer durchgehenden Linie.",
+		"source": "classic_nine_03",
+		"task": "Durch einen angeschlossenen Bogen in die Zielgerade spielen; ruhiger Auslauf.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			464.0,
+			176.0
+		],
+		"id": "classic_nine_04",
+		"key": "K1-04",
+		"par": 1,
+		"rebuilt": true,
+		"risk": "Faire Ass-Aufgabe mit dosierter Kraft.",
+		"source": "classic_nine_04",
+		"task": "Den vollflaechig roten Kreis gegen die nach links gerichtete Steigung zum mittigen Loch anspielen.",
+		"tee": [
+			220.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				464.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			575.0,
+			72.0
+		],
+		"id": "classic_nine_05",
+		"key": "K1-05",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "Engere diagonale Linie durch beide Kreise.",
+		"source": "classic_nine_05",
+		"task": "Zwei versetzte Kreise über breite Zwischenpositionen passieren.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			400.0,
+			176.0
+		],
+		"id": "classic_nine_06",
+		"key": "K1-06",
+		"par": 6,
+		"rebuilt": true,
+		"risk": "Boegen mit Bandenanschlaegen in weniger Schlaegen verbinden.",
+		"source": "classic_nine_06",
+		"task": "Vom aeusseren Abschlag nach oben und durch die gerundete Spirale bis zum Loch in der Mitte spielen.",
+		"tee": [
+			224.0,
+			280.0
+		],
+		"waypoints": [
+			[
+				240.0,
+				88.0
+			],
+			[
+				552.0,
+				88.0
+			],
+			[
+				552.0,
+				280.0
+			],
+			[
+				312.0,
+				280.0
+			],
+			[
+				312.0,
+				184.0
+			],
+			[
+				400.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			256.0
+		],
+		"id": "stadtpark_07",
+		"key": "K1-07",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Einbandenschlag um die Ecke.",
+		"source": "Neu",
+		"task": "L-Kontur mit 45-Grad-Diagonalen an beiden aeusseren Umlenkecken; vorlegen und in den Zielarm spielen.",
+		"tee": [
+			224.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				400.0,
+				96.0
+			],
+			[
+				400.0,
+				256.0
+			],
+			[
+				568.0,
+				256.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			184.0
+		],
+		"id": "stadtpark_08",
+		"key": "K1-08",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Kürzerer enger Innenweg um dieselbe Insel.",
+		"source": "Neu",
+		"task": "Eine geschlossene Beetinsel auf dem breiten äußeren Weg umspielen.",
+		"tee": [
+			232.0,
+			184.0
+		],
+		"waypoints": [
+			[
+				296.0,
+				96.0
+			],
+			[
+				496.0,
+				96.0
+			],
+			[
+				552.0,
+				184.0
+			]
+		]
+	},
+	{
+		"cup": [
+			544.0,
+			80.0
+		],
+		"id": "stadtpark_09",
+		"key": "K1-09",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Beide bekannten Aufgaben in einem Schlag verbinden.",
+		"source": "Neu",
+		"task": "Außenbogen und anschließende Bandenlinie verbinden; breite Zwischenablage.",
+		"tee": [
+			288.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				232.0
+			],
+			[
+				488.0,
+				232.0
+			],
+			[
+				544.0,
+				80.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "duenenkueste_01",
+		"key": "K2-01",
+		"par": 1,
+		"rebuilt": true,
+		"risk": "In einem Zug bis zum Loch.",
+		"source": "Neu",
+		"task": "Einen kurzen Sandstreifen mit ausreichender Kraft queren; großer Auslauf.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			88.0
+		],
+		"id": "prototype_04",
+		"key": "K2-02",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Enger am Ufer in die Zielrichtung rollen.",
+		"source": "prototype_04",
+		"task": "Sandpassage dosieren, vor dem Wasser ablegen und ins Zielfeld abbiegen.",
+		"tee": [
+			220.0,
+			280.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			568.0,
+			240.0
+		],
+		"id": "duenenkueste_03",
+		"key": "K2-03",
+		"par": 5,
+		"rebuilt": true,
+		"risk": "Bandenfolge durch beide Öffnungen.",
+		"source": "Neu",
+		"task": "Versetzte statische Riegel entlang des Ufers in zwei Abschnitten passieren.",
+		"tee": [
+			232.0,
+			104.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				232.0
+			],
+			[
+				392.0,
+				232.0
+			],
+			[
+				392.0,
+				120.0
+			],
+			[
+				536.0,
+				120.0
+			],
+			[
+				568.0,
+				240.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "duenenkueste_04",
+		"key": "K2-04",
+		"par": 1,
+		"rebuilt": true,
+		"risk": "Sand mit höherem Tempo durchspielen.",
+		"source": "Neu",
+		"task": "Flaches Gefälle nutzen und im Sand vor der Zielkammer abbremsen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			184.0
+		],
+		"id": "duenenkueste_05",
+		"key": "K2-05",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Schmalere Linie zwischen Insel und Wasser.",
+		"source": "Neu",
+		"task": "Kurze kreisförmige Insel umspielen; breite trockene Ablage am Außenrand.",
+		"tee": [
+			232.0,
+			184.0
+		],
+		"waypoints": [
+			[
+				296.0,
+				96.0
+			],
+			[
+				496.0,
+				96.0
+			],
+			[
+				552.0,
+				184.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			88.0
+		],
+		"id": "prototype_06",
+		"key": "K2-06",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Kehre ohne Zwischenstopp treffen.",
+		"source": "prototype_06",
+		"task": "Abfahrt, quer gespielte Kehre und unterstützten Rücklauf kontrollieren.",
+		"tee": [
+			264.0,
+			88.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			552.0,
+			88.0
+		],
+		"id": "prototype_08",
+		"key": "K2-07",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Kurve mit präziser Kraft durchrollen.",
+		"source": "prototype_08",
+		"task": "Durch den konzentrischen Wendekanal bis zum rückwärtigen Ziel spielen.",
+		"tee": [
+			264.0,
+			88.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			568.0,
+			256.0
+		],
+		"id": "duenenkueste_08",
+		"key": "K2-08",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Sandquerung und Bande verbinden.",
+		"source": "Neu",
+		"task": "Sand queren und eine Bande zum trockenen Zielarm nutzen.",
+		"tee": [
+			224.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				400.0,
+				96.0
+			],
+			[
+				400.0,
+				256.0
+			],
+			[
+				568.0,
+				256.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			96.0
+		],
+		"id": "duenenkueste_09",
+		"key": "K2-09",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Engere Küstenlinie spart eine Ablage.",
+		"source": "Neu",
+		"task": "Sandanlauf, Uferkehre und breites Zielplateau als Abschluss verbinden.",
+		"tee": [
+			232.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				232.0,
+				256.0
+			],
+			[
+				552.0,
+				256.0
+			],
+			[
+				552.0,
+				96.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "muehlental_01",
+		"key": "K3-01",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Durchfahrt direkt bis zum Loch.",
+		"source": "Neu",
+		"task": "Zwei versetzte Rotoren mit geschützter Zwischenablage passieren.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				408.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "muehlental_02",
+		"key": "K3-02",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Längere Direktlinie im gleichen Zeitfenster.",
+		"source": "Neu",
+		"task": "Einzelnes Schiebetor beobachten, Öffnung abwarten, hindurchputten.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "muehlental_03",
+		"key": "K3-03",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Dosierter Übergang bis ins Zielfeld.",
+		"source": "Neu",
+		"task": "Wippe über die niedrige Stirnseite betreten, kippen lassen und ausrollen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			528.0,
+			88.0
+		],
+		"id": "muehlental_04",
+		"key": "K3-04",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Engere Bandenlinie am Teich.",
+		"source": "Neu",
+		"task": "Ruhige statische Bogenbahn am Wasser; sichere äußere Ablage.",
+		"tee": [
+			288.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				232.0
+			],
+			[
+				488.0,
+				232.0
+			],
+			[
+				528.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			1090.0,
+			65.0
+		],
+		"id": "reference_01",
+		"key": "K3-05",
+		"par": 5,
+		"rebuilt": false,
+		"risk": "Kurve und Rotorpassage verbinden.",
+		"source": "reference_01",
+		"task": "S-Weg vorlegen, Rotorfenster nutzen und hinter der Mühle stoppen.",
+		"tee": [
+			220.0,
+			285.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			528.0,
+			88.0
+		],
+		"id": "muehlental_06",
+		"key": "K3-06",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Mit passendem Tempo durch Tor und Bogen.",
+		"source": "Neu",
+		"task": "Nach einem Tor in eine Bogenkammer rollen; Tor und Ziel getrennt anspielen.",
+		"tee": [
+			288.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				232.0
+			],
+			[
+				488.0,
+				232.0
+			],
+			[
+				528.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			960.0,
+			70.0
+		],
+		"id": "double_gate_03",
+		"key": "K3-07",
+		"par": 5,
+		"rebuilt": false,
+		"risk": "Beide Öffnungen in einer Durchfahrt nutzen.",
+		"source": "double_gate_03",
+		"task": "Zwei Tore mit sicherem Zwischenraum nacheinander passieren.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			664.0,
+			176.0
+		],
+		"id": "muehlental_08",
+		"key": "K3-08",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Auslauf der Wippe im Rotorfenster nutzen.",
+		"source": "Neu",
+		"task": "Wippe und danach Rotor in getrennten Abschnitten überwinden.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				648.0,
+				176.0
+			],
+			[
+				664.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			656.0,
+			88.0
+		],
+		"id": "muehlental_09",
+		"key": "K3-09",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Zwei Teilaufgaben pro Schlag verbinden.",
+		"source": "Neu",
+		"task": "Rotor, Schleuse und Zielbogen mit zwei geschützten Ablagen verbinden.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				648.0,
+				176.0
+			],
+			[
+				656.0,
+				176.0
+			],
+			[
+				656.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			580.0,
+			100.0
+		],
+		"id": "arrow_armageddon_01",
+		"key": "K4-01",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "In einem Zug bis ins Ziel.",
+		"source": "arrow_armageddon_01",
+		"task": "Flaches Pflichtfeld als Anschub nutzen, anschließend auf Grün stoppen.",
+		"tee": [
+			220.0,
+			180.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			575.0,
+			70.0
+		],
+		"id": "arrow_armageddon_02",
+		"key": "K4-02",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Direkte Querung ins Zielfeld.",
+		"source": "arrow_armageddon_02",
+		"task": "Diagonalgefälle mit seitlich versetztem Anspiel ausgleichen.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			580.0,
+			180.0
+		],
+		"id": "arrow_armageddon_03",
+		"key": "K4-03",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "Engere Linie mit weniger Vorlegen.",
+		"source": "arrow_armageddon_03",
+		"task": "Seitlichen Zug durch passende Vorhalteposition kontrollieren.",
+		"tee": [
+			220.0,
+			180.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			936.0,
+			176.0
+		],
+		"id": "prototype_05",
+		"key": "K4-04",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Beide Kuppen bei genauer Kraft verbinden.",
+		"source": "prototype_05",
+		"task": "Zwei Kuppen mit getrennten Anspielräumen überwinden.",
+		"tee": [
+			232.0,
+			176.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			568.0,
+			256.0
+		],
+		"id": "bergpass_05",
+		"key": "K4-05",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Einbandenlinie durch die Kehre.",
+		"source": "Neu",
+		"task": "Kurze ebene Kehre als Entlastung; vor der Zielgeraden ablegen.",
+		"tee": [
+			224.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				400.0,
+				96.0
+			],
+			[
+				400.0,
+				256.0
+			],
+			[
+				568.0,
+				256.0
+			]
+		]
+	},
+	{
+		"cup": [
+			580.0,
+			180.0
+		],
+		"id": "arrow_armageddon_04",
+		"key": "K4-06",
+		"par": 2,
+		"rebuilt": false,
+		"risk": "Den Wechsel ohne Zwischenstopp kontrollieren.",
+		"source": "arrow_armageddon_04",
+		"task": "Gegensinnige Gefälleabschnitte nacheinander aus neutraler Ablage spielen.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			575.0,
+			70.0
+		],
+		"id": "arrow_armageddon_05",
+		"key": "K4-07",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Kürzere diagonale Folge durch das Kernfeld.",
+		"source": "arrow_armageddon_05",
+		"task": "Mehrere Hangrichtungen über zentrale Anspielbereiche lesen und passieren.",
+		"tee": [
+			220.0,
+			180.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			440.0,
+			176.0
+		],
+		"id": "bergpass_08",
+		"key": "K4-08",
+		"par": 1,
+		"rebuilt": true,
+		"risk": "Enger gefasstes Ziel direkt anspielen.",
+		"source": "Neu",
+		"task": "Steilen Aufstieg überwinden und auf breitem flachen Gipfelfeld stoppen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			96.0
+		],
+		"id": "bergpass_09",
+		"key": "K4-09",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Zwei Hangabschnitte mit einem Schlag.",
+		"source": "Neu",
+		"task": "Kuppe, seitlichen Hang und Rücklauf verbinden; Ablagen zwischen den Aufgaben.",
+		"tee": [
+			232.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				232.0,
+				256.0
+			],
+			[
+				552.0,
+				256.0
+			],
+			[
+				552.0,
+				96.0
+			]
+		]
+	},
+	{
+		"cup": [
+			552.0,
+			184.0
+		],
+		"id": "schlossgarten_01",
+		"key": "K5-01",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Präzise Bandenlinie um die Insel.",
+		"source": "Neu",
+		"task": "Geschlossene Brunneninsel auf breitem Weg umspielen.",
+		"tee": [
+			232.0,
+			184.0
+		],
+		"waypoints": [
+			[
+				296.0,
+				96.0
+			],
+			[
+				496.0,
+				96.0
+			],
+			[
+				552.0,
+				184.0
+			]
+		]
+	},
+	{
+		"cup": [
+			575.0,
+			70.0
+		],
+		"id": "classic_diamond_02",
+		"key": "K5-02",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Engere obere Flanke mit weniger Schlägen.",
+		"source": "classic_diamond_02",
+		"task": "Diamantinsel über die breite Flanke umspielen und zum Ziel vorlegen.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			960.0,
+			280.0
+		],
+		"id": "classic_nine_07",
+		"key": "K5-03",
+		"par": 3,
+		"rebuilt": false,
+		"risk": "Diagonale Bandenfolge verbindet die Wechsel.",
+		"source": "classic_nine_07",
+		"task": "Zwei erzwungene Seitenwechsel mit gut sichtbaren Durchgängen spielen.",
+		"tee": [
+			220.0,
+			72.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			960.0,
+			72.0
+		],
+		"id": "classic_nine_08",
+		"key": "K5-04",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Präzise durchgehende Linie zwischen den Kreisen.",
+		"source": "classic_nine_08",
+		"task": "Versetzte Kreise im Korridor aus breiten Ablagen passieren.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			568.0,
+			256.0
+		],
+		"id": "schlossgarten_05",
+		"key": "K5-05",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Faire Ass-Linie über eine Bande.",
+		"source": "Neu",
+		"task": "Kurze symmetrische Winkelaufgabe als Ruhepunkt des Kurses.",
+		"tee": [
+			224.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				400.0,
+				96.0
+			],
+			[
+				400.0,
+				256.0
+			],
+			[
+				568.0,
+				256.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			240.0
+		],
+		"id": "labyrinth_nine_02",
+		"key": "K5-06",
+		"par": 5,
+		"rebuilt": true,
+		"risk": "Je zwei Öffnungen mit einem Schlag.",
+		"source": "labyrinth_nine_02",
+		"task": "Drei kurze Kammern mit statischen versetzten Öffnungen lesen.",
+		"tee": [
+			232.0,
+			104.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				248.0
+			],
+			[
+				392.0,
+				248.0
+			],
+			[
+				392.0,
+				104.0
+			],
+			[
+				536.0,
+				104.0
+			],
+			[
+				568.0,
+				240.0
+			]
+		]
+	},
+	{
+		"cup": [
+			584.0,
+			248.0
+		],
+		"id": "labyrinth_nine_05",
+		"key": "K5-07",
+		"par": 6,
+		"rebuilt": true,
+		"risk": "Präzise Reflexionen an den Diagonalen.",
+		"source": "labyrinth_nine_05",
+		"task": "Geschlossene Diagonalinseln in wechselnder Richtung umspielen.",
+		"tee": [
+			232.0,
+			104.0
+		],
+		"waypoints": [
+			[
+				232.0,
+				232.0
+			],
+			[
+				392.0,
+				232.0
+			],
+			[
+				392.0,
+				120.0
+			],
+			[
+				568.0,
+				120.0
+			],
+			[
+				584.0,
+				248.0
+			]
+		]
+	},
+	{
+		"cup": [
+			220.0,
+			56.0
+		],
+		"id": "classic_nine_09",
+		"key": "K5-08",
+		"par": 5,
+		"rebuilt": false,
+		"risk": "Wendebogen ohne zusätzliche Ablage nutzen.",
+		"source": "classic_nine_09",
+		"task": "Haarnadel vollständig bis zum Ziel am Rücklaufende durchspielen.",
+		"tee": [
+			220.0,
+			280.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			544.0,
+			80.0
+		],
+		"id": "schlossgarten_09",
+		"key": "K5-09",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Engerer Innenweg spart einen Richtungswechsel.",
+		"source": "Neu",
+		"task": "Inselwahl, Seitenwechsel und Schlussbogen kombinieren.",
+		"tee": [
+			288.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				232.0
+			],
+			[
+				488.0,
+				232.0
+			],
+			[
+				544.0,
+				80.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "labyrinth_nine_01",
+		"key": "K6-01",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Direkt hinter dem Tor einlochen.",
+		"source": "labyrinth_nine_01",
+		"task": "Ein Schiebetor aus breiter Wartungsbucht passieren; übrige Mechanismen entfernen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "uhrwerkfabrik_02",
+		"key": "K6-02",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Rotorfenster für die längere Ziellinie nutzen.",
+		"source": "Neu",
+		"task": "Einzelnen Rotor in einer kurzen Pflichtöffnung passieren.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			360.0,
+			88.0
+		],
+		"id": "labyrinth_nine_03",
+		"key": "K6-03",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Exakt dosiert bis in den Zielraum rollen.",
+		"source": "labyrinth_nine_03",
+		"task": "Gedrehte Wippe mit klarer niedriger Einfahrt und freiem Auslauf überwinden.",
+		"tee": [
+			360.0,
+			280.0
+		],
+		"waypoints": [
+			[
+				360.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			256.0
+		],
+		"id": "uhrwerkfabrik_04",
+		"key": "K6-04",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Einbanden-Ass.",
+		"source": "Neu",
+		"task": "Kurze statische Bandenaufgabe zwischen Maschinenkulissen.",
+		"tee": [
+			224.0,
+			96.0
+		],
+		"waypoints": [
+			[
+				400.0,
+				96.0
+			],
+			[
+				400.0,
+				256.0
+			],
+			[
+				568.0,
+				256.0
+			]
+		]
+	},
+	{
+		"cup": [
+			872.0,
+			176.0
+		],
+		"id": "labyrinth_nine_06",
+		"key": "K6-05",
+		"par": 4,
+		"rebuilt": true,
+		"risk": "Zwei aufeinanderfolgende Abschnitte verbinden.",
+		"source": "labyrinth_nine_06",
+		"task": "Wippe, Tor und Rotor einzeln über geschützte Zwischenräume passieren.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				648.0,
+				176.0
+			],
+			[
+				856.0,
+				176.0
+			],
+			[
+				872.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			872.0,
+			176.0
+		],
+		"id": "labyrinth_nine_04",
+		"key": "K6-06",
+		"par": 4,
+		"rebuilt": true,
+		"risk": "Mehrere Öffnungen in einem Zeitfenster nutzen.",
+		"source": "labyrinth_nine_04",
+		"task": "Drei Tore in kurzen Kammern mit abgestimmten, beobachtbaren Phasen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				648.0,
+				176.0
+			],
+			[
+				856.0,
+				176.0
+			],
+			[
+				872.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			864.0,
+			88.0
+		],
+		"id": "labyrinth_nine_07",
+		"key": "K6-07",
+		"par": 5,
+		"rebuilt": true,
+		"risk": "Die mittlere Ablage durch genaue Durchfahrt sparen.",
+		"source": "labyrinth_nine_07",
+		"task": "Kreuzweg mit Tor und Rotor lesen, abschließende Wippe längs anspielen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				648.0,
+				176.0
+			],
+			[
+				856.0,
+				176.0
+			],
+			[
+				864.0,
+				176.0
+			],
+			[
+				864.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "uhrwerkfabrik_08",
+		"key": "K6-08",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Rotorfenster und kontrollierte Abfahrt verbinden.",
+		"source": "Neu",
+		"task": "Rotorpassage, danach kurze Gefälleabfahrt in sicheren Auffangraum.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				440.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			576.0,
+			176.0
+		],
+		"id": "labyrinth_nine_08",
+		"key": "K6-09",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Den passenden Durchlass für die direkte Ziellinie treffen.",
+		"source": "labyrinth_nine_08",
+		"task": "Verborgene Lochpaare im drehenden Zahnrad erkunden und den Zielarm der vierarmigen Kreuzung erreichen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				324.0,
+				176.0
+			],
+			[
+				576.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "tempelruinen_01",
+		"key": "K7-01",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Austrittsrichtung direkt zum Loch ausrichten.",
+		"source": "Neu",
+		"task": "Ein Tunnelpaar in zwei einfachen Räumen durchspielen; großer sicherer Auslauf.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "tempelruinen_02",
+		"key": "K7-02",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Bandenlinie durch Säulen und Tunnel verbinden.",
+		"source": "Neu",
+		"task": "Zwei statische Säulen umspielen und vor dem Tunnel kontrolliert ausrichten.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			280.0
+		],
+		"id": "tempelruinen_03",
+		"key": "K7-03",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Von der ersten Bande direkt bis ins Zielfeld.",
+		"source": "Neu",
+		"task": "Tunnel nach einem Winkel anspielen; Richtungserhalt für den Ausgang nutzen.",
+		"tee": [
+			224.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				176.0
+			],
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				280.0
+			]
+		]
+	},
+	{
+		"cup": [
+			528.0,
+			88.0
+		],
+		"id": "tempelruinen_04",
+		"key": "K7-04",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Präzise Ass-Linie durch den Bogen.",
+		"source": "Neu",
+		"task": "Kurzer offener Bogen ohne Tunnel als Entlastung.",
+		"tee": [
+			288.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				232.0
+			],
+			[
+				488.0,
+				232.0
+			],
+			[
+				528.0,
+				88.0
+			]
+		]
+	},
+	{
+		"cup": [
+			960.0,
+			100.0
+		],
+		"id": "arrow_armageddon_06",
+		"key": "K7-05",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Längere Abschnitte der Spirale durchrollen.",
+		"source": "arrow_armageddon_06",
+		"task": "Pflichtspirale bis zum inneren Tunnel und weiter in die getrennte Zielkammer spielen.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			760.0,
+			176.0
+		],
+		"id": "tempelruinen_06",
+		"key": "K7-06",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Ausrichtung beim ersten Eintritt erleichtert den zweiten.",
+		"source": "Neu",
+		"task": "Zwei Tunnelpaare nacheinander erkunden; jeder Ausgang besitzt sichere Ablage.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				536.0,
+				176.0
+			],
+			[
+				760.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			280.0
+		],
+		"id": "tempelruinen_07",
+		"key": "K7-07",
+		"par": 4,
+		"rebuilt": true,
+		"risk": "Engere Uferlinie nach der sicheren Landung.",
+		"source": "Neu",
+		"task": "Tunnelaustritt auf trockenem Podest, anschließend Uferbogen um Wasser.",
+		"tee": [
+			224.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				176.0
+			],
+			[
+				328.0,
+				176.0
+			],
+			[
+				552.0,
+				176.0
+			],
+			[
+				568.0,
+				280.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "tempelruinen_08",
+		"key": "K7-08",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Rotor und Tunneleintritt in einem Schlag.",
+		"source": "Neu",
+		"task": "Rotor vor dem Tunnel aus Wartezone passieren; Ausgang bleibt mechanikfrei.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			760.0,
+			280.0
+		],
+		"id": "labyrinth_nine_09",
+		"key": "K7-09",
+		"par": 4,
+		"rebuilt": true,
+		"risk": "Bandenfolge verkürzt Kammerdurchfahrt.",
+		"source": "labyrinth_nine_09",
+		"task": "Irrgarten auf drei lesbare Kammern kürzen; Tunnel verbindet letzte Kammer und Ziel.",
+		"tee": [
+			224.0,
+			88.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				176.0
+			],
+			[
+				328.0,
+				176.0
+			],
+			[
+				536.0,
+				176.0
+			],
+			[
+				760.0,
+				280.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "sternwarte_01",
+		"key": "K8-01",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Anfahrt ohne Zwischenablage.",
+		"source": "Neu",
+		"task": "Freie Kanone anspielen; auf großem trockenen Zielfeld landen und nachputten.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "sternwarte_02",
+		"key": "K8-02",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Schalter und Einfahrt in einem Schlag.",
+		"source": "Neu",
+		"task": "Gut sichtbaren Schalter passieren, freigeschaltete Kanone längs anspielen.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			960.0,
+			70.0
+		],
+		"id": "arrow_armageddon_07",
+		"key": "K8-03",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Mehrere Felder in einer durchgehenden Linie.",
+		"source": "arrow_armageddon_07",
+		"task": "Aufeinanderfolgende Pflichtgefälle mit neutralen Ablagen kontrollieren.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			1064.0,
+			120.0
+		],
+		"id": "prototype_07",
+		"key": "K8-04",
+		"par": 5,
+		"rebuilt": false,
+		"risk": "Längere Bandenlinie spart eine Ablage.",
+		"source": "prototype_07",
+		"task": "Zwei geometrische Richtungswechsel; Mechanikpause mit Blick auf die Kuppeln.",
+		"tee": [
+			224.0,
+			112.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			960.0,
+			286.0
+		],
+		"id": "arrow_armageddon_08",
+		"key": "K8-05",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Präzisere direkte Querung.",
+		"source": "arrow_armageddon_08",
+		"task": "Gegenläufiges Gefälle am Wasser durch klare Einfahrt und ruhigen Auslauf überwinden.",
+		"tee": [
+			220.0,
+			70.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			1090.0,
+			70.0
+		],
+		"id": "cannon_workshop_04",
+		"key": "K8-06",
+		"par": 4,
+		"rebuilt": false,
+		"risk": "Engere Einfahrt mit günstigerer Zielablage.",
+		"source": "cannon_workshop_04",
+		"task": "Schalter und Wahl zwischen sicherer und riskanter Kanone; getrennte Landezonen.",
+		"tee": [
+			220.0,
+			286.0
+		],
+		"waypoints": []
+	},
+	{
+		"cup": [
+			760.0,
+			176.0
+		],
+		"id": "sternwarte_07",
+		"key": "K8-07",
+		"par": 3,
+		"rebuilt": true,
+		"risk": "Landung auf der Anspiellinie der zweiten Kanone.",
+		"source": "Neu",
+		"task": "Zwei feste Kanonen mit sicherem Anspielraum zwischen den Flügen verbinden.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				536.0,
+				176.0
+			],
+			[
+				760.0,
+				176.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			240.0
+		],
+		"id": "arrow_armageddon_09",
+		"key": "K8-08",
+		"par": 6,
+		"rebuilt": true,
+		"risk": "Zwei Abschnitte ohne Stopp durchspielen.",
+		"source": "arrow_armageddon_09",
+		"task": "Bisherige lange Pfeilfolge auf drei prägnante Gefälleaufgaben mit Ruheflächen verdichten.",
+		"tee": [
+			232.0,
+			104.0
+		],
+		"waypoints": [
+			[
+				280.0,
+				232.0
+			],
+			[
+				392.0,
+				232.0
+			],
+			[
+				392.0,
+				120.0
+			],
+			[
+				536.0,
+				120.0
+			],
+			[
+				568.0,
+				240.0
+			]
+		]
+	},
+	{
+		"cup": [
+			568.0,
+			176.0
+		],
+		"id": "sternwarte_09",
+		"key": "K8-09",
+		"par": 2,
+		"rebuilt": true,
+		"risk": "Präzise Anfahrt und Ausrolllinie sparen eine Ablage.",
+		"source": "Neu",
+		"task": "Schalter, Kanonenflug und bekannte Gefällekurve zum breiten Schlussgrün verbinden.",
+		"tee": [
+			224.0,
+			176.0
+		],
+		"waypoints": [
+			[
+				328.0,
+				176.0
+			],
+			[
+				568.0,
+				176.0
+			]
+		]
+	}
+]

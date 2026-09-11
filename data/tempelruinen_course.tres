@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_xo7oj"]
+
+[resource]
+script = ExtResource("1_xo7oj")
+course_id = &"tempelruinen_course"
+display_name = "TEMPELRUINEN"
+best_score_revision = 2
+hole_ids = Array[StringName]([&"tempelruinen_01", &"tempelruinen_02", &"tempelruinen_03", &"tempelruinen_04", &"arrow_armageddon_06", &"tempelruinen_06", &"tempelruinen_07", &"tempelruinen_08", &"labyrinth_nine_09"])

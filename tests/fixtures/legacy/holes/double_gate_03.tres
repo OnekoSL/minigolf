@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_r1joi"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_d4ios"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="3_cdwcm"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_b6ml2"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="5_aef5p"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="6_b0ubf"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="7_5b8t1"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="8_gjv1w"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="9_evog7"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="10_atjp3"]
+
+[sub_resource type="Resource" id="Resource_sshwr"]
+script = ExtResource("3_cdwcm")
+points = PackedVector2Array(184, 168, 360, 168, 408, 120, 648, 120, 744, 24, 1000, 24, 1000, 136, 824, 136, 744, 216, 472, 216, 360, 328, 184, 328)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_wphgk"]
+script = ExtResource("4_b6ml2")
+obstacle_type = 1
+position = Vector2(475, 173)
+
+[sub_resource type="Resource" id="Resource_5xu5g"]
+script = ExtResource("4_b6ml2")
+obstacle_type = 1
+position = Vector2(595, 173)
+open_offset = Vector2(0, 100)
+phase_offset_seconds = 0.25
+
+[resource]
+script = ExtResource("5_aef5p")
+hole_id = &"double_gate_03"
+garden_presentation = true
+display_name = "DAS DOPPELTOR"
+course_rect = Rect2(176, 16, 832, 328)
+lane_outline = SubResource("Resource_sshwr")
+tee_position = Vector2(220, 286)
+hole_position = Vector2(960, 70)
+initial_aim_offset = Vector2(95, -35)
+camera_center_bounds = Rect2(320, 180, 376, 0)
+obstacles = Array[ExtResource("4_b6ml2")]([SubResource("Resource_wphgk"), SubResource("Resource_5xu5g")])

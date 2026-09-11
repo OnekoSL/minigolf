@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_obstacle"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(400, 12)
+size = Vector2(464, 8)
+
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(400, 348)
+size = Vector2(464, 8)
+
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(628, 180)
+size = Vector2(8, 344)
+
+[sub_resource type="Resource" id="Wall_inner"]
+script = ExtResource("2_wall")
+center = Vector2(420, 209)
+size = Vector2(120, 8)
+
+[sub_resource type="Resource" id="Surface_sand"]
+script = ExtResource("3_surface")
+rect = Rect2(245, 250, 110, 50)
+surface_type = 0
+deceleration = 260.0
+
+[sub_resource type="Resource" id="Surface_slope"]
+script = ExtResource("3_surface")
+rect = Rect2(425, 225, 90, 60)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 1
+slope_strength = 90.0
+
+[sub_resource type="Resource" id="Surface_water"]
+script = ExtResource("3_surface")
+rect = Rect2(320, 130, 150, 45)
+surface_type = 2
+deceleration = 120.0
+
+[sub_resource type="Resource" id="Obstacle_windmill"]
+script = ExtResource("4_obstacle")
+position = Vector2(520, 112)
+blade_size = Vector2(72, 8)
+seconds_per_revolution = 2.4
+impulse_multiplier = 1.25
+minimum_kick_speed = 55.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"allround_test"
+display_name = "ALLROUND-TESTLOCH"
+category = 1
+par = 4
+course_rect = Rect2(176, 16, 448, 328)
+tee_position = Vector2(220, 305)
+hole_position = Vector2(575, 55)
+initial_aim_offset = Vector2(60, 0)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_inner")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Surface_sand"), SubResource("Surface_slope"), SubResource("Surface_water")])
+obstacles = Array[ExtResource("4_obstacle")]([SubResource("Obstacle_windmill")])

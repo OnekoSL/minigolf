@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_jhau4"]
+
+[resource]
+script = ExtResource("1_jhau4")
+course_id = &"schlossgarten_course"
+display_name = "SCHLOSSGARTEN"
+hole_ids = Array[StringName]([&"schlossgarten_01", &"classic_diamond_02", &"classic_nine_07", &"classic_nine_08", &"schlossgarten_05", &"labyrinth_nine_02", &"labyrinth_nine_05", &"classic_nine_09", &"schlossgarten_09"])

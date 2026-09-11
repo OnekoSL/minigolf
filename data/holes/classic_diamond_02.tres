@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="9_683mt"]
 [ext_resource type="Script" path="res://src/wall_definition.gd" id="10_ujfwf"]
 
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_12rqb"]
 script = ExtResource("3_p4bc1")
 points = PackedVector2Array(184, 24, 616, 24, 616, 328, 184, 328)
@@ -119,11 +121,12 @@ variant = 5
 [resource]
 script = ExtResource("5_vbodg")
 hole_id = &"classic_diamond_02"
-garden_presentation = true
-display_name = "DIE DIAMANTENLINIE"
+garden_presentation = false
+display_name = "DIAMANTGARTEN"
 par = 3
 lane_outline = SubResource("Resource_12rqb")
 tee_position = Vector2(220, 286)
 hole_position = Vector2(575, 70)
 initial_aim_offset = Vector2(90, -30)
 wall_tiles = Array[ExtResource("9_683mt")]([SubResource("Resource_rnd6u"), SubResource("Resource_0m7l8"), SubResource("Resource_v11ym"), SubResource("Resource_5iw32"), SubResource("Resource_3mug4"), SubResource("Resource_22jps"), SubResource("Resource_5m5v8"), SubResource("Resource_q7vu6"), SubResource("Resource_d3keq"), SubResource("Resource_x1xy8"), SubResource("Resource_d6qxf"), SubResource("Resource_36ijh"), SubResource("Resource_x0t7c"), SubResource("Resource_u71j8"), SubResource("Resource_7h7s5"), SubResource("Resource_vgfp8"), SubResource("Resource_0o0hu"), SubResource("Resource_jt472"), SubResource("Resource_cndmw"), SubResource("Resource_oum8q")])
+theme = ExtResource("world_theme")

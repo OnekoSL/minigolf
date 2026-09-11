@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CourseDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_course"]
+
+[resource]
+script = ExtResource("1_course")
+course_id = &"prototype_course_03"
+display_name = "PROTOTYPKURS"
+hole_ids = Array[StringName]([&"reference_01", &"classic_diamond_02", &"double_gate_03", &"prototype_04", &"prototype_05", &"prototype_06", &"prototype_07", &"prototype_08", &"cannon_workshop_04"])
+allow_technical_holes = false
+best_score_revision = 6

@@ -20,7 +20,7 @@ static func run(host: Node, check: Callable) -> void:
 		],
 	}
 	for hole_id in routes:
-		var definition: HoleDefinition = load("res://data/holes/%s.tres" % hole_id)
+		var definition := LegacyCourseFixtures.holes().get_hole(hole_id)
 		var hole_check := func(condition: bool, label: String) -> void:
 			check.call(condition, "%s: %s" % [hole_id, label])
 		_geometry(definition, hole_check)

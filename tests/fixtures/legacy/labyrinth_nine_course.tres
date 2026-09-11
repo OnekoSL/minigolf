@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_course"]
+
+[resource]
+script = ExtResource("1_course")
+course_id = &"labyrinth_nine_course"
+display_name = "LABYRINTH-NEUN"
+best_score_revision = 4
+hole_ids = Array[StringName]([&"labyrinth_nine_01", &"labyrinth_nine_02", &"labyrinth_nine_03", &"labyrinth_nine_04", &"labyrinth_nine_05", &"labyrinth_nine_06", &"labyrinth_nine_07", &"labyrinth_nine_08", &"labyrinth_nine_09"])

@@ -98,7 +98,7 @@ func _simulate_hole_route(hole_id: StringName, shots: Array, obstacle_mode := &"
 
 
 func _instantiate_hole(hole_id: StringName) -> HoleRuntime:
-	var catalog := HoleCatalog.load_default()
+	var catalog := LegacyCourseFixtures.holes()
 	var definition := catalog.get_hole(hole_id)
 	assert(definition != null, "Unbekannte Bahn-ID: %s" % hole_id)
 	var runtime := HoleRuntime.new()

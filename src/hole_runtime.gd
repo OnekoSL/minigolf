@@ -246,9 +246,11 @@ func _draw() -> void:
 	if definition == null:
 		return
 	if definition.lane_outline != null:
-		draw_rect(definition.course_rect, Color("#183626"), true)
-		draw_colored_polygon(definition.lane_outline.get_floor_points(), Color("#347a4a"))
-		if definition.garden_presentation:
+		draw_rect(definition.course_rect, definition.theme.background if definition.theme != null else Color("#183626"), true)
+		draw_colored_polygon(definition.lane_outline.get_floor_points(), definition.theme.turf if definition.theme != null else Color("#347a4a"))
+		if definition.theme != null:
+			definition.theme.draw_scenery(self, definition)
+		elif definition.garden_presentation:
 			_draw_garden()
 		return
 	draw_rect(definition.course_rect, Color("#347a4a"), true)

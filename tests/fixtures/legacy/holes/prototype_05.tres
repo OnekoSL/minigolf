@@ -1,0 +1,291 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_0shwl"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_hkwmx"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_oo12m"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_u5okq"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_eb0gd"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_tauwe"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_gpauj"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="8_jlu6b"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_8qbsu"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_f6l31"]
+
+[sub_resource type="Resource" id="Resource_aayml"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(22, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_yfadn"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(23, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_xuols"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(22, 9)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_2v38l"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(23, 9)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_u1qau"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(22, 10)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_dbav2"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(23, 10)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_warwx"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(22, 11)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_davjm"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(23, 11)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_lkhbw"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(22, 12)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_5nrde"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(23, 12)
+grid_offset = Vector2i(8, 8)
+direction = 6
+
+[sub_resource type="Resource" id="Resource_a21me"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(24, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_p3w7d"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(25, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_phrf6"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(24, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_etgob"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(25, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_ks6bs"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(24, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_w3lau"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(25, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_mmnmc"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(24, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_s830x"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(25, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_is6wd"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(24, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_4sdqo"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(25, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_t16ik"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(42, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_fupmt"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(43, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_hcr1i"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(42, 9)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_74vj7"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(43, 9)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_02nme"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(42, 10)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_h23r0"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(43, 10)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_8pia6"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(42, 11)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_u2h75"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(43, 11)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_4qdol"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(42, 12)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_po2og"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(43, 12)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_yl68c"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(44, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_3nmbu"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(45, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_vpcrs"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(44, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_08sni"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(45, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_dd73q"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(44, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wj3xs"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(45, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_oak88"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(44, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_fiyuy"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(45, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_s7ppj"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(44, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wm0bg"]
+script = ExtResource("1_0shwl")
+grid_cell = Vector2i(45, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_c1tih"]
+script = ExtResource("4_u5okq")
+points = PackedVector2Array(184, 104, 312, 104, 344, 136, 472, 136, 504, 104, 632, 104, 664, 136, 792, 136, 824, 104, 984, 104, 984, 248, 824, 248, 792, 216, 664, 216, 632, 248, 504, 248, 472, 216, 344, 216, 312, 248, 184, 248)
+use_normalized_walls = true
+
+[resource]
+script = ExtResource("6_tauwe")
+hole_id = &"prototype_05"
+display_name = "DOPPELHUEGEL"
+par = 3
+course_rect = Rect2(176, 16, 816, 328)
+lane_outline = SubResource("Resource_c1tih")
+garden_presentation = true
+tee_position = Vector2(232, 176)
+hole_position = Vector2(936, 176)
+initial_aim_offset = Vector2(96, 0)
+camera_center_bounds = Rect2(320, 180, 360, 0)
+arrow_tiles = Array[ExtResource("1_0shwl")]([SubResource("Resource_aayml"), SubResource("Resource_yfadn"), SubResource("Resource_xuols"), SubResource("Resource_2v38l"), SubResource("Resource_u1qau"), SubResource("Resource_dbav2"), SubResource("Resource_warwx"), SubResource("Resource_davjm"), SubResource("Resource_lkhbw"), SubResource("Resource_5nrde"), SubResource("Resource_a21me"), SubResource("Resource_p3w7d"), SubResource("Resource_phrf6"), SubResource("Resource_etgob"), SubResource("Resource_ks6bs"), SubResource("Resource_w3lau"), SubResource("Resource_mmnmc"), SubResource("Resource_s830x"), SubResource("Resource_is6wd"), SubResource("Resource_4sdqo"), SubResource("Resource_t16ik"), SubResource("Resource_fupmt"), SubResource("Resource_hcr1i"), SubResource("Resource_74vj7"), SubResource("Resource_02nme"), SubResource("Resource_h23r0"), SubResource("Resource_8pia6"), SubResource("Resource_u2h75"), SubResource("Resource_4qdol"), SubResource("Resource_po2og"), SubResource("Resource_yl68c"), SubResource("Resource_3nmbu"), SubResource("Resource_vpcrs"), SubResource("Resource_08sni"), SubResource("Resource_dd73q"), SubResource("Resource_wj3xs"), SubResource("Resource_oak88"), SubResource("Resource_fiyuy"), SubResource("Resource_s7ppj"), SubResource("Resource_wm0bg")])

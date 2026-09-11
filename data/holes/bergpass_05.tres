@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_aguxj"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_wm3io"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_4iiaj"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_isbqn"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_jfc4w"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_d2a41"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_3krtm"]
+[ext_resource type="Resource" path="res://data/themes/bergpass.tres" id="8_utukd"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_37w0f"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_m52pi"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_8fkbk"]
+
+[sub_resource type="Resource" id="Resource_bmfm1"]
+script = ExtResource("4_isbqn")
+points = PackedVector2Array(184, 56, 440, 56, 440, 216, 600, 216, 600, 296, 360, 296, 360, 136, 184, 136)
+use_normalized_walls = true
+
+[resource]
+script = ExtResource("6_d2a41")
+hole_id = &"bergpass_05"
+display_name = "BERGHUETTE"
+par = 3
+lane_outline = SubResource("Resource_bmfm1")
+theme = ExtResource("8_utukd")
+tee_position = Vector2(224, 96)
+hole_position = Vector2(568, 256)
+initial_aim_offset = Vector2(64, 0)

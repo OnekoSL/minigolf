@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_6rl34"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_d4mo0"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_3vxec"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_1ji45"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_wg2ne"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_ob4su"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_gearh"]
+[ext_resource type="Resource" path="res://data/themes/muehlental.tres" id="8_hlcq7"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_2nhf5"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_lhlku"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_4q656"]
+
+[sub_resource type="Resource" id="Resource_r8cjs"]
+script = ExtResource("4_1ji45")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_dn41b"]
+script = ExtResource("5_wg2ne")
+position = Vector2(360, 188)
+blade_size = Vector2(40, 8)
+seconds_per_revolution = 5.0
+minimum_kick_speed = 35.0
+
+[sub_resource type="Resource" id="Resource_second_rotor"]
+script = ExtResource("5_wg2ne")
+position = Vector2(456, 160)
+blade_size = Vector2(32, 8)
+seconds_per_revolution = 8.0
+minimum_kick_speed = 35.0
+
+[resource]
+script = ExtResource("6_ob4su")
+hole_id = &"muehlental_01"
+display_name = "ERSTE MUEHLE"
+par = 2
+lane_outline = SubResource("Resource_r8cjs")
+theme = ExtResource("8_hlcq7")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+obstacles = Array[ExtResource("5_wg2ne")]([SubResource("Resource_dn41b"), SubResource("Resource_second_rotor")])

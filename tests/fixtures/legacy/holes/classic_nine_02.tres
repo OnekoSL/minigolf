@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="5_arrow"]
+
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(184, 232, 280, 232, 440, 72, 440, 40, 616, 40, 616, 152, 520, 152, 344, 328, 184, 328)
+wall_thickness = 4.0
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Circle_center"]
+script = ExtResource("3_wall")
+wall_type = 1
+center = Vector2(400, 180)
+radius = 28.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"classic_nine_02"
+display_name = "AM RUNDEN STEIN"
+par = 2
+course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Lane_outline")
+tee_position = Vector2(220, 286)
+hole_position = Vector2(575, 72)
+initial_aim_offset = Vector2(92, -42)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = Array[ExtResource("3_wall")]([SubResource("Circle_center")])
+wall_tiles = Array[ExtResource("4_wall_tile")]([])
+surfaces = []
+arrow_tiles = Array[ExtResource("5_arrow")]([])
+obstacles = []
+triggers = []
+cannons = []

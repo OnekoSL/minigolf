@@ -3,8 +3,8 @@ extends "res://tests/test_support.gd"
 
 func _test_labyrinth_nine_course() -> void:
 	print("\n[Kurs: Labyrinth-Neun]")
-	var holes := HoleCatalog.load_default()
-	var courses := CourseCatalog.load_default()
+	var holes := LegacyCourseFixtures.holes()
+	var courses := LegacyCourseFixtures.courses()
 	var course := courses.get_course(&"labyrinth_nine_course")
 	_check(course != null, "Labyrinth-Neun wird als eigener Kurs geladen")
 	if course == null:

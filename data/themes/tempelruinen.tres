@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_sg67s"]
+
+[resource]
+script = ExtResource("1_sg67s")
+theme_id = &"tempelruinen"
+background = Color(0.27058825, 0.24313726, 0.19607843, 1)
+turf = Color(0.40784314, 0.49411765, 0.30588236, 1)
+wall = Color(0.88235295, 0.8, 0.6117647, 1)
+trim = Color(0.48235294, 0.39607844, 0.2784314, 1)
+accent = Color(0.83137256, 0.6313726, 0.34117648, 1)
+foliage = Color(0.60784316, 0.5411765, 0.3764706, 1)
+motif = 6

@@ -23,6 +23,7 @@ const STEEP_SLOPE_ACCELERATION := 150.0
 var zone_size := Vector2(64.0, 32.0)
 var is_atomic_arrow_tile := false
 var arrow_tile_grade: SlopeGrade = SlopeGrade.SHALLOW
+var clip_polygon := PackedVector2Array()
 
 
 func configure(
@@ -150,11 +151,16 @@ func _ready() -> void:
 	collision_mask = 0
 	monitoring = false
 	monitorable = true
-	var collision := CollisionShape2D.new()
-	var shape := RectangleShape2D.new()
-	shape.size = zone_size
-	collision.shape = shape
-	add_child(collision)
+	if clip_polygon.is_empty():
+		var collision := CollisionShape2D.new()
+		var shape := RectangleShape2D.new()
+		shape.size = zone_size
+		collision.shape = shape
+		add_child(collision)
+	else:
+		var collision := CollisionPolygon2D.new()
+		collision.polygon = clip_polygon
+		add_child(collision)
 	queue_redraw()
 
 
@@ -171,14 +177,22 @@ func _draw() -> void:
 			var is_strong := slope_strength >= 120.0
 			var visual_grade := arrow_tile_grade if is_atomic_arrow_tile else slope_grade_from_strength(slope_strength)
 			var background := slope_color_for_grade(visual_grade)
-			draw_rect(rect, background, true)
+			if clip_polygon.is_empty():
+				draw_rect(rect, background, true)
+			else:
+				draw_colored_polygon(clip_polygon,background)
 			if is_flow:
 				draw_rect(rect.grow(-1.0), Color("#a8d98d"), false, 2.0)
 			var direction := acceleration.rotated(-rotation).normalized()
 			if direction == Vector2.ZERO:
 				direction = Vector2.UP
 			if is_atomic_arrow_tile:
-				draw_rect(rect, background.lightened(0.24), false, 1.0)
+				if clip_polygon.is_empty():
+					draw_rect(rect, background.lightened(0.24), false, 1.0)
+				else:
+					var outline := clip_polygon.duplicate()
+					outline.append(outline[0])
+					draw_polyline(outline,background.lightened(0.24),1.0)
 				_draw_slope_arrow(Vector2.ZERO, direction, is_strong, false, 0.5)
 			else:
 				var spacing := 20 if is_strong else 24
@@ -198,15 +212,26 @@ func _draw_slope_arrow(center: Vector2, direction: Vector2, is_strong: bool, is_
 	var neck := center + direction * 2.0 * visual_scale
 	var tip := center + direction * 8.0 * visual_scale
 	var stroke := maxf(1.0, 2.0 * visual_scale)
-	draw_line(tail, neck, color, stroke)
-	draw_line(tip, neck + perpendicular * 4.0 * visual_scale, color, stroke)
-	draw_line(tip, neck - perpendicular * 4.0 * visual_scale, color, stroke)
+	_draw_arrow_line(tail, neck, color, stroke)
+	_draw_arrow_line(tip, neck + perpendicular * 4.0 * visual_scale, color, stroke)
+	_draw_arrow_line(tip, neck - perpendicular * 4.0 * visual_scale, color, stroke)
 	if is_strong:
 		var second_neck := neck - direction * 5.0 * visual_scale
-		draw_line(neck, second_neck + perpendicular * 3.0 * visual_scale, color, maxf(1.0, 1.5 * visual_scale))
-		draw_line(neck, second_neck - perpendicular * 3.0 * visual_scale, color, maxf(1.0, 1.5 * visual_scale))
+		_draw_arrow_line(neck, second_neck + perpendicular * 3.0 * visual_scale, color, maxf(1.0, 1.5 * visual_scale))
+		_draw_arrow_line(neck, second_neck - perpendicular * 3.0 * visual_scale, color, maxf(1.0, 1.5 * visual_scale))
 	if is_flow:
-		draw_line(tail - direction * 3.0 * visual_scale, tail + direction * visual_scale, color, stroke)
+		_draw_arrow_line(tail - direction * 3.0 * visual_scale, tail + direction * visual_scale, color, stroke)
+
+
+func _draw_arrow_line(from: Vector2, to: Vector2, color: Color, width: float) -> void:
+	if clip_polygon.is_empty():
+		draw_line(from,to,color,width)
+		return
+	var normal := from.direction_to(to).orthogonal()*width*0.5
+	var stroke := PackedVector2Array([from+normal,to+normal,to-normal,from-normal])
+	for polygon in Geometry2D.intersect_polygons(stroke,clip_polygon):
+		if polygon.size() >= 3:
+			draw_colored_polygon(polygon,color)
 
 
 func get_surface_data() -> SurfaceSample:
@@ -225,4 +250,6 @@ func get_surface_data() -> SurfaceSample:
 func contains_global_point(point: Vector2) -> bool:
 	var rect := Rect2(-zone_size * 0.5, zone_size)
 	point = to_local(point)
+	if not clip_polygon.is_empty():
+		return Geometry2D.is_point_in_polygon(point,clip_polygon)
 	return rect.has_point(point)

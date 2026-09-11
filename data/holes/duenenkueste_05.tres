@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_8veey"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_krakk"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_d4tns"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_sesbv"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_3vmo0"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_f311t"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_yrau8"]
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="8_ac5rw"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_csmj7"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_vsvxq"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_vrju8"]
+
+[sub_resource type="Resource" id="Resource_quybu"]
+script = ExtResource("4_sesbv")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_ulrdi"]
+script = ExtResource("7_yrau8")
+rect = Rect2(344, 264, 112, 48)
+surface_type = 2
+deceleration = 120.0
+
+[sub_resource type="Resource" id="Resource_fgov0"]
+script = ExtResource("3_d4tns")
+wall_type = 1
+center = Vector2(392, 200)
+radius = 54.0
+
+[resource]
+script = ExtResource("6_f311t")
+hole_id = &"duenenkueste_05"
+display_name = "MUSCHELBUCHT"
+par = 3
+lane_outline = SubResource("Resource_quybu")
+theme = ExtResource("8_ac5rw")
+tee_position = Vector2(232, 184)
+hole_position = Vector2(552, 184)
+initial_aim_offset = Vector2(37.642986, -51.75911)
+walls = Array[ExtResource("3_d4tns")]([SubResource("Resource_fgov0")])
+surfaces = Array[ExtResource("7_yrau8")]([SubResource("Resource_ulrdi")])

@@ -3,8 +3,8 @@ extends "res://tests/test_support.gd"
 
 func _test_arrow_armageddon_course() -> void:
 	print("\n[Kurs: Pfeil-Armageddon]")
-	var holes := HoleCatalog.load_default()
-	var courses := CourseCatalog.load_default()
+	var holes := LegacyCourseFixtures.holes()
+	var courses := LegacyCourseFixtures.courses()
 	var course := courses.get_course(&"arrow_armageddon_course")
 	_check(course != null, "Pfeil-Armageddon wird als eigener Kurs geladen")
 	if course == null:

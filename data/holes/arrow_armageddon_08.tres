@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=99 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=100 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
 [ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
 [ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="3_arrow"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
 [ext_resource type="Script" path="res://src/surface_definition.gd" id="5_surface"]
+
+[ext_resource type="Resource" path="res://data/themes/sternwarte.tres" id="world_theme"]
 
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
@@ -567,7 +569,7 @@ slope_grade = 1
 [resource]
 script = ExtResource("1_hole")
 hole_id = &"arrow_armageddon_08"
-display_name = "GEGENSTROM"
+display_name = "GEGENBAHN"
 par = 4
 course_rect = Rect2(176, 16, 832, 328)
 lane_outline = SubResource("Lane_outline")
@@ -583,3 +585,6 @@ arrow_tiles = Array[ExtResource("3_arrow")]([SubResource("Arrow_1"), SubResource
 obstacles = []
 triggers = []
 cannons = []
+
+garden_presentation = false
+theme = ExtResource("world_theme")

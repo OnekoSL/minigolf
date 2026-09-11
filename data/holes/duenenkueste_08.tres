@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_prt4b"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_a4adx"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_ft3el"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_iiibx"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_wsp4r"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_krnbl"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_4slff"]
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="8_hxah6"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_18s3b"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_r2sl7"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_jnq2s"]
+
+[sub_resource type="Resource" id="Resource_t8eca"]
+script = ExtResource("4_iiibx")
+points = PackedVector2Array(184, 56, 440, 56, 440, 216, 600, 216, 600, 296, 360, 296, 360, 136, 184, 136)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_3hwy8"]
+script = ExtResource("7_4slff")
+rect = Rect2(280, 56, 48, 80)
+
+[sub_resource type="Resource" id="Resource_x6wyl"]
+script = ExtResource("7_4slff")
+rect = Rect2(456, 272, 128, 24)
+surface_type = 2
+deceleration = 120.0
+
+[resource]
+script = ExtResource("6_krnbl")
+hole_id = &"duenenkueste_08"
+display_name = "HAFENMAUER"
+par = 3
+lane_outline = SubResource("Resource_t8eca")
+theme = ExtResource("8_hxah6")
+tee_position = Vector2(224, 96)
+hole_position = Vector2(568, 256)
+initial_aim_offset = Vector2(64, 0)
+surfaces = Array[ExtResource("7_4slff")]([SubResource("Resource_3hwy8"), SubResource("Resource_x6wyl")])

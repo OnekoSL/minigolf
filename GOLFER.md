@@ -4,16 +4,16 @@ Stand: 10.09.2026. Alle Figuren sind direkt verfuegbar, ohne Ausruestungsboni od
 
 | Figur | Aussehen und Reaktion | Weite auf ebenem Gruen | Kraftzyklus | Genauigkeitszyklus | Perfektfenster | Max. Fehler |
 |---|---|---:|---:|---:|---:|---:|
-| Allrounder | Cap, Polo; freundlicher Jubel | 100 %, 230 dm | 4,0 s | 2,4 s | +/-0,05 | 8 Grad |
+| Ben (Allrounder) | Cap, Polo; freundlicher Jubel | 100 %, 230 dm | 4,0 s | 2,4 s | +/-0,05 | 8 Grad |
 | Mara | Visor, brauner Zopf, gerade Hose; kleines Faustzeichen und Nicken, bei Fehlern Schultern senken | 85 %, 195 dm | 5,2 s | 2,4 s | +/-0,05 | 8 Grad |
 | Bruno | Breite Statur, Cap, hochgekrempelte Aermel; erhobene Faust, unglaeubiger Blick | 125 %, 287 dm | 3,2 s | 2,4 s | +/-0,05 | 10 Grad |
 | Nika | Kurze dunkle Haare, Weste ueber hellem Shirt; kleine Faustbewegung, skeptische Putterpruefung | 95 %, 218 dm | 4,0 s | 1,8 s | +/-0,025 | 4 Grad |
 
-Zykluszeiten gelten fuer hin und zurueck. Alle Figuren beginnen bei etwa 1 dm. Maximale Ballgeschwindigkeit: `420 * sqrt(range_factor)`. Die Weiten sind gerundet und gelten ausschliesslich fuer ebenes Gruen. Die bestehende nichtlineare Winkel-Fehlerkurve bleibt bestehen; keine Zufallsfehler. Allrounder-Werte sind unveraendert.
+Zykluszeiten gelten fuer hin und zurueck. Alle Figuren beginnen bei etwa 1 dm. Maximale Ballgeschwindigkeit: `420 * sqrt(range_factor)`. Die Weiten sind gerundet und gelten ausschliesslich fuer ebenes Gruen. Die bestehende nichtlineare Winkel-Fehlerkurve bleibt bestehen; keine Zufallsfehler. Ben ist der bisherige Allrounder mit unveraenderten Werten. Seine interne ID bleibt `allrounder`, damit vorhandene Spielerprofile und Ressourcen kompatibel bleiben.
 
 ## Ressourcen und Ablauf
 
-Die Figurenauswahl zeigt fuenf segmentierte Vergleichsbalken: Reichweite, Kraft-Ruhe, Ziel-Ruhe, Richtungstreue und Perfektfenster. Laengere Balken bedeuten mehr Weite beziehungsweise leichtere Kontrolle; der helle Strich markiert den Allrounder. Werte kommen direkt aus den Profilen, jeder Balken wird auf den hoechsten Wert der vier Figuren normiert. Richtungstreue verwendet den Kehrwert des maximalen Winkelfehlers (der echte Fehlerwinkel steht daneben). Das Perfektfenster zeigt seinen Anteil an der gesamten Genauigkeitsskala. Die Anzeige aendert weder Spielwerte noch Bestwertrevisionen.
+Die Figurenauswahl zeigt fuenf segmentierte Vergleichsbalken: Reichweite, Kraft-Ruhe, Ziel-Ruhe, Richtungstreue und Perfektfenster. Laengere Balken bedeuten mehr Weite beziehungsweise leichtere Kontrolle; der helle Strich markiert Ben. Werte kommen direkt aus den Profilen, jeder Balken wird auf den hoechsten Wert der vier Figuren normiert. Richtungstreue verwendet den Kehrwert des maximalen Winkelfehlers (der echte Fehlerwinkel steht daneben). Das Perfektfenster zeigt seinen Anteil an der gesamten Genauigkeitsskala. Die Anzeige aendert weder Spielwerte noch Bestwertrevisionen.
 
 `data/golfers/*.tres` verwenden `GolferDefinition`. Diese Ressourcen enthalten ID, Anzeigename, Beschreibung, Atlas und Spielwerte. `PlayerProfile.golfer_id` ist standardmaessig `allrounder`; der vierte Parameter von `PlayerProfile.create` ist optional. Unbekannte IDs werden in der Rundenvalidierung abgelehnt, die isolierte Darstellung faellt auf den Allrounder zurueck.
 

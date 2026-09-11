@@ -3,8 +3,8 @@ extends "res://tests/test_support.gd"
 
 func _test_classic_nine_course() -> void:
 	print("\n[Kurs: Klassische Neun]")
-	var holes := HoleCatalog.load_default()
-	var courses := CourseCatalog.load_default()
+	var holes := LegacyCourseFixtures.holes()
+	var courses := LegacyCourseFixtures.courses()
 	var course := courses.get_course(&"classic_nine_course")
 	_check(course != null, "Klassische Neun wird als eigener Kurs geladen")
 	if course == null:

@@ -1,0 +1,125 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_dci6k"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_chxah"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_kloqv"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_0hbmn"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_gbqqt"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_v6fnw"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_1effw"]
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="8_o3vm4"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_7nnym"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_w4ecj"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_cch7t"]
+
+[sub_resource type="Resource" id="Resource_06inr"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(19, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_wwhot"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(20, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_sqhwl"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(21, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_xohyh"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(19, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_hocf4"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(20, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_777b0"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(21, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_iquaj"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(19, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_o4xjf"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(20, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_5ct0n"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(21, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_j4824"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(19, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_rusf0"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(20, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_ytmyh"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(21, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_ix758"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(19, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_7gajf"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(20, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_dxa7n"]
+script = ExtResource("1_dci6k")
+grid_cell = Vector2i(21, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_fw4rl"]
+script = ExtResource("4_0hbmn")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_631wi"]
+script = ExtResource("7_1effw")
+rect = Rect2(392, 136, 48, 80)
+
+[resource]
+script = ExtResource("6_v6fnw")
+hole_id = &"duenenkueste_04"
+display_name = "DUENENMULDE"
+par = 1
+lane_outline = SubResource("Resource_fw4rl")
+theme = ExtResource("8_o3vm4")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+surfaces = Array[ExtResource("7_1effw")]([SubResource("Resource_631wi")])
+arrow_tiles = Array[ExtResource("1_dci6k")]([SubResource("Resource_06inr"), SubResource("Resource_wwhot"), SubResource("Resource_sqhwl"), SubResource("Resource_xohyh"), SubResource("Resource_hocf4"), SubResource("Resource_777b0"), SubResource("Resource_iquaj"), SubResource("Resource_o4xjf"), SubResource("Resource_5ct0n"), SubResource("Resource_j4824"), SubResource("Resource_rusf0"), SubResource("Resource_ytmyh"), SubResource("Resource_ix758"), SubResource("Resource_7gajf"), SubResource("Resource_dxa7n")])

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CourseCatalog" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/course_catalog.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://tests/fixtures/legacy/prototype_course.tres" id="2_course"]
+[ext_resource type="Resource" path="res://tests/fixtures/legacy/classic_nine_course.tres" id="3_classic"]
+[ext_resource type="Resource" path="res://tests/fixtures/legacy/arrow_armageddon_course.tres" id="4_arrows"]
+[ext_resource type="Resource" path="res://tests/fixtures/legacy/reference_lanes_course.tres" id="5_references"]
+[ext_resource type="Resource" path="res://tests/fixtures/legacy/labyrinth_nine_course.tres" id="6_labyrinth"]
+
+[resource]
+script = ExtResource("1_catalog")
+courses = Array[CourseDefinition]([ExtResource("3_classic"), ExtResource("4_arrows"), ExtResource("5_references"), ExtResource("6_labyrinth"), ExtResource("2_course")])

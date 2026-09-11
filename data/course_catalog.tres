@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="CourseCatalog" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="CourseCatalog" format=3]
 
-[ext_resource type="Script" path="res://src/course_catalog.gd" id="1_catalog"]
-[ext_resource type="Resource" path="res://data/prototype_course.tres" id="2_course"]
-[ext_resource type="Resource" path="res://data/classic_nine_course.tres" id="3_classic"]
-[ext_resource type="Resource" path="res://data/arrow_armageddon_course.tres" id="4_arrows"]
-[ext_resource type="Resource" path="res://data/reference_lanes_course.tres" id="5_references"]
-[ext_resource type="Resource" path="res://data/labyrinth_nine_course.tres" id="6_labyrinth"]
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_aaob7"]
+[ext_resource type="Resource" path="res://data/stadtpark_course.tres" id="2_6p2qe"]
+[ext_resource type="Resource" path="res://data/duenenkueste_course.tres" id="3_f2ioj"]
+[ext_resource type="Resource" path="res://data/muehlental_course.tres" id="4_hmmtv"]
+[ext_resource type="Resource" path="res://data/bergpass_course.tres" id="5_8ptam"]
+[ext_resource type="Resource" path="res://data/schlossgarten_course.tres" id="6_maaio"]
+[ext_resource type="Resource" path="res://data/uhrwerkfabrik_course.tres" id="7_4qen0"]
+[ext_resource type="Resource" path="res://data/tempelruinen_course.tres" id="8_4pami"]
+[ext_resource type="Resource" path="res://data/sternwarte_course.tres" id="9_lclek"]
+[ext_resource type="Script" path="res://src/course_catalog.gd" id="10_84mml"]
 
 [resource]
-script = ExtResource("1_catalog")
-courses = Array[CourseDefinition]([ExtResource("3_classic"), ExtResource("4_arrows"), ExtResource("5_references"), ExtResource("6_labyrinth"), ExtResource("2_course")])
+script = ExtResource("10_84mml")
+courses = Array[ExtResource("1_aaob7")]([ExtResource("2_6p2qe"), ExtResource("3_f2ioj"), ExtResource("4_hmmtv"), ExtResource("5_8ptam"), ExtResource("6_maaio"), ExtResource("7_4qen0"), ExtResource("8_4pami"), ExtResource("9_lclek")])

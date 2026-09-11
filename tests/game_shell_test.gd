@@ -3,8 +3,8 @@ extends "res://tests/test_support.gd"
 
 func _test_game_shell() -> void:
 	print("\n[Spielrahmen und Rundentabelle]")
-	var holes := HoleCatalog.load_default()
-	var courses := CourseCatalog.load_default()
+	var holes := LegacyCourseFixtures.holes()
+	var courses := LegacyCourseFixtures.courses()
 	_check(courses != null, "Kurskatalog wird als typisierte Resource geladen")
 	_check(courses.validate(holes).is_empty(), "Kurskatalog verweist nur auf gueltige echte Loecher")
 	var course := courses.get_course(&"prototype_course_03")
@@ -188,6 +188,8 @@ func _test_game_shell() -> void:
 	var app := app_scene.instantiate() as GameApp
 	get_tree().root.add_child(app)
 	await get_tree().process_frame
+	app.hole_catalog = holes
+	app.course_catalog = courses
 	_check(app.current_screen == GameApp.ScreenState.TITLE, "App startet auf dem Titelbild statt direkt auf der Bahn")
 	app._show_mode()
 	app._go_back()
@@ -239,6 +241,10 @@ func _test_game_shell() -> void:
 	_check(app.current_screen == GameApp.ScreenState.FINAL, "Achter nicht eingelochter Schlag fuehrt zur Endtabelle")
 	_check(app.session.scores[0][0] == 8 and app.session.capped[0][0], "Gameplay meldet das Schlaglimit an die Rundentabelle")
 	app._start_round(long_config)
+	# This regression exercises the archived PAR-7 case explicitly; its current
+	# world edition has a different route and PAR.
+	app.gameplay.hole.configure(holes.get_hole(&"labyrinth_nine_08"))
+	app.gameplay._update_hud()
 	_check(app.gameplay.get_stroke_limit() == 10 and "0/10" in app.gameplay.hud.stroke_label.text, "PAR-7-Gameplay zeigt das dynamische Maximum von zehn Schlaegen")
 	app.gameplay.strokes = 9
 	app.gameplay._on_ball_stopped(app.gameplay.ball.position)

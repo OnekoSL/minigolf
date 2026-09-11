@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_kk7ad"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_rpj5q"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_4nod0"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_l8cs4"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_qw068"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_bp4wy"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_5g4w2"]
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="8_vy5dq"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_0cno7"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_8fwlo"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_h5oq4"]
+
+[sub_resource type="Resource" id="Resource_t4acq"]
+script = ExtResource("4_l8cs4")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_n3wyd"]
+script = ExtResource("7_5g4w2")
+rect = Rect2(344, 136, 48, 80)
+
+[resource]
+script = ExtResource("6_bp4wy")
+hole_id = &"duenenkueste_01"
+display_name = "STRANDZUGANG"
+par = 1
+lane_outline = SubResource("Resource_t4acq")
+theme = ExtResource("8_vy5dq")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+surfaces = Array[ExtResource("7_5g4w2")]([SubResource("Resource_n3wyd")])

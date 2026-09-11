@@ -16,7 +16,7 @@ const ROUTES := {
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Pfeil-Mittelteil: Pflichtquerschnitte und Tunnelroute]")
-	var holes := HoleCatalog.load_default()
+	var holes := LegacyCourseFixtures.holes()
 	for number in [4,5,6]:
 		var definition := holes.get_hole(StringName("arrow_armageddon_%02d" % number))
 		check.call(definition.validate().is_empty(), "%s: neue Passage ist kataloggueltig" % definition.hole_id)

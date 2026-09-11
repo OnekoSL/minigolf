@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/tunnel_definition.gd" id="9_m31v6"]
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="10_2hsl8"]
 
+[ext_resource type="Resource" path="res://data/themes/duenenkueste.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Resource_pmv52"]
 script = ExtResource("1_y2qqb")
 grid_cell = Vector2i(13, 8)
@@ -220,8 +222,9 @@ hole_id = &"prototype_06"
 display_name = "UFERKEHRE"
 par = 3
 lane_outline = SubResource("Resource_giswm")
-garden_presentation = true
+garden_presentation = false
 tee_position = Vector2(264, 88)
 hole_position = Vector2(552, 88)
 initial_aim_offset = Vector2(0, 100)
 arrow_tiles = Array[ExtResource("1_y2qqb")]([SubResource("Resource_pmv52"), SubResource("Resource_yofad"), SubResource("Resource_hljtm"), SubResource("Resource_svkfx"), SubResource("Resource_i7jnd"), SubResource("Resource_begq3"), SubResource("Resource_8u2pp"), SubResource("Resource_x6frd"), SubResource("Resource_1l0e8"), SubResource("Resource_gig8x"), SubResource("Resource_0s87k"), SubResource("Resource_7fiu3"), SubResource("Resource_pree5"), SubResource("Resource_t75xf"), SubResource("Resource_5pwy0"), SubResource("Resource_3im5u"), SubResource("Resource_84ayk"), SubResource("Resource_tacvn"), SubResource("Resource_2mehw"), SubResource("Resource_nsesr"), SubResource("Resource_wq3m6"), SubResource("Resource_183vd"), SubResource("Resource_foosw"), SubResource("Resource_lxm5w"), SubResource("Resource_mbvnd"), SubResource("Resource_tgos2"), SubResource("Resource_smdhy"), SubResource("Resource_u5hc2"), SubResource("Resource_rdwbk"), SubResource("Resource_g45rd"), SubResource("Resource_qgrej"), SubResource("Resource_jwvw3"), SubResource("Resource_2a12u"), SubResource("Resource_pqnfs"), SubResource("Resource_i0btu"), SubResource("Resource_7rih5")])
+theme = ExtResource("world_theme")

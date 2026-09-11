@@ -1,10 +1,11 @@
 class_name ObstacleDefinition
 extends Resource
 
-enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW }
+enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW, TUNNEL_GEAR }
 
 @export var obstacle_type := ObstacleType.ROTATING_BLADE
 @export var position := Vector2.ZERO
+@export var gear_links := PackedInt32Array([1,0,4,7,2,6,5,3])
 @export_range(-180.0, 180.0, 0.1) var start_rotation_degrees := 0.0
 @export var blade_size := Vector2(72.0, 8.0)
 @export_range(0.2, 20.0, 0.1) var seconds_per_revolution := 2.4
@@ -27,6 +28,16 @@ enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW }
 
 func validate(label: String) -> PackedStringArray:
 	var errors := PackedStringArray()
+	if obstacle_type == ObstacleType.TUNNEL_GEAR:
+		if seconds_per_revolution < 4.0:
+			errors.append("%s dreht fuer sichere Zahnrad-Ausgaenge zu schnell" % label)
+		if gear_links.size() != 8:
+			errors.append("%s benoetigt acht paarweise verbundene Zahnradloecher" % label)
+		else:
+			for index in range(8):
+				var partner := gear_links[index]
+				if partner < 0 or partner >= 8 or partner == index or gear_links[partner] != index:
+					errors.append("%s besitzt kein gegenseitiges Lochpaar bei %d" % [label,index])
 	if obstacle_type == ObstacleType.ROTATING_BLADE:
 		if blade_size.x <= 0.0 or blade_size.y <= 0.0:
 			errors.append("%s besitzt keine gueltige Hindernisgroesse" % label)
@@ -54,6 +65,13 @@ func validate(label: String) -> PackedStringArray:
 func instantiate_obstacle() -> Node2D:
 	var placement_rotation := deg_to_rad(start_rotation_degrees)
 	match obstacle_type:
+		ObstacleType.TUNNEL_GEAR:
+			var gear := TunnelGear.new()
+			gear.position = position
+			gear.rotation = placement_rotation
+			gear.seconds_per_revolution = seconds_per_revolution
+			gear.links = gear_links.duplicate()
+			return gear
 		ObstacleType.ROTATING_BLADE:
 			var obstacle := RotatingObstacle.new()
 			obstacle.position = position

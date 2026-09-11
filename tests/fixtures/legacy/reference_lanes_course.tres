@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CourseDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_course"]
+
+[resource]
+script = ExtResource("1_course")
+course_id = &"reference_lanes_course"
+display_name = "REFERENZBAHNEN"
+best_score_revision = 4
+hole_ids = Array[StringName]([&"reference_gate_lane", &"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill", &"reference_angle_lane", &"reference_mos_lane", &"reference_gate_hill_hole"])
+allow_technical_holes = true

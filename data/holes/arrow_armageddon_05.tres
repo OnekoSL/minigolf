@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="4_wall_tile"]
 [ext_resource type="Script" path="res://src/surface_definition.gd" id="5_surface"]
 
+[ext_resource type="Resource" path="res://data/themes/bergpass.tres" id="world_theme"]
+
 [sub_resource type="Resource" id="Lane_outline"]
 script = ExtResource("2_outline")
 points = PackedVector2Array(184, 136, 344, 136, 344, 56, 440, 56, 440, 24, 616, 24, 616, 152, 536, 152, 536, 248, 440, 248, 440, 328, 344, 328, 344, 248, 184, 248)
@@ -953,7 +955,7 @@ slope_grade = 0
 [resource]
 script = ExtResource("1_hole")
 hole_id = &"arrow_armageddon_05"
-display_name = "KOMPASSKREUZ"
+display_name = "PASSKREUZ"
 par = 3
 course_rect = Rect2(176, 16, 448, 328)
 lane_outline = SubResource("Lane_outline")
@@ -969,3 +971,6 @@ arrow_tiles = Array[ExtResource("3_arrow")]([SubResource("Flow_1"), SubResource(
 obstacles = []
 triggers = []
 cannons = []
+
+garden_presentation = false
+theme = ExtResource("world_theme")

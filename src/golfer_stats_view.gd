@@ -65,5 +65,5 @@ func _draw() -> void:
 		draw_line(Vector2(marker_x, bar.position.y - 2), Vector2(marker_x, bar.end.y + 1), reference_color, 1.0)
 	var legend_y := STAT_LABELS.size() * ROW_HEIGHT + 5
 	draw_line(Vector2(1, legend_y - 7), Vector2(1, legend_y + 1), reference_color, 1.0)
-	draw_string(font, Vector2(8, legend_y), "ALLROUNDER ZUM VERGLEICH", HORIZONTAL_ALIGNMENT_LEFT, size.x - 8, 8, muted)
+	draw_string(font, Vector2(8, legend_y), "BEN ZUM VERGLEICH", HORIZONTAL_ALIGNMENT_LEFT, size.x - 8, 8, muted)
 	draw_string(font, Vector2(0, legend_y + 14), "MEHR BALKEN: MEHR WEITE / KONTROLLE", HORIZONTAL_ALIGNMENT_LEFT, size.x, 8, muted)

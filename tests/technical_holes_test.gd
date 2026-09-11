@@ -27,7 +27,7 @@ func _test_wall_tiles() -> void:
 
 func _test_hole_catalog() -> void:
 	print("\n[Datengetriebener Bahnkatalog]")
-	var catalog := HoleCatalog.load_default()
+	var catalog := LegacyCourseFixtures.holes()
 	_check(catalog != null, "Lochkatalog wird als typisierte Resource geladen")
 	if catalog == null:
 		return
@@ -300,7 +300,7 @@ func _test_real_lane_references() -> void:
 		runtime.queue_free()
 	await get_tree().process_frame
 
-	var gate := HoleCatalog.load_default().get_hole(&"reference_gate_lane")
+	var gate := LegacyCourseFixtures.holes().get_hole(&"reference_gate_lane")
 	_check(gate.par == 1 and gate.walls.is_empty() and gate.wall_tiles.size() == 2, "Tor-Gerade verwendet zwei normierte Wandkaestchen")
 	_check(gate.wall_tiles[0].variant == WallTileDefinition.Variant.DIAGONAL_DOWN and gate.wall_tiles[1].variant == WallTileDefinition.Variant.DIAGONAL_UP, "Tor-Gerade verwendet beide diagonal gespiegelten Torstuecke")
 	var gate_boundary_variants: Dictionary = {}
@@ -323,7 +323,7 @@ func _test_real_lane_references() -> void:
 	])
 	_check(gate_completed, "Tor-Gerade endet reproduzierbar mit einem Schlag")
 
-	var angle := HoleCatalog.load_default().get_hole(&"reference_angle_lane")
+	var angle := LegacyCourseFixtures.holes().get_hole(&"reference_angle_lane")
 	_check(angle.par == 2 and angle.walls.is_empty(), "Winkelbahn erzeugt ihre Aufgabe allein aus der Aussenkontur")
 	_check(is_equal_approx(angle.lane_outline.points[5].x - angle.lane_outline.points[1].x, 144.0), "Winkelbahn besitzt einen auf 144 Pixel verschmaelerten Mittelteil")
 	var angle_is_symmetric := true
@@ -338,7 +338,7 @@ func _test_real_lane_references() -> void:
 	])
 	_check(angle_completed, "Winkelbahn endet reproduzierbar mit zwei Schlaegen")
 
-	var mos := HoleCatalog.load_default().get_hole(&"reference_mos_lane")
+	var mos := LegacyCourseFixtures.holes().get_hole(&"reference_mos_lane")
 	_check(mos.par == 3 and mos.obstacles.size() == 1, "MOS-Kurve kombiniert diagonale Kontur und eine berechenbare Mechanik")
 	var mos_is_horizontally_symmetric := true
 	var mos_is_vertically_symmetric := true
@@ -395,7 +395,7 @@ func _test_real_lane_references() -> void:
 
 func _test_gate_lane_family() -> void:
 	print("\n[Bahn-1-Grundform mit Hindernisvarianten]")
-	var catalog := HoleCatalog.load_default()
+	var catalog := LegacyCourseFixtures.holes()
 	var base := catalog.get_hole(&"reference_gate_lane")
 	var variant_ids := [&"reference_gate_bumpers", &"reference_gate_rotor", &"reference_gate_slider", &"reference_gate_seesaw", &"reference_gate_hill"]
 	for hole_id in variant_ids:

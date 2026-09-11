@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_0s377"]
+
+[resource]
+script = ExtResource("1_0s377")
+course_id = &"bergpass_course"
+display_name = "BERGPASS"
+hole_ids = Array[StringName]([&"arrow_armageddon_01", &"arrow_armageddon_02", &"arrow_armageddon_03", &"prototype_05", &"bergpass_05", &"arrow_armageddon_04", &"arrow_armageddon_05", &"bergpass_08", &"bergpass_09"])

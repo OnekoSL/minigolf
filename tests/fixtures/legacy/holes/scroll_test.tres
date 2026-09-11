@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="2_wall"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="3_surface"]
+
+[sub_resource type="Resource" id="Wall_top"]
+script = ExtResource("2_wall")
+center = Vector2(720, 12)
+size = Vector2(1104, 8)
+[sub_resource type="Resource" id="Wall_bottom"]
+script = ExtResource("2_wall")
+center = Vector2(720, 708)
+size = Vector2(1104, 8)
+[sub_resource type="Resource" id="Wall_left"]
+script = ExtResource("2_wall")
+center = Vector2(172, 360)
+size = Vector2(8, 704)
+[sub_resource type="Resource" id="Wall_right"]
+script = ExtResource("2_wall")
+center = Vector2(1268, 360)
+size = Vector2(8, 704)
+[sub_resource type="Resource" id="Wall_one"]
+script = ExtResource("2_wall")
+center = Vector2(484, 166)
+size = Vector2(8, 300)
+[sub_resource type="Resource" id="Wall_two"]
+script = ExtResource("2_wall")
+center = Vector2(764, 552)
+size = Vector2(8, 304)
+[sub_resource type="Resource" id="Wall_three"]
+script = ExtResource("2_wall")
+center = Vector2(1044, 166)
+size = Vector2(8, 300)
+
+[sub_resource type="Resource" id="Slope_one"]
+script = ExtResource("3_surface")
+rect = Rect2(525, 360, 125, 85)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 3
+slope_strength = 90.0
+[sub_resource type="Resource" id="Sand"]
+script = ExtResource("3_surface")
+rect = Rect2(820, 135, 145, 75)
+surface_type = 0
+deceleration = 260.0
+[sub_resource type="Resource" id="Slope_two"]
+script = ExtResource("3_surface")
+rect = Rect2(1080, 440, 120, 90)
+surface_type = 1
+deceleration = 120.0
+slope_direction = 3
+slope_strength = 90.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"scroll_test"
+display_name = "SCROLL-TESTBAHN"
+category = 1
+par = 6
+course_rect = Rect2(176, 16, 1088, 688)
+tee_position = Vector2(220, 100)
+hole_position = Vector2(1200, 650)
+initial_aim_offset = Vector2(60, 0)
+camera_center_bounds = Rect2(320, 180, 632, 352)
+grid_spacing = 32
+walls = Array[ExtResource("2_wall")]([SubResource("Wall_top"), SubResource("Wall_bottom"), SubResource("Wall_left"), SubResource("Wall_right"), SubResource("Wall_one"), SubResource("Wall_two"), SubResource("Wall_three")])
+surfaces = Array[ExtResource("3_surface")]([SubResource("Slope_one"), SubResource("Sand"), SubResource("Slope_two")])

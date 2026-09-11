@@ -46,6 +46,7 @@ var golfer_stats: GolferStatsView
 var selected_practice_hole := &"reference_01"
 var free_hole_ids: Array[StringName] = []
 var course_select_page := 0
+var course_preview: CoursePreview
 var hole_select_page := 0
 var free_select_page := 0
 
@@ -379,22 +380,28 @@ func _show_course_select() -> void:
 	var start_y := 76.0
 	var first_index := course_select_page * COURSES_PER_PAGE
 	var last_index := mini(first_index + COURSES_PER_PAGE, course_catalog.courses.size())
+	course_preview = CoursePreview.new()
+	course_preview.position = Vector2(228,74)
+	course_preview.size = Vector2(396,194)
+	screen_root.add_child(course_preview)
 	for index in range(first_index, last_index):
 		var course: CourseDefinition = course_catalog.courses[index]
 		var total_par := course.get_total_par(hole_catalog)
 		var best := best_store.get_best(course.get_best_score_key())
 		var best_text := "NOCH KEIN BESTWERT" if best < 0 else "BESTWERT %d (%s)" % [best, _format_difference(best - total_par)]
-		_add_option_button(
-			"%s\n%d LOECHER  •  PAR %d  •  %s" % [course.display_name, course.hole_ids.size(), total_par, best_text],
-			Rect2(112, start_y + (index - first_index) * (card_height + card_gap), 416, card_height),
+		var course_button := _add_option_button(
+			"%s\n%d BAHNEN  /  PAR %d\n%s" % [course.display_name, course.hole_ids.size(), total_par, best_text],
+			Rect2(16, start_y + (index - first_index) * (card_height + card_gap), 198, card_height),
 			func(): _start_course(course)
 		)
+		course_button.add_theme_font_size_override("font_size",9)
+		course_button.size = Vector2(198,card_height)
 	var previous := _add_option_button("< VORHERIGE", Rect2(62, 276, 152, 30), func(): _change_course_page(-1))
 	previous.disabled = course_select_page <= 0
 	_add_option_button("ZURUECK", Rect2(246, 276, 148, 30), _show_mode)
 	var next := _add_option_button("NAECHSTE >", Rect2(426, 276, 152, 30), func(): _change_course_page(1))
 	next.disabled = course_select_page >= page_count - 1
-	_add_footer("3 KURSE PRO SEITE", "GETRENNTE BESTWERTE")
+	_add_footer("KURS MARKIEREN: VORSCHAU", "BESTAETIGEN: KURS STARTEN")
 	_finalize_options()
 
 
@@ -887,6 +894,11 @@ func _invoke_option(index: int) -> void:
 
 
 func _refresh_option_styles() -> void:
+	if current_screen == ScreenState.COURSE_SELECT and course_preview != null:
+		var first_index := course_select_page * COURSES_PER_PAGE
+		var count := mini(COURSES_PER_PAGE,course_catalog.courses.size()-first_index)
+		if selected_option < count:
+			course_preview.show_course(course_catalog.courses[first_index+selected_option],hole_catalog)
 	if current_screen == ScreenState.PLAYER_GOLFER and golfer_preview != null and not option_buttons.is_empty():
 		var definition := GolferDefinition.get_golfer(GolferDefinition.IDS[selected_option])
 		golfer_preview.set_golfer(definition)
@@ -916,6 +928,7 @@ func _arm_input_gate() -> void:
 
 
 func _clear_screen() -> void:
+	course_preview = null
 	golfer_preview = null
 	golfer_description = null
 	golfer_stats = null

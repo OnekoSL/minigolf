@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_uahc3"]
+
+[resource]
+script = ExtResource("1_uahc3")
+course_id = &"muehlental_course"
+display_name = "MUEHLENTAL"
+hole_ids = Array[StringName]([&"muehlental_01", &"muehlental_02", &"muehlental_03", &"muehlental_04", &"reference_01", &"muehlental_06", &"double_gate_03", &"muehlental_08", &"muehlental_09"])
+best_score_revision = 3

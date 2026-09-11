@@ -11,6 +11,8 @@
 
 > Dieses Dokument beschreibt die verbindliche kreative und spielerische Grundlage. Angaben, die noch getestet oder entschieden werden muessen, sind ausdruecklich als vorlaeufig oder offen gekennzeichnet.
 
+**Inhaltsaktualisierung 11.09.2026:** Acht Welten mit 72 regulaeren Bahnen ersetzen die fuenf bisherigen Kurse. Aktueller Umfang, PAR und Pruefstand stehen in [ACHT_WELTEN_UMSETZUNG.md](ACHT_WELTEN_UMSETZUNG.md). Die historischen Prototypbeschreibungen unten erklaeren den Entwicklungsweg.
+
 ---
 
 ## 1. Vision
@@ -221,11 +223,11 @@ Die Physik ist eine kontrollierte 2D-Simulation. Realismus ist weniger wichtig a
 
 ## 9. Golferfiguren
 
-Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bessere Ausruestung zu benoetigen. Allrounder, Mara (ruhig), Bruno (kraftvoll) und Nika (technisch) sind als animierte Pixelgolfer umgesetzt; feste Startwerte und Pruefstand stehen in `GOLFER.md`.
+Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bessere Ausruestung zu benoetigen. Ben (Allrounder), Mara (ruhig), Bruno (kraftvoll) und Nika (technisch) sind als animierte Pixelgolfer umgesetzt; feste Startwerte und Pruefstand stehen in `GOLFER.md`.
 
 | Rolle | Maximale Weite auf ebenem Gruen | Kraft-Timing | Genauigkeitsprofil | Spielgefuehl |
 |---|---:|---|---|---|
-| Allrounder | 100 % Reichweite | 4,0 s | 2,4-s-Zyklus, Perfektfenster +/-0,05, maximal 8 Grad | verlaessliche Referenzfigur |
+| Ben (Allrounder) | 100 % Reichweite | 4,0 s | 2,4-s-Zyklus, Perfektfenster +/-0,05, maximal 8 Grad | verlaessliche Referenzfigur |
 | Mara | 85 % Reichweite | 5,2 s | normal, gut dosierbare Kraft | stark auf kurzen technischen Bahnen |
 | Bruno | 125 % Reichweite | 3,2 s | 2,4-s-Zyklus, maximal 10 Grad Abweichung | hohe Reichweite, schwerer zu dosieren |
 | Nika | 95 % Reichweite | 4,0 s | 1,8-s-Zyklus, halbes Perfektfenster, halbe Fehlerwirkung | reaktionssicheres Timing belohnt Richtungstreue |
@@ -242,7 +244,7 @@ Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bess
 
 ### Benoetigte Animationsgruppen
 
-Aktueller Allrounder: Ein zusammengehoeriger Pixelatlas ersetzt die Linienfigur in einem 88 x 144 Pixel grossen Fenster links neben der Kraftskala. Spriteposen decken Ruhe, Blinzeln, Atmen, drei Ausholweiten, Kontakt, drei Durchschwungweiten, Beobachten, Jubel und Aerger ab. Die Kraft bestimmt das Ausholen, Genauigkeit und Bereithalten frieren es ein. Der Abschwung liest den Fortschritt des Schlagsystems; Kontaktpose, Einblendungsball und Perfektglanz starten erst bei dessen Ballkontakt. Mindestens ein Renderframe zeigt die Kontaktpose. Vier kosmetische Polofarben erhalten Haut, Hose, Schuhe und Putter. Pause, Abbruch und Neustart sind angebunden. Mara, Bruno und Nika verwenden dieselbe Animationssteuerung mit eigenen Atlanten und Profilen. Die gemeinsame Kurswertung beginnt wegen der neuen Spielprofile mit neuen Revisionen; alte Rekorde bleiben gespeichert. Differenzierte Turnierreaktionen bleiben eine spaetere Erweiterung.
+Ben, unser Allrounder: Ein zusammengehoeriger Pixelatlas ersetzt die Linienfigur in einem 88 x 144 Pixel grossen Fenster links neben der Kraftskala. Spriteposen decken Ruhe, Blinzeln, Atmen, drei Ausholweiten, Kontakt, drei Durchschwungweiten, Beobachten, Jubel und Aerger ab. Die Kraft bestimmt das Ausholen, Genauigkeit und Bereithalten frieren es ein. Der Abschwung liest den Fortschritt des Schlagsystems; Kontaktpose, Einblendungsball und Perfektglanz starten erst bei dessen Ballkontakt. Mindestens ein Renderframe zeigt die Kontaktpose. Vier kosmetische Polofarben erhalten Haut, Hose, Schuhe und Putter. Pause, Abbruch und Neustart sind angebunden. Mara, Bruno und Nika verwenden dieselbe Animationssteuerung mit eigenen Atlanten und Profilen. Die gemeinsame Kurswertung beginnt wegen der neuen Spielprofile mit neuen Revisionen; alte Rekorde bleiben gespeichert. Differenzierte Turnierreaktionen bleiben eine spaetere Erweiterung.
 
 - Idle
 - Zielen
@@ -336,23 +338,23 @@ Schiebetore besitzen Groesse, Oeffnungsweg, Zyklus, Uebergangszeit, Offenhalteze
 
 ### Langfristiges Ziel fuer Version 1.0
 
-- Ausbau von derzeit 45 Bahnen auf den vorgesehenen Produktionsumfang
-- vorlaeufiges Produktionsziel: **6 Kurse mit je 9 Loechern, insgesamt 54 Bahnen**
+- Die fuenf bisherigen Kurse werden durch **acht thematische Kurse** ersetzt (Planungsauftrag vom 11.09.2026).
+- Planungsansatz: **8 Kurse mit je 9 Loechern, insgesamt 72 regulaere Bahnen**; technische Referenzen und Labore werden separat erhalten.
 - vier spielerisch unterschiedliche Golfer
 - mehrere klar unterscheidbare Themenwelten
 - lokale Partien fuer bis zu vier Personen
 - Uebungsmodus fuer einzelne Loecher
 - Bestwerte und Kursrekorde
 
-Die Zahl 54 ist ein Planungsziel und wird nach dem Vertical Slice anhand des tatsaechlichen Produktionsaufwands bestaetigt oder angepasst. Qualitaet und Abwechslung haben Vorrang vor einer kuenstlich aufgefuellten Zahl.
+Der strukturierte Entwurf steht in [KURSPLAN_8_WELTEN.md](KURSPLAN_8_WELTEN.md). Er ordnet die 36 vorhandenen regulaeren Bahnen als Ueberarbeitungskandidaten zu und plant 36 Neubauten. Die konkreten Themen, Bahnideen und neun Loecher je Kurs sind der aktuelle Planungsansatz; endgueltiges PAR folgt erst aus der Spielpruefung. Qualitaet und Abwechslung haben Vorrang vor einer kuenstlich aufgefuellten Zahl.
 
 ### Moegliche Kursstruktur
 
-- zwei ueberwiegend klassische Golfkurse
-- zwei mechanische Kurse
-- zwei Abenteuer- oder Themenkurse
+- Orte und Welten bilden die vom Nutzer gewuenschten Kursthemen.
+- Vorgeschlagen sind Stadtpark, Duenenkueste, Muehlental, Bergpass, Schlossgarten, Uhrwerkfabrik, Tempelruinen und Sternwarte.
+- Jeder Kurs erhaelt einen spielerischen Schwerpunkt und eine eigene Lernfolge; die fuenf bisherigen Kurszusammenstellungen werden abgeloest.
 
-Konkrete Themen, Namen und Reihenfolge sind noch offen.
+Themenauswahl, Namen und Reihenfolge sind im Kursplan als Entwurf ausgearbeitet. Die folgenden Beschreibungen des Prototyps dokumentieren weiterhin den bisherigen Spielstand und keine bereits erfolgte Umstellung.
 
 ---
 
@@ -382,7 +384,7 @@ Online-Multiplayer ist fuer die erste Version nicht vorgesehen.
 - **Uebung:** ein Spieler waehlt ein einzelnes Loch und darf es sofort neu starten. Die technischen Testbahnen bleiben hier ueber Dreieck/F2 erreichbar.
 - **Freies Spiel:** ein bis vier Spieler stellen eine Folge aus einem bis neun echten Loechern zusammen; Reihenfolge und Wiederholungen sind frei.
 
-Der Ablauf ist Titelbild, Moduswahl, Spieleranlage, Kurs- oder Lochauswahl, Partie, Lochtabelle und Endtabelle. Die Kursauswahl wird vollstaendig aus dem Kurskatalog aufgebaut, zeigt drei Kurse pro Seite und speichert getrennte, bei grundlegenden Kursumbauten revisionierbare Bestwerte. Uebung und freies Spiel paginieren die einunddreissig echten Bahnen in Seiten mit je fuenf Eintraegen. Nach jedem Bildschirm-, Spieler- und Lochwechsel muss die Eingabe neutral sein, bevor der naechste Zustand Controllerbefehle annimmt.
+Der Ablauf ist Titelbild, Moduswahl, Spieleranlage, Kurs- oder Lochauswahl, Partie, Lochtabelle und Endtabelle. Die Kursauswahl wird vollstaendig aus dem Kurskatalog aufgebaut, zeigt drei Kurse pro Seite mit einer 3×3-Vorschau aller neun Bahnen des markierten Kurses und speichert getrennte, bei grundlegenden Kursumbauten revisionierbare Bestwerte. Uebung und freies Spiel paginieren die einunddreissig echten Bahnen in Seiten mit je fuenf Eintraegen. Nach jedem Bildschirm-, Spieler- und Lochwechsel muss die Eingabe neutral sein, bevor der naechste Zustand Controllerbefehle annimmt.
 
 ---
 

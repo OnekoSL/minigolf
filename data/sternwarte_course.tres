@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="1_p4w1y"]
+
+[resource]
+script = ExtResource("1_p4w1y")
+course_id = &"sternwarte_course"
+display_name = "STERNWARTE"
+hole_ids = Array[StringName]([&"sternwarte_01", &"sternwarte_02", &"arrow_armageddon_07", &"prototype_07", &"arrow_armageddon_08", &"cannon_workshop_04", &"sternwarte_07", &"arrow_armageddon_09", &"sternwarte_09"])

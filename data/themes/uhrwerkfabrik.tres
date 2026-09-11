@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_i780l"]
+
+[resource]
+script = ExtResource("1_i780l")
+theme_id = &"uhrwerkfabrik"
+background = Color(0.16078432, 0.1764706, 0.21176471, 1)
+turf = Color(0.25882354, 0.40392157, 0.3764706, 1)
+wall = Color(0.84313726, 0.7176471, 0.50980395, 1)
+trim = Color(0.3882353, 0.3137255, 0.25490198, 1)
+accent = Color(0.8980392, 0.6313726, 0.32941177, 1)
+foliage = Color(0.5764706, 0.4627451, 0.29411766, 1)
+motif = 5

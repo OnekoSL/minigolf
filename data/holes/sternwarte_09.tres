@@ -1,0 +1,193 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_nt3gb"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_3a37e"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_p8in3"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_wuvs1"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_aef0r"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_n1gep"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_160mh"]
+[ext_resource type="Resource" path="res://data/themes/sternwarte.tres" id="8_o6gvi"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_2eoea"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_clebt"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_qr0r2"]
+
+[sub_resource type="Resource" id="Resource_pombm"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(31, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_512ll"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(32, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_o8t78"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(31, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_6hhuc"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(32, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_ykqcm"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(31, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_aqjho"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(32, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_dmvab"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(31, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_ckvqg"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(32, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_u01q2"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(31, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_35ssv"]
+script = ExtResource("1_nt3gb")
+grid_cell = Vector2i(32, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_salow"]
+script = ExtResource("2_3a37e")
+mechanism_id = &"cannon_0"
+required_trigger_id = &"start_switch"
+position = Vector2(328, 176)
+landing_position = Vector2(432, 176)
+landing_velocity = Vector2(45, 0)
+
+[sub_resource type="Resource" id="Resource_u548l"]
+script = ExtResource("4_wuvs1")
+points = PackedVector2Array(184, 136, 344, 136, 344, 56, 600, 56, 600, 312, 344, 312, 344, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_x1uif"]
+script = ExtResource("9_2eoea")
+trigger_id = &"start_switch"
+position = Vector2(272, 176)
+size = Vector2(24, 80)
+target_ids = Array[StringName]([&"cannon_0"])
+
+[sub_resource type="Resource" id="Resource_hwmyi"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 3)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_ggbj2"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 4)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_w255v"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 5)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_8pxai"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 6)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ogda5"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 7)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_e5crr"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 8)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_holxk"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 9)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_48gjv"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 10)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_mt71t"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ck2ik"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_q5u5v"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_0c353"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_52luj"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 15)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_itr3w"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 16)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_glaos"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 17)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_0n7r3"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 18)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ubjw2"]
+script = ExtResource("11_qr0r2")
+grid_cell = Vector2i(23, 19)
+variant = 8
+
+[resource]
+script = ExtResource("6_n1gep")
+hole_id = &"sternwarte_09"
+display_name = "ZUR GROSSEN KUPPEL"
+par = 2
+lane_outline = SubResource("Resource_u548l")
+theme = ExtResource("8_o6gvi")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+wall_tiles = Array[ExtResource("11_qr0r2")]([SubResource("Resource_hwmyi"), SubResource("Resource_ggbj2"), SubResource("Resource_w255v"), SubResource("Resource_8pxai"), SubResource("Resource_ogda5"), SubResource("Resource_e5crr"), SubResource("Resource_holxk"), SubResource("Resource_48gjv"), SubResource("Resource_mt71t"), SubResource("Resource_ck2ik"), SubResource("Resource_q5u5v"), SubResource("Resource_0c353"), SubResource("Resource_52luj"), SubResource("Resource_itr3w"), SubResource("Resource_glaos"), SubResource("Resource_0n7r3"), SubResource("Resource_ubjw2")])
+arrow_tiles = Array[ExtResource("1_nt3gb")]([SubResource("Resource_pombm"), SubResource("Resource_512ll"), SubResource("Resource_o8t78"), SubResource("Resource_6hhuc"), SubResource("Resource_ykqcm"), SubResource("Resource_aqjho"), SubResource("Resource_dmvab"), SubResource("Resource_ckvqg"), SubResource("Resource_u01q2"), SubResource("Resource_35ssv")])
+triggers = Array[ExtResource("9_2eoea")]([SubResource("Resource_x1uif")])
+cannons = Array[ExtResource("2_3a37e")]([SubResource("Resource_salow")])

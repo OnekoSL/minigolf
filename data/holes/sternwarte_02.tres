@@ -1,0 +1,132 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_vj0ri"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_43lha"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_1v4uq"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_h0kqh"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_v8mf3"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_1rg5o"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_h4v1k"]
+[ext_resource type="Resource" path="res://data/themes/sternwarte.tres" id="8_174sg"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_vh55x"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_0nldc"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_rm1el"]
+
+[sub_resource type="Resource" id="Resource_gddlu"]
+script = ExtResource("2_43lha")
+mechanism_id = &"cannon_0"
+required_trigger_id = &"start_switch"
+position = Vector2(328, 176)
+landing_position = Vector2(432, 176)
+landing_velocity = Vector2(45, 0)
+
+[sub_resource type="Resource" id="Resource_p3455"]
+script = ExtResource("4_h0kqh")
+points = PackedVector2Array(184, 136, 344, 136, 344, 56, 600, 56, 600, 312, 344, 312, 344, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_jjmpk"]
+script = ExtResource("9_vh55x")
+trigger_id = &"start_switch"
+position = Vector2(272, 176)
+size = Vector2(24, 80)
+target_ids = Array[StringName]([&"cannon_0"])
+
+[sub_resource type="Resource" id="Resource_83xuw"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 3)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_3nsu1"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 4)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_ibuif"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 5)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_g658o"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 6)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_pe7j5"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 7)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_vep2a"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 8)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_0blb7"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 9)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_kgr40"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 10)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_0jtml"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 11)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_psfg4"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 12)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_yct4h"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 13)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_d66fq"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 14)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_jw4ko"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 15)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_wq4qy"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 16)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_cs7te"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 17)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_405ga"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 18)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_fppf7"]
+script = ExtResource("11_rm1el")
+grid_cell = Vector2i(23, 19)
+variant = 8
+
+[resource]
+script = ExtResource("6_1rg5o")
+hole_id = &"sternwarte_02"
+display_name = "STARTFREIGABE"
+par = 2
+lane_outline = SubResource("Resource_p3455")
+theme = ExtResource("8_174sg")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+wall_tiles = Array[ExtResource("11_rm1el")]([SubResource("Resource_83xuw"), SubResource("Resource_3nsu1"), SubResource("Resource_ibuif"), SubResource("Resource_g658o"), SubResource("Resource_pe7j5"), SubResource("Resource_vep2a"), SubResource("Resource_0blb7"), SubResource("Resource_kgr40"), SubResource("Resource_0jtml"), SubResource("Resource_psfg4"), SubResource("Resource_yct4h"), SubResource("Resource_d66fq"), SubResource("Resource_jw4ko"), SubResource("Resource_wq4qy"), SubResource("Resource_cs7te"), SubResource("Resource_405ga"), SubResource("Resource_fppf7")])
+triggers = Array[ExtResource("9_vh55x")]([SubResource("Resource_jjmpk")])
+cannons = Array[ExtResource("2_43lha")]([SubResource("Resource_gddlu")])

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_7iaf2"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_iqjr0"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_2kjng"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_eo74l"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_svhm3"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_di3ie"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_q3cxj"]
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="8_uoia1"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_uikjx"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_8xshh"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_psqu3"]
+
+[sub_resource type="Resource" id="Resource_dr41c"]
+script = ExtResource("4_eo74l")
+points = PackedVector2Array(184, 56, 600, 56, 600, 312, 184, 312)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_oecgy"]
+script = ExtResource("3_2kjng")
+wall_type = 1
+center = Vector2(392, 200)
+radius = 54.0
+
+[resource]
+script = ExtResource("6_di3ie")
+hole_id = &"schlossgarten_01"
+display_name = "VORHOF"
+par = 3
+lane_outline = SubResource("Resource_dr41c")
+theme = ExtResource("8_uoia1")
+tee_position = Vector2(232, 184)
+hole_position = Vector2(552, 184)
+initial_aim_offset = Vector2(37.642986, -51.75911)
+walls = Array[ExtResource("3_2kjng")]([SubResource("Resource_oecgy")])

@@ -3,8 +3,8 @@ extends RefCounted
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Prototypkurs: gestaltete Kursfassungen]")
-	var catalog := HoleCatalog.load_default()
-	var course := CourseCatalog.load_default().get_course(&"prototype_course_03")
+	var catalog := LegacyCourseFixtures.holes()
+	var course := LegacyCourseFixtures.courses().get_course(&"prototype_course_03")
 	for hole_id in course.hole_ids:
 		var hole := catalog.get_hole(hole_id)
 		check.call(hole.is_course_hole() and hole.garden_presentation and hole.lane_outline.use_normalized_walls, "%s besitzt Kursstatus, Gartenoptik und Normkontur" % hole_id)

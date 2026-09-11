@@ -1,0 +1,153 @@
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="3_arrow"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="4_obstacle"]
+
+[sub_resource type="Resource" id="Lane_outline"]
+script = ExtResource("2_outline")
+points = PackedVector2Array(224, 208, 320, 112, 368, 160, 416, 112, 512, 208, 416, 304, 368, 256, 320, 304)
+wall_thickness = 4.0
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Arrow_20_12"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(21, 11)
+cell_size = 16
+direction = 1
+slope_grade = 0
+
+[sub_resource type="Resource" id="Arrow_21_12"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(22, 11)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_22_12"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(23, 11)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_23_12"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(24, 11)
+cell_size = 16
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_20_13"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(21, 12)
+cell_size = 16
+direction = 1
+slope_grade = 0
+
+[sub_resource type="Resource" id="Arrow_21_13"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(22, 12)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_22_13"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(23, 12)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_23_13"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(24, 12)
+cell_size = 16
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_20_14"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(21, 13)
+cell_size = 16
+direction = 1
+slope_grade = 0
+
+[sub_resource type="Resource" id="Arrow_21_14"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(22, 13)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_22_14"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(23, 13)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_23_14"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(24, 13)
+cell_size = 16
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Arrow_20_15"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(21, 14)
+cell_size = 16
+direction = 1
+slope_grade = 0
+
+[sub_resource type="Resource" id="Arrow_21_15"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(22, 14)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_22_15"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(23, 14)
+cell_size = 16
+direction = 1
+slope_grade = 1
+
+[sub_resource type="Resource" id="Arrow_23_15"]
+script = ExtResource("3_arrow")
+grid_cell = Vector2i(24, 14)
+cell_size = 16
+direction = 1
+slope_grade = 2
+
+[sub_resource type="Resource" id="Obstacle_rotor"]
+script = ExtResource("4_obstacle")
+position = Vector2(440, 208)
+start_rotation_degrees = 0.0
+blade_size = Vector2(64, 8)
+seconds_per_revolution = 3.2
+impulse_multiplier = 1.1
+minimum_kick_speed = 35.0
+
+[resource]
+script = ExtResource("1_hole")
+hole_id = &"reference_mos_lane"
+display_name = "REFERENZ: MOS-KURVE"
+category = 1
+par = 3
+course_rect = Rect2(176, 16, 448, 328)
+lane_outline = SubResource("Lane_outline")
+tee_position = Vector2(248, 208)
+hole_position = Vector2(488, 208)
+initial_aim_offset = Vector2(80, -8)
+camera_center_bounds = Rect2(320, 180, 0, 0)
+grid_spacing = 16
+walls = []
+surfaces = []
+arrow_tiles = Array[ExtResource("3_arrow")]([SubResource("Arrow_20_12"), SubResource("Arrow_21_12"), SubResource("Arrow_22_12"), SubResource("Arrow_23_12"), SubResource("Arrow_20_13"), SubResource("Arrow_21_13"), SubResource("Arrow_22_13"), SubResource("Arrow_23_13"), SubResource("Arrow_20_14"), SubResource("Arrow_21_14"), SubResource("Arrow_22_14"), SubResource("Arrow_23_14"), SubResource("Arrow_20_15"), SubResource("Arrow_21_15"), SubResource("Arrow_22_15"), SubResource("Arrow_23_15")])
+obstacles = Array[ExtResource("4_obstacle")]([SubResource("Obstacle_rotor")])
+triggers = []
+cannons = []

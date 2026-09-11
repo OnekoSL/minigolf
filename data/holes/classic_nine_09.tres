@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="HoleDefinition" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="HoleDefinition" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://src/hole_definition.gd" id="1_hole"]
 [ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="2_outline"]
 [ext_resource type="Script" path="res://src/wall_definition.gd" id="3_wall"]
+
+[ext_resource type="Resource" path="res://data/themes/schlossgarten.tres" id="world_theme"]
 
 [sub_resource type="Resource" id="Arc_outer"]
 script = ExtResource("3_wall")
@@ -34,8 +36,8 @@ boundary_arcs = Array[ExtResource("3_wall")]([SubResource("Arc_outer"), SubResou
 [resource]
 script = ExtResource("1_hole")
 hole_id = &"classic_nine_09"
-display_name = "DIE HEIMKEHRE"
-par = 4
+display_name = "RUECKWEG ZUM SCHLOSS"
+par = 5
 course_rect = Rect2(176, 16, 832, 328)
 lane_outline = SubResource("Lane_outline")
 tee_position = Vector2(220, 280)
@@ -50,3 +52,6 @@ arrow_tiles = []
 obstacles = []
 triggers = []
 cannons = []
+
+garden_presentation = false
+theme = ExtResource("world_theme")

@@ -32,7 +32,7 @@ static func run(host: Node, check: Callable) -> void:
 
 
 static func _play(host: Node, hole_id: StringName, shots: Array, adjust_last_putt := false) -> bool:
-	var definition := HoleCatalog.load_default().get_hole(hole_id)
+	var definition := LegacyCourseFixtures.holes().get_hole(hole_id)
 	var runtime := HoleRuntime.new()
 	runtime.configure(definition)
 	host.get_tree().root.add_child(runtime)

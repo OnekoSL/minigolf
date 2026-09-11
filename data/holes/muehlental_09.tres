@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_kgikv"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_y6ehr"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_8ru4h"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_twm4t"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_six75"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_285ja"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_06f71"]
+[ext_resource type="Resource" path="res://data/themes/muehlental.tres" id="8_13u5l"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_08030"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_uybrb"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_4kmlq"]
+
+[sub_resource type="Resource" id="Resource_5xhdw"]
+script = ExtResource("4_twm4t")
+points = PackedVector2Array(184, 136, 616, 136, 616, 56, 696, 56, 696, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_8vits"]
+script = ExtResource("5_six75")
+position = Vector2(360, 188)
+blade_size = Vector2(40, 8)
+seconds_per_revolution = 5.0
+minimum_kick_speed = 35.0
+
+[sub_resource type="Resource" id="Resource_cc212"]
+script = ExtResource("5_six75")
+obstacle_type = 1
+position = Vector2(568, 176)
+gate_size = Vector2(8, 88)
+open_offset = Vector2(0, -104)
+cycle_seconds = 4.8
+transition_seconds = 0.4
+open_hold_seconds = 2.4
+
+[resource]
+script = ExtResource("6_285ja")
+hole_id = &"muehlental_09"
+display_name = "FEIERABENDRUNDE"
+par = 3
+course_rect = Rect2(176, 16, 544, 328)
+lane_outline = SubResource("Resource_5xhdw")
+theme = ExtResource("8_13u5l")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(656, 88)
+initial_aim_offset = Vector2(64, 0)
+camera_center_bounds = Rect2(320, 180, 88, 0)
+obstacles = Array[ExtResource("5_six75")]([SubResource("Resource_8vits"), SubResource("Resource_cc212")])

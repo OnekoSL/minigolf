@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="1_umthw"]
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_fy4kg"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="3_e0e5v"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_3if64"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="5_15i7t"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="6_20s5j"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_wp4j1"]
+[ext_resource type="Resource" path="res://data/themes/uhrwerkfabrik.tres" id="8_b8plk"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_uuqhp"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_8vec0"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_qsrt2"]
+
+[sub_resource type="Resource" id="Resource_vh610"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(27, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_tv2xm"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(28, 8)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_fe7l2"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(27, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_v647c"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(28, 9)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_cjjl6"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(27, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_acc7h"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(28, 10)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_oc5ax"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(27, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_3e1jx"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(28, 11)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_lvyo7"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(27, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_eidca"]
+script = ExtResource("1_umthw")
+grid_cell = Vector2i(28, 12)
+grid_offset = Vector2i(8, 8)
+direction = 2
+
+[sub_resource type="Resource" id="Resource_4npw2"]
+script = ExtResource("4_3if64")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_8q5ip"]
+script = ExtResource("5_15i7t")
+position = Vector2(360, 188)
+blade_size = Vector2(40, 8)
+seconds_per_revolution = 5.0
+minimum_kick_speed = 35.0
+
+[resource]
+script = ExtResource("6_20s5j")
+hole_id = &"uhrwerkfabrik_08"
+display_name = "SCHWUNGRAD"
+par = 2
+lane_outline = SubResource("Resource_4npw2")
+theme = ExtResource("8_b8plk")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+arrow_tiles = Array[ExtResource("1_umthw")]([SubResource("Resource_vh610"), SubResource("Resource_tv2xm"), SubResource("Resource_fe7l2"), SubResource("Resource_v647c"), SubResource("Resource_cjjl6"), SubResource("Resource_acc7h"), SubResource("Resource_oc5ax"), SubResource("Resource_3e1jx"), SubResource("Resource_lvyo7"), SubResource("Resource_eidca")])
+obstacles = Array[ExtResource("5_15i7t")]([SubResource("Resource_8q5ip")])
