@@ -26,6 +26,7 @@ Godot 4.7.2 Standard mit typisiertem GDScript, Windows und Compatibility-Rendere
 | Eingabe und Kalibrierung | Autoload `src/controller_support.gd`, `config/controller_mappings.cfg` |
 | HUD, Kamera und Feedback | `src/hud.gd`, `src/course_camera.gd`, `src/prototype_audio.gd`, `src/feedback_effects.gd` |
 | Tests | `tests/run_tests.gd`, `tests/*_test.gd`, `tests/test_runner.tscn` |
+| Windows-Release | `tools/build_release.ps1`, `tools/package_release.ps1`, `release/README.md` |
 
 ## Änderungen umsetzen
 

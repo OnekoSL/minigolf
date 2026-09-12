@@ -5,6 +5,7 @@ config_version=5
 [application]
 
 config/name="Putt & Pixel - Spielrahmen-Prototyp"
+config/version="0.3.0"
 run/main_scene="res://scenes/game_app.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
@@ -18,8 +19,8 @@ ControllerSupport="*res://src/controller_support.gd"
 
 size/viewport_width=640
 size/viewport_height=360
-size/window_width_override=2560
-size/window_height_override=1440
+size/window_width_override=1280
+size/window_height_override=720
 stretch/mode="canvas_items"
 stretch/aspect="keep"
 handheld/orientation=1

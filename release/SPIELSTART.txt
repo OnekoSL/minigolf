@@ -1,0 +1,56 @@
+PUTT & PIXEL 0.3.0
+Spielbare Vorabversion fuer Windows x64
+
+STARTEN
+1. Das gesamte ZIP in einen eigenen Ordner entpacken.
+2. PuttAndPixel.exe starten. Installation und Godot-Editor sind nicht noetig.
+3. SPIEL STARTEN waehlen, Spielmodus und Figur aussuchen, dann Kurs markieren.
+   Die Kursvorschau zeigt alle neun Bahnen vor dem Start.
+
+Das Spiel startet mit 1280 x 720 Pixeln. Das Fenster kann vergroessert werden.
+Es nutzt OpenGL 3.3 / den Godot-Compatibility-Renderer.
+
+INHALT
+Acht Themenkurse mit je neun Bahnen, vier Golfer (Ben, Mara, Bruno, Nika),
+Einzelspieler, lokaler Mehrspieler fuer 2-4 Personen, Uebung und freies Spiel.
+Hotseat: Alle Spieler beenden nacheinander ein Loch, dann geht es weiter.
+
+STEUERUNG
+                         Controller          Tastatur           Maus
+Menue / Zielen           Stick / D-Pad        WASD / Pfeile      Bewegen
+Bestaetigen / Schlag     Kreuz               Enter / Leertaste Linke Taste
+Zurueck / Abbrechen      Kreis               Escape            Rechte Taste
+Loch neu starten         Quadrat             R
+Pause                    Start               P
+Naechste Uebungsbahn     Dreieck              F2
+Controllerdiagnose                           F3
+Controllerkalibrierung                       F4
+
+Die Controllerbezeichnungen entsprechen einem PlayStation-Controller.
+Andere Geraete lassen sich mit F4 kalibrieren. Es werden keine Treiber
+mitgeliefert. Controller anschliessen, bevor du eine Runde startest.
+
+SO SCHLAEGST DU
+1. Richtung festlegen.
+2. Einmal bestaetigen: Die Kraftanzeige startet.
+3. Erneut bestaetigen: Kraft festlegen und Genauigkeitsanzeige starten.
+4. Ein drittes Mal druecken und halten: Schlag vorbereiten.
+5. Loslassen: Der Golfer schwingt und trifft den Ball.
+
+TIPPS
+Uebung eignet sich zum Kennenlernen der Bahnen und beweglichen Hindernisse.
+Pfeile zeigen bergab; Rot ist das staerkste Gefaelle.
+Beim Zahnrad im Uhrwerk-Finale sehen alle Tunnelloecher gleich aus.
+Ihre festen Verbindungen musst du ausprobieren. Warte vor dem Anspiel
+auf eine passende Stellung. Das Zahnrad dreht in 16 Sekunden einmal herum.
+
+SPIELSTAENDE
+Bestwerte und Controllerkalibrierung werden pro Windows-Benutzer gespeichert:
+%APPDATA%\Godot\app_userdata\Putt & Pixel - Spielrahmen-Prototyp\
+Der historische Ordnername bleibt fuer vorhandene Spielstaende erhalten.
+Das ZIP enthaelt keine persoenlichen Bestwerte oder Kalibrierungen.
+
+FEEDBACK
+Bitte Version 0.3.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
+nennen; ein Screenshot hilft. Die Protokolle liegen im Unterordner logs
+des oben genannten Benutzerordners.

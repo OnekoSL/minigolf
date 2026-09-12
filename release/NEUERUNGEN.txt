@@ -1,0 +1,23 @@
+PUTT & PIXEL 0.3.0 - SPIELBARE VORABVERSION
+
+- Acht Themenwelten mit 72 regulaeren Bahnen.
+- Vorschau aller neun Bahnen in der Kursauswahl.
+- Vier Golfer, lokale Mehrspielerrunden, Uebung und eigene Bahnfolgen.
+- Stadtpark mit rotem Pavillon-Kreis, Gartenspirale und diagonalen Ecken.
+- Korrigierte Drehfluegel in Muehlental, Uhrwerkfabrik und Waechterkammer.
+- Zwei versetzte Dreher auf der ersten Muehlental-Bahn.
+- Uhrwerk-Finale mit drehendem Zahnrad, acht verborgenen Tunnelloechern
+  und vier Ausgangsbereichen; 16 Sekunden pro Umdrehung.
+- Lokale Bestwerte und Controllerkalibrierung.
+- Eigenstaendiger Windows-Release-Build mit eingebetteten Spieldaten.
+
+PRUEFSTAND UND GRENZEN
+Automatisierte Tests pruefen die 72 gespeicherten PAR-Routen, Spielregeln,
+Menues, Eingabesperren, Speicherfehler und bewegliche Mechanismen.
+Das fertige Release wird nach dem Entpacken separat gestartet und geprueft.
+Pruefergebnisse stehen in PRUEFBERICHT.txt.
+
+Dies ist eine spielbare Vorabversion. Nicht alle Risikoabkuerzungen und
+beliebigen Schlag-/Timingkombinationen wurden von Hand durchgespielt.
+Controllerverhalten auf anderen PCs benoetigt weitere Spieltests.
+F2 im Uebungsmodus bietet weiterhin auch technische Testbahnen an.

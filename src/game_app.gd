@@ -73,6 +73,8 @@ var _last_attempt_capped := false
 
 
 func _ready() -> void:
+	# Keep the internal application name stable for existing user:// saves.
+	get_window().title = "Putt & Pixel %s" % ProjectSettings.get_setting("application/config/version", "")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hole_catalog = HoleCatalog.load_default()
 	course_catalog = CourseCatalog.load_default()
@@ -172,7 +174,7 @@ func _input(event: InputEvent) -> void:
 
 func _show_title() -> void:
 	current_screen = ScreenState.TITLE
-	var root := _build_screen("PUTT & PIXEL", "RETRO MINIGOLF  •  GRUNDPROTOTYP")
+	var root := _build_screen("PUTT & PIXEL", "RETRO MINIGOLF  •  VERSION %s" % ProjectSettings.get_setting("application/config/version", ""))
 	var mark := MenuWidgets.label("●", Vector2(296, 82), Vector2(48, 48), 38, Color("#f0c45b"))
 	mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(mark)

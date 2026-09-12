@@ -1,6 +1,6 @@
-# Putt & Pixel - Spielrahmen-Prototyp
+# Putt & Pixel - Spielbare Vorabversion 0.3.0
 
-Spielbarer Godot-4-Prototyp fuer das controllerorientierte 2D-Minigolfspiel mit acht Themenkursen, 72 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle.
+Spielbare Windows-Vorabversion des controllerorientierten 2D-Minigolfspiels mit acht Themenkursen, 72 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
 Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
@@ -21,7 +21,7 @@ Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. A
 
 ## Starten
 
-Der lokal erstellte [Windows-Build mit acht Welten und langsamerem Zahnrad](build/windows/PuttAndPixel-AchtWelten-Zahnrad16s.exe) kann direkt gestartet werden. Export und kurzer Headless-Start wurden mit Godot 4.7.2 erfolgreich geprueft.
+Das [Windows-Release 0.3.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.3.0/PuttAndPixel-0.3.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.3.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme. Die Release-EXE wurde auch nach frischem Entpacken gestartet und visuell kontrolliert.
 
 Die portable Godot-Version liegt lokal unter `.tools/godot-4.7.2/` und wird nicht versioniert.
 
