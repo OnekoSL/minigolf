@@ -1,23 +1,39 @@
-PUTT & PIXEL 0.3.0 - SPIELBARE VORABVERSION
+PUTT & PIXEL 0.4.0 - SPIELBARE VORABVERSION
 
-- Acht Themenwelten mit 72 regulaeren Bahnen.
+NEU GEGENUEBER 0.3.0
+- Drei neue Themenkurse: Zirkus, Die Baustelle und Urban Winter.
+- Insgesamt elf Kurse mit 99 regulaeren Bahnen und vier Golfern.
+- Zirkus: neun Bahnen mit Wippen, Pfeilen und Elefanten-Abkuerzungen.
+- Die Baustelle: neun Betonbahnen und geschwindigkeitsabhaengige Rohre.
+  Ein Eingang, drei Ausgaenge; das Tempo beim Eintritt bestimmt den Weg.
+- Urban Winter: neun Betonbahnen mit sehr glattem, befahrbarem Eis,
+  Schiebetoren, Drehern und zwei Zielbereichen auf Eis.
+- Beton bremst mit 80, Eis mit 20 statt 120 px/s² auf Gruen.
+  Kraft- und Weitenanzeige bleiben auf ebenes Gruen geeicht.
+- Feiner dosierbare kurze Schlaege ab etwa einem Dezimeter auf Gruen.
+- Ueberarbeitete Bahnen: Zwei Alleen, Muschelbucht, Strandzugang
+  und Saeulenhof mit fuenf Saeulen je Kammer.
+- Eigenes Anwendungssymbol fuer EXE und Fenster.
+- Startfenster mit 2560 x 1440 Pixeln; interne Pixelgrafik 640 x 360.
+
+WEITERHIN ENTHALTEN
 - Vorschau aller neun Bahnen in der Kursauswahl.
-- Vier Golfer, lokale Mehrspielerrunden, Uebung und eigene Bahnfolgen.
-- Stadtpark mit rotem Pavillon-Kreis, Gartenspirale und diagonalen Ecken.
-- Korrigierte Drehfluegel in Muehlental, Uhrwerkfabrik und Waechterkammer.
-- Zwei versetzte Dreher auf der ersten Muehlental-Bahn.
-- Uhrwerk-Finale mit drehendem Zahnrad, acht verborgenen Tunnelloechern
-  und vier Ausgangsbereichen; 16 Sekunden pro Umdrehung.
-- Lokale Bestwerte und Controllerkalibrierung.
-- Eigenstaendiger Windows-Release-Build mit eingebetteten Spieldaten.
+- Ben, Mara, Bruno und Nika mit eigenen Golferprofilen.
+- Lokale Mehrspielerrunden, Uebung und eigene Bahnfolgen.
+- Kursweise revisionierte Bestwerte und Controllerkalibrierung.
+- Eigenstaendiger Windows-x64-Build mit eingebetteten Spieldaten.
+- 14 technische Referenzen und Labore ueber F2 im Uebungsmodus.
 
 PRUEFSTAND UND GRENZEN
-Automatisierte Tests pruefen die 72 gespeicherten PAR-Routen, Spielregeln,
+Automatisierte Tests pruefen Spielregeln, Routen, Oberflaechen,
 Menues, Eingabesperren, Speicherfehler und bewegliche Mechanismen.
-Das fertige Release wird nach dem Entpacken separat gestartet und geprueft.
-Pruefergebnisse stehen in PRUEFBERICHT.txt.
+Baustelle und Urban Winter werden mit allen vier Golfern und
+kleinen Ziel-/Kraftabweichungen geprueft.
+Das Release-Paket wird frisch entpackt und eigenstaendig gestartet.
+Die konkreten Ergebnisse und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
 
 Dies ist eine spielbare Vorabversion. Nicht alle Risikoabkuerzungen und
 beliebigen Schlag-/Timingkombinationen wurden von Hand durchgespielt.
 Controllerverhalten auf anderen PCs benoetigt weitere Spieltests.
-F2 im Uebungsmodus bietet weiterhin auch technische Testbahnen an.
+Vorhandene Spielstaende und Controllerprofile bleiben erhalten;
+ueberarbeitete Kurse verwenden ihre jeweiligen Bestwertrevisionen.

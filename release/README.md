@@ -1,6 +1,6 @@
-# Windows-Release 0.3.0
+# Windows-Release 0.4.0
 
-Spielbare Vorabversion mit acht Themenkursen, 72 regulären Bahnen und vier Golfern.
+Spielbare Vorabversion mit elf Themenkursen, 99 regulären Bahnen und vier Golfern.
 Die ZIP-Datei enthält eine eigenständige x64-EXE, Kurzanleitung, Neuerungen,
 Godot-/Drittanbieter-Lizenzhinweise, Builddaten, Prüfbericht und SHA-256-Prüfsummen.
 
@@ -18,7 +18,7 @@ Versionstexte dieser Release-Anleitung gemeinsam pflegen. Die EXE wird mit
 `--export-release` und dem lokalen Release-Template gebaut. Controllerprofile
 werden ausdrücklich mitgeliefert; Tests, Werkzeuge und lokale Daten sind ausgeschlossen.
 
-Für den nächsten Release ist das eigene [Anwendungssymbol](../assets/branding/README.md)
+Das eigene [Anwendungssymbol](../assets/branding/README.md) ist
 in Projekt und Windows-Export hinterlegt. `assets/branding/putt_and_pixel.ico` enthält
 sieben Größen von 16 bis 256 Pixeln; PNG und ICO lassen sich mit
 `./tools/build_icon.ps1` aus der erhaltenen Bildvorlage neu erstellen. Beim Testexport
@@ -51,9 +51,9 @@ alle enthaltenen Prüfsummen vergleichen und die entpackte EXE starten.
 
 Der interne Anwendungsname bleibt für bestehende Spielstände stabil.
 Fenstertitel und Titelbildschirm zeigen Produktname und Version. Das Startfenster
-ist 1280 × 720 groß; die interne Auflösung und Physik bleiben unverändert.
+ist 2560 × 1440 groß; die interne Auflösung und Physik bleiben unverändert.
 
 Automatische Prüfungen ersetzen nicht das manuelle Durchspielen aller Varianten
 oder Controllerprüfungen auf fremden PCs. Das Release ist daher als spielbare
 Vorabversion bezeichnet. Das geprüfte ZIP und seine SHA-256-Prüfsumme gehören zum
-[GitHub-Release v0.3.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.3.0).
+[GitHub-Release v0.4.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.4.0).

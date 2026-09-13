@@ -1,4 +1,4 @@
-# Putt & Pixel - Entwicklungsstand mit Urban Winter
+# Putt & Pixel 0.4.0
 
 Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
@@ -20,15 +20,17 @@ Die urspruenglichen acht Welten ersetzen die fuenf bisherigen Kurszusammenstellu
 | Die Baustelle | 13 | Grauer Beton und geschwindigkeitsabhaengige Rohrsysteme |
 | Urban Winter | 14 | Beton, sehr glattes Eis, Schiebetore und Dreher |
 
-[Urban Winter](URBAN_WINTER.md) ergaenzt nach [Die Baustelle](BAUSTELLE.md) und dem [Zirkuskurs](ZIRKUS.md) neun weitere Bahnen. Die GitHub-Vorabversion 0.3.0 enthaelt weiterhin die bisherigen acht Kurse; die drei Erweiterungen gehoeren zum anschliessenden Entwicklungsstand.
+[Urban Winter](URBAN_WINTER.md) ergaenzt nach [Die Baustelle](BAUSTELLE.md) und dem [Zirkuskurs](ZIRKUS.md) neun weitere Bahnen. Die GitHub-Vorabversion 0.4.0 enthaelt alle elf Kurse einschliesslich dieser drei Erweiterungen.
 
 Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. Alte Bestwerte und technische Testbahnen bleiben erhalten. Gemeinsame Themenressourcen steuern Umgebung, Rasen, Banden und Dekoration ohne Einfluss auf die Ballphysik.
 
 ## Starten
 
+Das [Windows-Release 0.4.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.4.0/PuttAndPixel-0.4.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt alle elf Kurse, das neue Icon, Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.4.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
+
 Aktueller Windows-Build: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
 
-Für den nächsten Release ist das eigene [Anwendungssymbol](assets/branding/README.md) in Projekt und Export hinterlegt. [Build mit neuem EXE-Icon](build/windows/PuttAndPixel-UrbanWinter-Icon.exe): eingebettete Icon-Größen geprüft und eigenständiger Start mit Exitcode 0.
+Für Release 0.4.0 ist das eigene [Anwendungssymbol](assets/branding/README.md) in Projekt und Export hinterlegt. [Build mit neuem EXE-Icon](build/windows/PuttAndPixel-UrbanWinter-Icon.exe): eingebettete Icon-Größen geprüft und eigenständiger Start mit Exitcode 0.
 
 Vorheriger lokaler Build mit zehn Kursen: [PuttAndPixel-Baustelle.exe](build/windows/PuttAndPixel-Baustelle.exe).
 
@@ -37,8 +39,6 @@ Vorheriger lokaler Build mit drei Pfeilfeldern auf Zwei Alleen: [PuttAndPixel-Zw
 Vorheriger lokaler Build mit je fünf Säulen als Würfel-Fünf im Säulenhof: [PuttAndPixel-Saeulenhof-W5.exe](build/windows/PuttAndPixel-Saeulenhof-W5.exe). In beiden Kammern steht eine Säule mittig im Weg; PAR 2 bleibt erhalten.
 
 Den lokalen [Windows-Entwicklungsbuild mit Zirkus](build/windows/PuttAndPixel-Zirkus-Jonglierweg.exe) direkt starten. Das Startfenster ist wieder 2560 × 1440 Pixel gross; die interne Pixelgrafik verwendet weiterhin 640 × 360. ZIRKUS steht auf Kursseite 3, die Elefantenbahn ist Bahn 5. Dieser Build erweitert den Entwicklungsstand und ersetzt kein veroeffentlichtes Release.
-
-Das [Windows-Release 0.3.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.3.0/PuttAndPixel-0.3.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.3.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme. Die Release-EXE wurde auch nach frischem Entpacken gestartet und visuell kontrolliert.
 
 Die portable Godot-Version liegt lokal unter `.tools/godot-4.7.2/` und wird nicht versioniert.
 

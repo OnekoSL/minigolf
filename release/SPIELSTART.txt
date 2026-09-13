@@ -1,4 +1,4 @@
-PUTT & PIXEL 0.3.0
+PUTT & PIXEL 0.4.0
 Spielbare Vorabversion fuer Windows x64
 
 STARTEN
@@ -7,11 +7,11 @@ STARTEN
 3. SPIEL STARTEN waehlen, Spielmodus und Figur aussuchen, dann Kurs markieren.
    Die Kursvorschau zeigt alle neun Bahnen vor dem Start.
 
-Das Spiel startet mit 1280 x 720 Pixeln. Das Fenster kann vergroessert werden.
+Das Spiel startet mit 2560 x 1440 Pixeln. Das Fenster kann vergroessert werden.
 Es nutzt OpenGL 3.3 / den Godot-Compatibility-Renderer.
 
 INHALT
-Acht Themenkurse mit je neun Bahnen, vier Golfer (Ben, Mara, Bruno, Nika),
+Elf Themenkurse mit je neun Bahnen, vier Golfer (Ben, Mara, Bruno, Nika),
 Einzelspieler, lokaler Mehrspieler fuer 2-4 Personen, Uebung und freies Spiel.
 Hotseat: Alle Spieler beenden nacheinander ein Loch, dann geht es weiter.
 
@@ -40,6 +40,12 @@ SO SCHLAEGST DU
 TIPPS
 Uebung eignet sich zum Kennenlernen der Bahnen und beweglichen Hindernisse.
 Pfeile zeigen bergab; Rot ist das staerkste Gefaelle.
+Die Kraft- und Weitenanzeige gilt fuer ebenes Gruen. Auf Beton rollt der
+Ball etwa 1,5-mal so weit, auf Eis etwa sechsmal so weit wie auf Gruen.
+Eis ist befahrbar und verursacht keine Wasserstrafe.
+Die Baustellenrohre haben je einen Eingang und drei Ausgaenge. Das Tempo
+beim Eintritt entscheidet ueber den Ausgang; mittleres Tempo hilft.
+Zirkus steht auf Kursseite 3, Baustelle und Urban Winter auf Seite 4.
 Beim Zahnrad im Uhrwerk-Finale sehen alle Tunnelloecher gleich aus.
 Ihre festen Verbindungen musst du ausprobieren. Warte vor dem Anspiel
 auf eine passende Stellung. Das Zahnrad dreht in 16 Sekunden einmal herum.
@@ -51,6 +57,6 @@ Der historische Ordnername bleibt fuer vorhandene Spielstaende erhalten.
 Das ZIP enthaelt keine persoenlichen Bestwerte oder Kalibrierungen.
 
 FEEDBACK
-Bitte Version 0.3.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
+Bitte Version 0.4.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
 nennen; ein Screenshot hilft. Die Protokolle liegen im Unterordner logs
 des oben genannten Benutzerordners.

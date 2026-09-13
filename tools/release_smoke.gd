@@ -30,7 +30,8 @@ func _run() -> void:
 	# Release templates disable external script overrides. Mount the exported
 	# EXE with the matching editor engine and a scene override for this audit; launch the
 	# actual standalone executable separately with --write-movie/--quit-after.
-	_check(ProjectSettings.get_setting("application/config/version")=="0.3.0","Version 0.3.0 im ausgelieferten Paket")
+	_check(ProjectSettings.get_setting("application/config/version")=="0.4.0","Version 0.4.0 im ausgelieferten Paket")
+	_check(ProjectSettings.get_setting("application/config/icon")=="res://assets/branding/putt_and_pixel.png" and ResourceLoader.exists("res://assets/branding/putt_and_pixel.png"),"Eigenes Anwendungssymbol im Paket")
 	_check(FileAccess.file_exists("res://config/controller_mappings.cfg"),"Controllerprofile im Paket enthalten")
 	_check(not ResourceLoader.exists("res://tests/run_tests.gd") and not ResourceLoader.exists("res://tools/release_smoke.gd"),"Entwicklertests und Buildwerkzeuge nicht ausgeliefert")
 	print("USER_DIR ",OS.get_user_data_dir())
@@ -38,9 +39,9 @@ func _run() -> void:
 	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
 	root.add_child(app)
 	await get_tree().process_frame
-	_check(root.title=="Putt & Pixel 0.3.0","Release-Fenstertitel")
+	_check(root.title=="Putt & Pixel 0.4.0","Release-Fenstertitel")
 	_check(app.hole_catalog.validate().is_empty() and app.course_catalog.validate(app.hole_catalog).is_empty(),"Exportierte Bahn- und Kursdaten sind gueltig")
-	_check(app.course_catalog.courses.size()==8,"Acht exportierte Kurse")
+	_check(app.course_catalog.courses.size()==11 and app.hole_catalog.holes.size()==113,"Elf Kurse und 113 exportierte Bahnen")
 	await _capture("titel")
 	for index in range(app.course_catalog.courses.size()):
 		var course := app.course_catalog.courses[index]
@@ -51,6 +52,9 @@ func _run() -> void:
 		await get_tree().process_frame
 		_check(app.course_preview.hole_ids.size()==9 and app.course_preview.runtimes.size()==9,"Neun aufgebaute Bahnen in "+course.display_name)
 		if index==5: await _capture("uhrwerkfabrik")
+		if index==8: await _capture("zirkus")
+		if index==9: await _capture("baustelle")
+		if index==10: await _capture("urban-winter")
 	for index in range(GolferDefinition.IDS.size()):
 		var config := RoundConfig.new()
 		config.mode = RoundConfig.GameMode.PRACTICE
@@ -65,9 +69,58 @@ func _run() -> void:
 		_check(app.gameplay != null and app.gameplay.hole.obstacle_nodes[0] is TunnelGear,"Spielstart mit "+String(player.golfer_id))
 		_check(is_equal_approx((app.gameplay.hole.obstacle_nodes[0] as TunnelGear).seconds_per_revolution,16),"Zahnradtempo im Release")
 		if index==0: await _capture("spiel")
+	await _check_new_courses(app)
 	app._remove_gameplay()
 	app.queue_free()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	print("RELEASE: %d Checks, %d Fehler" % [checks,failures])
 	get_tree().quit(0 if failures==0 else 1)
+
+
+func _check_new_courses(app: GameApp) -> void:
+	for course_id in [&"zirkus_course", &"baustelle_course", &"urban_winter_course"]:
+		var course := app.course_catalog.get_course(course_id)
+		for index in range(course.hole_ids.size()):
+			app._remove_gameplay()
+			await get_tree().process_frame
+			var config := RoundConfig.new()
+			config.mode = RoundConfig.GameMode.PRACTICE
+			config.players = [PlayerProfile.create(1,"RELEASE",0)]
+			config.hole_ids = [course.hole_ids[index]]
+			app._start_round(config)
+			await get_tree().physics_frame
+			var game := app.gameplay
+			_check(game.hole.definition.hole_id == course.hole_ids[index],"Neue Kursbahn startet: "+String(course.hole_ids[index]))
+			if course_id in [&"baustelle_course", &"urban_winter_course"]:
+				_check(game.ball.base_surface == SurfaceZone.SurfaceType.CONCRETE and game.ball._surface_at(game.ball.position).deceleration == 80,"Betonabschlag im exportierten Kurs")
+			if course_id == &"urban_winter_course":
+				_check(game.hole.zones.all(func(zone): return zone.surface_type == SurfaceZone.SurfaceType.ICE and zone.deceleration == 20),"Eis statt Wasser im exportierten Winterkurs")
+			if course_id == &"baustelle_course" and index == 2:
+				var pipe := game.hole.definition.pipe_systems[0]
+				game.ball.reset_to(pipe.entrance)
+				game.ball.launch(Vector2.RIGHT,190,1)
+				game.ball._try_pipe_capture()
+				game.shot_controller._set_state(ShotController.ShotState.BALL_MOVING)
+				_check(game.ball._tunnel_exit_hole == pipe.exits[1],"Tempo-Rohr waehlt den mittleren Ausgang")
+				for tick in range(40):
+					await get_tree().physics_frame
+					if not game.ball.is_tunnel_sequence_active(): break
+				_check(not game.ball.is_tunnel_sequence_active() and game.ball.velocity.x > 180 and game.ball.position.distance_to(pipe.exits[1]+Vector2.RIGHT*13) < 7,"Rohr erhaelt das Tempo im freien Auslauf")
+				await _capture("rohraustritt")
+			if course_id == &"urban_winter_course" and index == 6:
+				game.ball.reset_to(Vector2(400,184))
+				game.ball.launch(Vector2.RIGHT,80,1)
+				game.shot_controller._set_state(ShotController.ShotState.BALL_MOVING)
+				for tick in range(12): await get_tree().physics_frame
+				_check(game.ball.visible and game.ball.moving and game.ball.position.x > 410 and game.ball.velocity.x > 75 and game.ball.velocity.x < 77,"Eisgleiten ohne Wasserstrafe")
+				await _capture("eisgleiten")
+				game.restart_hole()
+				_check(not game.ball.moving and game.ball.position == game.hole.get_tee_position(),"Neustart verwirft Eisbewegung")
+				game.ball.reset_to(game.hole.get_hole_position()-Vector2(24,0))
+				game.ball.launch(Vector2.RIGHT,40,1)
+				game.shot_controller._set_state(ShotController.ShotState.BALL_MOVING)
+				for tick in range(60):
+					await get_tree().physics_frame
+					if game.ball.position == game.hole.get_hole_position(): break
+				_check(game.ball.position == game.hole.get_hole_position(),"Kurzer Eisputt locht im Paket ein")
