@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="course"]
+
+[resource]
+script = ExtResource("course")
+course_id = &"baustelle_course"
+display_name = "DIE BAUSTELLE"
+best_score_revision = 1
+hole_ids = Array[StringName]([&"baustelle_01", &"baustelle_02", &"baustelle_03", &"baustelle_04", &"baustelle_05", &"baustelle_06", &"baustelle_07", &"baustelle_08", &"baustelle_09"])

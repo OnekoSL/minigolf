@@ -52,6 +52,10 @@ func get_tunnels() -> Array[TunnelDefinition]:
 	return definition.tunnels
 
 
+func configure_ball(ball: PrototypeBall) -> void:
+	ball.configure_environment(zones, definition.hole_position, definition.tunnels, obstacle_nodes, definition.base_surface, definition.pipe_systems)
+
+
 func reset_obstacles() -> void:
 	reset_mechanisms()
 

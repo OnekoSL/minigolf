@@ -1,6 +1,6 @@
-# Putt & Pixel - Entwicklungsstand mit Zirkuskurs
+# Putt & Pixel - Entwicklungsstand mit Urban Winter
 
-Controllerorientiertes 2D-Minigolfspiel mit neun Themenkursen, 81 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
+Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
 Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
@@ -17,14 +17,20 @@ Die urspruenglichen acht Welten ersetzen die fuenf bisherigen Kurszusammenstellu
 | Tempelruinen | 27 | Tunnel und getrennte Kammern |
 | Sternwarte | 32 | Schalter, Kanonen und Landungen |
 | Zirkus | 29 | Wippen, Pfeilpassagen und Elefanten-Abkuerzung |
+| Die Baustelle | 13 | Grauer Beton und geschwindigkeitsabhaengige Rohrsysteme |
+| Urban Winter | 14 | Beton, sehr glattes Eis, Schiebetore und Dreher |
 
-Der neue [Zirkuskurs](ZIRKUS.md) erweitert den Bestand um neun eigene Bahnen. Die GitHub-Vorabversion 0.3.0 enthaelt weiterhin die bisherigen acht Kurse; der Zirkus gehoert zum anschliessenden Entwicklungsstand.
+[Urban Winter](URBAN_WINTER.md) ergaenzt nach [Die Baustelle](BAUSTELLE.md) und dem [Zirkuskurs](ZIRKUS.md) neun weitere Bahnen. Die GitHub-Vorabversion 0.3.0 enthaelt weiterhin die bisherigen acht Kurse; die drei Erweiterungen gehoeren zum anschliessenden Entwicklungsstand.
 
 Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. Alte Bestwerte und technische Testbahnen bleiben erhalten. Gemeinsame Themenressourcen steuern Umgebung, Rasen, Banden und Dekoration ohne Einfluss auf die Ballphysik.
 
 ## Starten
 
-Aktueller lokaler Build mit drei Pfeilfeldern auf Zwei Alleen: [PuttAndPixel-ZweiAlleen.exe](build/windows/PuttAndPixel-ZweiAlleen.exe). Oben fordert eine rote Gegensteigung mehr Kraft; unten helfen gruene Rechts- und blaue Aufwaertspfeile. Beide Wege bleiben in PAR 3 spielbar. Die Umbauten an Muschelbucht und Strandzugang sind ebenfalls enthalten.
+Aktueller Windows-Build: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
+
+Vorheriger lokaler Build mit zehn Kursen: [PuttAndPixel-Baustelle.exe](build/windows/PuttAndPixel-Baustelle.exe).
+
+Vorheriger lokaler Build mit drei Pfeilfeldern auf Zwei Alleen: [PuttAndPixel-ZweiAlleen.exe](build/windows/PuttAndPixel-ZweiAlleen.exe). Oben fordert eine rote Gegensteigung mehr Kraft; unten helfen gruene Rechts- und blaue Aufwaertspfeile. Beide Wege bleiben in PAR 3 spielbar. Die Umbauten an Muschelbucht und Strandzugang sind ebenfalls enthalten.
 
 Vorheriger lokaler Build mit je fünf Säulen als Würfel-Fünf im Säulenhof: [PuttAndPixel-Saeulenhof-W5.exe](build/windows/PuttAndPixel-Saeulenhof-W5.exe). In beiden Kammern steht eine Säule mittig im Weg; PAR 2 bleibt erhalten.
 
@@ -46,7 +52,7 @@ Direkt spielen:
 
 ## Steuerung
 
-Das Golferfenster zeigt Figur und beide Anzeigen ohne Phasentext, Anzeigenueberschriften oder dauerhafte Steuerungshinweise. Die verlaengerte Kraftskala erlaubt kurze Schlaege ab etwa 1 dm; bis 10 dm besitzt sie einzelne Dezimeterstriche, darueber 10-dm-Striche. Die erwartete Weite gilt fuer ebenes Gruen.
+Das Golferfenster zeigt Figur und beide Anzeigen ohne Phasentext, Anzeigenueberschriften oder dauerhafte Steuerungshinweise. Die verlaengerte Kraftskala erlaubt kurze Schlaege ab etwa 1 dm; bis 10 dm besitzt sie einzelne Dezimeterstriche, darueber 10-dm-Striche. Die erwartete Weite gilt fuer ebenes Gruen. Auch auf Beton bleiben Kraftskala und Abschlaggeschwindigkeit unveraendert: Der Ball wird dort mit 80 statt 120 px/s² gebremst und rollt frei etwa 1,5-mal so weit. Auf Eis betraegt die Bremsung 20 px/s²; der Ball rollt frei etwa viermal so weit wie auf Beton und sechsmal so weit wie auf Gruen. Eis ist befahrbar, erlaubt erneutes Abschlagen und verursacht keine Wasserstrafe.
 
 Vier erwachsene Pixelgolfer sind sofort verfuegbar: Ben (Allrounder), Mara, Bruno und Nika. Jeder besitzt einen eigenen Atlas und ein festes Spielprofil. Die Spieleranlage fuehrt vom Namen ueber die Figur zur kosmetischen Farbe; mehrere Spieler duerfen dieselbe Figur waehlen. Fuenf Vergleichsbalken zeigen ihre Staerken und Schwaechen direkt in der Auswahl; ein heller Strich markiert Ben. Details und Werte stehen in [GOLFER.md](GOLFER.md). Ihre Spriteposen zeigen Atmen/Blinzeln, kraftabhaengiges Ausholen, Halten, kontrolliertes Putten, Beobachten, Jubel und Aerger. Vier Spielerfarben faerben nur Polo beziehungsweise Weste um. Abschwung und Kontakt folgen dem Schlagsystem; der Einblendungsball und Perfektglanz starten erst am echten Ballkontakt. Abbruch, Neustart und Spielerwechsel setzen die Darstellung zurueck, Pause friert sie ein. Bildquelle und Aufbereitung sind in [assets/golfer/README.md](assets/golfer/README.md) dokumentiert.
 
@@ -70,20 +76,20 @@ Brunos maximale Richtungsabweichung betraegt 10 Grad. Strandzugang besitzt zwei 
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 81 Kurs- und 14 technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 99 Kurs- und 14 technischen Bahnen.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
 ## Spielmodi und Runde
 
-- **Einzelner Kurs:** ein Spieler waehlt einen der neun Themenkurse auf drei Seiten mit je drei Eintraegen.
+- **Einzelner Kurs:** ein Spieler waehlt einen der elf Themenkurse auf vier Seiten mit bis zu drei Eintraegen.
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
 - **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
 Beim Markieren eines Kurses erscheint rechts eine **3×3-Vorschau aller neun Bahnen** mit Bahnnummer und PAR. Controller, Tastatur und Maus aktualisieren dieselbe Uebersicht; Bestaetigen startet den angezeigten Kurs. Auch lange Bahnen sind vollstaendig abgebildet.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 81 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 99 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
 Die Kursfreigabe wird aus Kurs-ID und exakter vollständiger Lochfolge abgeleitet. Beschädigte Bestwertdateien werden nicht überschrieben; fehlgeschlagenes Speichern wird in der Endtabelle angezeigt. Menüaktionen beachten Eingabesperre, Fokus, Diagnose und Kalibrierung auch bei Mausklicks und verspäteten Signalen alter Bildschirme.
 
@@ -96,6 +102,10 @@ Scheitert das Speichern einer Kalibrierung, bleibt das neue Profil für diese Si
 Wenn SDL das Geraet auf einem anderen Rechner gar nicht erkennt, ist Steam Input der vorgesehene Fallback. Es werden keine zusaetzlichen Systemtreiber benoetigt.
 
 ## Tests
+
+`tests/urban_winter_test.gd` prueft Eisphysik, Belagwechsel, kurze Eisputts, Lebenszykluswechsel, Pflichtpassagen und aktive Hindernisse. Alle vier Golfer spielen die neun PAR-Routen; jeder Schlag wird einzeln um ±0,3 Grad und ±1 Prozent variiert. Zusatzrouten sichern den Betonbogen und Korrekturen nach Hinderniskontakten. Aufnahmen entstehen mit `res://tests/capture_urban_winter.tscn` unter `.godot/urban_winter/`.
+
+`tests/baustelle_test.gd` prueft Beton gegen Gruen, die unveraenderte Kraftanzeige, Rohreintritt und Schwellenwerte, Tempoerhalt, Pause, Reset, Bahnwechsel, das Schlaglimit und alle neun aktiven PAR-Routen mit vier Golfern und kleinen Winkel-/Kraftabweichungen. `tests/baustelle_recovery_routes.json` enthaelt die vollstaendigen Routen fuer beide Fehlwege aller acht Rohrsysteme. Aufnahmen entstehen mit `res://tests/capture_baustelle.tscn` unter `.godot/baustelle/`.
 
 ```powershell
 & '.\.tools\godot-4.7.2\Godot_v4.7.2-stable_win64_console.exe' --headless --path . res://tests/test_runner.tscn

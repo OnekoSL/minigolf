@@ -64,6 +64,8 @@ func _draw() -> void:
 	for cannon in definition.cannons:
 		draw_dashed_line(cannon.position, cannon.landing_position, Color(0.92, 0.83, 0.46, 0.48), 1.0, 8.0)
 		draw_circle(cannon.landing_position, 12.0, Color(0.92, 0.83, 0.46, 0.25), false, 1.0)
+	for pipe in definition.pipe_systems:
+		pipe.draw_mouths(self)
 	for tunnel in definition.tunnels:
 		if tunnel == null:
 			continue

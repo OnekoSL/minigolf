@@ -2,12 +2,12 @@ extends RefCounted
 
 
 static func run(host: Node, check: Callable) -> void:
-	print("\n[Neun Welten: aktueller Produktionskatalog und Spielrahmen]")
+	print("\n[Elf Welten: aktueller Produktionskatalog und Spielrahmen]")
 	await _test_strandzugang(host, check)
 	await _test_muschelbucht(host, check)
 	var holes := HoleCatalog.load_default()
 	var courses := CourseCatalog.load_default()
-	check.call(courses.courses.size() == 9 and holes.holes.size() == 95,"Neun Kurse und 95 registrierte Bahnen ersetzen den bisherigen Spielbestand")
+	check.call(courses.courses.size() == 11 and holes.holes.size() == 113,"Elf Kurse und 113 registrierte Bahnen ersetzen den bisherigen Spielbestand")
 	check.call(holes.validate().is_empty() and courses.validate(holes).is_empty(),"Alle aktuellen Bahn- und Kursdefinitionen sind gueltig")
 	var ids: Dictionary = {}
 	var themes: Dictionary = {}
@@ -21,7 +21,7 @@ static func run(host: Node, check: Callable) -> void:
 			check.call(hole.lane_outline != null and hole.lane_outline.use_normalized_walls,"%s besitzt eine geschlossene Normkontur" % hole_id)
 			check.call(hole.arrow_tiles.all(func(tile): return tile.deceleration == 30 and tile.minimum_flow_speed == 0 and tile.maximum_flow_speed == 0 and tile.flow_alignment_rate == 0 and tile.flow_centering_strength == 0),"%s behaelt reine Gefaellephysik" % hole_id)
 			themes[hole.theme.theme_id] = true
-	check.call(ids.size() == 81 and themes.size() == 9,"81 unterschiedliche Kursplaetze mit neun Weltthemen")
+	check.call(ids.size() == 99 and themes.size() == 11,"99 unterschiedliche Kursplaetze mit elf Weltthemen")
 	check.call(holes.holes.filter(func(h): return not h.is_course_hole()).size() == 14,"Vierzehn technische Referenzen und Labore bleiben erreichbar")
 	for old_id in [&"classic_nine_course",&"arrow_armageddon_course",&"prototype_course_03",&"labyrinth_nine_course",&"reference_lanes_course"]:
 		check.call(courses.get_course(old_id) == null,"Alter Kurs %s ist aus der offiziellen Auswahl entfernt" % old_id)
@@ -30,19 +30,19 @@ static func run(host: Node, check: Callable) -> void:
 	await host.get_tree().process_frame
 	app.best_store = BestScoreStore.new("res://.godot/worlds_best_test.cfg")
 	app.best_store.submit(&"classic_nine_course_v10",19)
-	for page in range(3):
+	for page in range(4):
 		app.course_select_page = page
 		app._show_course_select()
-		var count := 3
+		var count := mini(3, courses.courses.size() - page * 3)
 		check.call(app.option_buttons.size() == count+3,"Kursseite %d zeigt %d Kurse mit Navigation" % [page+1,count])
-		check.call(app.option_buttons[count].disabled == (page==0) and app.option_buttons[count+2].disabled == (page==2),"Kursseite %d begrenzt Vor/Zurueck korrekt" % [page+1])
+		check.call(app.option_buttons[count].disabled == (page==0) and app.option_buttons[count+2].disabled == (page==3),"Kursseite %d begrenzt Vor/Zurueck korrekt" % [page+1])
 		check.call(app._menu_input_locked,"Seitenwechsel sperrt gehaltene Eingaben")
-	app.hole_select_page = 16
+	app.hole_select_page = 19
 	app._show_hole_select()
-	check.call(app.hole_select_page == 16 and app.option_buttons.size() == 4,"Uebung erreicht die letzte der 81 Bahnen auf Seite 17")
-	app.free_select_page = 16
+	check.call(app.hole_select_page == 19 and app.option_buttons.size() == 7,"Uebung erreicht die letzten der 99 Bahnen auf Seite 20")
+	app.free_select_page = 19
 	app._show_free_builder()
-	check.call(app.free_select_page == 16 and app.option_buttons.size() == 6,"Freies Spiel erreicht die letzte Bahnseite")
+	check.call(app.free_select_page == 19 and app.option_buttons.size() == 9,"Freies Spiel erreicht die letzte Bahnseite")
 	for course in courses.courses:
 		var config := RoundConfig.new()
 		config.course_id = course.course_id

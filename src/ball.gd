@@ -8,10 +8,12 @@ signal hazard_entered(hazard_type: String)
 signal holed(stroke_count: int)
 signal external_motion_started()
 signal surface_changed(surface_type: int)
+signal pipe_entered(entrance: Vector2, exit_index: int, speed: float)
 signal cannon_feedback(kind: StringName, mechanism_id: StringName, world_position: Vector2, direction: Vector2)
 
 const RADIUS := 5.0
 const GRASS_DECELERATION := 120.0
+const CONCRETE_DECELERATION := 80.0
 const STOP_SPEED := 3.0
 const STOP_SETTLE_TIME := 0.25
 const STUCK_DISTANCE_PER_TICK := 0.05
@@ -27,6 +29,8 @@ const TUNNEL_EXIT_CLEARANCE := 13.0
 
 var zones: Array[SurfaceZone] = []
 var tunnels: Array[TunnelDefinition] = []
+var pipe_systems: Array[PipeSystemDefinition] = []
+var base_surface: int = -1
 var rest_receivers: Array[Node2D] = []
 var hole_position := Vector2.ZERO
 var moving := false
@@ -77,11 +81,15 @@ func configure_environment(
 	surface_zones: Array[SurfaceZone],
 	target_hole: Vector2,
 	tunnel_pairs: Array[TunnelDefinition] = [],
-	receivers: Array[Node2D] = []
+	receivers: Array[Node2D] = [],
+	ground_surface: int = -1,
+	systems: Array[PipeSystemDefinition] = []
 ) -> void:
 	zones = surface_zones
 	hole_position = target_hole
 	tunnels = tunnel_pairs
+	base_surface = ground_surface
+	pipe_systems = systems
 	rest_receivers = receivers
 	for receiver in rest_receivers:
 		if receiver.has_method("bind_ball"):
@@ -208,6 +216,8 @@ func _physics_process(delta: float) -> void:
 		if stepped_surface.surface_type == SurfaceZone.SurfaceType.WATER:
 			_enter_hazard("Wasser")
 			return
+		if _try_pipe_capture():
+			return
 		var tunnel_entry := _find_tunnel_entry(global_position)
 		if not tunnel_entry.is_empty():
 			_start_tunnel_sequence(tunnel_entry["entry"], tunnel_entry["exit"])
@@ -243,8 +253,8 @@ func _surface_at(point: Vector2) -> SurfaceSample:
 		if zone.contains_global_point(point):
 			return zone.get_surface_data()
 	var sample := SurfaceSample.new()
-	sample.surface_type = -1
-	sample.deceleration = GRASS_DECELERATION
+	sample.surface_type = base_surface
+	sample.deceleration = CONCRETE_DECELERATION if base_surface == SurfaceZone.SurfaceType.CONCRETE else GRASS_DECELERATION
 	sample.acceleration = Vector2.ZERO
 	sample.minimum_flow_speed = 0.0
 	sample.maximum_flow_speed = 0.0
@@ -378,6 +388,17 @@ func is_cannon_sequence_active() -> bool:
 
 func is_tunnel_sequence_active() -> bool:
 	return _tunnel_active
+
+
+func _try_pipe_capture() -> bool:
+	for pipe in pipe_systems:
+		if global_position.distance_to(pipe.entrance) <= PipeSystemDefinition.INTAKE_RADIUS:
+			var speed := velocity.length()
+			var index := PipeSystemDefinition.exit_index_for_speed(speed)
+			if start_directed_tunnel(pipe.entrance, pipe.exits[index], pipe.exit_directions[index], TUNNEL_EXIT_CLEARANCE, PipeSystemDefinition.TRANSPORT_SECONDS):
+				pipe_entered.emit(pipe.entrance, index, speed)
+				return true
+	return false
 
 
 func _find_tunnel_entry(point: Vector2) -> Dictionary:

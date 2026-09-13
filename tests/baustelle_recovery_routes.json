@@ -1,0 +1,636 @@
+[
+	{
+		"exit": 0,
+		"id": "baustelle_03",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 142.26735395023,
+				"target": [
+					296.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 115.607959048296,
+				"target": [
+					568.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.908814382488,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_03",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 297.724705054854,
+				"target": [
+					296.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 162.034142934637,
+				"target": [
+					568.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.62506611675,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_04",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 204.939015319192,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 115.603122930352,
+				"target": [
+					568.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.908814382488,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_04",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 332.264954516723,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 161.918249531206,
+				"target": [
+					568.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.625057182056,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_05",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 160.0,
+				"target": [
+					330.0,
+					246.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 185.730734564096,
+				"target": [
+					296.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 114.865941733451,
+				"target": [
+					568.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.908766288769,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_05",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 160.0,
+				"target": [
+					330.0,
+					246.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 320.773916897429,
+				"target": [
+					296.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 161.160737163631,
+				"target": [
+					568.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.624994639181,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_06",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 255.029410068721,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 114.898286370761,
+				"target": [
+					568.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.908771098142,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_06",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 365.294401818588,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 161.639911338444,
+				"target": [
+					568.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.625034845318,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_07",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 138.0,
+				"target": [
+					248.0,
+					168.0
+				],
+				"wait": 150
+			},
+			{
+				"angle": null,
+				"speed": 155.085685426537,
+				"target": [
+					248.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 114.845493184049,
+				"target": [
+					568.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.908766288769,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_07",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 138.0,
+				"target": [
+					248.0,
+					168.0
+				],
+				"wait": 150
+			},
+			{
+				"angle": null,
+				"speed": 304.058497372165,
+				"target": [
+					248.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 161.727792621584,
+				"target": [
+					568.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.625043780014,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_08",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 303.183112986195,
+				"target": [
+					744.0,
+					280.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 123.809521473196,
+				"target": [
+					648.0,
+					112.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 123.305754456275,
+				"target": [
+					552.0,
+					112.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 230.903245091424,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_08",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 400.39980019975,
+				"target": [
+					744.0,
+					280.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 179.491462355717,
+				"target": [
+					648.0,
+					112.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 122.977301759499,
+				"target": [
+					552.0,
+					112.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 230.90440815005,
+				"target": [
+					232.0,
+					80.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_09",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 159.248233899155,
+				"target": [
+					328.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.492573275074,
+				"target": [
+					624.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 118.663439874675,
+				"target": [
+					624.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 206.164617447574,
+				"target": [
+					664.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_09",
+		"pipe": 0,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 306.202547344074,
+				"target": [
+					328.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 96.3489750853635,
+				"target": [
+					624.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 128.998059162059,
+				"target": [
+					624.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 206.164106759677,
+				"target": [
+					664.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 0,
+		"id": "baustelle_09",
+		"pipe": 1,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 210.0,
+				"target": [
+					328.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 115.115049447824,
+				"target": [
+					664.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 116.055196323775,
+				"target": [
+					952.0,
+					80.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 126.9088288106,
+				"target": [
+					952.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"exit": 2,
+		"id": "baustelle_09",
+		"pipe": 1,
+		"shots": [
+			{
+				"angle": null,
+				"speed": 210.0,
+				"target": [
+					328.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 285.747221525206,
+				"target": [
+					664.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 148.783576830156,
+				"target": [
+					952.0,
+					272.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 136.624257524572,
+				"target": [
+					952.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	}
+]

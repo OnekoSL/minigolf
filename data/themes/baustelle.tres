@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CourseTheme" format=3]
+
+[ext_resource type="Script" path="res://src/course_theme.gd" id="1_0rgus"]
+
+[resource]
+script = ExtResource("1_0rgus")
+theme_id = &"baustelle"
+background = Color(0.24313726, 0.27058825, 0.28627452, 1)
+turf = Color(0.57254905, 0.60784316, 0.61960787, 1)
+wall = Color(0.9411765, 0.83137256, 0.6039216, 1)
+trim = Color(0.29803923, 0.25490198, 0.21960784, 1)
+accent = Color(0.9372549, 0.5686275, 0.23921569, 1)
+foliage = Color(0.42352942, 0.45490196, 0.47058824, 1)
+motif = 9

@@ -3,7 +3,7 @@ extends Resource
 
 @export var rect := Rect2(Vector2.ZERO, Vector2(64.0, 32.0))
 @export_range(-180.0, 180.0, 0.1) var rotation_degrees := 0.0
-@export_enum("Sand", "Gefaelle", "Wasser") var surface_type: int = SurfaceZone.SurfaceType.SAND
+@export_enum("Sand", "Gefaelle", "Wasser", "Beton", "Eis") var surface_type: int = SurfaceZone.SurfaceType.SAND
 @export var deceleration := 260.0
 @export var acceleration := Vector2.ZERO
 @export_enum("Oben", "Oben rechts", "Rechts", "Unten rechts", "Unten", "Unten links", "Links", "Oben links") var slope_direction: int = SurfaceZone.SlopeDirection.UP
@@ -20,6 +20,9 @@ func validate(label: String) -> PackedStringArray:
 		errors.append("%s besitzt keine gueltige Flaeche" % label)
 	if deceleration < 0.0:
 		errors.append("%s besitzt negative Reibung" % label)
+	if surface_type == SurfaceZone.SurfaceType.ICE:
+		if not is_equal_approx(deceleration, SurfaceZone.ICE_DECELERATION) or acceleration != Vector2.ZERO or minimum_flow_speed != 0.0 or maximum_flow_speed != 0.0 or flow_alignment_rate != 0.0 or flow_centering_strength != 0.0:
+			errors.append("%s: Eis benoetigt 20 px/s² Bremsung und keine Zusatzkraefte" % label)
 	if surface_type == SurfaceZone.SurfaceType.SLOPE and slope_strength <= 0.0:
 		errors.append("%s besitzt kein wirksames Gefaelle" % label)
 	return errors

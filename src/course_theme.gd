@@ -1,7 +1,7 @@
 class_name CourseTheme
 extends Resource
 
-enum Motif { PARK, COAST, MILL, MOUNTAIN, PALACE, FACTORY, TEMPLE, OBSERVATORY, CIRCUS }
+enum Motif { PARK, COAST, MILL, MOUNTAIN, PALACE, FACTORY, TEMPLE, OBSERVATORY, CIRCUS, CONSTRUCTION, URBAN_WINTER }
 
 @export var theme_id: StringName
 @export var background := Color("183626")
@@ -16,19 +16,26 @@ enum Motif { PARK, COAST, MILL, MOUNTAIN, PALACE, FACTORY, TEMPLE, OBSERVATORY, 
 func draw_scenery(canvas: Node2D, hole: HoleDefinition) -> void:
 	var floor_points := hole.lane_outline.get_floor_points()
 	var bounds := hole.course_rect
+	if motif in [Motif.CONSTRUCTION, Motif.URBAN_WINTER]:
+		_draw_concrete(canvas, floor_points, bounds)
 	# Texture is clipped to the same curved floor used by physics.
 	for x in range(int(bounds.position.x), int(bounds.end.x), 48):
+		if motif in [Motif.CONSTRUCTION, Motif.URBAN_WINTER]:
+			break
 		var stripe := PackedVector2Array([Vector2(x,bounds.position.y), Vector2(x+24,bounds.position.y), Vector2(x+24,bounds.end.y), Vector2(x,bounds.end.y)])
 		for polygon in Geometry2D.intersect_polygons(floor_points, stripe):
 			canvas.draw_colored_polygon(polygon, Color(accent, 0.035))
 	for y in range(int(bounds.position.y)+16, int(bounds.end.y)-20, 48):
 		for x in range(int(bounds.position.x)+24, int(bounds.end.x)-20, 48):
-			if (x/48+y/48)%3 == 1:
+			if motif in [Motif.CONSTRUCTION, Motif.URBAN_WINTER]:
+				if (x/48+y/48)%3 != 0:
+					continue
+			elif (x/48+y/48)%3 == 1:
 				continue
 			var point := Vector2(x,y)
 			if not _has_clearance(point, floor_points, hole):
 				continue
-			_draw_motif(canvas, point, (x / 48 * 2 + y / 48) % 3 if motif == Motif.CIRCUS else (x / 48 + y / 48) % 3)
+			_draw_motif(canvas, point, (x / 48 * 2 + y / 48) % 3 if motif in [Motif.CIRCUS, Motif.CONSTRUCTION, Motif.URBAN_WINTER] else (x / 48 + y / 48) % 3)
 
 
 func _has_clearance(point: Vector2, floor_points: PackedVector2Array, hole: HoleDefinition) -> bool:
@@ -50,6 +57,42 @@ func _has_clearance(point: Vector2, floor_points: PackedVector2Array, hole: Hole
 
 func _draw_motif(canvas: Node2D, p: Vector2, variant: int) -> void:
 	match motif:
+		Motif.URBAN_WINTER:
+			if variant == 0:
+				canvas.draw_rect(Rect2(p + Vector2(-12, 10), Vector2(24, 4)), wall)
+				canvas.draw_line(p + Vector2(0, 10), p + Vector2(0, -15), trim, 3)
+				canvas.draw_rect(Rect2(p + Vector2(-5, -17), Vector2(10, 9)), trim)
+				canvas.draw_rect(Rect2(p + Vector2(-3, -15), Vector2(6, 5)), accent)
+				canvas.draw_line(p + Vector2(-6, -18), p + Vector2(6, -18), wall, 2)
+			elif variant == 1:
+				for x in [-11, 11]:
+					canvas.draw_line(p + Vector2(x, 0), p + Vector2(x, 12), trim, 3)
+				canvas.draw_rect(Rect2(p + Vector2(-15, -5), Vector2(30, 7)), foliage)
+				canvas.draw_rect(Rect2(p + Vector2(-15, 5), Vector2(30, 4)), trim)
+				canvas.draw_line(p + Vector2(-15, -6), p + Vector2(15, -6), wall, 3)
+			else:
+				for x in [-12, 0, 12]:
+					var height: int = 20 + (x + 12) / 3
+					canvas.draw_rect(Rect2(p + Vector2(x - 5, 12 - height), Vector2(10, height)), foliage)
+					canvas.draw_line(p + Vector2(x - 5, 12 - height), p + Vector2(x + 5, 12 - height), wall, 2)
+					for y in range(16 - height, 8, 7):
+						canvas.draw_rect(Rect2(p + Vector2(x - 2, y), Vector2(3, 3)), accent)
+		Motif.CONSTRUCTION:
+			if variant == 0:
+				canvas.draw_rect(Rect2(p + Vector2(-11, 9), Vector2(22, 4)), trim)
+				canvas.draw_colored_polygon(PackedVector2Array([p + Vector2(-8, 9), p + Vector2(0, -12), p + Vector2(8, 9)]), accent)
+				canvas.draw_line(p + Vector2(-4, 1), p + Vector2(4, 1), wall, 3)
+			elif variant == 1:
+				for y in [-4, 4]:
+					canvas.draw_rect(Rect2(p + Vector2(-14, y), Vector2(28, 6)), Color("#96724b"))
+				for x in [-10, 10]:
+					canvas.draw_line(p + Vector2(x, -7), p + Vector2(x, 13), trim, 3)
+			else:
+				canvas.draw_rect(Rect2(p + Vector2(-15, -5), Vector2(30, 9)), wall)
+				for x in [-10, 0, 10]:
+					canvas.draw_line(p + Vector2(x - 3, 3), p + Vector2(x + 3, -4), accent, 3)
+				for x in [-11, 11]:
+					canvas.draw_line(p + Vector2(x, 4), p + Vector2(x, 13), trim, 3)
 		Motif.CIRCUS:
 			if variant == 0:
 				canvas.draw_rect(Rect2(p + Vector2(-13, -1), Vector2(26, 18)), wall)
@@ -115,3 +158,13 @@ func _draw_motif(canvas: Node2D, p: Vector2, variant: int) -> void:
 			else:
 				canvas.draw_line(p+Vector2(-4,0),p+Vector2(4,0),accent,1)
 				canvas.draw_line(p+Vector2(0,-4),p+Vector2(0,4),accent,1)
+
+
+func _draw_concrete(canvas: Node2D, floor_points: PackedVector2Array, bounds: Rect2) -> void:
+	# Thin slab joints are clipped to the floor and never create collision edges.
+	for y in range(int(bounds.position.y), int(bounds.end.y), 64):
+		for x in range(int(bounds.position.x), int(bounds.end.x), 80):
+			for rect in [Rect2(x, y, 80, 1), Rect2(x, y, 1, 64)]:
+				var joint := PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)])
+				for polygon in Geometry2D.intersect_polygons(floor_points, joint):
+					canvas.draw_colored_polygon(polygon, Color(0.16, 0.18, 0.20, 0.13))

@@ -11,6 +11,10 @@
 
 > Dieses Dokument beschreibt die verbindliche kreative und spielerische Grundlage. Angaben, die noch getestet oder entschieden werden muessen, sind ausdruecklich als vorlaeufig oder offen gekennzeichnet.
 
+**Erweiterung Urban Winter, 13.09.2026:** [Urban Winter](URBAN_WINTER.md) ist der elfte Kurs: neun Betonbahnen mit sehr glatten Eisflaechen (20 px/s²), Schiebetoren und Drehern. Zwei Ziele liegen auf Eis. Die Kraft- und Weitenanzeige bleibt auf ebenes Gruen geeicht; Eis ist befahrbar und keine Wassergefahr.
+
+**Erweiterung 13.09.2026:** [Die Baustelle](BAUSTELLE.md) fuehrt nach dem Zirkus den zehnten Kurs ein: neun Betonbahnen mit 80 px/s² Rollwiderstand und gerichteten Tempo-Rohren. Die Kraftanzeige bleibt auf ebenes Gruen geeicht. Aktueller Umfang und Abnahme stehen in README.md und BAUSTELLE.md.
+
 **Inhaltsaktualisierung 11.09.2026:** Acht Welten mit 72 regulaeren Bahnen ersetzen die fuenf bisherigen Kurse. Aktueller Umfang, PAR und Pruefstand stehen in [ACHT_WELTEN_UMSETZUNG.md](ACHT_WELTEN_UMSETZUNG.md). Die historischen Prototypbeschreibungen unten erklaeren den Entwicklungsweg.
 
 ---

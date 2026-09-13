@@ -1,0 +1,83 @@
+[
+	{
+		"id": "urban_winter_06",
+		"purpose": "Betonbogen",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 137.253649848049,
+				"target": [
+					312.0,
+					280.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 195.624868959621,
+				"target": [
+					552.0,
+					280.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 153.7650399148,
+				"target": [
+					568.0,
+					144.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"id": "urban_winter_04",
+		"purpose": "Hinderniskontakt",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 211.291268158436,
+				"target": [
+					552.0,
+					184.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 208.030879149437,
+				"target": [
+					552.0,
+					184.0
+				],
+				"wait": 0
+			}
+		]
+	},
+	{
+		"id": "urban_winter_05",
+		"purpose": "Hinderniskontakt",
+		"shots": [
+			{
+				"angle": null,
+				"speed": 188.902091041894,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			},
+			{
+				"angle": null,
+				"speed": 164.416042487903,
+				"target": [
+					568.0,
+					168.0
+				],
+				"wait": 0
+			}
+		]
+	}
+]

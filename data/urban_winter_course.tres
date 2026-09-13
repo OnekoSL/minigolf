@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="course"]
+
+[resource]
+script = ExtResource("course")
+course_id = &"urban_winter_course"
+display_name = "URBAN WINTER"
+best_score_revision = 1
+hole_ids = Array[StringName]([&"urban_winter_01", &"urban_winter_02", &"urban_winter_03", &"urban_winter_04", &"urban_winter_05", &"urban_winter_06", &"urban_winter_07", &"urban_winter_08", &"urban_winter_09"])

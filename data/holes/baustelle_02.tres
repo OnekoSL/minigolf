@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_2gnbo"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="7_3kq0w"]
+[ext_resource type="Resource" path="res://data/themes/baustelle.tres" id="9_xwrbj"]
+
+[sub_resource type="Resource" id="Resource_cn4uw"]
+script = ExtResource("4_2gnbo")
+points = PackedVector2Array(184, 264, 472, 264, 472, 88, 600, 88, 600, 328, 184, 328)
+use_normalized_walls = true
+
+[resource]
+script = ExtResource("7_3kq0w")
+hole_id = &"baustelle_02"
+par = 2
+display_name = "Um die Schalung"
+lane_outline = SubResource("Resource_cn4uw")
+theme = ExtResource("9_xwrbj")
+base_surface = 3
+tee_position = Vector2(224, 296)
+hole_position = Vector2(552, 128)

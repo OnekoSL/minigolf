@@ -1,0 +1,173 @@
+[
+  {
+    "id": "urban_winter_01",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 197.190263451317,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_02",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 218.0,
+        "target": [
+          590.0,
+          288.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 129.329291981781,
+        "target": [
+          552.0,
+          120.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_03",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 212.800375939518,
+        "target": [
+          568.0,
+          176.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_04",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 211.291268158436,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 210
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_05",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 188.902091041894,
+        "target": [
+          568.0,
+          168.0
+        ],
+        "wait": 180
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_06",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 167.343957166072,
+        "target": [
+          568.0,
+          144.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_07",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 159.511755052723,
+        "target": [
+          552.0,
+          184.0
+        ],
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_08",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 210.142808585019,
+        "target": [
+          848.0,
+          280.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 178.895325812767,
+        "target": [
+          848.0,
+          80.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 316.73450719313,
+        "target": [
+          232.0,
+          80.0
+        ],
+        "wait": 150
+      }
+    ]
+  },
+  {
+    "id": "urban_winter_09",
+    "shots": [
+      {
+        "angle": null,
+        "speed": 208.794706571281,
+        "target": [
+          496.0,
+          168.0
+        ],
+        "wait": 210
+      },
+      {
+        "angle": null,
+        "speed": 155.912558871006,
+        "target": [
+          848.0,
+          168.0
+        ],
+        "wait": 0
+      },
+      {
+        "angle": null,
+        "speed": 85.0,
+        "target": [
+          992.0,
+          168.0
+        ],
+        "wait": 0
+      }
+    ]
+  }
+]

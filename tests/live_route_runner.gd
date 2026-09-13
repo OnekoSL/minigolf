@@ -24,6 +24,7 @@ var _last_contact := ""
 var _contact_count := 0
 var _swing_tick := 0
 var _contact_delays: Array[int] = []
+var _pipe_transfers: Array[Dictionary] = []
 
 
 static func play(host: Node, hole: HoleDefinition, route: Array[RouteShot], golfer := &"allrounder") -> Dictionary:
@@ -47,7 +48,7 @@ func _ready() -> void:
 	ball = PrototypeBall.new()
 	ball.position = definition.tee_position
 	add_child(ball)
-	ball.configure_environment(runtime.zones, definition.hole_position, runtime.get_tunnels(), runtime.obstacle_nodes)
+	runtime.configure_ball(ball)
 	controller = ShotController.new()
 	add_child(controller)
 	controller.configure(ball, definition.course_rect)
@@ -57,6 +58,9 @@ func _ready() -> void:
 	controller.set_process_unhandled_input(false)
 	controller.shot_committed.connect(_on_shot_committed)
 	ball.holed.connect(func(_count): _holed = true)
+	ball.pipe_entered.connect(func(entrance: Vector2, exit_index: int, speed: float):
+		_pipe_transfers.append({"entrance": [entrance.x, entrance.y], "exit": exit_index, "speed": speed})
+	)
 	ball.hazard_entered.connect(func(kind): _finish("Gefahr: " + kind))
 	ball.wall_hit.connect(func(_intensity, position, _normal, kind):
 		_last_contact = "%s bei (%.2f, %.2f)" % [kind, position.x, position.y]
@@ -179,4 +183,5 @@ func _finish(reason: String) -> void:
 		"reason": reason,
 		"trace": _trace,
 		"contact_delays": _contact_delays,
+		"pipe_transfers": _pipe_transfers,
 	})

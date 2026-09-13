@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="surface"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="wall"]
+[ext_resource type="Resource" path="res://data/themes/urban_winter.tres" id="theme"]
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 136, 408, 136, 408, 104, 584, 104, 584, 152, 792, 152, 792, 88, 1048, 88, 1048, 280, 792, 280, 792, 216, 584, 216, 584, 264, 408, 264, 408, 232, 184, 232)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="ice0"]
+script = ExtResource("surface")
+rect = Rect2(584, 152, 208, 64)
+surface_type = 4
+deceleration = 20.0
+
+[sub_resource type="Resource" id="ice1"]
+script = ExtResource("surface")
+rect = Rect2(792, 88, 256, 192)
+surface_type = 4
+deceleration = 20.0
+
+[sub_resource type="Resource" id="obstacle0"]
+script = ExtResource("obstacle")
+obstacle_type = 1
+position = Vector2(320, 184)
+gate_size = Vector2(8, 96)
+open_offset = Vector2(0, -112)
+cycle_seconds = 8.0
+transition_seconds = 0.5
+open_hold_seconds = 4.0
+
+[sub_resource type="Resource" id="obstacle1"]
+script = ExtResource("obstacle")
+obstacle_type = 0
+position = Vector2(688, 184)
+blade_size = Vector2(72, 8)
+seconds_per_revolution = 8.0
+impulse_multiplier = 1.0
+minimum_kick_speed = 35.0
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"urban_winter_09"
+display_name = "Mitternachtsplatz"
+par = 3
+lane_outline = SubResource("outline")
+theme = ExtResource("theme")
+base_surface = 3
+tee_position = Vector2(224, 184)
+hole_position = Vector2(992, 168)
+surfaces = Array[ExtResource("surface")]([SubResource("ice0"), SubResource("ice1")])
+obstacles = Array[ExtResource("obstacle")]([SubResource("obstacle0"), SubResource("obstacle1")])
+course_rect = Rect2(176, 16, 880, 328)
+camera_center_bounds = Rect2(320, 180, 424, 0)

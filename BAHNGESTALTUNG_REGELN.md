@@ -163,6 +163,32 @@ Pfeile, Wasser, Sand und Wippe dürfen sich nicht unbeabsichtigt überlagern. Di
 
 Pfeilzonen werden am Ballzentrum ausgewählt. Ein sichtbarer Ballrand über einer Pfeilzelle beweist noch keine Gefällewirkung. Randstreifen und Kernfeldbreiten müssen anhand dieser tatsächlichen Auslösung geprüft werden.
 
+### P06 – Grundbelag und Kraftanzeige
+
+Der Grundbelag ist eine physische Eigenschaft der Bahn: Grün bremst mit 120 px/s²,
+Beton mit 80 px/s². Sonderflächen ersetzen den Grundbelag lokal; eine großflächige
+Betonzone darf deshalb keine Sand-, Wasser-, Pfeil- oder Wippenwirkung verdecken.
+Themenfarben allein verändern keine Physik. Beton erscheint grau mit rein optischen
+Plattenfugen. Schlagstärke, Golferprofile und die in Dezimetern angegebene Kraftskala
+bleiben immer auf ebenes Grün bezogen. Die freie Betonrollweite beträgt etwa das 1,5-Fache.
+
+### P07 – Eis als befahrbare Sonderfläche
+
+Eis MUSS 20 px/s² Bremsung ohne Zusatzbeschleunigung oder Flow-Unterstützung verwenden.
+Es ersetzt den Grundbelag lokal und verursacht weder Einsinken noch Strafschläge.
+Belagwechsel dürfen Geschwindigkeit und Richtung nicht sprunghaft verändern. Die
+Schlag- und Weitenanzeige bleibt auf Grün geeicht, auch beim erneuten Abschlagen auf Eis.
+
+Eis MUSS durch hellblaue Farbe und dezente helle Kratzer von Beton und flüssigem Wasser
+unterscheidbar sein. Geschlossene Rissmuster sind rein optisch. Schnee und Stadtdekoration
+dürfen weder Ball noch Durchgänge verdecken. Eisziele brauchen freie Anläufe sowie
+nachgewiesene kurze Korrekturputts mit allen vier Golfern. Bewegliche Hindernisse müssen
+nach Fehlschlägen ein Ausrollen ermöglichen; ruhige Eisziele liegen außerhalb ihrer Reichweite.
+
+Für [Urban Winter](URBAN_WINTER.md) gelten neun Betonabschläge, verpflichtende Eispassagen,
+zwei Eisziele (7 und 9) und keine Wassergefahren. Die Pflicht wird durch kontinuierliche
+Konturschnitte und echte Routen geprüft, nicht durch die bloße Anzahl von Eisflächen.
+
 ## 6. Bewegliche Hindernisse, Wippen und Übergänge
 
 ### M01 – Orientierung folgt dem Anspielweg
@@ -192,6 +218,25 @@ Tunnel werden als paarweise verbundene, unmarkierte schwarze Löcher dargestellt
 Beide Enden MÜSSEN erreichbar sein und eine funktionierende Fortsetzung ermöglichen. Richtung und Geschwindigkeit bleiben beim Transfer erhalten. Deshalb ist der Ausgang für die möglichen Einfahrtrichtungen freizuhalten: Der Ball erscheint aktuell 13 Pixel in Bewegungsrichtung neben dem Ausgang und braucht anschließend weiteren Auslauf.
 
 Ein Tunnel darf eine Spirale mit einer getrennten Zielkammer verbinden. Er darf nicht unmittelbar in Wand, Wasser, eine erneute Dauerschleife oder einen unerreichbaren Restweg führen. Transfer und Rückkehr müssen beim Neustart sauber zurückgesetzt werden.
+
+### M03a – Tempo-Rohre haben einen Eingang und drei reine Ausgänge
+
+Tempo-Rohre sind eine eigene Mechanik neben den bisherigen Tunnelpaaren. Ausschließlich
+der Eingang nimmt rollende Bälle auf. Das tatsächliche Eintrittstempo bestimmt den
+Ausgang: unter 140 px/s langsam, ab 140 bis unter 260 passend, ab 260 schnell.
+Die Schwellen gelten auf allen Bahnen gleich. Richtung folgt der Ausgangsmündung,
+Tempo bleibt erhalten; der Transport dauert 0,6 Sekunden und kostet keinen Schlag.
+
+Der mittlere Tempobereich führt auf den günstigen Weg. Beide Fehlwege MÜSSEN länger,
+aber bis zum Loch spielbar bleiben. Bei Rohrketten müssen auch Fehlwege zum nächsten
+Pflichtrohr führen. Aufnahme wird innerhalb der Bewegungs-Teilschritte geprüft.
+Ausgänge nehmen keine Bälle auf und dürfen keinen sofortigen Wiedereintritt auslösen.
+
+Die orange, bündige Einlassöffnung unterscheidet sich von den gerichteten Auslassstutzen.
+Nummern, Tempomarkierungen und Verbindungslinien entfallen: Die Zuordnung wird entdeckt.
+Mündungen, Ballradius und der erste Auslauf MÜSSEN frei von Wänden und Gefahren sein;
+bewegliche Hindernisse sind einschließlich Zwischenstellungen zu prüfen. Pause friert
+den Transport ein; Neustart und Bahn-/Spielerwechsel verwerfen ihn vollständig.
 
 ### M04 – Schalter und Kanonen brauchen vollständige Spielketten
 

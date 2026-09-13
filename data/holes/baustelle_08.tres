@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="4_80ml0"]
+[ext_resource type="Script" path="res://src/pipe_system_definition.gd" id="6_xsx6d"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="7_i27si"]
+[ext_resource type="Resource" path="res://data/themes/baustelle.tres" id="9_ccyn6"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="12_7qj5g"]
+
+[sub_resource type="Resource" id="Resource_kl4yp"]
+script = ExtResource("4_80ml0")
+points = PackedVector2Array(184, 40, 872, 40, 872, 328, 184, 328, 184, 232, 792, 232, 792, 136, 184, 136)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="Resource_pyu47"]
+script = ExtResource("6_xsx6d")
+entrance = Vector2(744, 280)
+exits = PackedVector2Array(824, 80, 472, 80, 696, 80)
+exit_directions = PackedVector2Array(-1, 0, -1, 0, -1, 0)
+
+[sub_resource type="Resource" id="Resource_eunpn"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 14)
+variant = 11
+
+[sub_resource type="Resource" id="Resource_60cia"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 15)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_5xl0y"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 16)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_cw88y"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 17)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_3wklm"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 18)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_r0dwf"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 19)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_iy4in"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(49, 20)
+variant = 8
+
+[sub_resource type="Resource" id="Resource_qyqxj"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(37, 2)
+variant = 10
+
+[sub_resource type="Resource" id="Resource_cxi6t"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(37, 3)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_np44c"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(37, 4)
+variant = 7
+
+[sub_resource type="Resource" id="Resource_80ml0"]
+script = ExtResource("12_7qj5g")
+grid_cell = Vector2i(37, 5)
+variant = 7
+
+[resource]
+script = ExtResource("7_i27si")
+hole_id = &"baustelle_08"
+display_name = "Rohrschleife"
+par = 1
+course_rect = Rect2(176, 16, 704, 328)
+lane_outline = SubResource("Resource_kl4yp")
+theme = ExtResource("9_ccyn6")
+base_surface = 3
+pipe_systems = Array[ExtResource("6_xsx6d")]([SubResource("Resource_pyu47")])
+tee_position = Vector2(232, 280)
+hole_position = Vector2(232, 80)
+camera_center_bounds = Rect2(320, 180, 248, 0)
+wall_tiles = Array[ExtResource("12_7qj5g")]([SubResource("Resource_eunpn"), SubResource("Resource_60cia"), SubResource("Resource_5xl0y"), SubResource("Resource_cw88y"), SubResource("Resource_3wklm"), SubResource("Resource_r0dwf"), SubResource("Resource_iy4in"), SubResource("Resource_qyqxj"), SubResource("Resource_cxi6t"), SubResource("Resource_np44c"), SubResource("Resource_80ml0")])

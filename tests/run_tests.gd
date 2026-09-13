@@ -71,6 +71,8 @@ func _run_all() -> void:
 	await game_shell_test._test_game_shell()
 	await load("res://tests/eight_worlds_test.gd").run(self, _check)
 	await load("res://tests/circus_test.gd").run(self, _check)
+	await load("res://tests/baustelle_test.gd").run(self, _check)
+	await load("res://tests/urban_winter_test.gd").run(self, _check)
 	await load("res://tests/world_routes_test.gd").run(self, _check)
 	game_shell_test._test_controller_support()
 	await load("res://tests/cleanup_regression_test.gd").run(self, _check)

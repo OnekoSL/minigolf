@@ -1,7 +1,9 @@
 class_name SurfaceZone
 extends Area2D
 
-enum SurfaceType { SAND, SLOPE, WATER }
+enum SurfaceType { SAND, SLOPE, WATER, CONCRETE, ICE }
+
+const ICE_DECELERATION := 20.0
 enum SlopeDirection { UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT }
 enum SlopeGrade { SHALLOW, MEDIUM, STEEP }
 
@@ -167,6 +169,15 @@ func _ready() -> void:
 func _draw() -> void:
 	var rect := Rect2(-zone_size * 0.5, zone_size)
 	match surface_type:
+		SurfaceType.ICE:
+			draw_rect(rect, Color("#8dbfce"), true)
+			for x in range(int(rect.position.x) + 12, int(rect.end.x) - 12, 32):
+				for y in range(int(rect.position.y) + 12, int(rect.end.y) - 12, 32):
+					var p := Vector2(x, y)
+					draw_polyline(PackedVector2Array([p + Vector2(-6, 0), p + Vector2(1, -4), p + Vector2(7, 2), p + Vector2(0, 5), p + Vector2(-6, 0)]), Color("#badde4"), 1.0)
+					draw_line(p + Vector2(-5, 9), p + Vector2(5, 7), Color("#a7d2df"), 1.0)
+		SurfaceType.CONCRETE:
+			draw_rect(rect, Color("#929b9e"), true)
 		SurfaceType.SAND:
 			draw_rect(rect, Color("#b99458"), true)
 			for x in range(int(rect.position.x) + 5, int(rect.end.x), 11):

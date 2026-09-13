@@ -11,6 +11,8 @@ enum HoleCategory { COURSE, TECHNICAL }
 @export var lane_outline: LaneOutlineDefinition
 @export var garden_presentation := false
 @export var theme: CourseTheme
+@export_enum("Gruen:-1", "Beton:3") var base_surface: int = -1
+@export var pipe_systems: Array[PipeSystemDefinition] = []
 @export var tee_position := Vector2(220.0, 305.0)
 @export var hole_position := Vector2(575.0, 55.0)
 @export var initial_aim_offset := Vector2(60.0, 0.0)
@@ -28,6 +30,13 @@ enum HoleCategory { COURSE, TECHNICAL }
 
 func validate() -> PackedStringArray:
 	var errors := PackedStringArray()
+	if base_surface not in [-1, SurfaceZone.SurfaceType.CONCRETE]:
+		errors.append("Bahn %s besitzt einen unbekannten Grundbelag" % hole_id)
+	for pipe in pipe_systems:
+		if pipe == null:
+			errors.append("Bahn %s enthaelt ein leeres Rohrsystem" % hole_id)
+		else:
+			errors.append_array(pipe.validate(self))
 	if hole_id == &"" or hole_id == &"unnamed":
 		errors.append("Bahn besitzt keine eindeutige ID")
 	if display_name.strip_edges().is_empty():

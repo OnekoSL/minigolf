@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="surface"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="wall"]
+[ext_resource type="Resource" path="res://data/themes/urban_winter.tres" id="theme"]
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 136, 600, 136, 600, 232, 184, 232)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="ice0"]
+script = ExtResource("surface")
+rect = Rect2(312, 136, 128, 96)
+surface_type = 4
+deceleration = 20.0
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"urban_winter_01"
+display_name = "Erster Frost"
+par = 1
+lane_outline = SubResource("outline")
+theme = ExtResource("theme")
+base_surface = 3
+tee_position = Vector2(224, 184)
+hole_position = Vector2(552, 184)
+surfaces = Array[ExtResource("surface")]([SubResource("ice0")])
