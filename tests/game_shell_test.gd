@@ -348,7 +348,7 @@ func _test_feedback_systems() -> void:
 	var audio := PrototypeAudio.new()
 	get_tree().root.add_child(audio)
 	await get_tree().process_frame
-	_check(audio.players.size() == 12, "Retro-Audio erzeugt alle Ereignisklaenge ohne externe Dateien")
+	_check(audio.players.size() == 14 and audio.players.has_all(["elephant_sniff", "elephant_puff"]), "Retro-Audio erzeugt alle Ereignisklaenge ohne externe Dateien")
 	_check(audio.roll_streams.size() == 3, "Retro-Audio erzeugt drei Materialschleifen")
 	audio.update_roll(180.0, SurfaceZone.SurfaceType.SAND, true)
 	_check(audio.current_roll_profile == &"sand", "Laufendes Audio wechselt auf das erkannte Material")

@@ -42,10 +42,14 @@ func _initialize() -> void:
 		var course := CourseDefinition.new()
 		course.course_id = StringName(WORLD_IDS[world]+"_course")
 		course.display_name = WORLD_NAMES[world]
-		if world in [0,2,5]:
+		if world == 0:
+			course.best_score_revision = 4
+		elif world in [2,5]:
+			course.best_score_revision = 3
+		elif world == 1:
 			course.best_score_revision = 3
 		elif world == 6:
-			course.best_score_revision = 2
+			course.best_score_revision = 4
 		courses.courses.append(course)
 	for line in rows:
 		if not line.begins_with("| K") or line.length() < 8 or line[4] != "-":
@@ -102,13 +106,20 @@ func _build(world: int, number: int) -> HoleDefinition:
 					var h := _elbow()
 					h.lane_outline.points = PackedVector2Array([Vector2(184,56),Vector2(408,56),Vector2(440,88),Vector2(440,216),Vector2(600,216),Vector2(600,296),Vector2(392,296),Vector2(360,264),Vector2(360,136),Vector2(184,136)])
 					return h
-				8: return _island(false)
+				8:
+					var h := _island(false)
+					_arrows(h,Rect2i(376,56,48,96),6,2)
+					_arrows(h,Rect2i(344,248,112,64),2,0)
+					_arrows(h,Rect2i(504,248,64,48),0,1)
+					return h
 				9: return _curve(true)
 		1:
 			match number:
 				1:
 					var h := _straight()
-					_surface(h,Rect2(344,136,48,80),false)
+					_surface(h,Rect2(248,136,288,32),false)
+					_surface(h,Rect2(248,184,288,32),false)
+					_arrows(h,Rect2i(248,168,288,16),2,0)
 					return h
 				3:
 					var h := _chambers([232.0,120.0])
@@ -122,6 +133,7 @@ func _build(world: int, number: int) -> HoleDefinition:
 				5:
 					var h := _island(true)
 					_surface(h,Rect2(344,264,112,48),true)
+					_arrows(h,Rect2i(312,56,160,64),4,0)
 					return h
 				8:
 					var h := _elbow()
@@ -211,8 +223,10 @@ func _build(world: int, number: int) -> HoleDefinition:
 				1: return _tunnels(1)
 				2:
 					var h := _tunnels(1)
-					_circle(h,Vector2(280,144),12)
-					_circle(h,Vector2(312,208),12)
+					for center in [Vector2(280,176),Vector2(496,176)]:
+						for offset in [Vector2.ZERO,Vector2(-64,-64),Vector2(64,-64),Vector2(-64,64),Vector2(64,64)]:
+							_circle(h,center+offset,12)
+					waypoints.push_front(Vector2(276,305))
 					return h
 				3: return _tunnels(1,true)
 				4: return _curve(false)

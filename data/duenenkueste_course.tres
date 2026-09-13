@@ -7,3 +7,4 @@ script = ExtResource("1_d37kw")
 course_id = &"duenenkueste_course"
 display_name = "DUENENKUESTE"
 hole_ids = Array[StringName]([&"duenenkueste_01", &"prototype_04", &"duenenkueste_03", &"duenenkueste_04", &"duenenkueste_05", &"prototype_06", &"prototype_08", &"duenenkueste_08", &"duenenkueste_09"])
+best_score_revision = 3

@@ -3,6 +3,7 @@ extends RefCounted
 
 static func run(host: Node, check: Callable) -> void:
 	print("\n[Stadtpark: roter Kreis und Gartenspirale]")
+	await _test_alleen(host, check)
 	var catalog := HoleCatalog.load_default()
 	var circle := catalog.get_hole(&"classic_nine_04")
 	var spiral := catalog.get_hole(&"classic_nine_06")
@@ -62,10 +63,55 @@ static func run(host: Node, check: Callable) -> void:
 		check.call(not shortcut,"Spirale erzwingt die Passage bei %s; keine direkte Aussenabkuerzung" % gate.position)
 	var entries: Array = JSON.parse_string(FileAccess.get_file_as_string("res://tests/world_routes.json"))
 	for entry in entries:
-		if entry.id not in ["classic_nine_04","classic_nine_06","stadtpark_07"]: continue
+		if entry.id not in ["classic_nine_04","classic_nine_06","stadtpark_07","stadtpark_08"]: continue
 		var hole := catalog.get_hole(StringName(entry.id))
 		for test_case in [[&"allrounder",0.0,1.0],[&"mara",0.0,1.0],[&"bruno",0.0,1.0],[&"nika",0.0,1.0],[&"allrounder",-0.3,1.0],[&"allrounder",0.3,1.0],[&"allrounder",0.0,0.99],[&"allrounder",0.0,1.01]]:
 			var route := WorldRouteFixtures.route(entry,test_case[0],test_case[1],test_case[2])
 			var result := await LiveRouteRunner.play(host,hole,route,test_case[0])
 			check.call(result.within_par,"%s: PAR-Route %s, Winkel %+.1f, Kraft %.2f" % [entry.id,test_case[0],test_case[1],test_case[2]])
 			if not result.within_par: print(JSON.stringify(result))
+
+
+static func _test_alleen(host: Node, check: Callable) -> void:
+	var hole := HoleCatalog.load_default().get_hole(&"stadtpark_08")
+	var runtime := HoleRuntime.new()
+	runtime.configure(hole)
+	host.add_child(runtime)
+	var ball := PrototypeBall.new()
+	host.add_child(ball)
+	ball.configure_environment(runtime.zones,hole.hole_position)
+	var upper_covered := true
+	var lower_covered := true
+	for y in range(63,146):
+		upper_covered = upper_covered and ball._surface_at(Vector2(400,y)).acceleration.is_equal_approx(Vector2(-150,0))
+	for y in range(255,306):
+		lower_covered = lower_covered and ball._surface_at(Vector2(400,y)).acceleration.is_equal_approx(Vector2(60,0))
+	check.call(upper_covered and lower_covered,"Zwei Alleen: beide Wege haben unter Beruecksichtigung des Ballradius keinen neutralen Durchschlupf neben dem Feld")
+	check.call(hole.arrow_tiles.size() == 58 and ball._surface_at(Vector2(536,272)).acceleration.is_equal_approx(Vector2(0,-90)),"Zwei Alleen: drei Felder mit 58 Zellen und Aufwaertsdrall am unteren Ausgang")
+	check.call(CourseCatalog.load_default().get_course(&"stadtpark_course").best_score_revision == 4,"Stadtpark trennt Bestwerte nach den neuen Alleen-Pfeilfeldern")
+	ball.queue_free()
+	runtime.queue_free()
+	await host.get_tree().process_frame
+	var lower_entry := {"id":"stadtpark_08","shots":[
+		{"target":[296,280],"speed":168.0,"angle":null},
+		{"target":[496,280],"speed":145.0,"angle":null},
+		{"target":[552,184],"speed":122.0,"angle":null},
+	]}
+	for test_case in [[&"allrounder",0.0,1.0],[&"mara",0.0,1.0],[&"bruno",0.0,1.0],[&"nika",0.0,1.0],[&"allrounder",-0.3,1.0],[&"allrounder",0.3,1.0],[&"allrounder",0.0,0.99],[&"allrounder",0.0,1.01]]:
+		var route := WorldRouteFixtures.route(lower_entry,test_case[0],test_case[1],test_case[2])
+		var result := await LiveRouteRunner.play(host,hole,route,test_case[0])
+		check.call(result.within_par and result.contact_delays.all(func(t): return t == 6),"Untere Allee PAR 3: %s, Winkel %+.1f, Kraft %.2f" % test_case)
+		if not result.within_par: print(JSON.stringify(result))
+	for variation in [Vector2(-0.3,1),Vector2(0.3,1),Vector2(0,0.99),Vector2(0,1.01)]:
+		var route := WorldRouteFixtures.route(lower_entry)
+		var stop := Vector2(298.0094,283.0140)
+		route[1].target = stop+(route[1].target-stop).rotated(deg_to_rad(variation.x))
+		route[1].speed *= variation.y
+		var result := await LiveRouteRunner.play(host,hole,route)
+		check.call(result.within_par,"Untere Pfeilfolge vertraegt Winkel %+.1f und Kraft %.2f" % [variation.x,variation.y])
+		if not result.within_par: print(JSON.stringify(result))
+	var rollback_hole := hole.duplicate(true) as HoleDefinition
+	rollback_hole.tee_position = Vector2(364,96)
+	var weak_route: Array[RouteShot] = [RouteShot.new(Vector2(440,96),80)]
+	var rollback := await LiveRouteRunner.play(host,rollback_hole,weak_route)
+	check.call(not rollback.holed and rollback.position[0] < 376 and rollback.reason == "Schlagfolge beendet, Loch nicht erreicht","Zu schwacher Schlag rollt aus der roten Gegensteigung auf spielbaren Rasen zurueck")

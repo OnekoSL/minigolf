@@ -10,6 +10,8 @@ var current_roll_profile := &""
 
 
 func _ready() -> void:
+	players["elephant_sniff"] = _make_player(_make_stream(&"water", 0.28, 100.0, 320.0, 0.22))
+	players["elephant_puff"] = _make_player(_make_stream(&"water", 0.25, 85.0, 38.0, 0.3))
 	players["hit"] = _make_player(_make_stream(&"tone", 0.09, 190.0, 105.0, 0.38))
 	players["wall"] = _make_player(_make_stream(&"tone", 0.06, 430.0, 300.0, 0.24))
 	players["windmill"] = _make_player(_make_stream(&"metal", 0.09, 780.0, 510.0, 0.25))
@@ -72,6 +74,8 @@ func play_hole() -> void:
 
 func play_mechanism(kind: StringName) -> void:
 	match kind:
+		&"elephant_sniff", &"elephant_puff":
+			_play_one_shot(String(kind), -5.0, 1.0)
 		&"switch":
 			_play_one_shot("switch", -7.0, 1.0)
 		&"cannon_load":

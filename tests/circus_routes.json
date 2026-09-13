@@ -1,0 +1,254 @@
+[
+  {
+    "id": "zirkus_01",
+    "shots": [
+      {
+        "target": [
+          568,
+          176
+        ],
+        "speed": 310,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_02",
+    "shots": [
+      {
+        "target": [
+          440,
+          176
+        ],
+        "speed": 228.684,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          568,
+          176
+        ],
+        "speed": 192.514,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_03",
+    "shots": [
+      {
+        "target": [
+          380,
+          208
+        ],
+        "speed": 237,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          568,
+          144
+        ],
+        "speed": 100,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          568,
+          144
+        ],
+        "speed": 40,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_04",
+    "shots": [
+      {
+        "target": [
+          440,
+          240
+        ],
+        "speed": 260,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          584,
+          144
+        ],
+        "speed": 240,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          784,
+          144
+        ],
+        "speed": 220,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_05",
+    "shots": [
+      {
+        "target": [
+          400,
+          300
+        ],
+        "speed": 207.5,
+        "angle": null,
+        "wait": 240
+      },
+      {
+        "target": [
+          220,
+          56
+        ],
+        "speed": 90,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_06",
+    "shots": [
+      {
+        "target": [
+          0,
+          0
+        ],
+        "angle": -14.0,
+        "speed": 340,
+        "wait": 0
+      },
+      {
+        "target": [
+          784,
+          272
+        ],
+        "angle": null,
+        "speed": 220,
+        "wait": 0
+      },
+      {
+        "target": [
+          784,
+          272
+        ],
+        "speed": 60,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_07",
+    "shots": [
+      {
+        "target": [
+          600,
+          184
+        ],
+        "speed": 300,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          784,
+          184
+        ],
+        "speed": 240,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_08",
+    "shots": [
+      {
+        "target": [
+          800,
+          272
+        ],
+        "speed": 385,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          1000,
+          272
+        ],
+        "speed": 240,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          960,
+          64
+        ],
+        "speed": 220,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          288,
+          64
+        ],
+        "speed": 385,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  },
+  {
+    "id": "zirkus_09",
+    "shots": [
+      {
+        "target": [
+          448,
+          272
+        ],
+        "speed": 240,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          624,
+          160
+        ],
+        "speed": 255,
+        "angle": null,
+        "wait": 0
+      },
+      {
+        "target": [
+          776,
+          160
+        ],
+        "speed": 180,
+        "angle": null,
+        "wait": 0
+      }
+    ]
+  }
+]

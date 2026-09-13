@@ -47,7 +47,7 @@ func _ready() -> void:
 	ball = PrototypeBall.new()
 	ball.position = definition.tee_position
 	add_child(ball)
-	ball.configure_environment(runtime.zones, definition.hole_position, runtime.get_tunnels())
+	ball.configure_environment(runtime.zones, definition.hole_position, runtime.get_tunnels(), runtime.obstacle_nodes)
 	controller = ShotController.new()
 	add_child(controller)
 	controller.configure(ball, definition.course_rect)

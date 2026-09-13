@@ -163,7 +163,9 @@ func notify_ball_stopped(_position: Vector2) -> void:
 
 
 func notify_external_motion_started() -> void:
-	if state == ShotState.AIMING:
+	if state != ShotState.HOLE_COMPLETE:
+		_swing_generation += 1
+		_meter_elapsed = 0.0
 		_set_state(ShotState.BALL_MOVING)
 
 

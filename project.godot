@@ -19,8 +19,8 @@ ControllerSupport="*res://src/controller_support.gd"
 
 size/viewport_width=640
 size/viewport_height=360
-size/window_width_override=1280
-size/window_height_override=720
+size/window_width_override=2560
+size/window_height_override=1440
 stretch/mode="canvas_items"
 stretch/aspect="keep"
 handheld/orientation=1

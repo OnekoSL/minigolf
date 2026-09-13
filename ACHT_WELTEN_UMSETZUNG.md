@@ -17,7 +17,7 @@ Acht Kurse mit je neun regulären Bahnen ersetzen die bisherigen fünf Kurszusam
 | Tempelruinen | 2/2/3/3/4/3/4/2/4 | 27 |
 | Sternwarte | 2/2/4/5/4/4/3/6/2 | 32 |
 
-36 Bahnen sind neu gebaut. Die bisherigen 36 regulären IDs bleiben erhalten: neun Labyrinthgeometrien und das frühere Pfeilfinale wurden neu aufgebaut. Hinzu kommen der rote Pavillon-Kreis und die neue Gartenspirale im Stadtpark; 24 weitere Vorlagen behalten ihre Geometrie und erhalten die neue thematische Einbindung, Namen und gegebenenfalls korrigiertes PAR. Neue Kurs-IDs beginnen mit Bestwertrevision 1; Stadtpark verwendet nach seinen Bahnkorrekturen Revision 3, Mühlental nach dem zweiten Rotor ebenfalls Revision 3, Uhrwerkfabrik nach der Tempoanpassung ebenfalls Revision 3, Tempelruinen Revision 2. Ergebnisse der alten Kursfolgen werden weder übernommen noch gelöscht.
+36 Bahnen sind neu gebaut. Die bisherigen 36 regulären IDs bleiben erhalten: neun Labyrinthgeometrien und das frühere Pfeilfinale wurden neu aufgebaut. Hinzu kommen der rote Pavillon-Kreis und die neue Gartenspirale im Stadtpark; 24 weitere Vorlagen behalten ihre Geometrie und erhalten die neue thematische Einbindung, Namen und gegebenenfalls korrigiertes PAR. Neue Kurs-IDs beginnen mit Bestwertrevision 1; Stadtpark verwendet nach seinen Bahnkorrekturen Revision 3, Mühlental nach dem zweiten Rotor ebenfalls Revision 3, Uhrwerkfabrik nach der Tempoanpassung ebenfalls Revision 3, Tempelruinen nach der Würfel-Fünf im Säulenhof Revision 4. Ergebnisse der alten Kursfolgen werden weder übernommen noch gelöscht.
 
 Die Welten verwenden gemeinsame [Themenressourcen](data/themes/stadtpark.tres) und [CourseTheme](src/course_theme.gd). Dekoration wird außerhalb des Spielwegs mit Abstand zu Wänden und Mechanismen gezeichnet. Rasenstreifen folgen auch den tatsächlichen Konturbögen. Bandenfarben ändern sich, die Geometrie für Darstellung und Kollision bleibt gemeinsam. Gefällefarben und Oberflächenwirkung bleiben unverändert.
 
@@ -124,3 +124,13 @@ Der neue Regressionstest `tests/guardian_tee_test.gd` prüft die Abstände und d
 Die Kursfassung ist technisch spielbar und automatisiert geprüft. Manuelles Durchspielen aller 72 Bahnen, echte Controllerhardware, jede Risikoalternative und eine vollständige topologische Prüfung aller denkbaren Umgehungen sind damit noch nicht abgedeckt. Die Themenzeichnung ist eine erste gemeinsame Pixelgestaltung; individuelle größere Abschlussmotive und menschliches Balancing können darauf aufbauen.
 
 Die Lernfolgen enthalten bewusst Ruhebahnen und unterschiedlich lange Aufgaben. Das Planbudget von höchstens drei scrollenden Bahnen pro Welt wird in Mühlental, Uhrwerkfabrik und Sternwarte noch überschritten. Dort wurden Mechanikketten bereits deutlich verkürzt; weitere Verdichtung sollte anhand echter Rundenzeiten erfolgen, ohne die sicheren Zwischenräume zu verlieren.
+
+### Säulenhof: zweimal Würfel-Fünf (13.09.2026)
+
+Je fünf massive Kreissäulen mit Radius 12 bilden pro Kammer eine Würfel-Fünf: eine mittlere Säule und vier Eckpunkte mit gleichem Abstand von jeweils 64 Pixeln in X und Y. Die Mittelpunkte (280,176) und (496,176) sperren die direkte Linie zum Tunnel beziehungsweise vom Tunnelausgang zum Ziel. Abschlag, Tunnelöffnungen und Ziel bleiben frei.
+
+Der erste Schlag führt über die untere Bande bei (276,305) durch den Tunnel in die obere Hälfte der zweiten Kammer. Von dort erreicht der zweite Schlag das Loch seitlich der mittleren Säule. PAR 2 und Kurs-PAR 27 bleiben erhalten. Tempelruinen verwendet Bestwertrevision 4; Rekorde früherer Anordnungen bleiben unter ihren bisherigen Schlüsseln gespeichert.
+
+Die aktive Route ist mit allen vier Figuren bestätigt. Für Ben funktionieren einzeln −0,3°/+0,3° sowie −1 %/+1 % Kraft am ersten und am zweiten Schlag. Diese Varianten sind keine Zusage für beliebig kombinierte Fehler. `tests/column_court_test.gd` prüft außerdem beide symmetrischen Fünferbilder, blockierte Direktlinien und freie Tunnelöffnungen. Die Schlagfolge liegt in `tests/world_routes.json`; Generator und Bahnpläne führen die Anordnung mit. Gesamt- und Spielansicht wurden unter `tmp/saeulenhof/` gerendert und geprüft. Die temporäre Aufnahmehilfe meldet beim Beenden weiterhin Ressourcenreste.
+
+Abnahme mit Godot 4.7.2: vollständige Headless-Suite mit **4311 Checks, 0 Fehlern**, Exitcode 0 und ohne GDScript-Parserfehler. [Windows-Debugbuild mit Würfel-Fünf](build/windows/PuttAndPixel-Saeulenhof-W5.exe): Export und Headless-Start der EXE mit `--quit-after 20` jeweils Exitcode 0. `git diff --check` ist fehlerfrei.

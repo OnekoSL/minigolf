@@ -1,0 +1,642 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/cannon_definition.gd" id="2_lvjv7"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="7_4jyrq"]
+[ext_resource type="Script" path="res://src/trigger_definition.gd" id="9_q7360"]
+[ext_resource type="Script" path="res://src/tunnel_definition.gd" id="10_a4gip"]
+[ext_resource type="Script" path="res://src/wall_tile_definition.gd" id="11_3b72i"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="arrow"]
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Resource" path="res://data/themes/zirkus.tres" id="theme"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="wall"]
+
+[sub_resource type="Resource" id="Resource_lvjv7"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_4jyrq"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_q7360"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 16)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_a4gip"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 17)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_3b72i"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 18)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_4dbx1"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(17, 19)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_q7aph"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_cw43n"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_nnh10"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_7eh82"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 16)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_noyrh"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 17)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_8xwom"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 18)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_xt54q"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(18, 19)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_jg2nx"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_vnoqc"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_y3wly"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_n25vd"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_lgmr8"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 16)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_j6d23"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 17)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_6dlix"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 18)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_ykhjc"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(19, 19)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_exe00"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wxq5c"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_qc1x8"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_yvawr"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_sqtif"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_t588b"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 16)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_b8a3t"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 17)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_sqjux"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(20, 18)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_pd45b"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_oor4w"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_b4wqb"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_imyby"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_tebax"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_unwho"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_q38ft"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(22, 16)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_y2nsp"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_s2owk"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_plx82"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_g0ovw"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_bnacp"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_i2qac"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(23, 15)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 0, 0, 16, 0, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_poewy"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(24, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_w1sry"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(24, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_80m6m"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(24, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_wuxec"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(24, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_k3srp"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(24, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_dns05"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(25, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_tn304"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(25, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_c7sp7"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(25, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_j873p"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(25, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_op2wr"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(25, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_nco1y"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 9)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_22i2m"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_yuq42"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_h7khq"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_40qee"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_8oh8y"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(27, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_yp4ga"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 8)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_5ixkf"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 9)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_a1nqq"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_hcp8d"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_kodjg"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_iy4vt"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_y45c1"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(28, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_vsshp"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 7)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_mc80g"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 8)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_tn1qr"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 9)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_4evkx"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_k84ud"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_0v3fs"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_uxvck"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_f46tk"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(29, 14)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_lo5f3"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 6)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_7pofu"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 7)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_bml3x"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 8)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_vajjm"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 9)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_lhvoi"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 10)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_3srx0"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 11)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_r8s4a"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 12)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(16, 16, 0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_iv3py"]
+script = ExtResource("arrow")
+grid_cell = Vector2i(30, 13)
+grid_offset = Vector2i(8, 8)
+clip_polygon = PackedVector2Array(0, 16, 0, 0, 16, 0)
+direction = 4
+slope_grade = 1
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 248, 280, 248, 360, 168, 440, 168, 504, 104, 600, 104, 600, 184, 536, 184, 472, 248, 392, 248, 312, 328, 184, 328)
+use_normalized_walls = true
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"zirkus_03"
+display_name = "ZIRKUSSCHLEIFE"
+par = 3
+lane_outline = SubResource("outline")
+theme = ExtResource("theme")
+tee_position = Vector2(224, 288)
+hole_position = Vector2(568, 144)
+initial_aim_offset = Vector2(64, 0)
+arrow_tiles = Array[ExtResource("arrow")]([SubResource("Resource_lvjv7"), SubResource("Resource_4jyrq"), SubResource("Resource_q7360"), SubResource("Resource_a4gip"), SubResource("Resource_3b72i"), SubResource("Resource_4dbx1"), SubResource("Resource_q7aph"), SubResource("Resource_cw43n"), SubResource("Resource_nnh10"), SubResource("Resource_7eh82"), SubResource("Resource_noyrh"), SubResource("Resource_8xwom"), SubResource("Resource_xt54q"), SubResource("Resource_jg2nx"), SubResource("Resource_vnoqc"), SubResource("Resource_y3wly"), SubResource("Resource_n25vd"), SubResource("Resource_lgmr8"), SubResource("Resource_j6d23"), SubResource("Resource_6dlix"), SubResource("Resource_ykhjc"), SubResource("Resource_exe00"), SubResource("Resource_wxq5c"), SubResource("Resource_qc1x8"), SubResource("Resource_yvawr"), SubResource("Resource_sqtif"), SubResource("Resource_t588b"), SubResource("Resource_b8a3t"), SubResource("Resource_sqjux"), SubResource("Resource_pd45b"), SubResource("Resource_oor4w"), SubResource("Resource_b4wqb"), SubResource("Resource_imyby"), SubResource("Resource_tebax"), SubResource("Resource_unwho"), SubResource("Resource_q38ft"), SubResource("Resource_y2nsp"), SubResource("Resource_s2owk"), SubResource("Resource_plx82"), SubResource("Resource_g0ovw"), SubResource("Resource_bnacp"), SubResource("Resource_i2qac"), SubResource("Resource_poewy"), SubResource("Resource_w1sry"), SubResource("Resource_80m6m"), SubResource("Resource_wuxec"), SubResource("Resource_k3srp"), SubResource("Resource_dns05"), SubResource("Resource_tn304"), SubResource("Resource_c7sp7"), SubResource("Resource_j873p"), SubResource("Resource_op2wr"), SubResource("Resource_nco1y"), SubResource("Resource_22i2m"), SubResource("Resource_yuq42"), SubResource("Resource_h7khq"), SubResource("Resource_40qee"), SubResource("Resource_8oh8y"), SubResource("Resource_yp4ga"), SubResource("Resource_5ixkf"), SubResource("Resource_a1nqq"), SubResource("Resource_hcp8d"), SubResource("Resource_kodjg"), SubResource("Resource_iy4vt"), SubResource("Resource_y45c1"), SubResource("Resource_vsshp"), SubResource("Resource_mc80g"), SubResource("Resource_tn1qr"), SubResource("Resource_4evkx"), SubResource("Resource_k84ud"), SubResource("Resource_0v3fs"), SubResource("Resource_uxvck"), SubResource("Resource_f46tk"), SubResource("Resource_lo5f3"), SubResource("Resource_7pofu"), SubResource("Resource_bml3x"), SubResource("Resource_vajjm"), SubResource("Resource_lhvoi"), SubResource("Resource_3srx0"), SubResource("Resource_r8s4a"), SubResource("Resource_iv3py")])

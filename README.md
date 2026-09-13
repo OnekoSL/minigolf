@@ -1,10 +1,10 @@
-# Putt & Pixel - Spielbare Vorabversion 0.3.0
+# Putt & Pixel - Entwicklungsstand mit Zirkuskurs
 
-Spielbare Windows-Vorabversion des controllerorientierten 2D-Minigolfspiels mit acht Themenkursen, 72 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
+Controllerorientiertes 2D-Minigolfspiel mit neun Themenkursen, 81 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
 Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
-Die acht Welten ersetzen die fuenf bisherigen Kurszusammenstellungen. [Kursplan](KURSPLAN_8_WELTEN.md) und [Umsetzungsbericht](ACHT_WELTEN_UMSETZUNG.md) dokumentieren Bahnideen, Herkunft, Bauplaene und Pruefstand.
+Die urspruenglichen acht Welten ersetzen die fuenf bisherigen Kurszusammenstellungen. [Kursplan](KURSPLAN_8_WELTEN.md) und [Umsetzungsbericht](ACHT_WELTEN_UMSETZUNG.md) dokumentieren Bahnideen, Herkunft, Bauplaene und Pruefstand.
 
 | Kurs | PAR | Schwerpunkt |
 | --- | ---: | --- |
@@ -16,10 +16,19 @@ Die acht Welten ersetzen die fuenf bisherigen Kurszusammenstellungen. [Kursplan]
 | Uhrwerkfabrik | 27 | Mechanikketten und verborgenes Tunnelzahnrad |
 | Tempelruinen | 27 | Tunnel und getrennte Kammern |
 | Sternwarte | 32 | Schalter, Kanonen und Landungen |
+| Zirkus | 29 | Wippen, Pfeilpassagen und Elefanten-Abkuerzung |
+
+Der neue [Zirkuskurs](ZIRKUS.md) erweitert den Bestand um neun eigene Bahnen. Die GitHub-Vorabversion 0.3.0 enthaelt weiterhin die bisherigen acht Kurse; der Zirkus gehoert zum anschliessenden Entwicklungsstand.
 
 Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. Alte Bestwerte und technische Testbahnen bleiben erhalten. Gemeinsame Themenressourcen steuern Umgebung, Rasen, Banden und Dekoration ohne Einfluss auf die Ballphysik.
 
 ## Starten
+
+Aktueller lokaler Build mit drei Pfeilfeldern auf Zwei Alleen: [PuttAndPixel-ZweiAlleen.exe](build/windows/PuttAndPixel-ZweiAlleen.exe). Oben fordert eine rote Gegensteigung mehr Kraft; unten helfen gruene Rechts- und blaue Aufwaertspfeile. Beide Wege bleiben in PAR 3 spielbar. Die Umbauten an Muschelbucht und Strandzugang sind ebenfalls enthalten.
+
+Vorheriger lokaler Build mit je fünf Säulen als Würfel-Fünf im Säulenhof: [PuttAndPixel-Saeulenhof-W5.exe](build/windows/PuttAndPixel-Saeulenhof-W5.exe). In beiden Kammern steht eine Säule mittig im Weg; PAR 2 bleibt erhalten.
+
+Den lokalen [Windows-Entwicklungsbuild mit Zirkus](build/windows/PuttAndPixel-Zirkus-Jonglierweg.exe) direkt starten. Das Startfenster ist wieder 2560 × 1440 Pixel gross; die interne Pixelgrafik verwendet weiterhin 640 × 360. ZIRKUS steht auf Kursseite 3, die Elefantenbahn ist Bahn 5. Dieser Build erweitert den Entwicklungsstand und ersetzt kein veroeffentlichtes Release.
 
 Das [Windows-Release 0.3.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.3.0/PuttAndPixel-0.3.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.3.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme. Die Release-EXE wurde auch nach frischem Entpacken gestartet und visuell kontrolliert.
 
@@ -43,7 +52,7 @@ Vier erwachsene Pixelgolfer sind sofort verfuegbar: Ben (Allrounder), Mara, Brun
 
 `godot --path . res://tests/capture_golfer.tscn` rendert alle Posen, Spielerfarben und Schlagfolgen nach `.godot/golfer/`. `tests/golfer_animation_test.gd` prueft die Verbindung zum echten Schlagsystem einschliesslich des sichtbaren Kontaktframes.
 
-Brunos maximale Richtungsabweichung betraegt 10 Grad. Die Themenkurse verwenden Bestwertrevision 1; Stadtpark verwendet nach den Bahnkorrekturen einschliesslich der Parkbank-Diagonalen Revision 3, Muehlental nach dem zweiten Rotor auf Bahn 1 ebenfalls Revision 3, Uhrwerkfabrik nach der Zahnrad-Tempoanpassung ebenfalls Revision 3, Tempelruinen nach der Rotor-Korrektur Revision 2. Historisch galten nach dem Figurenbalancing: Klassische Neun 10, Pfeil-Armageddon 8, Referenzbahnen 4, Labyrinth-Neun 4 und Prototypkurs 6. Diese alten Bestwerte bleiben gespeichert; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
+Brunos maximale Richtungsabweichung betraegt 10 Grad. Strandzugang besitzt zwei lange Sandflaechen und dazwischen eine einzelne Reihe aus 18 flachen Rechtspfeilen zum Loch. Muschelbucht besitzt oberhalb der Insel ein 10 Spalten breites und 4 Reihen hohes flaches Pfeilfeld nach unten. Die Duenenkueste verwendet nach beiden Umbauten Bestwertrevision 3. Die uebrigen Themenkurse verwenden Bestwertrevision 1; Stadtpark verwendet nach den drei Pfeilfeldern auf Zwei Alleen Revision 4, Muehlental nach dem zweiten Rotor auf Bahn 1 ebenfalls Revision 3, Uhrwerkfabrik nach der Zahnrad-Tempoanpassung ebenfalls Revision 3, Tempelruinen nach der Rotor-Korrektur und der Würfel-Fünf im Säulenhof Revision 4. Historisch galten nach dem Figurenbalancing: Klassische Neun 10, Pfeil-Armageddon 8, Referenzbahnen 4, Labyrinth-Neun 4 und Prototypkurs 6. Diese alten Bestwerte bleiben gespeichert; die unten beschriebenen Geometrie-Revisionen dokumentieren den vorherigen Bahnstand.
 
 | Funktion | Controller | Tastatur | Maus |
 |---|---|---|---|
@@ -61,20 +70,20 @@ Brunos maximale Richtungsabweichung betraegt 10 Grad. Die Themenkurse verwenden 
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 72 Kurs- und 14 technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 81 Kurs- und 14 technischen Bahnen.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
 ## Spielmodi und Runde
 
-- **Einzelner Kurs:** ein Spieler waehlt einen der acht Themenkurse auf drei Seiten mit 3/3/2 Eintraegen.
+- **Einzelner Kurs:** ein Spieler waehlt einen der neun Themenkurse auf drei Seiten mit je drei Eintraegen.
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
 - **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
 Beim Markieren eines Kurses erscheint rechts eine **3×3-Vorschau aller neun Bahnen** mit Bahnnummer und PAR. Controller, Tastatur und Maus aktualisieren dieselbe Uebersicht; Bestaetigen startet den angezeigten Kurs. Auch lange Bahnen sind vollstaendig abgebildet.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 72 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 81 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
 
 Die Kursfreigabe wird aus Kurs-ID und exakter vollständiger Lochfolge abgeleitet. Beschädigte Bestwertdateien werden nicht überschrieben; fehlgeschlagenes Speichern wird in der Endtabelle angezeigt. Menüaktionen beachten Eingabesperre, Fokus, Diagnose und Kalibrierung auch bei Mausklicks und verspäteten Signalen alter Bildschirme.
 

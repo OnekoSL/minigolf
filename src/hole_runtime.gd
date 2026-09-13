@@ -111,6 +111,8 @@ func _build_from_definition() -> void:
 		if obstacle is SurfaceZone:
 			zones.append(obstacle)
 		add_child(obstacle)
+		if obstacle is ElephantObstacle:
+			obstacle.feedback.connect(func(kind: StringName, point: Vector2, direction: Vector2): mechanism_feedback.emit(kind, point, direction))
 	for cannon_definition in definition.cannons:
 		var cannon := cannon_definition.instantiate_cannon()
 		cannon_nodes.append(cannon)

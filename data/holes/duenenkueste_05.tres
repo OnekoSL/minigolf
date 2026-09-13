@@ -29,6 +29,246 @@ wall_type = 1
 center = Vector2(392, 200)
 radius = 54.0
 
+[sub_resource type="Resource" id="Resource_arrow_0_0"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(19, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_1"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(20, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_2"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(21, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_3"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(22, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_4"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(23, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_5"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(24, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_6"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(25, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_7"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(26, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_8"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(27, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_0_9"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(28, 3)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_0"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(19, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_1"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(20, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_2"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(21, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_3"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(22, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_4"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(23, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_5"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(24, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_6"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(25, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_7"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(26, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_8"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(27, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_1_9"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(28, 4)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_0"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(19, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_1"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(20, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_2"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(21, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_3"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(22, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_4"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(23, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_5"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(24, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_6"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(25, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_7"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(26, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_8"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(27, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_2_9"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(28, 5)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_0"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(19, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_1"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(20, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_2"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(21, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_3"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(22, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_4"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(23, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_5"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(24, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_6"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(25, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_7"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(26, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_8"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(27, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
+[sub_resource type="Resource" id="Resource_arrow_3_9"]
+script = ExtResource("1_8veey")
+grid_cell = Vector2i(28, 6)
+grid_offset = Vector2i(8, 8)
+direction = 4
+
 [resource]
 script = ExtResource("6_f311t")
 hole_id = &"duenenkueste_05"
@@ -41,3 +281,4 @@ hole_position = Vector2(552, 184)
 initial_aim_offset = Vector2(37.642986, -51.75911)
 walls = Array[ExtResource("3_d4tns")]([SubResource("Resource_fgov0")])
 surfaces = Array[ExtResource("7_yrau8")]([SubResource("Resource_ulrdi")])
+arrow_tiles = Array[ExtResource("1_8veey")]([SubResource("Resource_arrow_0_0"), SubResource("Resource_arrow_0_1"), SubResource("Resource_arrow_0_2"), SubResource("Resource_arrow_0_3"), SubResource("Resource_arrow_0_4"), SubResource("Resource_arrow_0_5"), SubResource("Resource_arrow_0_6"), SubResource("Resource_arrow_0_7"), SubResource("Resource_arrow_0_8"), SubResource("Resource_arrow_0_9"), SubResource("Resource_arrow_1_0"), SubResource("Resource_arrow_1_1"), SubResource("Resource_arrow_1_2"), SubResource("Resource_arrow_1_3"), SubResource("Resource_arrow_1_4"), SubResource("Resource_arrow_1_5"), SubResource("Resource_arrow_1_6"), SubResource("Resource_arrow_1_7"), SubResource("Resource_arrow_1_8"), SubResource("Resource_arrow_1_9"), SubResource("Resource_arrow_2_0"), SubResource("Resource_arrow_2_1"), SubResource("Resource_arrow_2_2"), SubResource("Resource_arrow_2_3"), SubResource("Resource_arrow_2_4"), SubResource("Resource_arrow_2_5"), SubResource("Resource_arrow_2_6"), SubResource("Resource_arrow_2_7"), SubResource("Resource_arrow_2_8"), SubResource("Resource_arrow_2_9"), SubResource("Resource_arrow_3_0"), SubResource("Resource_arrow_3_1"), SubResource("Resource_arrow_3_2"), SubResource("Resource_arrow_3_3"), SubResource("Resource_arrow_3_4"), SubResource("Resource_arrow_3_5"), SubResource("Resource_arrow_3_6"), SubResource("Resource_arrow_3_7"), SubResource("Resource_arrow_3_8"), SubResource("Resource_arrow_3_9")])

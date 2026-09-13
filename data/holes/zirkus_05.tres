@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="arrow"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="wall"]
+[ext_resource type="Resource" path="res://data/themes/zirkus.tres" id="theme"]
+
+[sub_resource type="Resource" id="Arc_outer"]
+script = ExtResource("wall")
+wall_type = 2
+center = Vector2(856, 168)
+radius = 144.0
+thickness = 4.0
+arc_start_degrees = 90.0
+arc_sweep_degrees = -180.0
+arc_segments = 64
+
+[sub_resource type="Resource" id="Arc_inner"]
+script = ExtResource("wall")
+wall_type = 2
+center = Vector2(856, 168)
+radius = 80.0
+thickness = 4.0
+arc_start_degrees = -90.0
+arc_sweep_degrees = 180.0
+arc_segments = 64
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 312, 856, 312, 856, 24, 184, 24, 184, 88, 856, 88, 856, 248, 184, 248)
+use_normalized_walls = true
+boundary_arcs = Array[ExtResource("wall")]([SubResource("Arc_outer"), SubResource("Arc_inner")])
+
+[sub_resource type="Resource" id="elephant"]
+script = ExtResource("obstacle")
+obstacle_type = 4
+position = Vector2(400, 168)
+elephant_intake = Vector2(0, 144)
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"zirkus_05"
+display_name = "ELEFANTENPUPS"
+par = 5
+course_rect = Rect2(176, 16, 832, 328)
+camera_center_bounds = Rect2(320, 180, 376, 0)
+lane_outline = SubResource("outline")
+theme = ExtResource("theme")
+tee_position = Vector2(220, 280)
+hole_position = Vector2(220, 56)
+initial_aim_offset = Vector2(64, 0)
+arrow_tiles = Array[ExtResource("arrow")]([])
+obstacles = Array[ExtResource("obstacle")]([SubResource("elephant")])

@@ -1,7 +1,7 @@
 class_name CourseTheme
 extends Resource
 
-enum Motif { PARK, COAST, MILL, MOUNTAIN, PALACE, FACTORY, TEMPLE, OBSERVATORY }
+enum Motif { PARK, COAST, MILL, MOUNTAIN, PALACE, FACTORY, TEMPLE, OBSERVATORY, CIRCUS }
 
 @export var theme_id: StringName
 @export var background := Color("183626")
@@ -28,7 +28,7 @@ func draw_scenery(canvas: Node2D, hole: HoleDefinition) -> void:
 			var point := Vector2(x,y)
 			if not _has_clearance(point, floor_points, hole):
 				continue
-			_draw_motif(canvas, point, (x / 48 + y / 48) % 3)
+			_draw_motif(canvas, point, (x / 48 * 2 + y / 48) % 3 if motif == Motif.CIRCUS else (x / 48 + y / 48) % 3)
 
 
 func _has_clearance(point: Vector2, floor_points: PackedVector2Array, hole: HoleDefinition) -> bool:
@@ -50,6 +50,21 @@ func _has_clearance(point: Vector2, floor_points: PackedVector2Array, hole: Hole
 
 func _draw_motif(canvas: Node2D, p: Vector2, variant: int) -> void:
 	match motif:
+		Motif.CIRCUS:
+			if variant == 0:
+				canvas.draw_rect(Rect2(p + Vector2(-13, -1), Vector2(26, 18)), wall)
+				for x in [-10, 0, 10]:
+					canvas.draw_rect(Rect2(p + Vector2(x - 2, 0), Vector2(5, 17)), trim)
+				canvas.draw_colored_polygon(PackedVector2Array([p + Vector2(-17, 0), p + Vector2(0, -18), p + Vector2(17, 0)]), trim)
+				canvas.draw_rect(Rect2(p + Vector2(-3, 7), Vector2(6, 10)), background)
+			elif variant == 1:
+				canvas.draw_line(p + Vector2(-18, -7), p + Vector2(18, -7), accent, 1)
+				for x in [-12, 0, 12]:
+					canvas.draw_colored_polygon(PackedVector2Array([p + Vector2(x-4,-7), p + Vector2(x+4,-7), p + Vector2(x,3)]), wall if x == 0 else trim)
+			else:
+				canvas.draw_rect(Rect2(p + Vector2(-11, 0), Vector2(22, 12)), trim)
+				canvas.draw_rect(Rect2(p + Vector2(-13, -4), Vector2(26, 5)), accent)
+				canvas.draw_circle(p + Vector2(0, -11), 6, wall)
 		Motif.PARK:
 			canvas.draw_rect(Rect2(p+Vector2(-2,0),Vector2(4,15)),trim)
 			canvas.draw_circle(p+Vector2(0,-3),12,foliage)

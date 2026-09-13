@@ -27,6 +27,7 @@ const TUNNEL_EXIT_CLEARANCE := 13.0
 
 var zones: Array[SurfaceZone] = []
 var tunnels: Array[TunnelDefinition] = []
+var rest_receivers: Array[Node2D] = []
 var hole_position := Vector2.ZERO
 var moving := false
 var shot_origin := Vector2.ZERO
@@ -52,6 +53,7 @@ var _cannon_fire_emitted := false
 var _visual_lift := 0.0
 var _tunnel_active := false
 var _tunnel_elapsed := 0.0
+var _tunnel_wait := 0.0
 var _tunnel_duration := TUNNEL_DURATION
 var _tunnel_entry := Vector2.ZERO
 var _tunnel_exit_hole := Vector2.ZERO
@@ -74,11 +76,16 @@ func _ready() -> void:
 func configure_environment(
 	surface_zones: Array[SurfaceZone],
 	target_hole: Vector2,
-	tunnel_pairs: Array[TunnelDefinition] = []
+	tunnel_pairs: Array[TunnelDefinition] = [],
+	receivers: Array[Node2D] = []
 ) -> void:
 	zones = surface_zones
 	hole_position = target_hole
 	tunnels = tunnel_pairs
+	rest_receivers = receivers
+	for receiver in rest_receivers:
+		if receiver.has_method("bind_ball"):
+			receiver.bind_ball(self)
 	_set_current_surface_type(_surface_at(global_position).surface_type)
 
 
@@ -123,6 +130,8 @@ func _physics_process(delta: float) -> void:
 	if _cannon_active:
 		_advance_cannon_sequence(delta)
 		return
+	if _try_mechanism_capture():
+		return
 	var tick_start_position := global_position
 	var surface := _surface_at(global_position)
 	_set_current_surface_type(surface.surface_type)
@@ -157,6 +166,8 @@ func _physics_process(delta: float) -> void:
 	var step_delta := delta / float(steps)
 	for _step in range(steps):
 		var collision := move_and_collide(velocity * step_delta)
+		if _try_mechanism_capture():
+			return
 		if collision:
 			var before := velocity.length()
 			var collider_velocity := collision.get_collider_velocity()
@@ -266,6 +277,11 @@ func _finish_stopped() -> void:
 	velocity = Vector2.ZERO
 	_slow_time = 0.0
 	_stuck_time = 0.0
+	# Reserve automatic transfers before announcing a finished shot or stroke cap.
+	for receiver in rest_receivers:
+		if is_instance_valid(receiver) and receiver.has_method("try_capture_resting_ball"):
+			if receiver.try_capture_resting_ball(self):
+				return
 	stopped.emit(global_position)
 
 
@@ -308,6 +324,14 @@ func _capture_hole() -> void:
 	holed.emit(current_stroke_count)
 
 
+func _try_mechanism_capture() -> bool:
+	for receiver in rest_receivers:
+		if is_instance_valid(receiver) and receiver.has_method("try_capture_ball"):
+			if receiver.try_capture_ball(self):
+				return true
+	return false
+
+
 func apply_moving_obstacle_contact(
 	surface_velocity: Vector2,
 	contact_normal: Vector2,
@@ -315,6 +339,8 @@ func apply_moving_obstacle_contact(
 	minimum_kick_speed: float,
 	obstacle_kind: StringName = &"windmill"
 ) -> bool:
+	if _tunnel_active or _cannon_active or not visible:
+		return false
 	var normal := contact_normal.normalized()
 	var relative_velocity := velocity - surface_velocity
 	if relative_velocity.dot(normal) >= -2.0:
@@ -396,12 +422,47 @@ func start_directed_tunnel(entry: Vector2, exit_hole: Vector2, exit_direction: V
 	return true
 
 
+# Explicit transport for mechanisms that receive a settled ball. Existing rolling
+# tunnels retain their speed and capture rules.
+func start_rest_transport(entry: Vector2, exit_position: Vector2, exit_velocity: Vector2, wait_seconds: float, duration: float) -> bool:
+	if moving:
+		return false
+	return start_mechanism_transport(entry, exit_position, exit_velocity, wait_seconds, duration)
+
+
+# Explicit capture may also receive a rolling ball, before obstacle collision.
+func start_mechanism_transport(entry: Vector2, exit_position: Vector2, exit_velocity: Vector2, wait_seconds: float, duration: float) -> bool:
+	if _tunnel_active or _cannon_active or not visible or current_stroke_count < 1:
+		return false
+	if not entry.is_finite() or not exit_position.is_finite() or not exit_velocity.is_finite() or exit_velocity.is_zero_approx() or wait_seconds < 0.0 or duration < TUNNEL_DURATION:
+		return false
+	_tunnel_active = true
+	_tunnel_elapsed = 0.0
+	_tunnel_wait = wait_seconds
+	_tunnel_duration = duration
+	_tunnel_entry = entry
+	_tunnel_exit_hole = exit_position
+	_tunnel_exit_position = exit_position
+	_tunnel_velocity = exit_velocity
+	moving = true
+	velocity = Vector2.ZERO
+	collision_mask = 0
+	_slow_time = 0.0
+	_stuck_time = 0.0
+	_reset_wall_contact_memory()
+	external_motion_started.emit()
+	return true
+
+
 func advance_tunnel_sequence(delta: float) -> void:
 	if _tunnel_active:
 		_advance_tunnel_sequence(delta)
 
 
 func _advance_tunnel_sequence(delta: float) -> void:
+	if _tunnel_wait > 0.0:
+		_tunnel_wait = maxf(0.0, _tunnel_wait - delta)
+		return
 	_tunnel_elapsed += maxf(0.0, delta)
 	var animation_half := TUNNEL_DURATION*0.5
 	var progress := 0.5
@@ -429,6 +490,7 @@ func _advance_tunnel_sequence(delta: float) -> void:
 
 
 func _cancel_tunnel_sequence() -> void:
+	_tunnel_wait = 0.0
 	_tunnel_active = false
 	_tunnel_elapsed = 0.0
 	_tunnel_velocity = Vector2.ZERO

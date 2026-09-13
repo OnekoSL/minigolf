@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="arrow"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/wall_definition.gd" id="wall"]
+[ext_resource type="Resource" path="res://data/themes/zirkus.tres" id="theme"]
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 200, 424, 200, 520, 104, 824, 104, 824, 184, 552, 184, 456, 280, 184, 280)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("obstacle")
+obstacle_type = 2
+position = Vector2(328, 240)
+seesaw_size = Vector2(96, 88)
+seesaw_response_seconds = 0.10
+start_rotation_degrees = 0
+
+[sub_resource type="Resource" id="o1"]
+script = ExtResource("obstacle")
+obstacle_type = 2
+position = Vector2(648, 144)
+seesaw_size = Vector2(96, 88)
+seesaw_response_seconds = 0.10
+start_rotation_degrees = 0
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"zirkus_04"
+display_name = "BALANCEAKT"
+par = 3
+course_rect = Rect2(176, 16, 656, 328)
+camera_center_bounds = Rect2(320, 180, 200, 0)
+lane_outline = SubResource("outline")
+theme = ExtResource("theme")
+tee_position = Vector2(224, 240)
+hole_position = Vector2(784, 144)
+initial_aim_offset = Vector2(64, 0)
+arrow_tiles = Array[ExtResource("arrow")]([])
+obstacles = Array[ExtResource("obstacle")]([SubResource("o0"), SubResource("o1")])

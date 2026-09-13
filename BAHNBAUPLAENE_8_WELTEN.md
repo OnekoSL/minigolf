@@ -102,15 +102,19 @@ Ein Nachputt am Ende wird nur gebraucht, wenn ein vorheriger Schlag noch nicht e
 
 **Bahn:** [stadtpark_08](data/holes/stadtpark_08.tres). **PAR:** 3. **Herkunft:** Neu.
 
-**Aufgabe:** Eine geschlossene Beetinsel auf dem breiten äußeren Weg umspielen.
+**Aufgabe:** Oben eine rote Gegensteigung ueberwinden oder unten gruene Rechtspfeile und einen blauen Aufwaertsdrall zum Loch dosieren.
 
-**Abschlag:** (232, 184); **Ziel:** (552, 184). **Risikoidee:** Kürzerer enger Innenweg um dieselbe Insel.
+**Abschlag:** (232, 184); **Ziel:** (552, 184). **Risikoidee:** Die schmalere untere Allee mit wenig Kraft und zwei aufeinanderfolgenden Pfeilfeldern spielen.
 
 | Schlag | Zielpunkt / Winkel | Kraft | Warten |
 | --- | --- | ---: | ---: |
 | 1 | (296, 96) | 162,6008 | 0 |
-| 2 | (496, 96) | 219,2211 | 0 |
-| 3 | (552, 184) | 167,8268 | 0 |
+| 2 | (496, 96) | 232 | 0 |
+| 3 | (552, 184) | 168 | 0 |
+
+Oben sperrt ein rotes 3×6-Linksfeld bei (376, 56) den gesamten Durchgang bis zur Insel. Unten liegt ein gruenes 7×4-Rechtsfeld bei (344, 248); rechts davon folgt ein blaues 4×3-Aufwaertsfeld bei (504, 248). Die beiden Routen nutzen damit unterschiedliche Steigungen; Bestwertrevision Stadtpark: 4.
+
+Untere Alternative, ebenfalls PAR 3: (296, 280) mit Kraft 168; (496, 280) mit 145; anschliessend das Loch (552, 184) mit 122. Der zweite Schlag durchquert beide unteren Felder und rollt rechts unterhalb des Lochs aus.
 
 ## K1-09 – stadtpark_09
 
@@ -130,13 +134,15 @@ Ein Nachputt am Ende wird nur gebraucht, wenn ein vorheriger Schlag noch nicht e
 
 **Bahn:** [duenenkueste_01](data/holes/duenenkueste_01.tres). **PAR:** 1. **Herkunft:** Neu.
 
-**Aufgabe:** Einen kurzen Sandstreifen mit ausreichender Kraft queren; großer Auslauf.
+**Aufgabe:** Eine einzelne waagerechte Pfeilreihe zum Loch treffen; Sand oberhalb und unterhalb bremst seitliche Fehlschlaege.
 
 **Abschlag:** (224, 176); **Ziel:** (568, 176). **Risikoidee:** In einem Zug bis zum Loch.
 
 | Schlag | Zielpunkt / Winkel | Kraft | Warten |
 | --- | --- | ---: | ---: |
-| 1 | (568, 176) | 337,5598 | 0 |
+| 1 | (568, 176) | 90 | 0 |
+
+Die Sandflaechen reichen von x=248 bis 536 und liegen bei y=136–168 sowie y=184–216. Dazwischen zeigen 18 flache 16-Pixel-Pfeile auf y=176 nach rechts. Abschlag und Ziel bleiben auf Rasen. Der Strandumbau fuehrte Bestwertrevision 2 ein; nach dem neuen Muschelbucht-Pfeilfeld gilt fuer die Duenenkueste Revision 3.
 
 ## K2-02 – prototype_04
 
@@ -184,15 +190,17 @@ Ein Nachputt am Ende wird nur gebraucht, wenn ein vorheriger Schlag noch nicht e
 
 **Bahn:** [duenenkueste_05](data/holes/duenenkueste_05.tres). **PAR:** 3. **Herkunft:** Neu.
 
-**Aufgabe:** Kurze kreisförmige Insel umspielen; breite trockene Ablage am Außenrand.
+**Aufgabe:** Kreisfoermige Insel oben umspielen und den Abwaertsdrall eines 4 Reihen hohen, 10 Spalten breiten Pfeilfelds kontrollieren.
 
 **Abschlag:** (232, 184); **Ziel:** (552, 184). **Risikoidee:** Schmalere Linie zwischen Insel und Wasser.
 
 | Schlag | Zielpunkt / Winkel | Kraft | Warten |
 | --- | --- | ---: | ---: |
 | 1 | (296, 96) | 162,6008 | 0 |
-| 2 | (496, 96) | 219,2211 | 0 |
-| 3 | (552, 184) | 167,8268 | 0 |
+| 2 | (496, 96) | 180 | 0 |
+| 3 | (552, 184) | 104 | 0 |
+
+Das flache Abwaertsfeld liegt bei (312, 56), ist 160 × 64 Pixel gross und besteht aus 10 Spalten mit je 4 Pfeilen. Zwischen Feld und Insel bleiben 26 Pixel Rasen; die obere Route kreuzt das Feld und rollt rechts der Insel aus. Bestwertrevision der Duenenkueste: 3.
 
 ## K2-06 – prototype_06
 
@@ -790,14 +798,14 @@ Ein Nachputt am Ende wird nur gebraucht, wenn ein vorheriger Schlag noch nicht e
 
 **Bahn:** [tempelruinen_02](data/holes/tempelruinen_02.tres). **PAR:** 2. **Herkunft:** Neu.
 
-**Aufgabe:** Zwei statische Säulen umspielen und vor dem Tunnel kontrolliert ausrichten.
+**Aufgabe:** Je fünf Säulen als Würfel-Fünf; beide mittleren Säulen sperren die Direktlinie. Über die untere Bande durch den Tunnel und seitlich der Zielsäule einlochen.
 
 **Abschlag:** (224, 176); **Ziel:** (568, 176). **Risikoidee:** Bandenlinie durch Säulen und Tunnel verbinden.
 
 | Schlag | Zielpunkt / Winkel | Kraft | Warten |
 | --- | --- | ---: | ---: |
-| 1 | (328, 176) | 158,9873 | 0 |
-| 2 | (568, 176) | 180,392 | 0 |
+| 1 | (276, 305) | 305 | 0 |
+| 2 | (568, 176) | 190 | 0 |
 
 ## K7-03 – tempelruinen_03
 

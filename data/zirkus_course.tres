@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CourseDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/course_definition.gd" id="course"]
+
+[resource]
+script = ExtResource("course")
+course_id = &"zirkus_course"
+display_name = "ZIRKUS"
+best_score_revision = 4
+hole_ids = Array[StringName]([&"zirkus_01", &"zirkus_02", &"zirkus_03", &"zirkus_04", &"zirkus_05", &"zirkus_06", &"zirkus_07", &"zirkus_08", &"zirkus_09"])

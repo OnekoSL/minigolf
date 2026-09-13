@@ -135,6 +135,412 @@ script = ExtResource("11_oqsx0")
 grid_cell = Vector2i(21, 10)
 variant = 7
 
+[sub_resource type="Resource" id="Resource_arrow_0_0_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 3)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_0_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 3)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_0_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 3)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_1_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 4)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_1_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 4)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_1_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 4)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_2_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 5)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_2_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 5)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_2_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 5)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_3_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 6)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_3_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 6)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_3_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 6)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_4_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 7)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_4_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 7)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_4_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 7)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_5_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_5_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_0_5_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 8)
+grid_offset = Vector2i(8, 8)
+direction = 6
+slope_grade = 2
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(21, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(22, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_4"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_5"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(26, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_0_6"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(27, 15)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(21, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(22, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_4"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_5"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(26, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_1_6"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(27, 16)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(21, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(22, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_4"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_5"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(26, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_2_6"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(27, 17)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(21, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(22, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(23, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(24, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_4"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(25, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_5"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(26, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_1_3_6"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(27, 18)
+grid_offset = Vector2i(8, 8)
+direction = 2
+slope_grade = 0
+
+[sub_resource type="Resource" id="Resource_arrow_2_0_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(31, 15)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_0_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(32, 15)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_0_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(33, 15)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_0_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(34, 15)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_1_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(31, 16)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_1_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(32, 16)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_1_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(33, 16)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_1_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(34, 16)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_2_0"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(31, 17)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_2_1"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(32, 17)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_2_2"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(33, 17)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
+[sub_resource type="Resource" id="Resource_arrow_2_2_3"]
+script = ExtResource("1_w8p4y")
+grid_cell = Vector2i(34, 17)
+grid_offset = Vector2i(8, 8)
+direction = 0
+slope_grade = 1
+
 [resource]
 script = ExtResource("6_hmrx2")
 hole_id = &"stadtpark_08"
@@ -146,3 +552,4 @@ tee_position = Vector2(232, 184)
 hole_position = Vector2(552, 184)
 initial_aim_offset = Vector2(37.642986, -51.75911)
 wall_tiles = Array[ExtResource("11_oqsx0")]([SubResource("Resource_gyach"), SubResource("Resource_pu1c4"), SubResource("Resource_wtnrk"), SubResource("Resource_i7rws"), SubResource("Resource_ogoka"), SubResource("Resource_4dljf"), SubResource("Resource_lflt7"), SubResource("Resource_k7qdj"), SubResource("Resource_05jc6"), SubResource("Resource_c5fev"), SubResource("Resource_cs0ow"), SubResource("Resource_pkhk2"), SubResource("Resource_edr1y"), SubResource("Resource_q3r6w"), SubResource("Resource_yly0j"), SubResource("Resource_37jom"), SubResource("Resource_uibiy"), SubResource("Resource_u3kw1"), SubResource("Resource_7nnl8"), SubResource("Resource_3lupi"), SubResource("Resource_eb0is"), SubResource("Resource_by2dk"), SubResource("Resource_k40io"), SubResource("Resource_qq4v7"), SubResource("Resource_og313"), SubResource("Resource_y281b")])
+arrow_tiles = Array[ExtResource("1_w8p4y")]([SubResource("Resource_arrow_0_0_0"), SubResource("Resource_arrow_0_0_1"), SubResource("Resource_arrow_0_0_2"), SubResource("Resource_arrow_0_1_0"), SubResource("Resource_arrow_0_1_1"), SubResource("Resource_arrow_0_1_2"), SubResource("Resource_arrow_0_2_0"), SubResource("Resource_arrow_0_2_1"), SubResource("Resource_arrow_0_2_2"), SubResource("Resource_arrow_0_3_0"), SubResource("Resource_arrow_0_3_1"), SubResource("Resource_arrow_0_3_2"), SubResource("Resource_arrow_0_4_0"), SubResource("Resource_arrow_0_4_1"), SubResource("Resource_arrow_0_4_2"), SubResource("Resource_arrow_0_5_0"), SubResource("Resource_arrow_0_5_1"), SubResource("Resource_arrow_0_5_2"), SubResource("Resource_arrow_1_0_0"), SubResource("Resource_arrow_1_0_1"), SubResource("Resource_arrow_1_0_2"), SubResource("Resource_arrow_1_0_3"), SubResource("Resource_arrow_1_0_4"), SubResource("Resource_arrow_1_0_5"), SubResource("Resource_arrow_1_0_6"), SubResource("Resource_arrow_1_1_0"), SubResource("Resource_arrow_1_1_1"), SubResource("Resource_arrow_1_1_2"), SubResource("Resource_arrow_1_1_3"), SubResource("Resource_arrow_1_1_4"), SubResource("Resource_arrow_1_1_5"), SubResource("Resource_arrow_1_1_6"), SubResource("Resource_arrow_1_2_0"), SubResource("Resource_arrow_1_2_1"), SubResource("Resource_arrow_1_2_2"), SubResource("Resource_arrow_1_2_3"), SubResource("Resource_arrow_1_2_4"), SubResource("Resource_arrow_1_2_5"), SubResource("Resource_arrow_1_2_6"), SubResource("Resource_arrow_1_3_0"), SubResource("Resource_arrow_1_3_1"), SubResource("Resource_arrow_1_3_2"), SubResource("Resource_arrow_1_3_3"), SubResource("Resource_arrow_1_3_4"), SubResource("Resource_arrow_1_3_5"), SubResource("Resource_arrow_1_3_6"), SubResource("Resource_arrow_2_0_0"), SubResource("Resource_arrow_2_0_1"), SubResource("Resource_arrow_2_0_2"), SubResource("Resource_arrow_2_0_3"), SubResource("Resource_arrow_2_1_0"), SubResource("Resource_arrow_2_1_1"), SubResource("Resource_arrow_2_1_2"), SubResource("Resource_arrow_2_1_3"), SubResource("Resource_arrow_2_2_0"), SubResource("Resource_arrow_2_2_1"), SubResource("Resource_arrow_2_2_2"), SubResource("Resource_arrow_2_2_3")])

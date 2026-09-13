@@ -11,6 +11,8 @@
 [ext_resource type="Resource" path="res://data/sternwarte_course.tres" id="9_lclek"]
 [ext_resource type="Script" path="res://src/course_catalog.gd" id="10_84mml"]
 
+[ext_resource type="Resource" path="res://data/zirkus_course.tres" id="zirkus"]
+
 [resource]
 script = ExtResource("10_84mml")
-courses = Array[ExtResource("1_aaob7")]([ExtResource("2_6p2qe"), ExtResource("3_f2ioj"), ExtResource("4_hmmtv"), ExtResource("5_8ptam"), ExtResource("6_maaio"), ExtResource("7_4qen0"), ExtResource("8_4pami"), ExtResource("9_lclek")])
+courses = Array[ExtResource("1_aaob7")]([ExtResource("2_6p2qe"), ExtResource("3_f2ioj"), ExtResource("4_hmmtv"), ExtResource("5_8ptam"), ExtResource("6_maaio"), ExtResource("7_4qen0"), ExtResource("8_4pami"), ExtResource("9_lclek"), ExtResource("zirkus")])

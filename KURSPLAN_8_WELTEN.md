@@ -73,7 +73,7 @@ Profil: überwiegend statisch, freundlich und auf Anhieb lesbar. Kreise und Bög
 | K1-05 | Kieselweg | Zwei versetzte Kreise über breite Zwischenpositionen passieren. | Engere diagonale Linie durch beide Kreise. | `classic_nine_05` |
 | K1-06 | Gartenspirale | Vom aeusseren Abschlag nach oben und durch die gerundete Spirale bis zum Loch in der Mitte spielen. | Boegen mit Bandenanschlaegen in weniger Schlaegen verbinden. | `classic_nine_06` |
 | K1-07 | An der Parkbank | L-Kontur mit 45-Grad-Diagonalen an beiden aeusseren Umlenkecken; vorlegen und in den Zielarm spielen. | Einbandenschlag um die Ecke. | Neu |
-| K1-08 | Zwei Alleen | Eine geschlossene Beetinsel auf dem breiten äußeren Weg umspielen. | Kürzerer enger Innenweg um dieselbe Insel. | Neu |
+| K1-08 | Zwei Alleen | Oben eine rote Gegensteigung ueberwinden oder unten gruene Rechtspfeile und einen blauen Aufwaertsdrall zum Loch dosieren. | Die schmalere untere Allee mit wenig Kraft und zwei aufeinanderfolgenden Pfeilfeldern spielen. | Neu |
 | K1-09 | Pavillonrunde | Außenbogen und anschließende Bandenlinie verbinden; breite Zwischenablage. | Beide bekannten Aufgaben in einem Schlag verbinden. | Neu |
 
 ### K2 – Dünenküste
@@ -82,11 +82,11 @@ Profil: Wasser als sichtbare Grenze und Sand als planbarer Tempofaktor. Sichere 
 
 | Platz | Arbeitstitel | Hauptaufgabe und geplanter Weg | Option für Geübte | Herkunft |
 | --- | --- | --- | --- | --- |
-| K2-01 | Strandzugang | Einen kurzen Sandstreifen mit ausreichender Kraft queren; großer Auslauf. | In einem Zug bis zum Loch. | Neu |
+| K2-01 | Strandzugang | Eine einzelne waagerechte Pfeilreihe zum Loch treffen; Sand oberhalb und unterhalb bremst seitliche Fehlschlaege. | In einem Zug bis zum Loch. | Neu |
 | K2-02 | Sandufer | Sandpassage dosieren, vor dem Wasser ablegen und ins Zielfeld abbiegen. | Enger am Ufer in die Zielrichtung rollen. | `prototype_04` |
 | K2-03 | Buhnenweg | Versetzte statische Riegel entlang des Ufers in zwei Abschnitten passieren. | Bandenfolge durch beide Öffnungen. | Neu |
 | K2-04 | Dünenmulde | Flaches Gefälle nutzen und im Sand vor der Zielkammer abbremsen. | Sand mit höherem Tempo durchspielen. | Neu |
-| K2-05 | Muschelbucht | Kurze kreisförmige Insel umspielen; breite trockene Ablage am Außenrand. | Schmalere Linie zwischen Insel und Wasser. | Neu |
+| K2-05 | Muschelbucht | Kreisfoermige Insel oben umspielen und den Abwaertsdrall eines 4 Reihen hohen, 10 Spalten breiten Pfeilfelds kontrollieren. | Schmalere Linie zwischen Insel und Wasser. | Neu |
 | K2-06 | Uferkehre | Abfahrt, quer gespielte Kehre und unterstützten Rücklauf kontrollieren. | Kehre ohne Zwischenstopp treffen. | `prototype_06` |
 | K2-07 | Bogenpromenade | Durch den konzentrischen Wendekanal bis zum rückwärtigen Ziel spielen. | Kurve mit präziser Kraft durchrollen. | `prototype_08` |
 | K2-08 | Hafenmauer | Sand queren und eine Bande zum trockenen Zielarm nutzen. | Sandquerung und Bande verbinden. | Neu |
@@ -163,7 +163,7 @@ Profil: räumliche Entdeckung mit sichtbaren, unmarkierten Tunnelöffnungen. Das
 | Platz | Arbeitstitel | Hauptaufgabe und geplanter Weg | Option für Geübte | Herkunft |
 | --- | --- | --- | --- | --- |
 | K7-01 | Verborgener Durchgang | Ein Tunnelpaar in zwei einfachen Räumen durchspielen; großer sicherer Auslauf. | Austrittsrichtung direkt zum Loch ausrichten. | Neu |
-| K7-02 | Säulenhof | Zwei statische Säulen umspielen und vor dem Tunnel kontrolliert ausrichten. | Bandenlinie durch Säulen und Tunnel verbinden. | Neu |
+| K7-02 | Säulenhof | Je fünf Säulen als Würfel-Fünf; beide mittleren Säulen sperren die Direktlinie. Über die untere Bande durch den Tunnel und seitlich der Zielsäule einlochen. | Bandenlinie durch Säulen und Tunnel verbinden. | Neu |
 | K7-03 | Kammerwechsel | Tunnel nach einem Winkel anspielen; Richtungserhalt für den Ausgang nutzen. | Von der ersten Bande direkt bis ins Zielfeld. | Neu |
 | K7-04 | Sonnenhof | Kurzer offener Bogen ohne Tunnel als Entlastung. | Präzise Ass-Linie durch den Bogen. | Neu |
 | K7-05 | Tempelspirale | Pflichtspirale bis zum inneren Tunnel und weiter in die getrennte Zielkammer spielen. | Längere Abschnitte der Spirale durchrollen. | `arrow_armageddon_06` |

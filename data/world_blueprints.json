@@ -177,9 +177,9 @@
 		"key": "K1-08",
 		"par": 3,
 		"rebuilt": true,
-		"risk": "Kürzerer enger Innenweg um dieselbe Insel.",
+		"risk": "Die schmalere untere Allee mit wenig Kraft und zwei aufeinanderfolgenden Pfeilfeldern spielen.",
 		"source": "Neu",
-		"task": "Eine geschlossene Beetinsel auf dem breiten äußeren Weg umspielen.",
+		"task": "Oben eine rote Gegensteigung ueberwinden oder unten gruene Rechtspfeile und einen blauen Aufwaertsdrall zum Loch dosieren.",
 		"tee": [
 			232.0,
 			184.0
@@ -241,7 +241,7 @@
 		"rebuilt": true,
 		"risk": "In einem Zug bis zum Loch.",
 		"source": "Neu",
-		"task": "Einen kurzen Sandstreifen mit ausreichender Kraft queren; großer Auslauf.",
+		"task": "Eine einzelne waagerechte Pfeilreihe zum Loch treffen; Sand oberhalb und unterhalb bremst seitliche Fehlschlaege.",
 		"tee": [
 			224.0,
 			176.0
@@ -344,7 +344,7 @@
 		"rebuilt": true,
 		"risk": "Schmalere Linie zwischen Insel und Wasser.",
 		"source": "Neu",
-		"task": "Kurze kreisförmige Insel umspielen; breite trockene Ablage am Außenrand.",
+		"task": "Kreisfoermige Insel oben umspielen und den Abwaertsdrall eines 4 Reihen hohen, 10 Spalten breiten Pfeilfelds kontrollieren.",
 		"tee": [
 			232.0,
 			184.0
@@ -1452,12 +1452,16 @@
 		"rebuilt": true,
 		"risk": "Bandenlinie durch Säulen und Tunnel verbinden.",
 		"source": "Neu",
-		"task": "Zwei statische Säulen umspielen und vor dem Tunnel kontrolliert ausrichten.",
+		"task": "Je fünf Säulen als Würfel-Fünf; beide mittleren Säulen sperren die Direktlinie. Über die untere Bande durch den Tunnel und seitlich der Zielsäule einlochen.",
 		"tee": [
 			224.0,
 			176.0
 		],
 		"waypoints": [
+			[
+				276.0,
+				305.0
+			],
 			[
 				328.0,
 				176.0
