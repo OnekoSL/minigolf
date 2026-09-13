@@ -18,6 +18,13 @@ Versionstexte dieser Release-Anleitung gemeinsam pflegen. Die EXE wird mit
 `--export-release` und dem lokalen Release-Template gebaut. Controllerprofile
 werden ausdrücklich mitgeliefert; Tests, Werkzeuge und lokale Daten sind ausgeschlossen.
 
+Für den nächsten Release ist das eigene [Anwendungssymbol](../assets/branding/README.md)
+in Projekt und Windows-Export hinterlegt. `assets/branding/putt_and_pixel.ico` enthält
+sieben Größen von 16 bis 256 Pixeln; PNG und ICO lassen sich mit
+`./tools/build_icon.ps1` aus der erhaltenen Bildvorlage neu erstellen. Beim Testexport
+auch das eingebettete EXE-Icon und das Fenstersymbol prüfen. Bereits veröffentlichte
+EXE-Dateien werden dadurch nicht nachträglich geändert.
+
 `tools/release_smoke.tscn` prüft das exportierte Paket mit der passenden Editor-Engine:
 aus dem **Paketordner** starten, `--main-pack <absolute EXE>` und den absoluten Pfad
 zur Prüfszene übergeben. Ohne `--headless` und mit `-- <absoluter Aufnahmeordner>`

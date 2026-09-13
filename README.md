@@ -28,6 +28,8 @@ Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. A
 
 Aktueller Windows-Build: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
 
+Für den nächsten Release ist das eigene [Anwendungssymbol](assets/branding/README.md) in Projekt und Export hinterlegt. [Build mit neuem EXE-Icon](build/windows/PuttAndPixel-UrbanWinter-Icon.exe): eingebettete Icon-Größen geprüft und eigenständiger Start mit Exitcode 0.
+
 Vorheriger lokaler Build mit zehn Kursen: [PuttAndPixel-Baustelle.exe](build/windows/PuttAndPixel-Baustelle.exe).
 
 Vorheriger lokaler Build mit drei Pfeilfeldern auf Zwei Alleen: [PuttAndPixel-ZweiAlleen.exe](build/windows/PuttAndPixel-ZweiAlleen.exe). Oben fordert eine rote Gegensteigung mehr Kraft; unten helfen gruene Rechts- und blaue Aufwaertspfeile. Beide Wege bleiben in PAR 3 spielbar. Die Umbauten an Muschelbucht und Strandzugang sind ebenfalls enthalten.
