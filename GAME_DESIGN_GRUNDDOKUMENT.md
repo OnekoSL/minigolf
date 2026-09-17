@@ -9,6 +9,8 @@
 **Primaere Plattform:** Windows-PC  
 **Primaere Eingabe:** Controller/Joystick  
 
+**Erweiterung 17.09.2026:** Der [Ingame-Bahneditor](BAHNEDITOR.md) ergänzt den aktuellen Entwicklungsstand. Maus und Tastatur bedienen eine höher aufgelöste Werkzeugoberfläche; Testspiele und eigene Kurse verwenden weiterhin die originale Spielansicht und Physik. Alle aktuellen Mechaniken, lokale Kursbibliothek, Dateiaustausch und getrennte Bestwerte sind enthalten. Aussagen zum fehlenden Editor im ursprünglichen Prototyp beschreiben den historischen Umfang.
+
 > Dieses Dokument beschreibt die verbindliche kreative und spielerische Grundlage. Angaben, die noch getestet oder entschieden werden muessen, sind ausdruecklich als vorlaeufig oder offen gekennzeichnet.
 
 **Erweiterung Urban Winter, 13.09.2026:** [Urban Winter](URBAN_WINTER.md) ist der elfte Kurs: neun Betonbahnen mit sehr glatten Eisflaechen (20 px/s²), Schiebetoren und Drehern. Zwei Ziele liegen auf Eis. Die Kraft- und Weitenanzeige bleibt auf ebenes Gruen geeicht; Eis ist befahrbar und keine Wassergefahr.

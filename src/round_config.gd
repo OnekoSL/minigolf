@@ -2,8 +2,10 @@ class_name RoundConfig
 extends Resource
 
 enum GameMode { COURSE_SOLO, COURSE_LOCAL, PRACTICE, FREE_PLAY }
+enum ContentOrigin { OFFICIAL, CUSTOM }
 
 @export var mode := GameMode.COURSE_SOLO
+@export var content_origin := ContentOrigin.OFFICIAL
 @export var course_id := &""
 @export var players: Array[PlayerProfile] = []
 @export var hole_ids: Array[StringName] = []
@@ -17,6 +19,8 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 			errors.append("Runde verweist auf unbekannten Kurs %s" % course_id)
 		elif hole_ids != course.hole_ids:
 			errors.append("Kursrunde muss die vollstaendige geordnete Lochfolge enthalten")
+		elif String(course.course_id).begins_with("custom_") != (content_origin == ContentOrigin.CUSTOM):
+			errors.append("Kursherkunft stimmt nicht mit dem Katalog überein")
 	var valid_player_count := false
 	match mode:
 		GameMode.COURSE_SOLO, GameMode.PRACTICE:

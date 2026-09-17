@@ -18,6 +18,7 @@ enum ScreenState {
 	PAUSE,
 	PAUSE_SCORECARD,
 	LEAVE_CONFIRM,
+	EDITOR,
 }
 
 const MENU_NAV_THRESHOLD := 0.45
@@ -32,6 +33,10 @@ var course_catalog: CourseCatalog
 var best_store := BestScoreStore.new()
 var session: RoundSession
 var gameplay: PrototypeMain
+var editor: EditorUI
+var custom_store := CustomContentStore.new()
+var _custom_session_catalog_active := false
+var _official_best_store: BestScoreStore
 
 var current_screen := ScreenState.TITLE
 var selected_mode := RoundConfig.GameMode.COURSE_SOLO
@@ -91,10 +96,13 @@ func _ready() -> void:
 	ControllerSupport.focus_changed.connect(_on_focus_changed)
 	ControllerSupport.calibration_updated.connect(_on_calibration_updated)
 	ControllerSupport.calibration_finished.connect(_on_calibration_finished)
+	_reload_content(false)
 	_show_title()
 
 
 func _process(delta: float) -> void:
+	if current_screen == ScreenState.EDITOR:
+		return
 	if _menu_input_locked:
 		if ControllerSupport.focused and ControllerSupport.menu_controls_are_neutral():
 			_neutral_elapsed += delta
@@ -125,6 +133,8 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if current_screen == ScreenState.EDITOR:
+		return
 	if event is InputEventKey and event.echo:
 		return
 	if current_screen == ScreenState.GAMEPLAY:
@@ -179,11 +189,16 @@ func _show_title() -> void:
 	mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(mark)
 	_add_option_button("SPIEL STARTEN", Rect2(205, 190, 230, 38), _show_mode)
+	_add_option_button("BAHNEDITOR", Rect2(205, 234, 230, 30), func(): _show_editor(false))
+	_add_option_button("EIGENE INHALTE", Rect2(205, 270, 230, 30), func(): _show_editor(true))
 	_add_footer("KREUZ / ENTER / KLICK", "F3 DIAGNOSE  •  F4 KALIBRIERUNG")
 	_finalize_options()
 
 
 func _show_mode() -> void:
+	if _custom_session_catalog_active:
+		_reload_content(false)
+		_custom_session_catalog_active = false
 	current_screen = ScreenState.MODE
 	_build_screen("SPIELMODUS", "WAS MOECHTEST DU SPIELEN?")
 	_add_option_button("EINZELNER KURS", Rect2(176, 82, 288, 38), func(): _select_mode(RoundConfig.GameMode.COURSE_SOLO))
@@ -389,7 +404,8 @@ func _show_course_select() -> void:
 	for index in range(first_index, last_index):
 		var course: CourseDefinition = course_catalog.courses[index]
 		var total_par := course.get_total_par(hole_catalog)
-		var best := best_store.get_best(course.get_best_score_key())
+		var course_store := BestScoreStore.new("user://custom_content/progress.cfg") if String(course.course_id).begins_with("custom_") else BestScoreStore.new()
+		var best := course_store.get_best(_course_best_key(course))
 		var best_text := "NOCH KEIN BESTWERT" if best < 0 else "BESTWERT %d (%s)" % [best, _format_difference(best - total_par)]
 		var course_button := _add_option_button(
 			"%s\n%d BAHNEN  /  PAR %d\n%s" % [course.display_name, course.hole_ids.size(), total_par, best_text],
@@ -519,6 +535,15 @@ func _start_free_round() -> void:
 
 
 func _start_round(config: RoundConfig) -> void:
+	var has_custom_content := String(config.course_id).begins_with("custom_") or config.hole_ids.any(func(id: StringName): return String(id).begins_with("custom_"))
+	config.content_origin = RoundConfig.ContentOrigin.CUSTOM if has_custom_content else RoundConfig.ContentOrigin.OFFICIAL
+	if config.content_origin == RoundConfig.ContentOrigin.CUSTOM:
+		if _official_best_store == null:
+			_official_best_store = best_store
+		best_store = BestScoreStore.new(custom_store.root.path_join("progress.cfg"))
+	elif _official_best_store != null:
+		best_store = _official_best_store
+		_official_best_store = null
 	var errors := config.validate(hole_catalog, course_catalog)
 	if not errors.is_empty():
 		for error in errors:
@@ -650,7 +675,7 @@ func _update_best_score() -> void:
 
 func _active_best_score_key() -> StringName:
 	var course := course_catalog.get_course(session.config.course_id) if course_catalog != null else null
-	return course.get_best_score_key() if course != null else &""
+	return _course_best_key(course) if course != null else &""
 
 
 func _rematch() -> void:
@@ -1013,3 +1038,60 @@ func _update_screen_controller_status() -> void:
 		controller_status_label.text = "KEIN CONTROLLER\nTASTATUR / MAUS"
 	else:
 		controller_status_label.text = "CONTROLLER %d\n%s" % [ControllerSupport.active_device_id, ControllerSupport.active_device_name]
+
+
+func _reload_content(include_courses: bool) -> void:
+	hole_catalog = HoleCatalog.load_default().duplicate(true)
+	course_catalog = CourseCatalog.load_default().duplicate(true)
+	custom_store.load_library()
+	var playable := custom_store.playable_catalog()
+	hole_catalog.holes.append_array(playable.holes)
+	if include_courses:
+		for course in custom_store.courses:
+			if course.validate(playable).is_empty():
+				course_catalog.courses.append(course.duplicate(true))
+
+
+func _course_best_key(course: CourseDefinition) -> StringName:
+	if not String(course.course_id).begins_with("custom_"):
+		return course.get_best_score_key()
+	var snapshot_store := CustomContentStore.new()
+	snapshot_store.holes = hole_catalog.holes
+	return snapshot_store.best_key(course)
+
+
+func _show_editor(library: bool) -> void:
+	_remove_gameplay()
+	_clear_screen()
+	current_screen = ScreenState.EDITOR
+	editor = EditorUI.new()
+	editor.start_in_library = library
+	editor.closed.connect(func():
+		editor.queue_free()
+		editor = null
+		_reload_content(false)
+		_show_title()
+	)
+	editor.play_requested.connect(_start_custom_content)
+	add_child(editor)
+
+
+func _start_custom_content(course: CourseDefinition, players: Array[PlayerProfile]) -> void:
+	get_window().content_scale_size = Vector2i(640, 360)
+	if is_instance_valid(editor):
+		editor.queue_free()
+		editor = null
+	_reload_content(true)
+	_custom_session_catalog_active = true
+	var config := RoundConfig.new()
+	config.players = players
+	config.hole_ids = course.hole_ids.duplicate()
+	config.content_origin = RoundConfig.ContentOrigin.CUSTOM
+	working_players = players.duplicate()
+	if course.course_id == &"custom_practice":
+		config.mode = RoundConfig.GameMode.PRACTICE if players.size() == 1 else RoundConfig.GameMode.FREE_PLAY
+	else:
+		config.course_id = course.course_id
+		config.mode = RoundConfig.GameMode.COURSE_SOLO if players.size() == 1 else RoundConfig.GameMode.COURSE_LOCAL
+	selected_mode = config.mode
+	_start_round(config)

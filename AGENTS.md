@@ -26,6 +26,7 @@ Godot 4.7.2 Standard mit typisiertem GDScript, Windows und Compatibility-Rendere
 | Eingabe und Kalibrierung | Autoload `src/controller_support.gd`, `config/controller_mappings.cfg` |
 | HUD, Kamera und Feedback | `src/hud.gd`, `src/course_camera.gd`, `src/prototype_audio.gd`, `src/feedback_effects.gd` |
 | Tests | `tests/run_tests.gd`, `tests/*_test.gd`, `tests/test_runner.tscn` |
+| Bahneditor und eigene Inhalte | `src/editor_ui.gd`, `src/editor_document.gd`, `src/custom_content_store.gd`, `BAHNEDITOR.md` |
 | Windows-Release | `tools/build_release.ps1`, `tools/package_release.ps1`, `release/README.md` |
 
 ## Änderungen umsetzen
@@ -63,6 +64,7 @@ Alle Befehle in PowerShell aus dem Projektverzeichnis ausführen. Die portable E
 
 - Bei Änderungen an Spielcode oder Bahndaten die Headless-Suite ausführen. Erfolg erfordert Exitcode 0 und die Abschlussmeldung mit `0 Fehler`; Parserfehler ebenfalls beachten.
 - Neue Regressionstests sollen beobachtbares Fehlverhalten prüfen. Zusätzliche `RefCounted`-Testmodule nach dem vorhandenen Muster über `tests/run_tests.gd` einbinden; sie sind keine eigenständig startbaren `SceneTree`-Skripte.
+- Speichertests mit isoliertem `APPDATA` ausführen: `tools/test_editor.ps1` für den Editor, mit `-FullSuite` für die Gesamtsuite. `tools/test_editor_export.ps1` prüft den Windows-Testexport; sein temporäres Projekt enthält Junctions und darf nicht rekursiv gelöscht werden.
 - Bei reinen Dokumentationsänderungen genügen Prüfung von Inhalt, Pfaden und Diff; dafür die Spielsuite nicht starten.
 - Darstellung, Kamera und UI zusätzlich visuell prüfen. Passende vorhandene `tests/capture_*.gd`-Skripte bzw. `.tscn`-Szenen verwenden und erzeugte Bilder ansehen. Rendering-Aufnahmen ohne `--headless` starten; Ausgabeorte im jeweiligen Skript nachlesen.
 - Beispiel für Gesamtansichten: `& '.\.tools\godot-4.7.2\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tests/capture_classic_harmony.gd`. Weitere Kursskripte: `capture_arrow_harmony.gd`, `capture_prototype_course.gd`.

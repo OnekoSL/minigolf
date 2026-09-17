@@ -26,9 +26,11 @@ Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. A
 
 ## Starten
 
+Der [Ingame-Bahneditor](BAHNEDITOR.md) ist über **Bahneditor** und **Eigene Inhalte** im Titelbildschirm erreichbar. Er unterstützt Maus/Tastatur, den vollständigen aktuellen Baukasten, Testspiele, eigene Kurse, JSON-Dateiaustausch und getrennte eigene Bestwerte. Aktueller lokaler Entwicklungsbuild mit korrigierter Tunnelbedienung: [PuttAndPixel-Editor-TunnelFix.exe](build/windows/PuttAndPixel-Editor-TunnelFix.exe).
+
 Das [Windows-Release 0.4.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.4.0/PuttAndPixel-0.4.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt alle elf Kurse, das neue Icon, Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.4.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
 
-Aktueller Windows-Build: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
+Vorheriger Windows-Build ohne Bahneditor: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Damalige Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
 
 Für Release 0.4.0 ist das eigene [Anwendungssymbol](assets/branding/README.md) in Projekt und Export hinterlegt. [Build mit neuem EXE-Icon](build/windows/PuttAndPixel-UrbanWinter-Icon.exe): eingebettete Icon-Größen geprüft und eigenständiger Start mit Exitcode 0.
 
@@ -164,4 +166,4 @@ Zusaetzliche Tests sichern gebogene Konturen samt Ankern, gemeinsame sichtbare u
 - Loch- und Endtabellen, gemeinsamer Rang bei Gleichstand und lokaler Kursbestwert
 - dynamisches Schlagmaximum `max(8, PAR + 3)`
 
-Weiterhin offen sind Turniersieg-Reaktionen, finale Pixel-Art, Musik, Einstellungen, Speichern laufender Runden und Bahneditor. Die acht Themenkurse sind als spielbare Kursfassung umgesetzt; menschliche Langzeit- und Controller-Spieltests bleiben Teil des weiteren Balancings.
+Weiterhin offen sind Turniersieg-Reaktionen, finale Pixel-Art, Musik, Einstellungen und Speichern laufender Runden. Der Ingame-Bahneditor ist im aktuellen Entwicklungsstand umgesetzt; Bedienung und Grenzen stehen in [BAHNEDITOR.md](BAHNEDITOR.md). Die acht Themenkurse sind als spielbare Kursfassung umgesetzt; menschliche Langzeit- und Controller-Spieltests bleiben Teil des weiteren Balancings.

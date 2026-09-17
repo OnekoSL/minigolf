@@ -4,6 +4,7 @@ extends Node2D
 signal attempt_finished(strokes: int, reached_limit: bool)
 signal pause_requested()
 signal practice_hole_switched(hole_id: StringName)
+signal hole_restarted()
 
 const PIXELS_PER_METER := 32.0
 
@@ -24,6 +25,7 @@ var active_hole_index := 0
 var _switch_cooldown := 0.0
 var managed_attempt := false
 var configured_hole_id := &""
+var configured_definition: HoleDefinition
 var attempt_profile: PlayerProfile
 var attempt_allows_restart := true
 var attempt_hole_number := 1
@@ -36,7 +38,17 @@ var input_enabled := true
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	hole_catalog = HoleCatalog.load_default()
+	if configured_definition != null:
+		hole_catalog = HoleCatalog.load_default().duplicate(true) if allow_developer_switch else HoleCatalog.new()
+		var replaced := false
+		for index in range(hole_catalog.holes.size()):
+			if hole_catalog.holes[index].hole_id == configured_definition.hole_id:
+				hole_catalog.holes[index] = configured_definition
+				replaced = true
+		if not replaced:
+			hole_catalog.holes.append(configured_definition)
+	else:
+		hole_catalog = HoleCatalog.load_default()
 	if hole_catalog == null:
 		push_error("Lochkatalog konnte nicht geladen werden")
 		return
@@ -71,6 +83,7 @@ func configure_attempt(
 	developer_switch: bool
 ) -> void:
 	managed_attempt = true
+	configured_definition = definition
 	configured_hole_id = definition.hole_id
 	attempt_profile = profile
 	attempt_allows_restart = can_restart
@@ -316,6 +329,7 @@ func get_stroke_limit() -> int:
 func restart_hole() -> void:
 	if managed_attempt and not attempt_allows_restart:
 		return
+	hole_restarted.emit()
 	strokes = 0
 	_attempt_reported = false
 	hole.reset_mechanisms()
