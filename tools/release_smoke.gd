@@ -30,7 +30,7 @@ func _run() -> void:
 	# Release templates disable external script overrides. Mount the exported
 	# EXE with the matching editor engine and a scene override for this audit; launch the
 	# actual standalone executable separately with --write-movie/--quit-after.
-	_check(ProjectSettings.get_setting("application/config/version")=="0.4.0","Version 0.4.0 im ausgelieferten Paket")
+	_check(ProjectSettings.get_setting("application/config/version")=="0.5.0","Version 0.5.0 im ausgelieferten Paket")
 	_check(ProjectSettings.get_setting("application/config/icon")=="res://assets/branding/putt_and_pixel.png" and ResourceLoader.exists("res://assets/branding/putt_and_pixel.png"),"Eigenes Anwendungssymbol im Paket")
 	_check(FileAccess.file_exists("res://config/controller_mappings.cfg"),"Controllerprofile im Paket enthalten")
 	_check(not ResourceLoader.exists("res://tests/run_tests.gd") and not ResourceLoader.exists("res://tools/release_smoke.gd"),"Entwicklertests und Buildwerkzeuge nicht ausgeliefert")
@@ -39,7 +39,7 @@ func _run() -> void:
 	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
 	root.add_child(app)
 	await get_tree().process_frame
-	_check(root.title=="Putt & Pixel 0.4.0","Release-Fenstertitel")
+	_check(root.title=="Putt & Pixel 0.5.0","Release-Fenstertitel")
 	_check(app.hole_catalog.validate().is_empty() and app.course_catalog.validate(app.hole_catalog).is_empty(),"Exportierte Bahn- und Kursdaten sind gueltig")
 	_check(app.course_catalog.courses.size()==11 and app.hole_catalog.holes.size()==113,"Elf Kurse und 113 exportierte Bahnen")
 	await _capture("titel")
@@ -71,11 +71,60 @@ func _run() -> void:
 		if index==0: await _capture("spiel")
 	await _check_new_courses(app)
 	app._remove_gameplay()
+	await _check_editor(app)
 	app.queue_free()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	print("RELEASE: %d Checks, %d Fehler" % [checks,failures])
 	get_tree().quit(0 if failures==0 else 1)
+
+
+func _check_editor(app: GameApp) -> void:
+	app._show_editor(false)
+	await get_tree().process_frame
+	var ui := app.editor
+	_check(root.content_scale_size == Vector2i(1280, 720), "Exportierter Editor verwendet 1280 x 720")
+	ui._tool("tunnel")
+	ui.canvas._press(Vector2(320, 208), false)
+	ui.canvas._release(Vector2(320, 208))
+	_check(ui.canvas.tool == "select", "Tunnelplatzierung wechselt zur Auswahl")
+	ui.canvas._press(Vector2(416, 208), false)
+	ui.canvas._drag(Vector2(480, 240))
+	ui.canvas._release(Vector2(480, 240))
+	_check(ui.document.hole.tunnels.size() == 1 and ui.document.hole.tunnels[0].endpoint_b == Vector2(480, 240), "Tunnelende im Paket verschiebbar ohne Kopie")
+	ui.canvas._press(Vector2(400, 224), false)
+	ui.canvas._drag(Vector2(416, 240))
+	ui.canvas._release(Vector2(416, 240))
+	_check(ui.document.hole.tunnels[0].endpoint_a == Vector2(336, 224) and ui.document.hole.tunnels[0].endpoint_b == Vector2(496, 256), "Paargriff verschiebt beide Enden")
+	ui.document.undo()
+	_check(ui.document.hole.tunnels[0].endpoint_a == Vector2(320, 208), "Tunnelbewegung im Paket rueckgaengig")
+	await _capture("bahneditor")
+	var before := ui.document.text()
+	ui._test()
+	await get_tree().process_frame
+	var playtest: EditorPlaytest
+	for child in app.get_children():
+		if child is EditorPlaytest:
+			playtest = child
+	_check(playtest != null and root.content_scale_size == Vector2i(640, 360), "Ungespeicherte Bahn startet echtes Testspiel")
+	if playtest != null:
+		await _capture("editor-testspiel")
+		playtest._close()
+		await get_tree().process_frame
+	_check(ui.document.text() == before and root.content_scale_size == Vector2i(1280, 720), "Testspiel erhaelt Entwurf und Editoransicht")
+	ui._save()
+	_check(not ui.document.dirty(), "Eigene Bahn aus Release gespeichert")
+	var course := CourseDefinition.new()
+	course.course_id = EditorCodec.new_id()
+	course.display_name = "Releasekurs"
+	course.hole_ids = [ui.document.hole.hole_id, ui.document.hole.hole_id]
+	_check(ui.store.save_course(course), "Eigener Kurs mit Wiederholung gespeichert")
+	_check(ui.store.export_course(course, "user://release-course.json"), "Kurs mit Bahndaten exportiert")
+	_check(ui.store.import_file("user://release-course.json"), "Kurs mit neuen Kennungen importiert")
+	var reloaded := CustomContentStore.new()
+	_check(reloaded.load_library() and reloaded.holes.size() == 2 and reloaded.courses.size() == 2, "Gespeicherte Bibliothek vollstaendig geladen")
+	ui.show_library()
+	await _capture("eigene-inhalte")
 
 
 func _check_new_courses(app: GameApp) -> void:

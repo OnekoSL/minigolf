@@ -1,4 +1,4 @@
-PUTT & PIXEL 0.4.0
+PUTT & PIXEL 0.5.0
 Spielbare Vorabversion fuer Windows x64
 
 STARTEN
@@ -50,13 +50,24 @@ Beim Zahnrad im Uhrwerk-Finale sehen alle Tunnelloecher gleich aus.
 Ihre festen Verbindungen musst du ausprobieren. Warte vor dem Anspiel
 auf eine passende Stellung. Das Zahnrad dreht in 16 Sekunden einmal herum.
 
+BAHNEDITOR UND EIGENE INHALTE
+Im Titelbildschirm BAHNEDITOR zum Bauen oder EIGENE INHALTE fuer die Bibliothek.
+Maus/Tastatur: Mausrad zoomt, mittlere Taste verschiebt die Arbeitsflaeche.
+Auswahl zum Verschieben; Strg+Z/Y fuer Rueckgaengig/Wiederholen.
+Tunnelenden einzeln ziehen oder beide am Griff "Paar verschieben" bewegen.
+Testspiel verwendet den ungespeicherten Entwurf und schreibt keine Bestwerte.
+Eigene Kurse enthalten 1-9 Bahnen und unterstuetzen bis zu vier Spieler.
+JSON-Import/Export tauscht Bahnen und vollstaendige Kurse aus.
+Weitere Bedienung und Grenzen: BAHNEDITOR.md im Paket.
+
 SPIELSTAENDE
 Bestwerte und Controllerkalibrierung werden pro Windows-Benutzer gespeichert:
 %APPDATA%\Godot\app_userdata\Putt & Pixel - Spielrahmen-Prototyp\
 Der historische Ordnername bleibt fuer vorhandene Spielstaende erhalten.
+Eigene Bahnen, Kurse und ihre Bestwerte liegen dort unter custom_content.
 Das ZIP enthaelt keine persoenlichen Bestwerte oder Kalibrierungen.
 
 FEEDBACK
-Bitte Version 0.4.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
+Bitte Version 0.5.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
 nennen; ein Screenshot hilft. Die Protokolle liegen im Unterordner logs
 des oben genannten Benutzerordners.

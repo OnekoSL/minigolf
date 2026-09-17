@@ -1,8 +1,9 @@
-# Windows-Release 0.4.0
+# Windows-Release 0.5.0
 
-Spielbare Vorabversion mit elf Themenkursen, 99 regulären Bahnen und vier Golfern.
+Spielbare Vorabversion mit Ingame-Bahneditor, eigenen Kursen, elf Themenkursen,
+99 regulären Bahnen und vier Golfern.
 Die ZIP-Datei enthält eine eigenständige x64-EXE, Kurzanleitung, Neuerungen,
-Godot-/Drittanbieter-Lizenzhinweise, Builddaten, Prüfbericht und SHA-256-Prüfsummen.
+Editoranleitung, Godot-/Drittanbieter-Lizenzhinweise, Builddaten, Prüfbericht und SHA-256-Prüfsummen.
 
 ## Erstellen und prüfen
 
@@ -10,7 +11,7 @@ Alle Befehle aus dem Projektverzeichnis in PowerShell ausführen:
 
 ```powershell
 & './tools/build_release.ps1'
-& './.tools/godot-4.7.2/Godot_v4.7.2-stable_win64_console.exe' --headless --fixed-fps 60 --path . res://tests/test_runner.tscn
+& './tools/test_editor.ps1' -FullSuite
 ```
 
 Version in `project.godot`, Windows-Dateiversion in `export_presets.cfg` und
@@ -36,6 +37,9 @@ unterstützt keine externen Skript-/Szenenwechsel; diese sind kein Laufzeittest.
 Für eine automatisch beendete Renderprüfung unterstützt es
 `--write-movie <absoluter PNG-Pfad> --quit-after 8 --log-file <absoluter Logpfad>`.
 
+Alle Paketprüfungen mit einem separaten `APPDATA` unter `tmp/` ausführen,
+damit lokale Bahnen, Bestwerte und Controllerkalibrierung unangetastet bleiben.
+
 Nach erfolgreicher Prüfung `PRUEFBERICHT.txt` im Paketordner schreiben, einschließlich
 der SHA-256-Prüfsumme der geprüften EXE. Anschließend:
 
@@ -56,4 +60,4 @@ ist 2560 × 1440 groß; die interne Auflösung und Physik bleiben unverändert.
 Automatische Prüfungen ersetzen nicht das manuelle Durchspielen aller Varianten
 oder Controllerprüfungen auf fremden PCs. Das Release ist daher als spielbare
 Vorabversion bezeichnet. Das geprüfte ZIP und seine SHA-256-Prüfsumme gehören zum
-[GitHub-Release v0.4.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.4.0).
+[GitHub-Release v0.5.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.5.0).

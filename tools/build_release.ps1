@@ -15,6 +15,7 @@ $executable = Join-Path $packageDir 'PuttAndPixel.exe'
 & $Engine --headless --path $projectRoot --log-file (Join-Path $logDir 'export-engine.log') --export-release 'Windows Desktop' $executable *> (Join-Path $logDir 'export.log')
 if ($LASTEXITCODE -ne 0) { throw 'Release-Export fehlgeschlagen; siehe Exportprotokoll.' }
 Copy-Item -LiteralPath 'release/SPIELSTART.txt','release/NEUERUNGEN.txt' -Destination $packageDir
+Copy-Item -LiteralPath 'BAHNEDITOR.md' -Destination $packageDir
 & $Engine --headless --path $projectRoot --log-file (Join-Path $logDir 'licenses-engine.log') --script res://tools/release_licenses.gd -- (Join-Path $packageDir 'GODOT-LIZENZEN.txt') *> (Join-Path $logDir 'licenses.log')
 if ($LASTEXITCODE -ne 0) { throw 'Lizenzhinweise konnten nicht erzeugt werden.' }
 $commit = git -c "safe.directory=$($projectRoot.Replace('\','/'))" rev-parse HEAD

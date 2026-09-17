@@ -1,39 +1,40 @@
-PUTT & PIXEL 0.4.0 - SPIELBARE VORABVERSION
+PUTT & PIXEL 0.5.0 - SPIELBARE VORABVERSION
 
-NEU GEGENUEBER 0.3.0
-- Drei neue Themenkurse: Zirkus, Die Baustelle und Urban Winter.
-- Insgesamt elf Kurse mit 99 regulaeren Bahnen und vier Golfern.
-- Zirkus: neun Bahnen mit Wippen, Pfeilen und Elefanten-Abkuerzungen.
-- Die Baustelle: neun Betonbahnen und geschwindigkeitsabhaengige Rohre.
-  Ein Eingang, drei Ausgaenge; das Tempo beim Eintritt bestimmt den Weg.
-- Urban Winter: neun Betonbahnen mit sehr glattem, befahrbarem Eis,
-  Schiebetoren, Drehern und zwei Zielbereichen auf Eis.
-- Beton bremst mit 80, Eis mit 20 statt 120 px/s² auf Gruen.
-  Kraft- und Weitenanzeige bleiben auf ebenes Gruen geeicht.
-- Feiner dosierbare kurze Schlaege ab etwa einem Dezimeter auf Gruen.
-- Ueberarbeitete Bahnen: Zwei Alleen, Muschelbucht, Strandzugang
-  und Saeulenhof mit fuenf Saeulen je Kammer.
-- Eigenes Anwendungssymbol fuer EXE und Fenster.
-- Startfenster mit 2560 x 1440 Pixeln; interne Pixelgrafik 640 x 360.
+NEU GEGENUEBER 0.4.0
+- Vollstaendiger Ingame-Bahneditor mit Maus und Tastatur.
+- Hochaufgeloeste Werkzeugoberflaeche, Zoom, Raster, Mehrfachauswahl,
+  Rueckgaengig/Wiederholen und praezise Zahlenfelder.
+- Eigene Konturen, Aussenboegen, alle Wandbausteine, Belaege und Gefaelle.
+- Alle vorhandenen Mechaniken einschliesslich Tunnel, Tempo-Rohre,
+  Schalter/Kanonen, Tunnelzahnrad und Elefant.
+- Tunnel nach dem Setzen sofort verschiebbar: Enden einzeln oder
+  beide gemeinsam am beschrifteten mittleren Griff.
+- Testspiel mit echter Physik, vier Golfern, Ballplatzierung, Bewegungsspur
+  und Schlagwiederholung aus dem vollstaendigen Ausgangszustand.
+- Lokale Bibliothek fuer eigene Bahnen und Kurse mit 1-9 Bahnplaetzen.
+- Solo und lokaler Mehrspieler; regulaere Bahnen als unabhaengige Vorlagen.
+- Versionierter JSON-Austausch, automatische Entwurfswiederherstellung
+  und getrennte eigene Bestwerte nach spielrelevantem Bahnstand.
 
 WEITERHIN ENTHALTEN
-- Vorschau aller neun Bahnen in der Kursauswahl.
-- Ben, Mara, Bruno und Nika mit eigenen Golferprofilen.
-- Lokale Mehrspielerrunden, Uebung und eigene Bahnfolgen.
-- Kursweise revisionierte Bestwerte und Controllerkalibrierung.
-- Eigenstaendiger Windows-x64-Build mit eingebetteten Spieldaten.
-- 14 technische Referenzen und Labore ueber F2 im Uebungsmodus.
+- Elf Themenkurse mit 99 regulaeren Bahnen und vier Golfern.
+- Kursvorschau, Hotseat fuer bis zu vier Spieler, Uebung und freies Spiel.
+- Beton, Eis, Tempo-Rohre, Zirkusmechaniken und 14 technische Referenzen.
+- Eigenstaendiger Windows-x64-Build; kein Godot-Editor erforderlich.
+
+START UND SPEICHERUNG
+BAHNEDITOR und EIGENE INHALTE sind im Titelbildschirm erreichbar.
+Die Bauoberflaeche verwendet 1280 x 720, das Spiel weiterhin 640 x 360.
+BAHNEDITOR.md beschreibt Bedienung, Dateiformat und Grenzen.
+Eigene Inhalte werden unter user://custom_content/ gespeichert.
+Das Paket enthaelt keine persoenlichen Daten; der Benutzerordner bleibt stabil.
 
 PRUEFSTAND UND GRENZEN
-Automatisierte Tests pruefen Spielregeln, Routen, Oberflaechen,
-Menues, Eingabesperren, Speicherfehler und bewegliche Mechanismen.
-Baustelle und Urban Winter werden mit allen vier Golfern und
-kleinen Ziel-/Kraftabweichungen geprueft.
-Das Release-Paket wird frisch entpackt und eigenstaendig gestartet.
-Die konkreten Ergebnisse und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
-
-Dies ist eine spielbare Vorabversion. Nicht alle Risikoabkuerzungen und
-beliebigen Schlag-/Timingkombinationen wurden von Hand durchgespielt.
-Controllerverhalten auf anderen PCs benoetigt weitere Spieltests.
-Vorhandene Spielstaende und Controllerprofile bleiben erhalten;
-ueberarbeitete Kurse verwenden ihre jeweiligen Bestwertrevisionen.
+5462 Checks der vollstaendigen Headless-Suite bestanden, 0 Fehler.
+Zusaetzliche Paketpruefungen und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
+Editoransichten, Tunnelgriffe und Testspiele sind visuell geprueft.
+Die automatische Datenpruefung beweist keine spielbare PAR-Route.
+Der Bauvorgang verwendet Maus/Tastatur. Grafikimporte, neue Mechaniken
+und Onlineveroeffentlichung gehoeren nicht zu dieser Version.
+Dies bleibt eine spielbare Vorabversion. Echte Controllerhardware auf
+weiteren PCs und beliebige Schlag-/Timingkombinationen sind nicht abgenommen.

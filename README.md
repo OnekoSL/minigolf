@@ -1,4 +1,4 @@
-# Putt & Pixel 0.4.0
+# Putt & Pixel 0.5.0
 
 Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
@@ -28,7 +28,7 @@ Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. A
 
 Der [Ingame-Bahneditor](BAHNEDITOR.md) ist über **Bahneditor** und **Eigene Inhalte** im Titelbildschirm erreichbar. Er unterstützt Maus/Tastatur, den vollständigen aktuellen Baukasten, Testspiele, eigene Kurse, JSON-Dateiaustausch und getrennte eigene Bestwerte. Aktueller lokaler Entwicklungsbuild mit korrigierter Tunnelbedienung: [PuttAndPixel-Editor-TunnelFix.exe](build/windows/PuttAndPixel-Editor-TunnelFix.exe).
 
-Das [Windows-Release 0.4.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.4.0/PuttAndPixel-0.4.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt alle elf Kurse, das neue Icon, Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.4.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
+Das [Windows-Release 0.5.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.5.0/PuttAndPixel-0.5.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthaelt alle elf Kurse, das neue Icon, Kurzanleitung, Neuerungen, Lizenzhinweise und Pruefsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.5.0), [Release-Anleitung](release/README.md) und [Pruefstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
 
 Vorheriger Windows-Build ohne Bahneditor: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Damalige Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
 
