@@ -1,0 +1,3401 @@
+msgid ""
+msgstr ""
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. PFEIL-ARMAGEDDON
+msgid "COURSE_ARROW_ARMAGEDDON_COURSE"
+msgstr "ARMAGEDDON DE FLÈCHES"
+
+#. DIE BAUSTELLE
+msgid "COURSE_BAUSTELLE_COURSE"
+msgstr "LE CHANTIER"
+
+#. BERGPASS
+msgid "COURSE_BERGPASS_COURSE"
+msgstr "COL DE MONTAGNE"
+
+#. KLASSISCHE NEUN
+msgid "COURSE_CLASSIC_NINE_COURSE"
+msgstr "LES NEUF CLASSIQUES"
+
+#. DUENENKUESTE
+msgid "COURSE_DUENENKUESTE_COURSE"
+msgstr "CÔTE DES DUNES"
+
+#. LABYRINTH-NEUN
+msgid "COURSE_LABYRINTH_NINE_COURSE"
+msgstr "LES NEUF LABYRINTHES"
+
+#. MUEHLENTAL
+msgid "COURSE_MUEHLENTAL_COURSE"
+msgstr "VALLÉE DES MOULINS"
+
+#. PROTOTYPKURS
+msgid "COURSE_PROTOTYPE_COURSE_03"
+msgstr "PARCOURS PROTOTYPE"
+
+#. REFERENZBAHNEN
+msgid "COURSE_REFERENCE_LANES_COURSE"
+msgstr "TROUS DE RÉFÉRENCE"
+
+#. SCHLOSSGARTEN
+msgid "COURSE_SCHLOSSGARTEN_COURSE"
+msgstr "JARDINS DU CHÂTEAU"
+
+#. STADTPARK
+msgid "COURSE_STADTPARK_COURSE"
+msgstr "PARC MUNICIPAL"
+
+#. STERNWARTE
+msgid "COURSE_STERNWARTE_COURSE"
+msgstr "OBSERVATOIRE"
+
+#. TEMPELRUINEN
+msgid "COURSE_TEMPELRUINEN_COURSE"
+msgstr "RUINES DU TEMPLE"
+
+#. UHRWERKFABRIK
+msgid "COURSE_UHRWERKFABRIK_COURSE"
+msgstr "USINE D'HORLOGERIE"
+
+#. URBAN WINTER
+msgid "COURSE_URBAN_WINTER_COURSE"
+msgstr "HIVER URBAIN"
+
+#. ZIRKUS
+msgid "COURSE_ZIRKUS_COURSE"
+msgstr "CIRQUE"
+
+#. Grün
+msgid "ENUM_GRASS"
+msgstr "Gazon"
+
+#. Ausgewogene Reichweite / und ruhiges Timing.
+msgid "GOLFER_ALLROUNDER_DESCRIPTION"
+msgstr "Portée équilibrée\net rythme tranquille."
+
+#. Hohe Reichweite. / Schnelle Kraftanzeige.
+msgid "GOLFER_BRUNO_DESCRIPTION"
+msgstr "Grande portée.\nJauge de force rapide."
+
+#. Der selbsternannte beste Golfer. / Testspieler: Werte frei einstellbar.
+msgid "GOLFER_DON_DESCRIPTION"
+msgstr "Le meilleur golfeur autoproclamé.\nGolfeur de test : valeurs réglables."
+
+#. Fein dosierbare kurze Putts. / Weniger Reichweite.
+msgid "GOLFER_MARA_DESCRIPTION"
+msgstr "Putts courts bien dosés.\nPortée réduite."
+
+#. Geringe Richtungsfehler. / Schnelles Genauigkeitstiming.
+msgid "GOLFER_NIKA_DESCRIPTION"
+msgstr "Faibles écarts de direction.\nRythme de précision rapide."
+
+#. ALLROUND-TESTLOCH
+msgid "HOLE_ALLROUND_TEST"
+msgstr "TROU DE TEST POLYVALENT"
+
+#. TALSTATION
+msgid "HOLE_ARROW_ARMAGEDDON_01"
+msgstr "GARE DE VALLÉE"
+
+#. QUERHANG
+msgid "HOLE_ARROW_ARMAGEDDON_02"
+msgstr "PENTE TRANSVERSALE"
+
+#. HANGKANTE
+msgid "HOLE_ARROW_ARMAGEDDON_03"
+msgstr "BORD DE PENTE"
+
+#. SATTELWECHSEL
+msgid "HOLE_ARROW_ARMAGEDDON_04"
+msgstr "PASSAGE DU COL"
+
+#. PASSKREUZ
+msgid "HOLE_ARROW_ARMAGEDDON_05"
+msgstr "CARREFOUR DU COL"
+
+#. TEMPELSPIRALE
+msgid "HOLE_ARROW_ARMAGEDDON_06"
+msgstr "SPIRALE DU TEMPLE"
+
+#. PLANETENSTAFFEL
+msgid "HOLE_ARROW_ARMAGEDDON_07"
+msgstr "RELAIS PLANÉTAIRE"
+
+#. GEGENBAHN
+msgid "HOLE_ARROW_ARMAGEDDON_08"
+msgstr "PISTE À CONTRESENS"
+
+#. STERNENBOGEN
+msgid "HOLE_ARROW_ARMAGEDDON_09"
+msgstr "ARC STELLAIRE"
+
+#. Frisch gegossen
+msgid "HOLE_BAUSTELLE_01"
+msgstr "Béton frais"
+
+#. Um die Schalung
+msgid "HOLE_BAUSTELLE_02"
+msgstr "Autour du coffrage"
+
+#. Erstes Rohr
+msgid "HOLE_BAUSTELLE_03"
+msgstr "Premier tuyau"
+
+#. Die lange Leitung
+msgid "HOLE_BAUSTELLE_04"
+msgstr "La longue conduite"
+
+#. Umleitung
+msgid "HOLE_BAUSTELLE_05"
+msgstr "Déviation"
+
+#. Sandlager
+msgid "HOLE_BAUSTELLE_06"
+msgstr "Dépôt de sable"
+
+#. Baustellentor
+msgid "HOLE_BAUSTELLE_07"
+msgstr "Porte du chantier"
+
+#. Rohrschleife
+msgid "HOLE_BAUSTELLE_08"
+msgstr "Boucle de tuyaux"
+
+#. Bauabnahme
+msgid "HOLE_BAUSTELLE_09"
+msgstr "Réception des travaux"
+
+#. BERGHUETTE
+msgid "HOLE_BERGPASS_05"
+msgstr "REFUGE DE MONTAGNE"
+
+#. GIPFELKUPPE
+msgid "HOLE_BERGPASS_08"
+msgstr "CRÊTE DU SOMMET"
+
+#. PASSFAHRT
+msgid "HOLE_BERGPASS_09"
+msgstr "TRAVERSÉE DU COL"
+
+#. KANONENLABOR
+msgid "HOLE_CANNON_WORKSHOP_04"
+msgstr "LABORATOIRE DE CANONS"
+
+#. DIAMANTGARTEN
+msgid "HOLE_CLASSIC_DIAMOND_02"
+msgstr "JARDIN DE DIAMANT"
+
+#. AM PARKEINGANG
+msgid "HOLE_CLASSIC_NINE_01"
+msgstr "ENTRÉE DU PARC"
+
+#. DER FINDLING
+msgid "HOLE_CLASSIC_NINE_02"
+msgstr "LE BLOC ERRATIQUE"
+
+#. BLUMENBOGEN
+msgid "HOLE_CLASSIC_NINE_03"
+msgstr "ARC FLEURI"
+
+#. AM PAVILLON
+msgid "HOLE_CLASSIC_NINE_04"
+msgstr "PRÈS DU PAVILLON"
+
+#. KIESELWEG
+msgid "HOLE_CLASSIC_NINE_05"
+msgstr "CHEMIN DE GALETS"
+
+#. GARTENSPIRALE
+msgid "HOLE_CLASSIC_NINE_06"
+msgstr "SPIRALE DU JARDIN"
+
+#. HECKENGASSEN
+msgid "HOLE_CLASSIC_NINE_07"
+msgstr "ALLÉES DE HAIES"
+
+#. KREISALLEE
+msgid "HOLE_CLASSIC_NINE_08"
+msgstr "ALLÉE DES CERCLES"
+
+#. RUECKWEG ZUM SCHLOSS
+msgid "HOLE_CLASSIC_NINE_09"
+msgstr "RETOUR AU CHÂTEAU"
+
+#. KURVEN-LABOR
+msgid "HOLE_CURVE_LAB"
+msgstr "LABORATOIRE DE COURBES"
+
+#. DAS DOPPELTOR
+msgid "HOLE_DOUBLE_GATE_03"
+msgstr "LA DOUBLE PORTE"
+
+#. STRANDZUGANG
+msgid "HOLE_DUENENKUESTE_01"
+msgstr "ACCÈS À LA PLAGE"
+
+#. BUHNENWEG
+msgid "HOLE_DUENENKUESTE_03"
+msgstr "CHEMIN DES ÉPIS"
+
+#. DUENENMULDE
+msgid "HOLE_DUENENKUESTE_04"
+msgstr "CREUX DES DUNES"
+
+#. MUSCHELBUCHT
+msgid "HOLE_DUENENKUESTE_05"
+msgstr "BAIE DES COQUILLAGES"
+
+#. HAFENMAUER
+msgid "HOLE_DUENENKUESTE_08"
+msgstr "MUR DU PORT"
+
+#. AM LEUCHTTURM
+msgid "HOLE_DUENENKUESTE_09"
+msgstr "PRÈS DU PHARE"
+
+#. U-FLUSSBAHN
+msgid "HOLE_FLOW_TEST"
+msgstr "COURANT EN U"
+
+#. WERKSTOR
+msgid "HOLE_LABYRINTH_NINE_01"
+msgstr "PORTE DE L'USINE"
+
+#. GARTENKAMMERN
+msgid "HOLE_LABYRINTH_NINE_02"
+msgstr "CHAMBRES DU JARDIN"
+
+#. LASTENWIPPE
+msgid "HOLE_LABYRINTH_NINE_03"
+msgstr "BASCULE DE CHARGEMENT"
+
+#. SCHICHTWECHSEL
+msgid "HOLE_LABYRINTH_NINE_04"
+msgstr "RELÈVE D'ÉQUIPE"
+
+#. DREIECKSHOF
+msgid "HOLE_LABYRINTH_NINE_05"
+msgstr "COUR TRIANGULAIRE"
+
+#. DREI WERKHALLEN
+msgid "HOLE_LABYRINTH_NINE_06"
+msgstr "TROIS ATELIERS"
+
+#. KREUZVERTEILER
+msgid "HOLE_LABYRINTH_NINE_07"
+msgstr "JONCTION EN CROIX"
+
+#. DAS GROSSE UHRWERK
+msgid "HOLE_LABYRINTH_NINE_08"
+msgstr "LA GRANDE HORLOGERIE"
+
+#. DAS INNERE HEILIGTUM
+msgid "HOLE_LABYRINTH_NINE_09"
+msgstr "LE SANCTUAIRE INTÉRIEUR"
+
+#. ERSTE MUEHLE
+msgid "HOLE_MUEHLENTAL_01"
+msgstr "PREMIER MOULIN"
+
+#. BACHSCHLEUSE
+msgid "HOLE_MUEHLENTAL_02"
+msgstr "ÉCLUSE DU RUISSEAU"
+
+#. KIPPSTEG
+msgid "HOLE_MUEHLENTAL_03"
+msgstr "PASSERELLE BASCULANTE"
+
+#. MUEHLTEICH
+msgid "HOLE_MUEHLENTAL_04"
+msgstr "ÉTANG DU MOULIN"
+
+#. SCHLEUSENBOGEN
+msgid "HOLE_MUEHLENTAL_06"
+msgstr "ARC DE L'ÉCLUSE"
+
+#. MUEHLENSTEG
+msgid "HOLE_MUEHLENTAL_08"
+msgstr "PASSERELLE DU MOULIN"
+
+#. FEIERABENDRUNDE
+msgid "HOLE_MUEHLENTAL_09"
+msgstr "PARTIE APRÈS LE TRAVAIL"
+
+#. SANDUFER
+msgid "HOLE_PROTOTYPE_04"
+msgstr "RIVE SABLONNEUSE"
+
+#. DOPPELHUEGEL
+msgid "HOLE_PROTOTYPE_05"
+msgstr "DOUBLE COLLINE"
+
+#. UFERKEHRE
+msgid "HOLE_PROTOTYPE_06"
+msgstr "VIRAGE DE LA RIVE"
+
+#. PANORAMADECK
+msgid "HOLE_PROTOTYPE_07"
+msgstr "TERRASSE PANORAMIQUE"
+
+#. BOGENPROMENADE
+msgid "HOLE_PROTOTYPE_08"
+msgstr "PROMENADE EN ARC"
+
+#. S-KURVE AN DER MUEHLE
+msgid "HOLE_REFERENCE_01"
+msgstr "VIRAGE EN S DU MOULIN"
+
+#. REFERENZ: WINKEL
+msgid "HOLE_REFERENCE_ANGLE_LANE"
+msgstr "RÉFÉRENCE : ANGLE"
+
+#. BASIS 1: DREIFACH-BUMPER
+msgid "HOLE_REFERENCE_GATE_BUMPERS"
+msgstr "BASE 1 : TRIPLE BUTOIR"
+
+#. BASIS 1: HUEGELPASS
+msgid "HOLE_REFERENCE_GATE_HILL"
+msgstr "BASE 1 : PASSAGE DE COLLINE"
+
+#. BASIS 1: HUEGELLOCH
+msgid "HOLE_REFERENCE_GATE_HILL_HOLE"
+msgstr "BASE 1 : TROU EN COLLINE"
+
+#. REFERENZ: TOR-GERADE
+msgid "HOLE_REFERENCE_GATE_LANE"
+msgstr "RÉFÉRENCE : PORTE DROITE"
+
+#. BASIS 1: ROTOR
+msgid "HOLE_REFERENCE_GATE_ROTOR"
+msgstr "BASE 1 : ROTOR"
+
+#. BASIS 1: WIPPE
+msgid "HOLE_REFERENCE_GATE_SEESAW"
+msgstr "BASE 1 : BASCULE"
+
+#. BASIS 1: SCHIEBETOR
+msgid "HOLE_REFERENCE_GATE_SLIDER"
+msgstr "BASE 1 : PORTE COULISSANTE"
+
+#. REFERENZ: MOS-KURVE
+msgid "HOLE_REFERENCE_MOS_LANE"
+msgstr "RÉFÉRENCE : COURBE MOS"
+
+#. VORHOF
+msgid "HOLE_SCHLOSSGARTEN_01"
+msgstr "AVANT-COUR"
+
+#. BRUNNENHOF
+msgid "HOLE_SCHLOSSGARTEN_05"
+msgstr "COUR DE LA FONTAINE"
+
+#. SCHLOSSPARTERRE
+msgid "HOLE_SCHLOSSGARTEN_09"
+msgstr "PARTERRE DU CHÂTEAU"
+
+#. SCROLL-TESTBAHN
+msgid "HOLE_SCROLL_TEST"
+msgstr "TROU DE TEST DÉFILEMENT"
+
+#. GEFAELLE-LABOR
+msgid "HOLE_SLOPE_LAB"
+msgstr "LABORATOIRE DE PENTES"
+
+#. AN DER PARKBANK
+msgid "HOLE_STADTPARK_07"
+msgstr "PRÈS DU BANC"
+
+#. ZWEI ALLEEN
+msgid "HOLE_STADTPARK_08"
+msgstr "DEUX ALLÉES"
+
+#. PAVILLONRUNDE
+msgid "HOLE_STADTPARK_09"
+msgstr "TOUR DU PAVILLON"
+
+#. ERSTE FLUGBAHN
+msgid "HOLE_STERNWARTE_01"
+msgstr "PREMIÈRE TRAJECTOIRE"
+
+#. STARTFREIGABE
+msgid "HOLE_STERNWARTE_02"
+msgstr "AUTORISATION DE DÉCOLLAGE"
+
+#. DOPPELSTART
+msgid "HOLE_STERNWARTE_07"
+msgstr "DOUBLE DÉCOLLAGE"
+
+#. ZUR GROSSEN KUPPEL
+msgid "HOLE_STERNWARTE_09"
+msgstr "VERS LE GRAND DÔME"
+
+#. VERBORGENER DURCHGANG
+msgid "HOLE_TEMPELRUINEN_01"
+msgstr "PASSAGE CACHÉ"
+
+#. SAEULENHOF
+msgid "HOLE_TEMPELRUINEN_02"
+msgstr "COUR DES COLONNES"
+
+#. KAMMERWECHSEL
+msgid "HOLE_TEMPELRUINEN_03"
+msgstr "CHANGEMENT DE CHAMBRE"
+
+#. SONNENHOF
+msgid "HOLE_TEMPELRUINEN_04"
+msgstr "COUR DU SOLEIL"
+
+#. ZWEI PORTALE
+msgid "HOLE_TEMPELRUINEN_06"
+msgstr "DEUX PORTAILS"
+
+#. VERSUNKENER HOF
+msgid "HOLE_TEMPELRUINEN_07"
+msgstr "COUR ENGLOUTIE"
+
+#. WAECHTERKAMMER
+msgid "HOLE_TEMPELRUINEN_08"
+msgstr "CHAMBRE DU GARDIEN"
+
+#. ZAHNRADSAAL
+msgid "HOLE_UHRWERKFABRIK_02"
+msgstr "SALLE DES ENGRENAGES"
+
+#. PAUSENHOF
+msgid "HOLE_UHRWERKFABRIK_04"
+msgstr "COUR DE PAUSE"
+
+#. SCHWUNGRAD
+msgid "HOLE_UHRWERKFABRIK_08"
+msgstr "VOLANT D'INERTIE"
+
+#. Erster Frost
+msgid "HOLE_URBAN_WINTER_01"
+msgstr "Premières gelées"
+
+#. Um den Häuserblock
+msgid "HOLE_URBAN_WINTER_02"
+msgstr "Autour du pâté de maisons"
+
+#. Zebrastreifen
+msgid "HOLE_URBAN_WINTER_03"
+msgstr "Passage piéton"
+
+#. Lieferzufahrt
+msgid "HOLE_URBAN_WINTER_04"
+msgstr "Accès livraison"
+
+#. Winterkreisel
+msgid "HOLE_URBAN_WINTER_05"
+msgstr "Rond-point d'hiver"
+
+#. Kanalpromenade
+msgid "HOLE_URBAN_WINTER_06"
+msgstr "Promenade du canal"
+
+#. Am Stadtbrunnen
+msgid "HOLE_URBAN_WINTER_07"
+msgstr "Près de la fontaine"
+
+#. Unter der Hochbahn
+msgid "HOLE_URBAN_WINTER_08"
+msgstr "Sous le métro aérien"
+
+#. Mitternachtsplatz
+msgid "HOLE_URBAN_WINTER_09"
+msgstr "Place de minuit"
+
+#. MANEGE FREI
+msgid "HOLE_ZIRKUS_01"
+msgstr "PLACE AU SPECTACLE"
+
+#. KLEINE AKROBATEN
+msgid "HOLE_ZIRKUS_02"
+msgstr "PETITS ACROBATES"
+
+#. ZIRKUSSCHLEIFE
+msgid "HOLE_ZIRKUS_03"
+msgstr "BOUCLE DU CIRQUE"
+
+#. BALANCEAKT
+msgid "HOLE_ZIRKUS_04"
+msgstr "NUMÉRO D'ÉQUILIBRE"
+
+#. ELEFANTENPUPS
+msgid "HOLE_ZIRKUS_05"
+msgstr "PET D'ÉLÉPHANT"
+
+#. JONGLIERWEG
+msgid "HOLE_ZIRKUS_06"
+msgstr "CHEMIN DU JONGLEUR"
+
+#. HOCH HINAUS
+msgid "HOLE_ZIRKUS_07"
+msgstr "TOUJOURS PLUS HAUT"
+
+#. DOPPELTE ZUGABE
+msgid "HOLE_ZIRKUS_08"
+msgstr "DOUBLE RAPPEL"
+
+#. GROSSE VORSTELLUNG
+msgid "HOLE_ZIRKUS_09"
+msgstr "LA GRANDE REPRÉSENTATION"
+
+#. benutzerdefiniert
+msgid "INPUT_CUSTOM"
+msgstr "personnalisé"
+
+#. bekannt
+msgid "INPUT_KNOWN"
+msgstr "connue"
+
+#. nein
+msgid "INPUT_NO"
+msgstr "non"
+
+#. keine
+msgid "INPUT_NONE"
+msgstr "aucun"
+
+#. unbekannt
+msgid "INPUT_UNKNOWN"
+msgstr "inconnue"
+
+#. ja
+msgid "INPUT_YES"
+msgstr "oui"
+
+#. Übernehmen
+msgid "SETTINGS_APPLY"
+msgstr "Appliquer"
+
+#. Ton
+msgid "SETTINGS_AUDIO"
+msgstr "Son"
+
+#. Zurück
+msgid "SETTINGS_BACK"
+msgstr "Retour"
+
+#. Controller kalibrieren
+msgid "SETTINGS_CALIBRATE"
+msgstr "Calibrer la manette"
+
+#. START / F4: BEENDEN
+msgid "SETTINGS_CALIBRATION_EXIT"
+msgstr "START / F4 : FERMER"
+
+#. KALIBRIERUNG SPEICHERT SEPARAT
+msgid "SETTINGS_CALIBRATION_SEPARATE"
+msgstr "CALIBRAGE ENREGISTRÉ SÉPARÉMENT"
+
+#. Abbrechen
+msgid "SETTINGS_CANCEL"
+msgstr "Annuler"
+
+#. Kategorie
+msgid "SETTINGS_CATEGORY"
+msgstr "Catégorie"
+
+#. Steuerung
+msgid "SETTINGS_CONTROLS"
+msgstr "Commandes"
+
+#. Stick / D-Pad / WASD / Pfeile: Zielen und Auswahl / Kreuz / Enter / Leertaste / Linksklick: Bestätigen, Schlagphasen / Kreis / Escape / Rechtsklick: Zurück und Abbruch / Start / P: Pause   Quadrat / R: Neustart   Dreieck / F2: Übungsbahn
+msgid "SETTINGS_CONTROL_HELP"
+msgstr "Stick / croix / WASD / flèches : viser et choisir\nCroix / Entrée / Espace / clic gauche : valider, phases de frappe\nCercle / Échap / clic droit : retour et annuler\nStart / P : pause   Carré / R : recommencer   Triangle / F2 : trou test"
+
+#. Standardwerte
+msgid "SETTINGS_DEFAULTS"
+msgstr "Par défaut"
+
+#. Anzeige
+msgid "SETTINGS_DISPLAY"
+msgstr "Affichage"
+
+#. Anzeige beibehalten? / Rückkehr in %d Sekunden.
+msgid "SETTINGS_DISPLAY_COUNTDOWN"
+msgstr "Garder cet affichage ?\nRetour dans %d secondes."
+
+#. Effektlautstärke
+msgid "SETTINGS_EFFECTS"
+msgstr "Volume des effets"
+
+#. Randloses Vollbild
+msgid "SETTINGS_FULLSCREEN"
+msgstr "Plein écran sans bordure"
+
+#. Anzeige beibehalten
+msgid "SETTINGS_KEEP_DISPLAY"
+msgstr "Garder l'affichage"
+
+#. Sprache
+msgid "SETTINGS_LANGUAGE"
+msgstr "Langue"
+
+#. Gesamtlautstärke
+msgid "SETTINGS_MASTER"
+msgstr "Volume général"
+
+#. ↑↓ AUSWAHL   ←→ ÄNDERN   ESC ZURÜCK
+msgid "SETTINGS_NAV_HELP"
+msgstr "↑↓ CHOISIR   ←→ MODIFIER   ÉCHAP RETOUR"
+
+#. Aus
+msgid "SETTINGS_OFF"
+msgstr "Non"
+
+#. An
+msgid "SETTINGS_ON"
+msgstr "Oui"
+
+#. VORSCHAU – ERST ÜBERNEHMEN SPEICHERT
+msgid "SETTINGS_PREVIEW"
+msgstr "APERÇU – APPLIQUER POUR ENREGISTRER"
+
+#. Zurücksetzen
+msgid "SETTINGS_REVERT"
+msgstr "Rétablir"
+
+#. Speichern fehlgeschlagen. Vorschau bleibt aktiv; Abbrechen stellt die bisherigen Werte wieder her.
+msgid "SETTINGS_SAVE_ERROR"
+msgstr "Échec de l'enregistrement. L'aperçu reste actif ; Annuler rétablit les paramètres précédents."
+
+#. Kamerawackeln
+msgid "SETTINGS_SHAKE"
+msgstr "Secousses de caméra"
+
+#. EINSTELLUNGEN
+msgid "SETTINGS_TITLE"
+msgstr "PARAMÈTRES"
+
+#. Fenster
+msgid "SETTINGS_WINDOWED"
+msgstr "Fenêtré"
+
+#. Fenstermodus
+msgid "SETTINGS_WINDOW_MODE"
+msgstr "Mode d'affichage"
+
+#. Fenstergröße
+msgid "SETTINGS_WINDOW_SIZE"
+msgstr "Taille de fenêtre"
+
+#. 1 bis 9 Bahnen · Wiederholungen erlaubt · Änderungen an Bahnen gelten auch im Kurs
+msgid "TEXT_1_TO_9_HOLES_REPEATS_ALLOWED_HOLE_CHANGES_ALSO_AFFECT_THE_COURSE"
+msgstr "1 à 9 trous · Répétitions autorisées · Les modifications des trous affectent le parcours"
+
+#. 5 BAHNEN PRO SEITE
+msgid "TEXT_5_HOLES_PER_PAGE"
+msgstr "5 TROUS PAR PAGE"
+
+#. RICHTUNGSTREUE
+msgid "TEXT_ACCURACY"
+msgstr "PRÉCISION"
+
+#. Nur fuer diese Sitzung aktiv – Speichern fehlgeschlagen
+msgid "TEXT_ACTIVE_FOR_THIS_SESSION_ONLY_SAVING_FAILED"
+msgstr "Actif pour cette session – échec de l'enregistrement"
+
+#. Hinzufügen →
+msgid "TEXT_ADD"
+msgstr "Ajouter →"
+
+#. ZIELZYKLUS   %.1f s
+msgid "TEXT_AIM_CYCLE_S"
+msgstr "CYCLE DE VISÉE   %.1f s"
+
+#. Zielrichtung
+msgid "TEXT_AIM_DIRECTION"
+msgstr "Direction de visée"
+
+#. RICHTUNGSFEHLER   MAX %.0f°
+msgid "TEXT_AIM_ERROR_MAX"
+msgstr "ÉCART DE VISÉE   MAX %.0f°"
+
+#. ZIEL-RUHE
+msgid "TEXT_AIM_TIMING"
+msgstr "RYTHME VISÉE"
+
+#. JEDE FIGUR IST SOFORT VERFUEGBAR
+msgid "TEXT_ALL_CHARACTERS_AVAILABLE_NOW"
+msgstr "TOUS LES PERSONNAGES DISPONIBLES"
+
+#. %s  /  ALLE %d BAHNEN
+msgid "TEXT_ALL_HOLES"
+msgstr "%s  /  LES %d TROUS"
+
+#. REIHENFOLGE UND WIEDERHOLUNG FREI
+msgid "TEXT_ANY_ORDER_REPEATS_ALLOWED"
+msgstr "ORDRE LIBRE, RÉPÉTITIONS AUTORISÉES"
+
+#. Es gibt einen automatisch gesicherten Entwurf. Wiederherstellen?
+msgid "TEXT_AN_AUTOMATICALLY_SAVED_DRAFT_IS_AVAILABLE_RESTORE_IT"
+msgstr "Un brouillon sauvegardé automatiquement est disponible. Le restaurer ?"
+
+#. Bögen benötigen 4 bis 128 Segmente und höchstens 4096 Pixel Radius
+msgid "TEXT_ARCS_REQUIRE_4_TO_128_SEGMENTS_AND_A_RADIUS_OF_AT_MOST_4096_PIXEL"
+msgstr "Les arcs nécessitent 4 à 128 segments et un rayon maximal de 4096 pixels"
+
+#. Bogensegmente
+msgid "TEXT_ARC_SEGMENTS"
+msgstr "Segments d'arc"
+
+#. Bogenbeginn (Grad)
+msgid "TEXT_ARC_START_DEGREES"
+msgstr "Début d'arc (degrés)"
+
+#. Bogenwinkel
+msgid "TEXT_ARC_SWEEP"
+msgstr "Angle de l'arc"
+
+#. Fläche (X, Y, Breite, Höhe)
+msgid "TEXT_AREA_X_Y_WIDTH_HEIGHT"
+msgstr "Zone (X, Y, largeur, hauteur)"
+
+#. Pfeilpinsel
+msgid "TEXT_ARROW_BRUSH"
+msgstr "Pinceau de flèches"
+
+#. Pfeilzellen muessen quadratisch sein
+msgid "TEXT_ARROW_CELLS_MUST_BE_SQUARE"
+msgstr "Les cases fléchées doivent être carrées"
+
+#. Pfeilfeld
+msgid "TEXT_ARROW_FIELD"
+msgstr "Zone de flèches"
+
+#. Pfeilfeld ist zu groß
+msgid "TEXT_ARROW_FIELD_IS_TOO_LARGE"
+msgstr "La zone de flèches est trop grande"
+
+#. Pfeilzelle
+msgid "TEXT_ARROW_TILE"
+msgstr "Case fléchée"
+
+#. Höchstens 512 Konturpunkte erlaubt
+msgid "TEXT_AT_MOST_512_OUTLINE_POINTS_ALLOWED"
+msgstr "512 points de contour au maximum"
+
+#. Automatische Sicherung fehlgeschlagen: 
+msgid "TEXT_AUTOSAVE_FAILED"
+msgstr "Échec de sauvegarde automatique : "
+
+#. Achsen: %s
+msgid "TEXT_AXES"
+msgstr "Axes : %s"
+
+#. Speicherordner ist durch eine Datei blockiert
+msgid "TEXT_A_FILE_IS_BLOCKING_THE_SAVE_FOLDER"
+msgstr "Un fichier bloque le dossier de sauvegarde"
+
+#. Eine Runde benoetigt 1 bis 9 Loecher
+msgid "TEXT_A_ROUND_REQUIRES_1_TO_9_HOLES"
+msgstr "Une partie nécessite 1 à 9 trous"
+
+#. ZURUECK
+msgid "TEXT_BACK"
+msgstr "RETOUR"
+
+#. Sicherung fehlgeschlagen; bisherige Datei bleibt erhalten
+msgid "TEXT_BACKUP_FAILED_THE_PREVIOUS_FILE_IS_PRESERVED"
+msgstr "Échec de la sauvegarde ; l'ancien fichier est conservé"
+
+#. Zum Entwurf
+msgid "TEXT_BACK_TO_DRAFT"
+msgstr "Retour au brouillon"
+
+#. ZURUECK ZUR PAUSE
+msgid "TEXT_BACK_TO_PAUSE"
+msgstr "RETOUR À LA PAUSE"
+
+#. Ausgewogene Reichweite / und ruhiges Timing.
+msgid "TEXT_BALANCED_RANGE_NAND_RELAXED_TIMING"
+msgstr "Portée équilibrée\net rythme tranquille."
+
+#. Grundbelag
+msgid "TEXT_BASE_SURFACE"
+msgstr "Sol de base"
+
+#. BEN ZUM VERGLEICH
+msgid "TEXT_BEN_FOR_COMPARISON"
+msgstr "BEN EN RÉFÉRENCE"
+
+#. BEN-WERTE
+msgid "TEXT_BEN_S_STATS"
+msgstr "VALEURS DE BEN"
+
+#.   /  Bestwert %d
+msgid "TEXT_BEST"
+msgstr "  /  Record %d"
+
+#. BESTWERT %d (%s)
+msgid "TEXT_BEST_417"
+msgstr "RECORD %d (%s)"
+
+#. Blau – mittel
+msgid "TEXT_BLUE_MEDIUM"
+msgstr "Bleu – moyenne"
+
+#. Kurs zusammenstellen
+msgid "TEXT_BUILD_COURSE"
+msgstr "Composer un parcours"
+
+#. Auswölbung (+ / −)
+msgid "TEXT_BULGE"
+msgstr "Courbure (+ / −)"
+
+#. Kalibrierung %d/%d: %s
+msgid "TEXT_CALIBRATION"
+msgstr "Calibrage %d/%d : %s"
+
+#. Kalibrierung gespeichert
+msgid "TEXT_CALIBRATION_SAVED"
+msgstr "Calibrage enregistré"
+
+#. Abbrechen
+msgid "TEXT_CANCEL"
+msgstr "Annuler"
+
+#. Kanone
+msgid "TEXT_CANNON"
+msgstr "Canon"
+
+#. Aufnahmebereich
+msgid "TEXT_CAPTURE_AREA"
+msgstr "Zone de capture"
+
+#. Mittelpunkt
+msgid "TEXT_CENTER"
+msgstr "Centre"
+
+#. AUSWAHL AENDERN
+msgid "TEXT_CHANGE_SELECTION"
+msgstr "CHANGER LA SÉLECTION"
+
+#. FARBE FUER SPIELER %d WAEHLEN
+msgid "TEXT_CHOOSE_COLOR_FOR_PLAYER"
+msgstr "COULEUR DU JOUEUR %d"
+
+#. KURSAUSWAHL
+msgid "TEXT_CHOOSE_COURSE"
+msgstr "CHOISIR UN PARCOURS"
+
+#. GOLFER WAEHLEN
+msgid "TEXT_CHOOSE_GOLFER"
+msgstr "CHOISIR UN GOLFEUR"
+
+#. Kreis / Bogen
+msgid "TEXT_CIRCLE_ARC"
+msgstr "Cercle / Arc"
+
+#. KREIS ZURUECK
+msgid "TEXT_CIRCLE_BACK"
+msgstr "CERCLE RETOUR"
+
+#. KREIS / ESC: ZURUECK
+msgid "TEXT_CIRCLE_ESC_BACK"
+msgstr "CERCLE / ÉCHAP : RETOUR"
+
+#. KREIS: NEIN
+msgid "TEXT_CIRCLE_NO"
+msgstr "CERCLE : NON"
+
+#. Freien Boden anklicken · Esc Abbruch
+msgid "TEXT_CLICK_CLEAR_GROUND_ESC_CANCELS"
+msgstr "Cliquez sur un sol libre · Échap annule"
+
+#. %s: Zellzuschnitt verlaesst die Rasterzelle
+msgid "TEXT_CLIPPING_EXTENDS_OUTSIDE_THE_CELL"
+msgstr "%s : le découpage sort de la case"
+
+#. FARBEN SIND NUR KOSMETISCH
+msgid "TEXT_COLORS_ARE_COSMETIC_ONLY"
+msgstr "COULEURS PUREMENT ESTHÉTIQUES"
+
+#. Bauteil
+msgid "TEXT_COMPONENT"
+msgstr "Élément"
+
+#. Bauteil oder Bewegungsbereich ragt über den sichtbaren Bahnbereich hinaus
+msgid "TEXT_COMPONENT_OR_MOVEMENT_AREA_EXTENDS_BEYOND_THE_VISIBLE_HOLE_AREA"
+msgstr "L'élément ou sa zone de mouvement dépasse la zone visible du trou"
+
+#. Beton
+msgid "TEXT_CONCRETE"
+msgstr "Béton"
+
+#. BESTAETIGEN: KURS STARTEN
+msgid "TEXT_CONFIRM_START_COURSE"
+msgstr "VALIDER : JOUER"
+
+#. Schalter verbinden
+msgid "TEXT_CONNECT_SWITCH"
+msgstr "Relier l'interrupteur"
+
+#. Kontaktimpuls (Faktor)
+msgid "TEXT_CONTACT_IMPULSE_FACTOR"
+msgstr "Impulsion de contact (facteur)"
+
+#. WEITER ZUM NAECHSTEN LOCH
+msgid "TEXT_CONTINUE_TO_NEXT_HOLE"
+msgstr "PASSER AU TROU SUIVANT"
+
+#. Controller
+msgid "TEXT_CONTROLLER"
+msgstr "Manette"
+
+#. CONTROLLER-DIAGNOSE  [F3 schliessen | F4 kalibrieren]
+msgid "TEXT_CONTROLLER_DIAGNOSTICS_F3_CLOSE_F4_CALIBRATE"
+msgstr "DIAGNOSTIC MANETTE  [F3 fermer / F4 calibrer]"
+
+#. CONTROLLER %d / %s
+msgid "TEXT_CONTROLLER_N"
+msgstr "MANETTE %d\n%s"
+
+#. CONTROLLER %d / %s / %s
+msgid "TEXT_CONTROLLER_N_N"
+msgstr "MANETTE %d\n%s\n%s"
+
+#.  – Kopie
+msgid "TEXT_COPY"
+msgstr " – Copie"
+
+#. Ecke unten-links
+msgid "TEXT_CORNER_DOWN_LEFT"
+msgstr "Angle bas-gauche"
+
+#. Ecke links-oben
+msgid "TEXT_CORNER_LEFT_UP"
+msgstr "Angle gauche-haut"
+
+#. Ecke rechts-unten
+msgid "TEXT_CORNER_RIGHT_DOWN"
+msgstr "Angle droite-bas"
+
+#. Ecke oben-rechts
+msgid "TEXT_CORNER_UP_RIGHT"
+msgstr "Angle haut-droite"
+
+#. Ordner konnte nicht angelegt werden: %s
+msgid "TEXT_COULD_NOT_CREATE_FOLDER"
+msgstr "Impossible de créer le dossier : %s"
+
+#. Spielkataloge konnten nicht geladen werden
+msgid "TEXT_COULD_NOT_LOAD_GAME_CATALOGS"
+msgstr "Impossible de charger les catalogues du jeu"
+
+#. Lochkatalog konnte nicht geladen werden
+msgid "TEXT_COULD_NOT_LOAD_HOLE_CATALOG"
+msgstr "Impossible de charger le catalogue de trous"
+
+#. Datei konnte nicht geöffnet werden: %s
+msgid "TEXT_COULD_NOT_OPEN_FILE"
+msgstr "Impossible d'ouvrir le fichier : %s"
+
+#. Datei konnte nicht ersetzt werden; bisherige Datei bleibt erhalten
+msgid "TEXT_COULD_NOT_REPLACE_FILE_THE_PREVIOUS_FILE_IS_PRESERVED"
+msgstr "Remplacement impossible ; l'ancien fichier est conservé"
+
+#. BESTWERT KONNTE NICHT GESPEICHERT WERDEN
+msgid "TEXT_COULD_NOT_SAVE_BEST_SCORE"
+msgstr "IMPOSSIBLE D'ENREGISTRER LE RECORD"
+
+#. Datei konnte nicht vollständig geschrieben werden
+msgid "TEXT_COULD_NOT_WRITE_THE_COMPLETE_FILE"
+msgstr "Écriture du fichier incomplète"
+
+#. Kurse
+msgid "TEXT_COURSES"
+msgstr "Parcours"
+
+#. KURSBESTWERT  %d  (%s)
+msgid "TEXT_COURSE_BEST"
+msgstr "RECORD DU PARCOURS  %d  (%s)"
+
+#. Kurskatalog enthaelt einen leeren Eintrag
+msgid "TEXT_COURSE_CATALOG_CONTAINS_AN_EMPTY_ENTRY"
+msgstr "Le catalogue de parcours contient une entrée vide"
+
+#. Kurskatalog ist leer
+msgid "TEXT_COURSE_CATALOG_IS_EMPTY"
+msgstr "Le catalogue de parcours est vide"
+
+#. Kurs enthält eine fehlende Bahn
+msgid "TEXT_COURSE_CONTAINS_A_MISSING_HOLE"
+msgstr "Le parcours contient un trou manquant"
+
+#. Kurs %s enthaelt technische Bahn %s
+msgid "TEXT_COURSE_CONTAINS_TECHNICAL_HOLE"
+msgstr "Le parcours %s contient le trou technique %s"
+
+#. Kurs %s besitzt keine gueltige Bestwertrevision
+msgid "TEXT_COURSE_HAS_AN_INVALID_RECORD_REVISION"
+msgstr "Le parcours %s a une révision de record non valide"
+
+#. Kurs %s besitzt keinen Anzeigenamen
+msgid "TEXT_COURSE_HAS_NO_DISPLAY_NAME"
+msgstr "Le parcours %s n'a pas de nom"
+
+#. Kurs %s besitzt keine Loecher
+msgid "TEXT_COURSE_HAS_NO_HOLES"
+msgstr "Le parcours %s n'a pas de trous"
+
+#. Kurs besitzt keine eindeutige ID
+msgid "TEXT_COURSE_HAS_NO_UNIQUE_ID"
+msgstr "Le parcours n'a pas d'identifiant unique"
+
+#. Kurs benötigt einen Namen und 1 bis 9 Bahnen
+msgid "TEXT_COURSE_NEEDS_A_NAME_AND_1_TO_9_HOLES"
+msgstr "Le parcours doit avoir un nom et 1 à 9 trous"
+
+#. Kursherkunft stimmt nicht mit dem Katalog überein
+msgid "TEXT_COURSE_ORIGIN_DOES_NOT_MATCH_THE_CATALOG"
+msgstr "L'origine du parcours ne correspond pas au catalogue"
+
+#. Kurs verweist auf eine fehlende Bahn
+msgid "TEXT_COURSE_REFERS_TO_A_MISSING_HOLE"
+msgstr "Le parcours référence un trou manquant"
+
+#. Kurs %s verweist auf unbekannte Bahn %s
+msgid "TEXT_COURSE_REFERS_TO_UNKNOWN_HOLE"
+msgstr "Le parcours %s référence un trou inconnu %s"
+
+#. Kursrunde muss die vollstaendige geordnete Lochfolge enthalten
+msgid "TEXT_COURSE_ROUND_MUST_CONTAIN_THE_FULL_ORDERED_HOLE_SEQUENCE"
+msgstr "La partie doit contenir la suite complète et ordonnée des trous"
+
+#. KREUZ FUEGT DIE SICHTBARE BAHN AN
+msgid "TEXT_CROSS_ADDS_THE_SELECTED_HOLE"
+msgstr "CROIX AJOUTE LE TROU SÉLECTIONNÉ"
+
+#. KREUZ BESTAETIGEN  •  KREIS ZURUECK
+msgid "TEXT_CROSS_CONFIRM_CIRCLE_BACK"
+msgstr "CROIX VALIDER  •  CERCLE RETOUR"
+
+#. KREUZ / ENTER / KLICK
+msgid "TEXT_CROSS_ENTER_CLICK"
+msgstr "CROIX / ENTRÉE / CLIC"
+
+#. Kreuz / Leertaste: Nochmal
+msgid "TEXT_CROSS_SPACE_AGAIN"
+msgstr "Croix / Espace : Rejouer"
+
+#. DER AKTUELLE STAND GEHT VERLOREN
+msgid "TEXT_CURRENT_PROGRESS_WILL_BE_LOST"
+msgstr "LA PROGRESSION SERA PERDUE"
+
+#. LAUFENDE RUNDE WIRD NICHT GESPEICHERT
+msgid "TEXT_CURRENT_ROUND_WILL_NOT_BE_SAVED"
+msgstr "LA PARTIE NE SERA PAS ENREGISTRÉE"
+
+#. ZWISCHENSTAND
+msgid "TEXT_CURRENT_SCORES"
+msgstr "SCORES ACTUELS"
+
+#. EIGENE INHALTE
+msgid "TEXT_CUSTOM_CONTENT"
+msgstr "CONTENU PERSONNALISÉ"
+
+#. Eigene Inhalte werden lokal gespeichert. Doppelklick öffnet die Bearbeitung.
+msgid "TEXT_CUSTOM_CONTENT_IS_SAVED_LOCALLY_DOUBLE_CLICK_TO_EDIT"
+msgstr "Le contenu est enregistré localement. Double-cliquez pour modifier."
+
+#. Eigene Bahnen benötigen eine geschlossene Normkontur
+msgid "TEXT_CUSTOM_HOLES_REQUIRE_A_CLOSED_STANDARD_OUTLINE"
+msgstr "Les trous personnalisés nécessitent un contour standard fermé"
+
+#. FREIE LOCHFOLGE
+msgid "TEXT_CUSTOM_HOLE_SEQUENCE"
+msgstr "SUITE LIBRE DE TROUS"
+
+#. FREIE WERTE / Keine Kursbestwerte
+msgid "TEXT_CUSTOM_STATS_NNO_COURSE_RECORDS"
+msgstr "VALEURS LIBRES\nSans records de parcours"
+
+#. Zyklusdauer (Sekunden)
+msgid "TEXT_CYCLE_DURATION_SECONDS"
+msgstr "Durée du cycle (secondes)"
+
+#. Beschädigte Bibliothek wird nicht überschrieben. Bitte library.json sichern und reparieren.
+msgid "TEXT_DAMAGED_LIBRARY_WILL_NOT_BE_OVERWRITTEN_BACK_UP_AND_REPAIR_LIBRAR"
+msgstr "La bibliothèque endommagée ne sera pas écrasée. Sauvegardez et réparez library.json."
+
+#. ✓ Daten gültig. PAR und Spielbarkeit bitte im Testspiel prüfen.
+msgid "TEXT_DATA_VALID_CHECK_PAR_AND_PLAYABILITY_IN_A_PLAYTEST"
+msgstr "✓ Données valides. Vérifiez le PAR et la jouabilité en test."
+
+#. Löschen
+msgid "TEXT_DELETE"
+msgstr "Supprimer"
+
+#. LOESCHEN
+msgid "TEXT_DELETE_392"
+msgstr "EFFACER"
+
+#. Ausgewählten Inhalt aus der Bibliothek löschen?
+msgid "TEXT_DELETE_THE_SELECTED_CONTENT_FROM_THE_LIBRARY"
+msgstr "Supprimer le contenu sélectionné de la bibliothèque ?"
+
+#. Diagonal ↘
+msgid "TEXT_DIAGONAL"
+msgstr "Diagonale ↘"
+
+#. Diagonal ↗
+msgid "TEXT_DIAGONAL_191"
+msgstr "Diagonale ↗"
+
+#. Diagonal abwaerts
+msgid "TEXT_DIAGONAL_DOWN"
+msgstr "Diagonale descendante"
+
+#. %s: Diagonalkonturpunkt %d liegt nicht auf einer 16-Pixel-Rasterecke
+msgid "TEXT_DIAGONAL_OUTLINE_POINT_IS_NOT_ON_A_16_PIXEL_GRID_CORNER"
+msgstr "%s : point diagonal %d hors d'un coin de grille à 16 pixels"
+
+#. Diagonal aufwaerts
+msgid "TEXT_DIAGONAL_UP"
+msgstr "Diagonale montante"
+
+#. %s: Diagonalwandkante %d besitzt keine ganze Kaestchenlaenge
+msgid "TEXT_DIAGONAL_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH"
+msgstr "%s : le bord diagonal %d a une longueur de case non entière"
+
+#. %s: Diagonalwandkante %d besitzt keinen 45-Grad-Winkel
+msgid "TEXT_DIAGONAL_WALL_EDGE_IS_NOT_AT_45_DEGREES"
+msgstr "%s : le bord diagonal %d n'est pas à 45 degrés"
+
+#. Richtung
+msgid "TEXT_DIRECTION"
+msgstr "Direction"
+
+#. Verwerfen
+msgid "TEXT_DISCARD"
+msgstr "Ignorer"
+
+#. Schalterverbindung lösen
+msgid "TEXT_DISCONNECT_SWITCH"
+msgstr "Délier l'interrupteur"
+
+#. ENTFERNUNG 0 dm
+msgid "TEXT_DISTANCE_0_DM"
+msgstr "DISTANCE 0 dm"
+
+#. ENTFERNUNG %d dm
+msgid "TEXT_DISTANCE_DM"
+msgstr "DISTANCE %d dm"
+
+#. %s verbindet keine zwei getrennten Loecher
+msgid "TEXT_DOES_NOT_CONNECT_TWO_SEPARATE_HOLES"
+msgstr "%s ne relie pas deux trous distincts"
+
+#. %s gibt den Elefantendurchgang nicht vollstaendig frei
+msgid "TEXT_DOES_NOT_FULLY_OPEN_THE_ELEPHANT_PASSAGE"
+msgstr "%s ne libère pas entièrement le passage de l'éléphant"
+
+#. FERTIG
+msgid "TEXT_DONE"
+msgstr "TERMINER"
+
+#. DON - TESTSPIELER
+msgid "TEXT_DON_TEST_GOLFER"
+msgstr "DON - GOLFEUR DE TEST"
+
+#. Unten
+msgid "TEXT_DOWN"
+msgstr "Bas"
+
+#. ↓ Unten
+msgid "TEXT_DOWN_209"
+msgstr "↓ Bas"
+
+#. Unten links
+msgid "TEXT_DOWN_LEFT"
+msgstr "Bas gauche"
+
+#. ↙ Unten links
+msgid "TEXT_DOWN_LEFT_210"
+msgstr "↙ Bas gauche"
+
+#. Unten rechts
+msgid "TEXT_DOWN_RIGHT"
+msgstr "Bas droite"
+
+#. ↘ Unten rechts
+msgid "TEXT_DOWN_RIGHT_208"
+msgstr "↘ Bas droite"
+
+#.   [Entwurf]
+msgid "TEXT_DRAFT"
+msgstr "  [Brouillon]"
+
+#. Entwurf überschreitet unterstützte Datengrenzen: 
+msgid "TEXT_DRAFT_EXCEEDS_SUPPORTED_DATA_LIMITS"
+msgstr "Le brouillon dépasse les limites de données : "
+
+#. Pfeilfeld aufziehen
+msgid "TEXT_DRAW_ARROW_FIELD"
+msgstr "Tracer une zone de flèches"
+
+#. Wand zeichnen
+msgid "TEXT_DRAW_WALL"
+msgstr "Dessiner un mur"
+
+#. Duplizieren
+msgid "TEXT_DUPLICATE"
+msgstr "Dupliquer"
+
+#. Doppelte Kurs-ID: %s
+msgid "TEXT_DUPLICATE_COURSE_ID"
+msgstr "Identifiant de parcours en double : %s"
+
+#. Doppelte Bahn-ID: %s
+msgid "TEXT_DUPLICATE_HOLE_ID"
+msgstr "Identifiant de trou en double : %s"
+
+#. JEDER SPIELER BEENDET DAS LOCH
+msgid "TEXT_EACH_PLAYER_FINISHES_THE_HOLE"
+msgstr "CHAQUE JOUEUR TERMINE LE TROU"
+
+#. Bearbeiten
+msgid "TEXT_EDIT"
+msgstr "Modifier"
+
+#. Editor
+msgid "TEXT_EDITOR"
+msgstr "Éditeur"
+
+#. %d Elemente ausgewählt
+msgid "TEXT_ELEMENTS_SELECTED"
+msgstr "%d éléments sélectionnés"
+
+#. Elefant
+msgid "TEXT_ELEPHANT"
+msgstr "Éléphant"
+
+#. Elefantenzyklus (Sekunden)
+msgid "TEXT_ELEPHANT_CYCLE_SECONDS"
+msgstr "Cycle de l'éléphant (secondes)"
+
+#. Stirnkantenstärke
+msgid "TEXT_END_LIP_THICKNESS"
+msgstr "Épaisseur du rebord"
+
+#. NAME EINGEBEN  •  MAXIMAL 12 ZEICHEN
+msgid "TEXT_ENTER_NAME_UP_TO_12_CHARACTERS"
+msgstr "VOTRE NOM  •  12 CARACTÈRES MAX."
+
+#. Einfahrtrichtung
+msgid "TEXT_ENTRY_DIRECTION"
+msgstr "Direction d'entrée"
+
+#. Ausgang
+msgid "TEXT_EXIT"
+msgstr "Sortie"
+
+#. Ausgänge: langsam / passend / schnell
+msgid "TEXT_EXITS_SLOW_SUITABLE_FAST"
+msgstr "Sorties : lent / adapté / rapide"
+
+#. Ausgangsrichtungen
+msgid "TEXT_EXIT_DIRECTIONS"
+msgstr "Directions de sortie"
+
+#. %s: Ausgang %d besitzt keine gueltige Richtung
+msgid "TEXT_EXIT_HAS_AN_INVALID_DIRECTION"
+msgstr "%s : la sortie %d a une direction non valide"
+
+#. %s: Ausgang %d hat keinen freien Auslauf
+msgid "TEXT_EXIT_HAS_NO_CLEAR_RUNOUT"
+msgstr "%s : la sortie %d n'a pas de dégagement libre"
+
+#. %s: Ausgang %d fuehrt direkt in einen Eingang
+msgid "TEXT_EXIT_LEADS_DIRECTLY_INTO_AN_ENTRANCE"
+msgstr "%s : la sortie %d mène directement à une entrée"
+
+#. Ausgang (lokal)
+msgid "TEXT_EXIT_LOCAL"
+msgstr "Sortie (locale)"
+
+#. Ausgangstempo
+msgid "TEXT_EXIT_SPEED"
+msgstr "Vitesse de sortie"
+
+#. Export
+msgid "TEXT_EXPORT"
+msgstr "Exporter"
+
+#. Exportieren
+msgid "TEXT_EXPORT_344"
+msgstr "Exporter"
+
+#. F3 DIAGNOSE  •  F4 KALIBRIERUNG
+msgid "TEXT_F3_DIAGNOSTICS_F4_CALIBRATION"
+msgstr "F3 DIAGNOSTIC  •  F4 CALIBRAGE"
+
+#. F4: Controller kalibrieren
+msgid "TEXT_F4_CALIBRATE_CONTROLLER"
+msgstr "F4 : Calibrer la manette"
+
+#. Schnell
+msgid "TEXT_FAST"
+msgstr "Rapide"
+
+#. Datei enthält zu viele Daten
+msgid "TEXT_FILE_CONTAINS_TOO_MUCH_DATA"
+msgstr "Le fichier contient trop de données"
+
+#. Datei exportiert
+msgid "TEXT_FILE_EXPORTED"
+msgstr "Fichier exporté"
+
+#. Datei ist größer als 16 MB
+msgid "TEXT_FILE_IS_LARGER_THAN_16_MB"
+msgstr "Le fichier dépasse 16 Mo"
+
+#. Datei würde die unterstützte Größe von 16 MB überschreiten
+msgid "TEXT_FILE_WOULD_EXCEED_THE_SUPPORTED_SIZE_OF_16_MB"
+msgstr "Le fichier dépasserait la limite de 16 Mo"
+
+#. ENDTABELLE
+msgid "TEXT_FINAL_SCORES"
+msgstr "RÉSULTATS FINAUX"
+
+#. Flugdauer (Sekunden)
+msgid "TEXT_FLIGHT_DURATION_SECONDS"
+msgstr "Durée de vol (secondes)"
+
+#. Flughöhe
+msgid "TEXT_FLIGHT_HEIGHT"
+msgstr "Hauteur de vol"
+
+#. FREIES SPIEL
+msgid "TEXT_FREE_PLAY"
+msgstr "PARTIE LIBRE"
+
+#. FREIE RUNDE ABGESCHLOSSEN
+msgid "TEXT_FREE_ROUND_COMPLETE"
+msgstr "PARTIE LIBRE TERMINÉE"
+
+#. SPIELMODUS
+msgid "TEXT_GAME_MODE"
+msgstr "MODE DE JEU"
+
+#. Torgröße
+msgid "TEXT_GATE_SIZE"
+msgstr "Taille de la porte"
+
+#. Torweg
+msgid "TEXT_GATE_TRAVEL"
+msgstr "Course de la porte"
+
+#. Zahnradpaare (0–7)
+msgid "TEXT_GEAR_PAIRS_0_7"
+msgstr "Paires d'engrenage (0–7)"
+
+#. GOLD
+msgid "TEXT_GOLD"
+msgstr "OR"
+
+#. Golfer benoetigt bekannte ID, Namen und Atlas
+msgid "TEXT_GOLFER_NEEDS_A_KNOWN_ID_NAME_AND_ATLAS"
+msgstr "Le golfeur nécessite un identifiant connu, un nom et un atlas"
+
+#. Golferwerte muessen endlich sein
+msgid "TEXT_GOLFER_VALUES_MUST_BE_FINITE"
+msgstr "Les valeurs du golfeur doivent être finies"
+
+#. Grün – flach
+msgid "TEXT_GREEN_SHALLOW"
+msgstr "Vert – faible"
+
+#. GRUEN: UNTER PAR   /   APRICOT: UEBER PAR     * LIMIT: MIN. 8 ODER PAR + 3
+msgid "TEXT_GREEN_UNDER_PAR_APRICOT_OVER_PAR_LIMIT_MIN_8_OR_PAR_3"
+msgstr "VERT : SOUS LE PAR / ABRICOT : AU-DESSUS   * LIMITE : MIN. 8 OU PAR + 3"
+
+#. Rasterzelle
+msgid "TEXT_GRID_CELL"
+msgstr "Case de grille"
+
+#. Rasterkoordinaten müssen ganzzahlig sein
+msgid "TEXT_GRID_COORDINATES_MUST_BE_INTEGERS"
+msgstr "Les coordonnées de grille doivent être entières"
+
+#. Rasterversatz
+msgid "TEXT_GRID_OFFSET"
+msgstr "Décalage de grille"
+
+#. GUID: %s
+msgid "TEXT_GUID"
+msgstr "GUID : %s"
+
+#. Hilfen
+msgid "TEXT_GUIDES"
+msgstr "Repères"
+
+#. %s besitzt einen zu engen Bogenradius
+msgid "TEXT_HAS_AN_ARC_RADIUS_THAT_IS_TOO_SMALL"
+msgstr "%s a un rayon d'arc trop petit"
+
+#. %s besitzt keinen gueltigen Bogenwinkel
+msgid "TEXT_HAS_AN_INVALID_ARC_SWEEP"
+msgstr "%s a un angle d'arc non valide"
+
+#. %s besitzt keine gueltige Bogenstaerke
+msgid "TEXT_HAS_AN_INVALID_ARC_THICKNESS"
+msgstr "%s a une épaisseur d'arc non valide"
+
+#. %s besitzt keine gueltige Flaeche
+msgid "TEXT_HAS_AN_INVALID_AREA"
+msgstr "%s a une surface non valide"
+
+#. %s besitzt keinen gueltigen Aufnahmebereich
+msgid "TEXT_HAS_AN_INVALID_CAPTURE_AREA"
+msgstr "%s a une zone de capture non valide"
+
+#. %s besitzt keinen gueltigen Zellzuschnitt
+msgid "TEXT_HAS_AN_INVALID_CELL_CLIPPING_POLYGON"
+msgstr "%s a un découpage de case non valide"
+
+#. %s besitzt keine gueltige Torgroesse
+msgid "TEXT_HAS_AN_INVALID_GATE_SIZE"
+msgstr "%s a une taille de porte non valide"
+
+#. %s besitzt keine gueltige Hindernisgroesse
+msgid "TEXT_HAS_AN_INVALID_OBSTACLE_SIZE"
+msgstr "%s a une taille d'obstacle non valide"
+
+#. %s besitzt keinen gueltigen Radius
+msgid "TEXT_HAS_AN_INVALID_RADIUS"
+msgstr "%s a un rayon non valide"
+
+#. %s besitzt keine gueltige Umlaufzeit
+msgid "TEXT_HAS_AN_INVALID_ROTATION_PERIOD"
+msgstr "%s a une période de rotation non valide"
+
+#. %s besitzt keine gueltige Wippensperre
+msgid "TEXT_HAS_AN_INVALID_SEESAW_BLOCKER"
+msgstr "%s a un blocage de bascule non valide"
+
+#. %s besitzt keine gueltige Wippen-Vorzugsposition
+msgid "TEXT_HAS_AN_INVALID_SEESAW_REST_POSITION"
+msgstr "%s a une position de repos de bascule non valide"
+
+#. %s besitzt keine gueltige Wippengroesse
+msgid "TEXT_HAS_AN_INVALID_SEESAW_SIZE"
+msgstr "%s a une taille de bascule non valide"
+
+#. %s besitzt keine gueltige Groesse
+msgid "TEXT_HAS_AN_INVALID_SIZE"
+msgstr "%s a une taille non valide"
+
+#. %s besitzt keine gueltige Steigungsstufe
+msgid "TEXT_HAS_AN_INVALID_SLOPE_GRADE"
+msgstr "%s a une inclinaison non valide"
+
+#. %s besitzt keine gueltige Triggergroesse
+msgid "TEXT_HAS_AN_INVALID_TRIGGER_SIZE"
+msgstr "%s a une taille de déclencheur non valide"
+
+#. %s besitzt keine gueltige Bandenstaerke
+msgid "TEXT_HAS_AN_INVALID_WALL_THICKNESS"
+msgstr "%s a une épaisseur de bande non valide"
+
+#. %s besitzt eine zu kurze Konturkante %d
+msgid "TEXT_HAS_AN_OUTLINE_EDGE_THAT_IS_TOO_SHORT"
+msgstr "%s a un bord de contour %d trop court"
+
+#. %s besitzt einen unbekannten Wandtyp
+msgid "TEXT_HAS_AN_UNKNOWN_WALL_TYPE"
+msgstr "%s a un type de mur inconnu"
+
+#. %s besitzt weniger als drei Konturpunkte
+msgid "TEXT_HAS_FEWER_THAN_THREE_OUTLINE_POINTS"
+msgstr "%s a moins de trois points de contour"
+
+#. %s besitzt ungueltige Elefantenpositionen
+msgid "TEXT_HAS_INVALID_ELEPHANT_POSITIONS"
+msgstr "%s a des positions d'éléphant non valides"
+
+#. %s besitzt ungueltige Elefantenzeiten oder Aufnahmeparameter
+msgid "TEXT_HAS_INVALID_ELEPHANT_TIMINGS_OR_INTAKE_PARAMETERS"
+msgstr "%s a des durées d'éléphant ou paramètres d'entrée non valides"
+
+#. %s besitzt keine gueltige Wippenbewegung
+msgid "TEXT_HAS_INVALID_SEESAW_MOVEMENT"
+msgstr "%s a un mouvement de bascule non valide"
+
+#. %s besitzt ungueltige Ablaufzeiten
+msgid "TEXT_HAS_INVALID_SEQUENCE_TIMINGS"
+msgstr "%s a des durées de séquence non valides"
+
+#. %s besitzt negative Reibung
+msgid "TEXT_HAS_NEGATIVE_FRICTION"
+msgstr "%s a un frottement négatif"
+
+#. %s besitzt keine geschlossene Haltephase
+msgid "TEXT_HAS_NO_CLOSED_HOLD_PHASE"
+msgstr "%s n'a pas de phase de maintien fermé"
+
+#. %s besitzt kein wirksames Gefaelle
+msgid "TEXT_HAS_NO_EFFECTIVE_SLOPE"
+msgstr "%s n'a pas de pente effective"
+
+#. %s besitzt keine Einflugrichtung
+msgid "TEXT_HAS_NO_ENTRY_DIRECTION"
+msgstr "%s n'a pas de direction d'entrée"
+
+#. %s besitzt keinen Oeffnungsweg
+msgid "TEXT_HAS_NO_OPENING_TRAVEL"
+msgstr "%s n'a pas de course d'ouverture"
+
+#. %s besitzt kein gegenseitiges Lochpaar bei %d
+msgid "TEXT_HAS_NO_RECIPROCAL_HOLE_PAIR_AT"
+msgstr "%s n'a pas de paire réciproque au trou %d"
+
+#. %s besitzt kein Triggerziel
+msgid "TEXT_HAS_NO_TRIGGER_TARGET"
+msgstr "%s n'a pas de cible de déclencheur"
+
+#. %s besitzt keine eindeutige Mechanismus-ID
+msgid "TEXT_HAS_NO_UNIQUE_MECHANISM_ID"
+msgstr "%s n'a pas d'identifiant de mécanisme unique"
+
+#. %s besitzt keine eindeutige Trigger-ID
+msgid "TEXT_HAS_NO_UNIQUE_TRIGGER_ID"
+msgstr "%s n'a pas d'identifiant de déclencheur unique"
+
+#. %s besitzt keine sichtbare Bogenhoehe
+msgid "TEXT_HAS_NO_VISIBLE_ARC_HEIGHT"
+msgstr "%s n'a pas de hauteur d'arc visible"
+
+#. %s besitzt zu wenige Bogensegmente
+msgid "TEXT_HAS_TOO_FEW_ARC_SEGMENTS"
+msgstr "%s a trop peu de segments d'arc"
+
+#. Offen halten (Sekunden)
+msgid "TEXT_HOLD_OPEN_SECONDS"
+msgstr "Maintien ouvert (secondes)"
+
+#. Loch
+msgid "TEXT_HOLE"
+msgstr "Trou"
+
+#. Bahnen
+msgid "TEXT_HOLES"
+msgstr "Trous"
+
+#. %s  /  %d Bahnen%s
+msgid "TEXT_HOLES_348"
+msgstr "%s  /  %d trous%s"
+
+#. LOECHER
+msgid "TEXT_HOLES_640"
+msgstr "TROUS"
+
+#. LOECHER UNTER PAR
+msgid "TEXT_HOLES_UNDER_PAR"
+msgstr "TROUS SOUS LE PAR"
+
+#. LOCH 1/1   GESAMT 0
+msgid "TEXT_HOLE_1_1_TOTAL_0"
+msgstr "TROU 1/1   TOTAL 0"
+
+#. Bahn
+msgid "TEXT_HOLE_255"
+msgstr "Trou"
+
+#. LOCH
+msgid "TEXT_HOLE_639"
+msgstr "TROU"
+
+#. Bahn %s, Pfeilzelle %d
+msgid "TEXT_HOLE_ARROW_TILE"
+msgstr "Trou %s, case fléchée %d"
+
+#. Bahn %s, Pfeilzelle %d liegt nicht vollstaendig in der Bahnkontur
+msgid "TEXT_HOLE_ARROW_TILE_IS_NOT_FULLY_INSIDE_THE_OUTLINE"
+msgstr "Trou %s, case fléchée %d pas entièrement dans le contour"
+
+#. Bahn %s, Pfeilzelle %d liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_ARROW_TILE_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s, case fléchée %d hors de la zone de jeu"
+
+#. Bahn %s, Pfeilzelle %d ueberlappt eine andere Pfeilzelle
+msgid "TEXT_HOLE_ARROW_TILE_OVERLAPS_ANOTHER_ARROW_TILE"
+msgstr "Trou %s, case fléchée %d superposée à une autre"
+
+#. Bahn %s, Aussenwandkaestchen %s
+msgid "TEXT_HOLE_BOUNDARY_WALL_TILE"
+msgstr "Trou %s, élément de mur extérieur %s"
+
+#. Bahn %s: Aussenwandkaestchen %s liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_BOUNDARY_WALL_TILE_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s : élément de mur extérieur %s hors de la zone de jeu"
+
+#. Bahn %s: Kameragrenzen zeigen die Aussenwaende nicht vollstaendig
+msgid "TEXT_HOLE_CAMERA_BOUNDS_HIDE_PARTS_OF_THE_BOUNDARY_WALLS"
+msgstr "Trou %s : les limites de caméra masquent les murs extérieurs"
+
+#. Bahn %s, Kanone %d
+msgid "TEXT_HOLE_CANNON"
+msgstr "Trou %s, canon %d"
+
+#. Bahn %s: Kanone %s ist nicht als Ziel ihres Triggers eingetragen
+msgid "TEXT_HOLE_CANNON_IS_NOT_A_TARGET_OF_ITS_TRIGGER"
+msgstr "Trou %s : canon %s absent des cibles de son déclencheur"
+
+#. Bahn %s, Kanone %d landet ausserhalb der Bahn
+msgid "TEXT_HOLE_CANNON_LANDS_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, canon %d atterrit hors du trou"
+
+#. Bahn %s, Kanone %d liegt ausserhalb der Bahn
+msgid "TEXT_HOLE_CANNON_LIES_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, canon %d hors du trou"
+
+#. Bahn %s: Kanone %s benoetigt unbekannten Trigger %s
+msgid "TEXT_HOLE_CANNON_REQUIRES_UNKNOWN_TRIGGER"
+msgstr "Trou %s : canon %s nécessite le déclencheur inconnu %s"
+
+#. Lochkatalog enthaelt einen leeren Eintrag
+msgid "TEXT_HOLE_CATALOG_CONTAINS_AN_EMPTY_ENTRY"
+msgstr "Le catalogue de trous contient une entrée vide"
+
+#. Lochkatalog ist leer
+msgid "TEXT_HOLE_CATALOG_IS_EMPTY"
+msgstr "Le catalogue de trous est vide"
+
+#. LOCH GESCHAFFT! / %d SCHLAEGE - %s%s
+msgid "TEXT_HOLE_COMPLETE_N_STROKES"
+msgstr "TROU TERMINÉ !\n%d COUPS - %s%s"
+
+#. Bahn %s enthaelt eine leere Pfeilzelle
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_ARROW_TILE"
+msgstr "Le trou %s contient une case fléchée vide"
+
+#. Bahn %s enthaelt eine leere Kanone
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_CANNON"
+msgstr "Le trou %s contient un canon vide"
+
+#. Bahn %s enthaelt ein leeres Hindernis
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_OBSTACLE"
+msgstr "Le trou %s contient un obstacle vide"
+
+#. Bahn %s enthaelt ein leeres Rohrsystem
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_PIPE_SYSTEM"
+msgstr "Le trou %s contient un système de tuyaux vide"
+
+#. Bahn %s enthaelt eine leere Flaeche
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_SURFACE"
+msgstr "Le trou %s contient une surface vide"
+
+#. Bahn %s enthaelt einen leeren Trigger
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_TRIGGER"
+msgstr "Le trou %s contient un déclencheur vide"
+
+#. Bahn %s enthaelt einen leeren Tunnel
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_TUNNEL"
+msgstr "Le trou %s contient un tunnel vide"
+
+#. Bahn %s enthaelt eine leere Bande
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_WALL"
+msgstr "Le trou %s contient une bande vide"
+
+#. Bahn %s enthaelt einen leeren Wandbaustein
+msgid "TEXT_HOLE_CONTAINS_AN_EMPTY_WALL_TILE"
+msgstr "Le trou %s contient un élément de mur vide"
+
+#. BAHNEDITOR
+msgid "TEXT_HOLE_EDITOR"
+msgstr "ÉDITEUR DE TROUS"
+
+#. Bahneditor
+msgid "TEXT_HOLE_EDITOR_328"
+msgstr "Éditeur de trous"
+
+#. Bahn ist größer als 8192 × 8192 Pixel
+msgid "TEXT_HOLE_EXCEEDS_8192_8192_PIXELS"
+msgstr "Le trou dépasse 8192 × 8192 pixels"
+
+#. Bahn exportiert
+msgid "TEXT_HOLE_EXPORTED"
+msgstr "Trou exporté"
+
+#. Bahn %s besitzt kein gueltiges Spielfeld
+msgid "TEXT_HOLE_HAS_AN_INVALID_PLAY_AREA"
+msgstr "Le trou %s a une zone de jeu non valide"
+
+#. Bahn %s besitzt einen unbekannten Grundbelag
+msgid "TEXT_HOLE_HAS_AN_UNKNOWN_BASE_SURFACE"
+msgstr "Le trou %s a un sol de base inconnu"
+
+#. Bahn %s besitzt doppelte Mechanismus-ID %s
+msgid "TEXT_HOLE_HAS_DUPLICATE_MECHANISM_ID"
+msgstr "Le trou %s a un identifiant de mécanisme en double %s"
+
+#. Bahn %s besitzt doppelte Trigger-ID %s
+msgid "TEXT_HOLE_HAS_DUPLICATE_TRIGGER_ID"
+msgstr "Le trou %s a un identifiant de déclencheur en double %s"
+
+#. Bahn %s besitzt negative Kameragrenzen
+msgid "TEXT_HOLE_HAS_NEGATIVE_CAMERA_BOUNDS"
+msgstr "Le trou %s a des limites de caméra négatives"
+
+#. Bahn %s besitzt keinen Anzeigenamen
+msgid "TEXT_HOLE_HAS_NO_DISPLAY_NAME"
+msgstr "Le trou %s n'a pas de nom"
+
+#. Bahn besitzt keine eindeutige ID
+msgid "TEXT_HOLE_HAS_NO_UNIQUE_ID"
+msgstr "Le trou n'a pas d'identifiant unique"
+
+#. Bahn wird noch in „%s“ verwendet
+msgid "TEXT_HOLE_IS_STILL_USED_IN"
+msgstr "Le trou est encore utilisé dans « %s »"
+
+#. Bahn %s, Hindernis %d
+msgid "TEXT_HOLE_OBSTACLE"
+msgstr "Trou %s, obstacle %d"
+
+#. Bahn %s, Hindernis %d liegt ausserhalb der Bahn
+msgid "TEXT_HOLE_OBSTACLE_LIES_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, obstacle %d hors du trou"
+
+#. LOCH %d VON %d ABGESCHLOSSEN
+msgid "TEXT_HOLE_OF_COMPLETE"
+msgstr "TROU %d SUR %d TERMINÉ"
+
+#. Bahn %s, Kontur
+msgid "TEXT_HOLE_OUTLINE"
+msgstr "Trou %s, contour"
+
+#. Bahn %s: Konturpunkt liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_OUTLINE_POINT_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s : point de contour hors de la zone de jeu"
+
+#. Bahn %s, Rohr bei %s
+msgid "TEXT_HOLE_PIPE_AT"
+msgstr "Trou %s, tuyau à %s"
+
+#. Bahneigenschaften
+msgid "TEXT_HOLE_PROPERTIES"
+msgstr "Propriétés du trou"
+
+#. LOCH %d/%d  •  P%d %s AM BALL
+msgid "TEXT_HOLE_P_TO_PLAY"
+msgstr "TROU %d/%d  •  P%d %s JOUE"
+
+#. Bahn gespeichert
+msgid "TEXT_HOLE_SAVED"
+msgstr "Trou enregistré"
+
+#. Bahngröße
+msgid "TEXT_HOLE_SIZE"
+msgstr "Taille du trou"
+
+#. Bahngröße darf höchstens 8192 × 8192 Pixel betragen
+msgid "TEXT_HOLE_SIZE_MUST_NOT_EXCEED_8192_8192_PIXELS"
+msgstr "La taille du trou ne doit pas dépasser 8192 × 8192 pixels"
+
+#. Bahn %s: Normwandsegment liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_STANDARD_WALL_SEGMENT_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s : segment de mur standard hors de la zone de jeu"
+
+#. Bahn %s, Flaeche %d
+msgid "TEXT_HOLE_SURFACE"
+msgstr "Trou %s, surface %d"
+
+#. Bahn %s, Flaeche %d liegt ausserhalb der Bahn
+msgid "TEXT_HOLE_SURFACE_LIES_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, surface %d hors du trou"
+
+#. Bahn %s: Loch liegt ausserhalb der Bahnkontur
+msgid "TEXT_HOLE_TARGET_LIES_OUTSIDE_THE_OUTLINE"
+msgstr "Trou %s : cible hors du contour"
+
+#. Bahn %s: Loch liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_TARGET_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s : cible hors de la zone de jeu"
+
+#. Bahn %s: Abschlag liegt ausserhalb der Bahnkontur
+msgid "TEXT_HOLE_TEE_LIES_OUTSIDE_THE_OUTLINE"
+msgstr "Trou %s : départ hors du contour"
+
+#. Bahn %s: Abschlag liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_TEE_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s : départ hors de la zone de jeu"
+
+#. LOCH %d/%d   GESAMT %d
+msgid "TEXT_HOLE_TOTAL"
+msgstr "TROU %d/%d   TOTAL %d"
+
+#. Bahn %s, Trigger %d
+msgid "TEXT_HOLE_TRIGGER"
+msgstr "Trou %s, déclencheur %d"
+
+#. Bahn %s, Trigger %d liegt ausserhalb der Bahn
+msgid "TEXT_HOLE_TRIGGER_LIES_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, déclencheur %d hors du trou"
+
+#. Bahn %s: Trigger %s verweist auf unbekanntes Ziel %s
+msgid "TEXT_HOLE_TRIGGER_REFERS_TO_UNKNOWN_TARGET"
+msgstr "Trou %s : déclencheur %s lié à une cible inconnue %s"
+
+#. Bahn %s, Tunnel %d
+msgid "TEXT_HOLE_TUNNEL"
+msgstr "Trou %s, tunnel %d"
+
+#. Bahn %s, Tunnel %d liegt ausserhalb der Bahnkontur
+msgid "TEXT_HOLE_TUNNEL_LIES_OUTSIDE_THE_OUTLINE"
+msgstr "Trou %s, tunnel %d hors du contour"
+
+#. Bahn %s, Tunnel %d liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_TUNNEL_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s, tunnel %d hors de la zone de jeu"
+
+#. Bahn %s, Tunnel %d ueberlappt ein anderes Tunnelloch
+msgid "TEXT_HOLE_TUNNEL_OVERLAPS_ANOTHER_TUNNEL_ENTRANCE"
+msgstr "Trou %s, tunnel %d superposé à une autre entrée"
+
+#. Bahn %s, Tunnel %d ueberlappt das Zielloch
+msgid "TEXT_HOLE_TUNNEL_OVERLAPS_THE_TARGET_HOLE"
+msgstr "Trou %s, tunnel %d superposé au trou cible"
+
+#. Bahn %s, Bande %d
+msgid "TEXT_HOLE_WALL"
+msgstr "Trou %s, bande %d"
+
+#. Bahn %s, Bande %d liegt ausserhalb der Bahn
+msgid "TEXT_HOLE_WALL_LIES_OUTSIDE_THE_HOLE"
+msgstr "Trou %s, bande %d hors du trou"
+
+#. Bahn %s, Wandbaustein %d
+msgid "TEXT_HOLE_WALL_TILE"
+msgstr "Trou %s, élément de mur %d"
+
+#. Bahn %s, Wandbaustein %d liegt nicht vollstaendig in der Bahnkontur
+msgid "TEXT_HOLE_WALL_TILE_IS_NOT_FULLY_INSIDE_THE_OUTLINE"
+msgstr "Trou %s, élément de mur %d pas entièrement dans le contour"
+
+#. Bahn %s, Wandbaustein %d liegt ausserhalb des Spielfelds
+msgid "TEXT_HOLE_WALL_TILE_LIES_OUTSIDE_THE_PLAY_AREA"
+msgstr "Trou %s, élément de mur %d hors de la zone de jeu"
+
+#. Bahn %s, Wandbaustein %d belegt ein bereits verwendetes Kaestchen
+msgid "TEXT_HOLE_WALL_TILE_OCCUPIES_AN_ALREADY_USED_CELL"
+msgstr "Trou %s, élément de mur %d sur une case déjà occupée"
+
+#. Waagerecht
+msgid "TEXT_HORIZONTAL"
+msgstr "Horizontal"
+
+#. WIE VIELE SPIELER TRETEN AN?
+msgid "TEXT_HOW_MANY_PLAYERS_WILL_COMPETE"
+msgstr "COMBIEN DE JOUEURS PARTICIPENT ?"
+
+#. Eis
+msgid "TEXT_ICE"
+msgstr "Glace"
+
+#. %s: Eis benoetigt 20 px/s² Bremsung und keine Zusatzkraefte
+msgid "TEXT_ICE_REQUIRES_20_PX_S_BRAKING_AND_NO_ADDITIONAL_FORCES"
+msgstr "%s : la glace nécessite un freinage de 20 px/s² sans force supplémentaire"
+
+#. ID: %d
+msgid "TEXT_ID"
+msgstr "ID : %d"
+
+#. IDENTISCHE HINDERNISPHASE
+msgid "TEXT_IDENTICAL_OBSTACLE_PHASE"
+msgstr "MÊME PHASE DES OBSTACLES"
+
+#. Zündverzögerung (Sekunden)
+msgid "TEXT_IGNITION_DELAY_SECONDS"
+msgstr "Délai d'allumage (secondes)"
+
+#. Importieren
+msgid "TEXT_IMPORT"
+msgstr "Importer"
+
+#. Innenbogen
+msgid "TEXT_INNER_ARC"
+msgstr "Arc intérieur"
+
+#. Eingabe: %s | Fokus: %s
+msgid "TEXT_INPUT_FOCUS"
+msgstr "Entrée : %s / Focus : %s"
+
+#. Aufnahme
+msgid "TEXT_INTAKE"
+msgstr "Entrée"
+
+#. Aufnahme (lokal)
+msgid "TEXT_INTAKE_LOCAL"
+msgstr "Entrée (locale)"
+
+#. Aufnahmeradius
+msgid "TEXT_INTAKE_RADIUS"
+msgstr "Rayon d'aspiration"
+
+#. Einzug (Sekunden)
+msgid "TEXT_INTAKE_SECONDS"
+msgstr "Aspiration (secondes)"
+
+#. Ganzzahl erwartet: %s
+msgid "TEXT_INTEGER_EXPECTED"
+msgstr "Entier attendu : %s"
+
+#. %s ueberschneidet sich an den Kanten %d und %d
+msgid "TEXT_INTERSECTS_ITSELF_AT_EDGES_AND"
+msgstr "%s se croise aux bords %d et %d"
+
+#. Ungueltiges Genauigkeitsprofil
+msgid "TEXT_INVALID_ACCURACY_PROFILE"
+msgstr "Profil de précision non valide"
+
+#. Ungültige Koordinate
+msgid "TEXT_INVALID_COORDINATE"
+msgstr "Coordonnée non valide"
+
+#. Ungültiger Kurs
+msgid "TEXT_INVALID_COURSE"
+msgstr "Parcours non valide"
+
+#. Ungültige Elementkennung
+msgid "TEXT_INVALID_ELEMENT_ID"
+msgstr "Identifiant d'élément non valide"
+
+#. Ungültiges JSON: %s
+msgid "TEXT_INVALID_JSON"
+msgstr "JSON non valide : %s"
+
+#. Ungültige Bibliothek
+msgid "TEXT_INVALID_LIBRARY"
+msgstr "Bibliothèque non valide"
+
+#. Ungültige oder doppelte Bahnkennung
+msgid "TEXT_INVALID_OR_DUPLICATE_HOLE_ID"
+msgstr "Identifiant de trou non valide ou en double"
+
+#. Ungültige oder zu tief verschachtelte Daten
+msgid "TEXT_INVALID_OR_EXCESSIVELY_NESTED_DATA"
+msgstr "Données non valides ou trop imbriquées"
+
+#. Ungültige oder zu große Liste
+msgid "TEXT_INVALID_OR_OVERSIZED_LIST"
+msgstr "Liste non valide ou trop grande"
+
+#. Ungueltige Spielerzahl fuer Modus %d
+msgid "TEXT_INVALID_PLAYER_COUNT_FOR_MODE"
+msgstr "Nombre de joueurs non valide pour le mode %d"
+
+#. Ungültiger Wert: %s
+msgid "TEXT_INVALID_VALUE"
+msgstr "Valeur non valide : %s"
+
+#. %s liegt nicht im Bahnraster
+msgid "TEXT_IS_NOT_ON_THE_HOLE_GRID"
+msgstr "%s n'est pas sur la grille du trou"
+
+#. "ICH BIN DER BESTE. DIE WERTE SAGEN ES AUCH."
+msgid "TEXT_I_M_THE_BEST_THE_STATS_SAY_SO_TOO"
+msgstr "\"JE SUIS LE MEILLEUR. LES CHIFFRES LE DISENT.\""
+
+#. *.json ; Putt & Pixel Bahnen/Kurse
+msgid "TEXT_JSON_PUTT_PIXEL_HOLES_COURSES"
+msgstr "*.json ; Trous/parcours Putt & Pixel"
+
+#. Tastatur
+msgid "TEXT_KEYBOARD"
+msgstr "Clavier"
+
+#. Landung
+msgid "TEXT_LANDING"
+msgstr "Atterrissage"
+
+#. Landeposition
+msgid "TEXT_LANDING_POSITION"
+msgstr "Position d'atterrissage"
+
+#. RUNDE VERLASSEN
+msgid "TEXT_LEAVE_ROUND"
+msgstr "QUITTER LA PARTIE"
+
+#. RUNDE VERLASSEN?
+msgid "TEXT_LEAVE_ROUND_467"
+msgstr "QUITTER LA PARTIE ?"
+
+#. Links
+msgid "TEXT_LEFT"
+msgstr "Gauche"
+
+#. ← Links
+msgid "TEXT_LEFT_211"
+msgstr "← Gauche"
+
+#. Bibliothek
+msgid "TEXT_LIBRARY"
+msgstr "Bibliothèque"
+
+#. MAXIMUM ERREICHT / %d SCHLAEGE /  / NAECHSTER SPIELER ...
+msgid "TEXT_LIMIT_REACHED_N_STROKES_N_NNEXT_PLAYER"
+msgstr "LIMITE ATTEINTE\n%d COUPS\n\nJOUEUR SUIVANT..."
+
+#. LOKALER MEHRSPIELER
+msgid "TEXT_LOCAL_MULTIPLAYER"
+msgstr "MULTIJOUEUR LOCAL"
+
+#. Fläche eine Ebene tiefer
+msgid "TEXT_LOWER_SURFACE_ONE_LAYER"
+msgstr "Descendre le sol d'un niveau"
+
+#. MAGENTA
+msgid "TEXT_MAGENTA"
+msgstr "MAGENTA"
+
+#. HAUPTMENUE
+msgid "TEXT_MAIN_MENU"
+msgstr "MENU PRINCIPAL"
+
+#. max. %d°
+msgid "TEXT_MAX"
+msgstr "max. %d°"
+
+#. Maximale Neigung
+msgid "TEXT_MAXIMUM_TILT"
+msgstr "Inclinaison maximale"
+
+#. MECHANIKEN
+msgid "TEXT_MECHANISMS"
+msgstr "MÉCANISMES"
+
+#. Mittel
+msgid "TEXT_MEDIUM"
+msgstr "Moyenne"
+
+#. Menü
+msgid "TEXT_MENU"
+msgstr "Menu"
+
+#. Mindestimpuls
+msgid "TEXT_MINIMUM_IMPULSE"
+msgstr "Impulsion minimale"
+
+#. Fehlende Bahn
+msgid "TEXT_MISSING_HOLE"
+msgstr "Trou manquant"
+
+#. %s: Gemischter Konturpunkt %d liegt nicht im 16-Pixel-Wandzentrumraster
+msgid "TEXT_MIXED_OUTLINE_POINT_IS_NOT_ON_THE_16_PIXEL_WALL_CENTER_GRID"
+msgstr "%s : point de contour mixte %d hors de la grille centrale à 16 pixels"
+
+#. %s: Gemischte Normwandkante %d besitzt keine gueltige Richtung
+msgid "TEXT_MIXED_STANDARD_WALL_EDGE_HAS_AN_INVALID_DIRECTION"
+msgstr "%s : le bord standard mixte %d a une direction non valide"
+
+#. %s: Gemischte Normwandkante %d besitzt keine ganze Kaestchenlaenge
+msgid "TEXT_MIXED_STANDARD_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH"
+msgstr "%s : le bord standard mixte %d a une longueur de case non entière"
+
+#. MEHR BALKEN: MEHR WEITE / KONTROLLE
+msgid "TEXT_MORE_BARS_MORE_RANGE_CONTROL"
+msgstr "PLUS DE BARRES : PORTÉE / CONTRÔLE"
+
+#. Maus
+msgid "TEXT_MOUSE"
+msgstr "Souris"
+
+#. %s: Muendungen ueberlappen
+msgid "TEXT_MOUTHS_OVERLAP"
+msgstr "%s : les ouvertures se chevauchent"
+
+#. %s: Muendung %d ist nicht frei innerhalb der Bahn
+msgid "TEXT_MOUTH_IS_NOT_CLEAR_INSIDE_THE_HOLE"
+msgstr "%s : l'ouverture %d n'est pas libre dans le trou"
+
+#. Bewegungsdauer (Sekunden)
+msgid "TEXT_MOVEMENT_DURATION_SECONDS"
+msgstr "Durée du mouvement (secondes)"
+
+#. Linken Stick deutlich nach UNTEN bewegen
+msgid "TEXT_MOVE_LEFT_STICK_FULLY_DOWN"
+msgstr "Poussez le stick gauche vers le BAS"
+
+#. Linken Stick deutlich nach RECHTS bewegen
+msgid "TEXT_MOVE_LEFT_STICK_FULLY_RIGHT"
+msgstr "Poussez le stick gauche à DROITE"
+
+#. Paar verschieben
+msgid "TEXT_MOVE_PAIR"
+msgstr "Déplacer la paire"
+
+#. Bewegliches Hindernis
+msgid "TEXT_MOVING_OBSTACLE"
+msgstr "Obstacle mobile"
+
+#. %s muss fuer Normwaende exakt %.0f Pixel stark sein
+msgid "TEXT_MUST_BE_EXACTLY_PIXELS_THICK_FOR_STANDARD_WALLS"
+msgstr "%s doit avoir une épaisseur de %.0f pixels pour les murs standard"
+
+#. %s muss exakt %d x %d Pixel gross sein
+msgid "TEXT_MUST_BE_EXACTLY_X_PIXELS"
+msgstr "%s doit mesurer exactement %d x %d pixels"
+
+#. Mein Kurs
+msgid "TEXT_MY_COURSE"
+msgstr "Mon parcours"
+
+#. Meine Bahn
+msgid "TEXT_MY_HOLE"
+msgstr "Mon trou"
+
+#. Name: %s
+msgid "TEXT_NAME"
+msgstr "Nom : %s"
+
+#. Name
+msgid "TEXT_NAME_258"
+msgstr "Nom"
+
+#. %s benoetigt acht paarweise verbundene Zahnradloecher
+msgid "TEXT_NEEDS_EIGHT_GEAR_HOLES_CONNECTED_IN_PAIRS"
+msgstr "%s nécessite huit trous d'engrenage reliés par paires"
+
+#. %s braucht einen Eingang und genau drei Ausgaenge mit Richtungen
+msgid "TEXT_NEEDS_ONE_ENTRANCE_AND_EXACTLY_THREE_EXITS_WITH_DIRECTIONS"
+msgstr "%s nécessite une entrée et exactement trois sorties orientées"
+
+#. %s besitzt keine der acht Pfeilrichtungen
+msgid "TEXT_NEEDS_ONE_OF_THE_EIGHT_ARROW_DIRECTIONS"
+msgstr "%s nécessite une des huit directions de flèche"
+
+#. %s besitzt keine der zwoelf Wandvarianten
+msgid "TEXT_NEEDS_ONE_OF_THE_TWELVE_WALL_VARIANTS"
+msgstr "%s nécessite une des douze variantes de mur"
+
+#. Neu
+msgid "TEXT_NEW"
+msgstr "Nouveau"
+
+#. Neuer Kurs
+msgid "TEXT_NEW_COURSE"
+msgstr "Nouveau parcours"
+
+#. Neue Bahn
+msgid "TEXT_NEW_HOLE"
+msgstr "Nouveau trou"
+
+#. WEITER
+msgid "TEXT_NEXT"
+msgstr "SUIVANT"
+
+#. NAECHSTE >
+msgid "TEXT_NEXT_420"
+msgstr "SUIVANT >"
+
+#. SPIELERWECHSEL
+msgid "TEXT_NEXT_PLAYER"
+msgstr "JOUEUR SUIVANT"
+
+#.  / F4: Controller kalibrieren
+msgid "TEXT_NF4_CALIBRATE_CONTROLLER"
+msgstr "\nF4 : Calibrer la manette"
+
+#. NEIN
+msgid "TEXT_NO"
+msgstr "NON"
+
+#. Hinweis: 
+msgid "TEXT_NOTE"
+msgstr "Remarque : "
+
+#. Jetzt die Zielkanone anklicken
+msgid "TEXT_NOW_CLICK_THE_TARGET_CANNON"
+msgstr "Cliquez maintenant sur le canon cible"
+
+#. Kein Controller
+msgid "TEXT_NO_CONTROLLER"
+msgstr "Aucune manette"
+
+#. KEIN CONTROLLER / Tastatur und Maus aktiv
+msgid "TEXT_NO_CONTROLLER_NKEYBOARD_AND_MOUSE_ACTIVE"
+msgstr "AUCUNE MANETTE\nClavier et souris actifs"
+
+#. KEIN CONTROLLER / TASTATUR / MAUS
+msgid "TEXT_NO_CONTROLLER_NKEYBOARD_MOUSE"
+msgstr "AUCUNE MANETTE\nCLAVIER / SOURIS"
+
+#. NOCH KEIN LOCH
+msgid "TEXT_NO_HOLE_YET"
+msgstr "AUCUN TROU"
+
+#. noch keine Bewegung
+msgid "TEXT_NO_MOVEMENT_YET"
+msgstr "aucun mouvement"
+
+#. NOCH KEIN BESTWERT
+msgid "TEXT_NO_RECORD_YET"
+msgstr "AUCUN RECORD"
+
+#. %s / %d BAHNEN  /  PAR %d / %s
+msgid "TEXT_N_HOLES_PAR_N"
+msgstr "%s\n%d TROUS  /  PAR %d\n%s"
+
+#. Hindernis
+msgid "TEXT_OBSTACLE"
+msgstr "Obstacle"
+
+#. Öffnungsweg
+msgid "TEXT_OPENING_TRAVEL"
+msgstr "Course d'ouverture"
+
+#. Kopie öffnen
+msgid "TEXT_OPEN_COPY"
+msgstr "Ouvrir la copie"
+
+#. Spielbahn als eigene Kopie öffnen
+msgid "TEXT_OPEN_GAME_HOLE_AS_YOUR_OWN_COPY"
+msgstr "Ouvrir une copie d'un trou du jeu"
+
+#. Ausrichtung
+msgid "TEXT_ORIENTATION"
+msgstr "Orientation"
+
+#. Außenbogen
+msgid "TEXT_OUTER_ARC"
+msgstr "Arc extérieur"
+
+#. %s: Aussenboegen erfordern das gemeinsame Normwandnetz
+msgid "TEXT_OUTER_ARCS_REQUIRE_THE_SHARED_STANDARD_WALL_MESH"
+msgstr "%s : les arcs extérieurs nécessitent le réseau commun de murs standard"
+
+#. %s, Aussenbogen %d
+msgid "TEXT_OUTER_ARC_575"
+msgstr "%s, arc extérieur %d"
+
+#. %s: Aussenbogen %d hat eine abweichende Wandstaerke
+msgid "TEXT_OUTER_ARC_HAS_A_DIFFERENT_WALL_THICKNESS"
+msgstr "%s : l'arc extérieur %d a une épaisseur de mur différente"
+
+#. %s: Aussenbogen %d ist kein Kreisbogen
+msgid "TEXT_OUTER_ARC_IS_NOT_A_CIRCULAR_ARC"
+msgstr "%s : l'arc extérieur %d n'est pas circulaire"
+
+#. %s: Aussenbogen %d braucht genau eine eigene Ankerkante
+msgid "TEXT_OUTER_ARC_NEEDS_EXACTLY_ONE_DEDICATED_ANCHOR_EDGE"
+msgstr "%s : l'arc extérieur %d nécessite un seul bord d'ancrage propre"
+
+#. Kontur
+msgid "TEXT_OUTLINE"
+msgstr "Contour"
+
+#. %s: Konturkante %d wird mehrfach durch Boegen ersetzt
+msgid "TEXT_OUTLINE_EDGE_IS_REPLACED_BY_MULTIPLE_ARCS"
+msgstr "%s : le bord de contour %d est remplacé par plusieurs arcs"
+
+#. Kontur außerhalb des Arbeitsbereichs
+msgid "TEXT_OUTLINE_OUTSIDE_THE_WORK_AREA"
+msgstr "Contour hors de la zone de travail"
+
+#. %s: Konturpunkt %d liegt nicht im 16-Pixel-Wandzentrumraster
+msgid "TEXT_OUTLINE_POINT_IS_NOT_ON_THE_16_PIXEL_WALL_CENTER_GRID"
+msgstr "%s : point de contour %d hors de la grille centrale de murs à 16 pixels"
+
+#. Konturpunkt liegt außerhalb des unterstützten Arbeitsbereichs
+msgid "TEXT_OUTLINE_POINT_LIES_OUTSIDE_THE_SUPPORTED_WORK_AREA"
+msgstr "Point de contour hors de la zone de travail prise en charge"
+
+#. Kontur / Eckpunkte
+msgid "TEXT_OUTLINE_VERTICES"
+msgstr "Contour / Sommets"
+
+#. %s ueberlappt ein weiteres Rohr
+msgid "TEXT_OVERLAPS_ANOTHER_PIPE"
+msgstr "%s chevauche un autre tuyau"
+
+#. Gesamtansicht
+msgid "TEXT_OVERVIEW"
+msgstr "Vue d'ensemble"
+
+#. +%d UEBER PAR
+msgid "TEXT_OVER_PAR"
+msgstr "+%d AU-DESSUS DU PAR"
+
+#. %d/%d  •  SEITE %d/%d  •  %s
+msgid "TEXT_PAGE"
+msgstr "%d/%d  •  PAGE %d/%d  •  %s"
+
+#. SEITE %d/%d  •  EIN LOCH FREI AUSWAEHLEN
+msgid "TEXT_PAGE_CHOOSE_ANY_HOLE"
+msgstr "PAGE %d/%d  •  CHOISISSEZ UN TROU"
+
+#. SEITE %d/%d  •  %d KURSE SIND SPIELBEREIT
+msgid "TEXT_PAGE_COURSES_READY"
+msgstr "PAGE %d/%d  •  %d PARCOURS PRÊTS"
+
+#. Pfeile malen
+msgid "TEXT_PAINT_ARROWS"
+msgstr "Peindre des flèches"
+
+#. PAR muss zwischen 1 und 20 liegen
+msgid "TEXT_PAR_MUST_BE_BETWEEN_1_AND_20"
+msgstr "Le PAR doit être compris entre 1 et 20"
+
+#. CONTROLLER AN / P%d  %s / WEITERGEBEN
+msgid "TEXT_PASS_CONTROLLER_TO_NP"
+msgstr "PASSEZ LA MANETTE À\nP%d  %s"
+
+#. EIN CONTROLLER WIRD WEITERGEREICHT
+msgid "TEXT_PASS_ONE_CONTROLLER_AROUND"
+msgstr "UNE MANETTE À PARTAGER"
+
+#. Pause
+msgid "TEXT_PAUSE"
+msgstr "Pause"
+
+#. PAUSE · P fortsetzen
+msgid "TEXT_PAUSED_P_RESUMES"
+msgstr "PAUSE · P reprendre"
+
+#. PAUSE
+msgid "TEXT_PAUSE_459"
+msgstr "PAUSE"
+
+#. PERFEKTFENSTER   +/- %.1f %%
+msgid "TEXT_PERFECT_WINDOW"
+msgstr "ZONE PARFAITE   +/- %.1f %%"
+
+#. PERFEKTFENSTER
+msgid "TEXT_PERFECT_WINDOW_487"
+msgstr "ZONE PARFAITE"
+
+#. Rohr
+msgid "TEXT_PIPE"
+msgstr "Tuyau"
+
+#. Rohreingang
+msgid "TEXT_PIPE_ENTRANCE"
+msgstr "Entrée du tuyau"
+
+#. Ball setzen
+msgid "TEXT_PLACE_BALL"
+msgstr "Placer la balle"
+
+#. Tunnelpaar setzen · danach Enden einzeln oder das Paar am mittleren Griff verschieben
+msgid "TEXT_PLACE_TUNNEL_PAIR_THEN_DRAG_ENDS_OR_MOVE_BOTH_WITH_THE_MIDDLE_HAN"
+msgstr "Placer une paire de tunnels · déplacer les entrées ou la paire avec la poignée centrale"
+
+#. Spielen
+msgid "TEXT_PLAY"
+msgstr "Jouer"
+
+#. Spieler %d
+msgid "TEXT_PLAYER"
+msgstr "Joueur %d"
+
+#. %d Spieler
+msgid "TEXT_PLAYERS"
+msgstr "%d joueurs"
+
+#. Spieler für „%s“
+msgid "TEXT_PLAYERS_FOR"
+msgstr "Joueurs pour « %s »"
+
+#. MEHRFACHE FIGURENWAHL MOEGLICH
+msgid "TEXT_PLAYERS_MAY_SHARE_A_CHARACTER"
+msgstr "PERSONNAGE IDENTIQUE AUTORISÉ"
+
+#. SPIELER 1
+msgid "TEXT_PLAYER_1"
+msgstr "JOUEUR 1"
+
+#. SPIELER %d
+msgid "TEXT_PLAYER_385"
+msgstr "JOUEUR %d"
+
+#. SPIELER %d/%d
+msgid "TEXT_PLAYER_386"
+msgstr "JOUEUR %d/%d"
+
+#. SPIELER
+msgid "TEXT_PLAYER_641"
+msgstr "JOUEUR"
+
+#. Spielerfarben muessen eindeutig sein
+msgid "TEXT_PLAYER_COLORS_MUST_BE_UNIQUE"
+msgstr "Les couleurs des joueurs doivent être uniques"
+
+#. SPIELERZAHL
+msgid "TEXT_PLAYER_COUNT"
+msgstr "NOMBRE DE JOUEURS"
+
+#. SPIELERNUMMER BLEIBT ZUSAETZLICH SICHTBAR
+msgid "TEXT_PLAYER_NUMBER_STAYS_VISIBLE_TOO"
+msgstr "LE NUMÉRO DU JOUEUR RESTE VISIBLE"
+
+#. Spielerprofil und Golfer stimmen nicht ueberein
+msgid "TEXT_PLAYER_PROFILE_AND_GOLFER_DO_NOT_MATCH"
+msgstr "Le profil du joueur ne correspond pas au golfeur"
+
+#. Spieler verweist auf unbekannten Golfer
+msgid "TEXT_PLAYER_REFERS_TO_AN_UNKNOWN_GOLFER"
+msgstr "Le joueur référence un golfeur inconnu"
+
+#. ▶ Testspiel
+msgid "TEXT_PLAYTEST"
+msgstr "▶ Tester"
+
+#. NOCHMAL
+msgid "TEXT_PLAY_AGAIN"
+msgstr "REJOUER"
+
+#. Bitte durch Kommas getrennte Ganzzahlen eingeben
+msgid "TEXT_PLEASE_ENTER_COMMA_SEPARATED_INTEGERS"
+msgstr "Saisissez des entiers séparés par des virgules"
+
+#. Bitte zuerst die markierten Datenfehler beheben. Der Entwurf kann jederzeit gespeichert werden.
+msgid "TEXT_PLEASE_FIX_THE_MARKED_DATA_ERRORS_FIRST_YOU_CAN_SAVE_THE_DRAFT_AT"
+msgstr "Corrigez d'abord les erreurs signalées. Vous pouvez enregistrer le brouillon à tout moment."
+
+#. Position
+msgid "TEXT_POSITION"
+msgstr "Position"
+
+#. Position blockiert · anderen Boden wählen
+msgid "TEXT_POSITION_BLOCKED_CHOOSE_ANOTHER_SPOT"
+msgstr "Position bloquée · choisissez un autre emplacement"
+
+#. KRAFTZYKLUS   %.1f s
+msgid "TEXT_POWER_CYCLE_S"
+msgstr "CYCLE DE FORCE   %.1f s"
+
+#. KRAFT-RUHE
+msgid "TEXT_POWER_TIMING"
+msgstr "RYTHME FORCE"
+
+#. UEBUNG
+msgid "TEXT_PRACTICE"
+msgstr "ENTRAÎNEMENT"
+
+#. UEBUNG ABGESCHLOSSEN
+msgid "TEXT_PRACTICE_COMPLETE"
+msgstr "ENTRAÎNEMENT TERMINÉ"
+
+#. Uebung besteht aus genau einem Loch
+msgid "TEXT_PRACTICE_CONSISTS_OF_EXACTLY_ONE_HOLE"
+msgstr "L'entraînement comprend exactement un trou"
+
+#. UEBUNGSLOCH
+msgid "TEXT_PRACTICE_HOLE"
+msgstr "TROU D'ENTRAÎNEMENT"
+
+#. Gedrueckte Tasten: %s
+msgid "TEXT_PRESSED_BUTTONS"
+msgstr "Boutons enfoncés : %s"
+
+#. Kreis / Abbruchtaste druecken
+msgid "TEXT_PRESS_CIRCLE_CANCEL_BUTTON"
+msgstr "Appuyez sur cercle / annuler"
+
+#. Kreuz / Schlagtaste druecken
+msgid "TEXT_PRESS_CROSS_SHOT_BUTTON"
+msgstr "Appuyez sur croix / frappe"
+
+#. Steuerkreuz UNTEN druecken
+msgid "TEXT_PRESS_D_PAD_DOWN"
+msgstr "Appuyez sur la croix BAS"
+
+#. Steuerkreuz LINKS druecken
+msgid "TEXT_PRESS_D_PAD_LEFT"
+msgstr "Appuyez sur la croix GAUCHE"
+
+#. Steuerkreuz RECHTS druecken
+msgid "TEXT_PRESS_D_PAD_RIGHT"
+msgstr "Appuyez sur la croix DROITE"
+
+#. Steuerkreuz OBEN druecken
+msgid "TEXT_PRESS_D_PAD_UP"
+msgstr "Appuyez sur la croix HAUT"
+
+#. < VORHERIGE
+msgid "TEXT_PREVIOUS"
+msgstr "< PRÉCÉDENT"
+
+#. Profil: %s
+msgid "TEXT_PROFILE"
+msgstr "Profil : %s"
+
+#. EIGENSCHAFTEN
+msgid "TEXT_PROPERTIES"
+msgstr "PROPRIÉTÉS"
+
+#. VIOLETT
+msgid "TEXT_PURPLE"
+msgstr "VIOLET"
+
+#. PUTT & PIXEL  /  BAUEN · PROBIEREN · TEILEN
+msgid "TEXT_PUTT_PIXEL_BUILD_TRY_SHARE"
+msgstr "PUTT & PIXEL  /  CRÉER · TESTER · PARTAGER"
+
+#. Radius
+msgid "TEXT_RADIUS"
+msgstr "Rayon"
+
+#. Fläche eine Ebene höher
+msgid "TEXT_RAISE_SURFACE_ONE_LAYER"
+msgstr "Monter le sol d'un niveau"
+
+#. REICHWEITE   %d %%
+msgid "TEXT_RANGE"
+msgstr "PORTÉE   %d %%"
+
+#. REICHWEITE
+msgid "TEXT_RANGE_483"
+msgstr "PORTÉE"
+
+#. Reichweite und Zykluszeiten muessen positiv sein
+msgid "TEXT_RANGE_AND_CYCLE_DURATIONS_MUST_BE_POSITIVE"
+msgstr "La portée et les durées de cycle doivent être positives"
+
+#. BEREIT
+msgid "TEXT_READY"
+msgstr "PRÊT"
+
+#. BESTWERTE NUR NACH VOLLSTAENDIGER RUNDE
+msgid "TEXT_RECORDS_ONLY_FOR_COMPLETE_ROUNDS"
+msgstr "RECORDS APRÈS UNE PARTIE COMPLÈTE"
+
+#. Wiederholen
+msgid "TEXT_REDO"
+msgstr "Rétablir"
+
+#. Kontur neu zeichnen
+msgid "TEXT_REDRAW_OUTLINE"
+msgstr "Redessiner le contour"
+
+#. Rot – steil
+msgid "TEXT_RED_STEEP"
+msgstr "Rouge – forte"
+
+#. ERST NACH DEM LOSLASSEN BESTAETIGEN
+msgid "TEXT_RELEASE_BUTTONS_BEFORE_CONFIRMING"
+msgstr "RELÂCHEZ AVANT DE VALIDER"
+
+#. Freigabeschwelle
+msgid "TEXT_RELEASE_THRESHOLD"
+msgstr "Seuil de libération"
+
+#. Entfernen
+msgid "TEXT_REMOVE"
+msgstr "Retirer"
+
+#. LETZTES ENTFERNEN
+msgid "TEXT_REMOVE_LAST"
+msgstr "RETIRER LE DERNIER"
+
+#. %s besitzt keinen gueltigen Ganz- oder Halbrasterversatz
+msgid "TEXT_REQUIRES_A_FULL_OR_HALF_GRID_OFFSET"
+msgstr "%s nécessite un décalage d'une case ou demi-case"
+
+#. Neustart
+msgid "TEXT_RESTART"
+msgstr "Recommencer"
+
+#. LOCH NEU STARTEN
+msgid "TEXT_RESTART_HOLE"
+msgstr "RECOMMENCER LE TROU"
+
+#. Entwurf wiederherstellen
+msgid "TEXT_RESTORE_DRAFT"
+msgstr "Restaurer le brouillon"
+
+#. Ruhelage (−1 bis 1)
+msgid "TEXT_REST_POSITION_1_TO_1"
+msgstr "Position de repos (−1 à 1)"
+
+#. FORTSETZEN
+msgid "TEXT_RESUME"
+msgstr "REPRENDRE"
+
+#. RETRO MINIGOLF  •  VERSION %s
+msgid "TEXT_RETRO_MINIGOLF_VERSION"
+msgstr "MINIGOLF RÉTRO  •  VERSION %s"
+
+#. Rechts
+msgid "TEXT_RIGHT"
+msgstr "Droite"
+
+#. → Rechts
+msgid "TEXT_RIGHT_207"
+msgstr "→ Droite"
+
+#. Rollwiderstand
+msgid "TEXT_ROLLING_RESISTANCE"
+msgstr "Résistance au roulement"
+
+#. %s dreht fuer sichere Zahnrad-Ausgaenge zu schnell
+msgid "TEXT_ROTATES_TOO_FAST_FOR_SAFE_GEAR_EXITS"
+msgstr "%s tourne trop vite pour des sorties d'engrenage sûres"
+
+#. Drehung
+msgid "TEXT_ROTATION"
+msgstr "Rotation"
+
+#. Rotor
+msgid "TEXT_ROTOR"
+msgstr "Rotor"
+
+#. Rotorgröße
+msgid "TEXT_ROTOR_SIZE"
+msgstr "Taille du rotor"
+
+#. Kreisbumper
+msgid "TEXT_ROUND_BUMPER"
+msgstr "Butoir circulaire"
+
+#. RUNDE ABGESCHLOSSEN
+msgid "TEXT_ROUND_COMPLETE"
+msgstr "PARTIE TERMINÉE"
+
+#. Runde enthaelt einen leeren Spieler
+msgid "TEXT_ROUND_CONTAINS_AN_EMPTY_PLAYER"
+msgstr "La partie contient un joueur vide"
+
+#. Runde enthaelt unbekannte Bahn %s
+msgid "TEXT_ROUND_CONTAINS_UNKNOWN_HOLE"
+msgstr "La partie contient le trou inconnu %s"
+
+#. RUNDE ANGEHALTEN
+msgid "TEXT_ROUND_PAUSED"
+msgstr "PARTIE EN PAUSE"
+
+#. Runde verweist auf unbekannten Kurs %s
+msgid "TEXT_ROUND_REFERS_TO_UNKNOWN_COURSE"
+msgstr "La partie référence le parcours inconnu %s"
+
+#. Sand
+msgid "TEXT_SAND"
+msgstr "Sable"
+
+#. Speichern
+msgid "TEXT_SAVE"
+msgstr "Enregistrer"
+
+#. Änderungen vor dem Verlassen speichern?
+msgid "TEXT_SAVE_CHANGES_BEFORE_LEAVING"
+msgstr "Enregistrer les modifications avant de quitter ?"
+
+#. Kurs speichern
+msgid "TEXT_SAVE_COURSE"
+msgstr "Enregistrer le parcours"
+
+#. Speichern fehlgeschlagen: %s
+msgid "TEXT_SAVING_FAILED"
+msgstr "Échec de l'enregistrement : %s"
+
+#. ERGEBNISTABELLE
+msgid "TEXT_SCORECARD"
+msgstr "TABLEAU DES SCORES"
+
+#. TABELLE
+msgid "TEXT_SCORES"
+msgstr "SCORES"
+
+#. SDL-Standard
+msgid "TEXT_SDL_DEFAULT"
+msgstr "Par défaut SDL"
+
+#. SDL-Mapping: %s
+msgid "TEXT_SDL_MAPPING"
+msgstr "Configuration SDL : %s"
+
+#. Controller wird gesucht ...
+msgid "TEXT_SEARCHING_FOR_CONTROLLER"
+msgstr "Recherche de manette..."
+
+#. Sekunden pro Umdrehung
+msgid "TEXT_SECONDS_PER_REVOLUTION"
+msgstr "Secondes par tour"
+
+#. Wippe
+msgid "TEXT_SEESAW"
+msgstr "Bascule"
+
+#. Wippenachse
+msgid "TEXT_SEESAW_AXIS"
+msgstr "Axe de bascule"
+
+#. Wippengröße
+msgid "TEXT_SEESAW_SIZE"
+msgstr "Taille de la bascule"
+
+#. Auswahl
+msgid "TEXT_SELECTION"
+msgstr "Sélection"
+
+#. Auswahl: Tunnelenden einzeln ziehen · mittlerer Griff verschiebt das Paar · Tunnelpaar legt ein weiteres an
+msgid "TEXT_SELECTION_DRAG_TUNNEL_ENDS_SEPARATELY_MIDDLE_HANDLE_MOVES_BOTH_TU"
+msgstr "Sélection : déplacer chaque entrée · poignée centrale pour la paire · paire de tunnels pour en ajouter"
+
+#. KURS MARKIEREN: VORSCHAU
+msgid "TEXT_SELECT_COURSE_PREVIEW"
+msgstr "CHOISIR : APERÇU"
+
+#. -/+ WAEHLEN, KREUZ / ENTER: AENDERN
+msgid "TEXT_SELECT_CROSS_ENTER_CHANGE"
+msgstr "CHOISIR -/+, CROIX / ENTRÉE : MODIFIER"
+
+#. Auswahl / Verschieben
+msgid "TEXT_SELECT_MOVE"
+msgstr "Sélectionner / Déplacer"
+
+#. FOLGE: 
+msgid "TEXT_SEQUENCE"
+msgstr "SUITE : "
+
+#. Flach
+msgid "TEXT_SHALLOW"
+msgstr "Faible"
+
+#. EINZELNER KURS
+msgid "TEXT_SINGLE_COURSE"
+msgstr "PARCOURS SOLO"
+
+#. Größe
+msgid "TEXT_SIZE"
+msgstr "Taille"
+
+#. Schiebetor
+msgid "TEXT_SLIDING_GATE"
+msgstr "Porte coulissante"
+
+#. Gefaelle
+msgid "TEXT_SLOPE"
+msgstr "Pente"
+
+#. Gefällepfeil
+msgid "TEXT_SLOPE_ARROW"
+msgstr "Flèche de pente"
+
+#. Gefällekraft
+msgid "TEXT_SLOPE_FORCE"
+msgstr "Force de pente"
+
+#. Gefällestärke
+msgid "TEXT_SLOPE_GRADE"
+msgstr "Inclinaison"
+
+#. Langsam
+msgid "TEXT_SLOW"
+msgstr "Lent"
+
+#. LEER
+msgid "TEXT_SPACE"
+msgstr "ESPACE"
+
+#. Tempo-Rohr
+msgid "TEXT_SPEED_PIPE"
+msgstr "Tuyau de vitesse"
+
+#. %s: Normwandkante %d besitzt keine ganze Kaestchenlaenge
+msgid "TEXT_STANDARD_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH"
+msgstr "%s : le bord de mur standard %d a une longueur de case non entière"
+
+#. %s: Normwandkante %d ist weder waagerecht noch senkrecht
+msgid "TEXT_STANDARD_WALL_EDGE_IS_NEITHER_HORIZONTAL_NOR_VERTICAL"
+msgstr "%s : le bord de mur standard %d n'est ni horizontal ni vertical"
+
+#. Start
+msgid "TEXT_START"
+msgstr "Départ"
+
+#. START / KREIS: FORTSETZEN
+msgid "TEXT_START_CIRCLE_RESUME"
+msgstr "START / CERCLE : REPRENDRE"
+
+#. SPIEL STARTEN
+msgid "TEXT_START_GAME"
+msgstr "JOUER"
+
+#. RUNDE STARTEN
+msgid "TEXT_START_ROUND"
+msgstr "LANCER LA PARTIE"
+
+#. Steil
+msgid "TEXT_STEEP"
+msgstr "Forte"
+
+#. STICK / D-PAD  AUSWAEHLEN
+msgid "TEXT_STICK_D_PAD_SELECT"
+msgstr "STICK / CROIX  CHOISIR"
+
+#. %s: %d SCHLAEGE%s
+msgid "TEXT_STROKES"
+msgstr "%s : %d COUPS%s"
+
+#. SCHLAEGE 0   PAR 4
+msgid "TEXT_STROKES_0_PAR_4"
+msgstr "COUPS 0   PAR 4"
+
+#. SCHLAEGE
+msgid "TEXT_STROKES_645"
+msgstr "COUPS"
+
+#. SCHLAEGE %d/%d   PAR %d
+msgid "TEXT_STROKES_PAR"
+msgstr "COUPS %d/%d   PAR %d"
+
+#. SCHLAEGE %d   PAR %d
+msgid "TEXT_STROKES_PAR_561"
+msgstr "COUPS %d   PAR %d"
+
+#. Passend
+msgid "TEXT_SUITABLE"
+msgstr "Adapté"
+
+#. Flaeche
+msgid "TEXT_SURFACE"
+msgstr "Surface"
+
+#. BELÄGE & GEFÄLLE
+msgid "TEXT_SURFACES_SLOPES"
+msgstr "SOLS ET PENTES"
+
+#. Belag
+msgid "TEXT_SURFACE_234"
+msgstr "Sol"
+
+#. Schalter
+msgid "TEXT_SWITCH"
+msgstr "Interrupteur"
+
+#. Schalterziel
+msgid "TEXT_SWITCH_TARGET"
+msgstr "Cible de l'interrupteur"
+
+#. Zielloch
+msgid "TEXT_TARGET_HOLE"
+msgstr "Trou cible"
+
+#. Zielloch ist blockiert
+msgid "TEXT_TARGET_HOLE_IS_BLOCKED"
+msgstr "Le trou cible est bloqué"
+
+#. Technische Bahnen sind nur in der Uebung erlaubt
+msgid "TEXT_TECHNICAL_HOLES_ARE_ONLY_ALLOWED_IN_PRACTICE"
+msgstr "Les trous techniques sont réservés à l'entraînement"
+
+#. Abschlag
+msgid "TEXT_TEE"
+msgstr "Départ"
+
+#. Abschlag ist blockiert
+msgid "TEXT_TEE_IS_BLOCKED"
+msgstr "Le départ est bloqué"
+
+#. Vorlage
+msgid "TEXT_TEMPLATE"
+msgstr "Modèle"
+
+#. TEST
+msgid "TEXT_TEST"
+msgstr "TEST"
+
+#. TEST · Ball versetzt
+msgid "TEXT_TEST_BALL_MOVED"
+msgstr "TEST · balle déplacée"
+
+#. TESTRUNDE ABGESCHLOSSEN - OHNE KURSBESTWERT
+msgid "TEXT_TEST_ROUND_COMPLETE_NO_COURSE_RECORD"
+msgstr "TEST TERMINÉ - SANS RECORD DE PARCOURS"
+
+#. TEST · R Neustart · P Pause
+msgid "TEXT_TEST_R_RESTART_P_PAUSE"
+msgstr "TEST · R recommencer · P pause"
+
+#. TEST · gleicher Ausgangszustand
+msgid "TEXT_TEST_SAME_INITIAL_STATE"
+msgstr "TEST · même état initial"
+
+#. Testwert ausserhalb des Einstellbereichs
+msgid "TEXT_TEST_VALUE_OUTSIDE_THE_ALLOWED_RANGE"
+msgstr "Valeur de test hors de la plage autorisée"
+
+#. Die Endpunkte bleiben verankert.
+msgid "TEXT_THE_ENDPOINTS_REMAIN_ANCHORED"
+msgstr "Les extrémités restent ancrées."
+
+#. Die Bibliothek unterstützt bis zu 1024 Bahnen und 1024 Kurse
+msgid "TEXT_THE_LIBRARY_SUPPORTS_UP_TO_1024_HOLES_AND_1024_COURSES"
+msgstr "La bibliothèque accepte 1024 trous et 1024 parcours"
+
+#. Diese Auswahl enthält einen Entwurf mit Datenfehlern. Bitte zuerst bearbeiten.
+msgid "TEXT_THIS_SELECTION_CONTAINS_A_DRAFT_WITH_DATA_ERRORS_PLEASE_EDIT_IT_F"
+msgstr "Cette sélection contient un brouillon avec des erreurs. Modifiez-le d'abord."
+
+#. Kippdauer (Sekunden)
+msgid "TEXT_TILT_DURATION_SECONDS"
+msgstr "Durée de basculement (secondes)"
+
+#. Zeitversatz (Sekunden)
+msgid "TEXT_TIME_OFFSET_SECONDS"
+msgstr "Décalage temporel (secondes)"
+
+#. WERKZEUGE
+msgid "TEXT_TOOLS"
+msgstr "OUTILS"
+
+#. Werkzeug: %s  ·  Ziehen zum Platzieren/Verschieben  ·  Escape bricht ab
+msgid "TEXT_TOOL_DRAG_TO_PLACE_MOVE_ESCAPE_CANCELS"
+msgstr "Outil : %s · Glisser pour placer/déplacer · Échap annule"
+
+#. Zu viele Bauteile
+msgid "TEXT_TOO_MANY_COMPONENTS"
+msgstr "Trop d'éléments"
+
+#. Zu viele Konturpunkte
+msgid "TEXT_TOO_MANY_OUTLINE_POINTS"
+msgstr "Trop de points de contour"
+
+#. ZU PAR
+msgid "TEXT_TO_PAR"
+msgstr "AU PAR"
+
+#. Spur an/aus
+msgid "TEXT_TRAIL_ON_OFF"
+msgstr "Trace oui/non"
+
+#. Transportdauer (Sekunden)
+msgid "TEXT_TRANSPORT_DURATION_SECONDS"
+msgstr "Durée du transport (secondes)"
+
+#. DREIECK / F2 IM SPIEL: TESTBAHNEN
+msgid "TEXT_TRIANGLE_F2_IN_GAME_TEST_HOLES"
+msgstr "TRIANGLE / F2 EN JEU : TROUS TEST"
+
+#. Trigger
+msgid "TEXT_TRIGGER"
+msgstr "Déclencheur"
+
+#. Rüsselgröße
+msgid "TEXT_TRUNK_SIZE"
+msgstr "Taille de la trompe"
+
+#. Rüsselweg
+msgid "TEXT_TRUNK_TRAVEL"
+msgstr "Course de la trompe"
+
+#. Tunnel
+msgid "TEXT_TUNNEL"
+msgstr "Tunnel"
+
+#. Tunnel A
+msgid "TEXT_TUNNEL_A"
+msgstr "Tunnel A"
+
+#. Tunnel B
+msgid "TEXT_TUNNEL_B"
+msgstr "Tunnel B"
+
+#. Tunnelzahnrad
+msgid "TEXT_TUNNEL_GEAR"
+msgstr "Engrenage-tunnel"
+
+#. Tunnelpaar
+msgid "TEXT_TUNNEL_PAIR"
+msgstr "Paire de tunnels"
+
+#. TUERKIS
+msgid "TEXT_TURQUOISE"
+msgstr "TURQUOISE"
+
+#. T unten
+msgid "TEXT_T_DOWN"
+msgstr "T bas"
+
+#. T links
+msgid "TEXT_T_LEFT"
+msgstr "T gauche"
+
+#. T rechts
+msgid "TEXT_T_RIGHT"
+msgstr "T droite"
+
+#. T oben
+msgid "TEXT_T_UP"
+msgstr "T haut"
+
+#. %d UNTER PAR
+msgid "TEXT_UNDER_PAR"
+msgstr "%d SOUS LE PAR"
+
+#. Unbekannter Bauteiltyp
+msgid "TEXT_UNKNOWN_COMPONENT_TYPE"
+msgstr "Type d'élément inconnu"
+
+#. Unbekannte Dateiversion
+msgid "TEXT_UNKNOWN_FILE_VERSION"
+msgstr "Version de fichier inconnue"
+
+#. Unbekannte Eigenschaft: %s
+msgid "TEXT_UNKNOWN_PROPERTY"
+msgstr "Propriété inconnue : %s"
+
+#. Unbekannte Auswahl: %s
+msgid "TEXT_UNKNOWN_SELECTION"
+msgstr "Sélection inconnue : %s"
+
+#. Unbekanntes Thema
+msgid "TEXT_UNKNOWN_THEME"
+msgstr "Thème inconnu"
+
+#. UNBENANNTER KURS
+msgid "TEXT_UNNAMED_COURSE"
+msgstr "PARCOURS SANS NOM"
+
+#. UNBENANNTE BAHN
+msgid "TEXT_UNNAMED_HOLE"
+msgstr "TROU SANS NOM"
+
+#. Ungespeicherte Änderungen
+msgid "TEXT_UNSAVED_CHANGES"
+msgstr "Modifications non enregistrées"
+
+#. Nicht unterstützte Bogengröße oder Segmentzahl
+msgid "TEXT_UNSUPPORTED_ARC_SIZE_OR_SEGMENT_COUNT"
+msgstr "Taille d'arc ou nombre de segments non pris en charge"
+
+#. Oben
+msgid "TEXT_UP"
+msgstr "Haut"
+
+#. ↑ Oben
+msgid "TEXT_UP_205"
+msgstr "↑ Haut"
+
+#. Oben links
+msgid "TEXT_UP_LEFT"
+msgstr "Haut gauche"
+
+#. ↖ Oben links
+msgid "TEXT_UP_LEFT_212"
+msgstr "↖ Haut gauche"
+
+#. Oben rechts
+msgid "TEXT_UP_RIGHT"
+msgstr "Haut droite"
+
+#. ↗ Oben rechts
+msgid "TEXT_UP_RIGHT_206"
+msgstr "↗ Haut droite"
+
+#. %s verwendet eine Kante ausserhalb der acht Normwandrichtungen
+msgid "TEXT_USES_AN_EDGE_OUTSIDE_THE_EIGHT_STANDARD_WALL_DIRECTIONS"
+msgstr "%s utilise un bord hors des huit directions de murs standard"
+
+#. %s verwendet Wandkaestchen %s mehrfach
+msgid "TEXT_USES_WALL_CELL_MORE_THAN_ONCE"
+msgstr "%s utilise la case de mur %s plusieurs fois"
+
+#. Geschwindigkeit nach Landung
+msgid "TEXT_VELOCITY_AFTER_LANDING"
+msgstr "Vitesse après atterrissage"
+
+#. Senkrecht
+msgid "TEXT_VERTICAL"
+msgstr "Vertical"
+
+#. Bande
+msgid "TEXT_WALL"
+msgstr "Bande"
+
+#. WÄNDE
+msgid "TEXT_WALLS"
+msgstr "MURS"
+
+#. Wand
+msgid "TEXT_WALL_233"
+msgstr "Mur"
+
+#. Wandstück
+msgid "TEXT_WALL_PIECE"
+msgstr "Élément de mur"
+
+#. Wandbaustein
+msgid "TEXT_WALL_TILE"
+msgstr "Élément de mur"
+
+#. Wasser
+msgid "TEXT_WATER"
+msgstr "Eau"
+
+#. WAS MOECHTEST DU SPIELEN?
+msgid "TEXT_WHAT_WOULD_YOU_LIKE_TO_PLAY"
+msgstr "À QUOI VOULEZ-VOUS JOUER ?"
+
+#. Mausrad: Zoom  ·  Mitte: Verschieben  ·  Shift: Mehrfachauswahl  ·  Strg+Z/Y: Rückgängig/Wiederholen
+msgid "TEXT_WHEEL_ZOOM_MIDDLE_PAN_SHIFT_MULTI_SELECT_CTRL_Z_Y_UNDO_REDO"
+msgstr "Molette : zoom · Milieu : déplacer · Maj : sélection multiple · Ctrl+Z/Y : annuler/rétablir"
+
+#. Breite / Höhe
+msgid "TEXT_WIDTH_HEIGHT"
+msgstr "Largeur / Hauteur"
+
+#. Falscher Dokumenttyp
+msgid "TEXT_WRONG_DOCUMENT_TYPE"
+msgstr "Type de document incorrect"
+
+#. Falsches Element in %s
+msgid "TEXT_WRONG_ELEMENT_IN"
+msgstr "Élément incorrect dans %s"
+
+#. Falscher Ressourcentyp: %s
+msgid "TEXT_WRONG_RESOURCE_TYPE"
+msgstr "Type de ressource incorrect : %s"
+
+#. JA
+msgid "TEXT_YES"
+msgstr "OUI"
+
+#. DEINE RUNDE
+msgid "TEXT_YOUR_ROUND"
+msgstr "VOTRE PARTIE"
+
+#. TASTATUR KANN DIREKT SCHREIBEN
+msgid "TEXT_YOU_CAN_TYPE_WITH_THE_KEYBOARD"
+msgstr "SAISIE AU CLAVIER POSSIBLE"
+
+#. Godot standard control source key.
+msgid "Cancel"
+msgstr "Annuler"
+
+#. Godot standard control source key.
+msgid "OK"
+msgstr "OK"
+
+#. Godot standard control source key.
+msgid "Open"
+msgstr "Ouvrir"
+
+#. Godot standard control source key.
+msgid "Save"
+msgstr "Enregistrer"
+
+#. Godot standard control source key.
+msgid "Save a File"
+msgstr "Enregistrer un fichier"
+
+#. Godot standard control source key.
+msgid "Open a File"
+msgstr "Ouvrir un fichier"
+
+#. Godot standard control source key.
+msgid "Open File(s)"
+msgstr "Ouvrir des fichiers"
+
+#. Godot standard control source key.
+msgid "Open a Directory"
+msgstr "Ouvrir un dossier"
+
+#. Godot standard control source key.
+msgid "Open a File or Directory"
+msgstr "Ouvrir un fichier ou dossier"
+
+#. Godot standard control source key.
+msgid "All Files"
+msgstr "Tous les fichiers"
+
+#. Godot standard control source key.
+msgid "All Recognized"
+msgstr "Tous les fichiers reconnus"
+
+#. Godot standard control source key.
+msgid "Path:"
+msgstr "Chemin :"
+
+#. Godot standard control source key.
+msgid "File:"
+msgstr "Fichier :"
+
+#. Godot standard control source key.
+msgid "Name:"
+msgstr "Nom :"
+
+#. Godot standard control source key.
+msgid "Filter:"
+msgstr "Filtre :"
+
+#. Godot standard control source key.
+msgid "Filename Filter:"
+msgstr "Filtre de noms :"
+
+#. Godot standard control source key.
+msgid "Directories & Files:"
+msgstr "Dossiers et fichiers :"
+
+#. Godot standard control source key.
+msgid "Favorites:"
+msgstr "Favoris :"
+
+#. Godot standard control source key.
+msgid "Recent:"
+msgstr "Récents :"
+
+#. Godot standard control source key.
+msgid "Drive"
+msgstr "Lecteur"
+
+#. Godot standard control source key.
+msgid "Network"
+msgstr "Réseau"
+
+#. Godot standard control source key.
+msgid "Create Folder"
+msgstr "Créer un dossier"
+
+#. Godot standard control source key.
+msgid "New Folder..."
+msgstr "Nouveau dossier..."
+
+#. Godot standard control source key.
+msgid "Create a new folder."
+msgstr "Créer un nouveau dossier."
+
+#. Godot standard control source key.
+msgid "Could not create folder."
+msgstr "Impossible de créer le dossier."
+
+#. Godot standard control source key.
+msgid "Invalid extension, or empty filename."
+msgstr "Extension non valide ou nom de fichier vide."
+
+#. Godot standard control source key.
+msgid "File \"%s\" already exists.\nDo you want to overwrite it?"
+msgstr "Le fichier « %s » existe déjà.\nVoulez-vous le remplacer ?"
+
+#. Godot standard control source key.
+msgid "Delete"
+msgstr "Supprimer"
+
+#. Godot standard control source key.
+msgid "Delete the selected file?\nDepending on your filesystem configuration, the files will either be moved to the system trash or deleted permanently."
+msgstr "Supprimer le fichier sélectionné ?\nSelon le système de fichiers, il sera placé dans la corbeille ou supprimé définitivement."
+
+#. Godot standard control source key.
+msgid "Copy Path"
+msgstr "Copier le chemin"
+
+#. Godot standard control source key.
+msgid "Refresh"
+msgstr "Actualiser"
+
+#. Godot standard control source key.
+msgid "Refresh files."
+msgstr "Actualiser les fichiers."
+
+#. Godot standard control source key.
+msgid "Go to next folder."
+msgstr "Dossier suivant."
+
+#. Godot standard control source key.
+msgid "Go to previous folder."
+msgstr "Dossier précédent."
+
+#. Godot standard control source key.
+msgid "Go to parent folder."
+msgstr "Dossier parent."
+
+#. Godot standard control source key.
+msgid "(Un)favorite current folder."
+msgstr "Ajouter/retirer le dossier des favoris."
+
+#. Godot standard control source key.
+msgid "Toggle the visibility of hidden files."
+msgstr "Afficher/masquer les fichiers cachés."
+
+#. Godot standard control source key.
+msgid "Toggle the visibility of the filter for file names."
+msgstr "Afficher/masquer le filtre de noms."
+
+#. Godot standard control source key.
+msgid "View items as a grid of thumbnails."
+msgstr "Afficher une grille de miniatures."
+
+#. Godot standard control source key.
+msgid "View items as a list."
+msgstr "Afficher une liste."
+
+#. Godot standard control source key.
+msgid "Select Current Folder"
+msgstr "Choisir le dossier actuel"
+
+#. Godot standard control source key.
+msgid "Select This Folder"
+msgstr "Choisir ce dossier"
+
+#. Godot standard control source key.
+msgid "Show Package Contents"
+msgstr "Afficher le contenu du paquet"
+
+#. Godot standard control source key.
+msgid "Sort files"
+msgstr "Trier les fichiers"
+
+#. Godot standard control source key.
+msgid "Sort by Modified Time (Newest First)"
+msgstr "Date de modification (récents d'abord)"
+
+#. Godot standard control source key.
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "Date de modification (anciens d'abord)"
+
+#. Godot standard control source key.
+msgid "Sort by Name (Ascending)"
+msgstr "Nom (croissant)"
+
+#. Godot standard control source key.
+msgid "Sort by Name (Descending)"
+msgstr "Nom (décroissant)"
+
+#. Godot standard control source key.
+msgid "Sort by Type (Ascending)"
+msgstr "Type (croissant)"
+
+#. Godot standard control source key.
+msgid "Sort by Type (Descending)"
+msgstr "Type (décroissant)"
+
+#. Godot standard control source key.
+msgid "You don't have permission to access contents of this folder."
+msgstr "Vous n'avez pas accès au contenu de ce dossier."
+
+#. Godot standard control source key.
+msgid "Undo"
+msgstr "Annuler"
+
+#. Godot standard control source key.
+msgid "Redo"
+msgstr "Rétablir"
+
+#. Godot standard control source key.
+msgid "Cut"
+msgstr "Couper"
+
+#. Godot standard control source key.
+msgid "Copy"
+msgstr "Copier"
+
+#. Godot standard control source key.
+msgid "Paste"
+msgstr "Coller"
+
+#. Godot standard control source key.
+msgid "Select All"
+msgstr "Tout sélectionner"
+
+#. Godot standard control source key.
+msgid "Clear"
+msgstr "Effacer"

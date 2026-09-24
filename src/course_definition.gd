@@ -11,19 +11,19 @@ extends Resource
 func validate(hole_catalog: HoleCatalog) -> PackedStringArray:
 	var errors := PackedStringArray()
 	if course_id == &"" or course_id == &"unnamed":
-		errors.append("Kurs besitzt keine eindeutige ID")
+		errors.append(I18n.text("TEXT_COURSE_HAS_NO_UNIQUE_ID"))
 	if display_name.strip_edges().is_empty():
-		errors.append("Kurs %s besitzt keinen Anzeigenamen" % course_id)
+		errors.append(I18n.text("TEXT_COURSE_HAS_NO_DISPLAY_NAME") % course_id)
 	if best_score_revision < 1:
-		errors.append("Kurs %s besitzt keine gueltige Bestwertrevision" % course_id)
+		errors.append(I18n.text("TEXT_COURSE_HAS_AN_INVALID_RECORD_REVISION") % course_id)
 	if hole_ids.is_empty():
-		errors.append("Kurs %s besitzt keine Loecher" % course_id)
+		errors.append(I18n.text("TEXT_COURSE_HAS_NO_HOLES") % course_id)
 	for hole_id in hole_ids:
 		var hole := hole_catalog.get_hole(hole_id) if hole_catalog != null else null
 		if hole == null:
-			errors.append("Kurs %s verweist auf unbekannte Bahn %s" % [course_id, hole_id])
+			errors.append(I18n.text("TEXT_COURSE_REFERS_TO_UNKNOWN_HOLE") % [course_id, hole_id])
 		elif not hole.is_course_hole() and not allow_technical_holes:
-			errors.append("Kurs %s enthaelt technische Bahn %s" % [course_id, hole_id])
+			errors.append(I18n.text("TEXT_COURSE_CONTAINS_TECHNICAL_HOLE") % [course_id, hole_id])
 	return errors
 
 

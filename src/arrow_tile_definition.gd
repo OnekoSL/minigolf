@@ -18,28 +18,29 @@ const DECELERATION := 30.0
 @export_range(0.0, 30.0, 0.5) var flow_centering_strength := 0.0
 
 
-func validate(label: String, grid_spacing: int) -> PackedStringArray:
+func validate(label: String, grid_spacing: int, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if cell_size != CELL_SIZE:
-		errors.append("%s muss exakt %d x %d Pixel gross sein" % [label, CELL_SIZE, CELL_SIZE])
+		errors.append(report.message("TEXT_MUST_BE_EXACTLY_X_PIXELS", [label, CELL_SIZE, CELL_SIZE], null, ""))
 	if grid_spacing <= 0 or cell_size % grid_spacing != 0:
-		errors.append("%s liegt nicht im Bahnraster" % label)
+		errors.append(report.message("TEXT_IS_NOT_ON_THE_HOLE_GRID", [label], null, ""))
 	var half_cell := maxi(1, int(cell_size / 2))
 	if grid_offset.x < 0 or grid_offset.y < 0 or grid_offset.x >= cell_size or grid_offset.y >= cell_size \
 		or grid_offset.x % half_cell != 0 or grid_offset.y % half_cell != 0:
-		errors.append("%s besitzt keinen gueltigen Ganz- oder Halbrasterversatz" % label)
+		errors.append(report.message("TEXT_REQUIRES_A_FULL_OR_HALF_GRID_OFFSET", [label], null, ""))
 	if direction < SurfaceZone.SlopeDirection.UP or direction > SurfaceZone.SlopeDirection.UP_LEFT:
-		errors.append("%s besitzt keine der acht Pfeilrichtungen" % label)
+		errors.append(report.message("TEXT_NEEDS_ONE_OF_THE_EIGHT_ARROW_DIRECTIONS", [label], null, ""))
 	if slope_grade < SurfaceZone.SlopeGrade.SHALLOW or slope_grade > SurfaceZone.SlopeGrade.STEEP:
-		errors.append("%s besitzt keine gueltige Steigungsstufe" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_SLOPE_GRADE", [label], null, ""))
 	if deceleration < 0.0:
-		errors.append("%s besitzt negative Reibung" % label)
+		errors.append(report.message("TEXT_HAS_NEGATIVE_FRICTION", [label], null, ""))
 	if not clip_polygon.is_empty():
 		if Geometry2D.triangulate_polygon(clip_polygon).is_empty():
-			errors.append("%s besitzt keinen gueltigen Zellzuschnitt" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_CELL_CLIPPING_POLYGON", [label], null, ""))
 		for point in clip_polygon:
 			if not Rect2(-0.01,-0.01,cell_size+0.02,cell_size+0.02).has_point(point):
-				errors.append("%s: Zellzuschnitt verlaesst die Rasterzelle" % label)
+				errors.append(report.message("TEXT_CLIPPING_EXTENDS_OUTSIDE_THE_CELL", [label], null, ""))
 				break
 	return errors
 

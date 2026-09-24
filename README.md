@@ -2,6 +2,16 @@
 
 Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
+## Sprachen und Einstellungen
+
+**Einstellungen** ist im Titelbildschirm und im Pausenmenü erreichbar. Spiel, Bahneditor, Meldungen sowie offizielle Kurs- und Bahnnamen stehen auf **Deutsch, Englisch, Französisch, Spanisch und Italienisch** bereit. Der erste Start ist deutsch; eine gespeicherte Sprachauswahl gilt auch nach einem Neustart. Selbst vergebene Namen und vorhandene Inhalte bleiben unverändert.
+
+Oben die Kategorie mit links/rechts wechseln, mit oben/unten eine Zeile wählen und Werte mit links/rechts ändern. Die Pfeilschaltflächen ermöglichen dieselbe Bedienung mit der Maus. Verfügbar sind Gesamt- und Effektlautstärke, Fenster/randloses Vollbild, drei Fenstergrößen, VSync, Kamerawackeln und die bestehende Controllerkalibrierung. Die Fenstergröße wird auf den verfügbaren Bildschirmbereich begrenzt; Spiel und Editor behalten ihre internen Auflösungen.
+
+Sprache, Ton und Anzeige werden als Vorschau angewendet. **Übernehmen** speichert in `user://settings.cfg`, **Abbrechen** beziehungsweise Zurück stellt die vorherigen Einstellungen wieder her. Anzeigeänderungen müssen innerhalb von 15 Sekunden bestätigt werden, sonst kehren sie automatisch zurück. **Standardwerte** verändert nur den Entwurf. Eine aus der Pause geöffnete Einstellung lässt die Runde angehalten. Die Controllerkalibrierung speichert weiterhin separat; Start/P oder F4 beendet ihren Dialog. Ohne angeschlossenen Controller ist die Kalibrierung deaktiviert.
+
+[Übersetzungskataloge und Prüfungen](data/i18n/README.md) beschreiben Textschlüssel, eigene Namen, Fehlermeldungen und das Ergänzen weiterer Sprachen. Lokaler Windows-Build dieser Erweiterung: [PuttAndPixel-Mehrsprachig.exe](build/windows/PuttAndPixel-Mehrsprachig.exe).
+
 Die [Regeln fuer die Bahngestaltung](BAHNGESTALTUNG_REGELN.md) beschreiben den aktuellen Wand- und Pfeilstandard, spielerische Abnahmekriterien und den datierten Bestandscheck und die Kursaktualisierungen einschliesslich offener Design- und Testluecken.
 
 Die urspruenglichen acht Welten ersetzen die fuenf bisherigen Kurszusammenstellungen. [Kursplan](KURSPLAN_8_WELTEN.md) und [Umsetzungsbericht](ACHT_WELTEN_UMSETZUNG.md) dokumentieren Bahnideen, Herkunft, Bauplaene und Pruefstand.

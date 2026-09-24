@@ -37,7 +37,7 @@ func get_par() -> int:
 
 
 func get_display_name() -> String:
-	return definition.display_name
+	return I18n.content_name(definition)
 
 
 func get_initial_aim_offset() -> Vector2:

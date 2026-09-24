@@ -35,46 +35,47 @@ enum ObstacleType { ROTATING_BLADE, SLIDING_GATE, SEESAW, TUNNEL_GEAR, ELEPHANT 
 @export_range(-1.0, 1.0, 0.05) var seesaw_preferred_tilt := -1.0
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if obstacle_type == ObstacleType.ELEPHANT:
 		if elephant_intake_radius <= 0.0 or elephant_exit_speed <= 0.0 or elephant_transport_seconds < PrototypeBall.TUNNEL_DURATION or elephant_cycle_seconds < 4.0:
-			errors.append("%s besitzt ungueltige Elefantenzeiten oder Aufnahmeparameter" % label)
+			errors.append(report.message("TEXT_HAS_INVALID_ELEPHANT_TIMINGS_OR_INTAKE_PARAMETERS", [label], null, ""))
 		if elephant_gate_size.x <= 0.0 or elephant_gate_size.y <= 0.0 or elephant_gate_offset.y < elephant_gate_size.y + PrototypeBall.RADIUS:
-			errors.append("%s gibt den Elefantendurchgang nicht vollstaendig frei" % label)
+			errors.append(report.message("TEXT_DOES_NOT_FULLY_OPEN_THE_ELEPHANT_PASSAGE", [label], null, ""))
 		if not elephant_intake.is_finite() or not elephant_exit.is_finite():
-			errors.append("%s besitzt ungueltige Elefantenpositionen" % label)
+			errors.append(report.message("TEXT_HAS_INVALID_ELEPHANT_POSITIONS", [label], null, ""))
 	if obstacle_type == ObstacleType.TUNNEL_GEAR:
 		if seconds_per_revolution < 4.0:
-			errors.append("%s dreht fuer sichere Zahnrad-Ausgaenge zu schnell" % label)
+			errors.append(report.message("TEXT_ROTATES_TOO_FAST_FOR_SAFE_GEAR_EXITS", [label], null, ""))
 		if gear_links.size() != 8:
-			errors.append("%s benoetigt acht paarweise verbundene Zahnradloecher" % label)
+			errors.append(report.message("TEXT_NEEDS_EIGHT_GEAR_HOLES_CONNECTED_IN_PAIRS", [label], null, ""))
 		else:
 			for index in range(8):
 				var partner := gear_links[index]
 				if partner < 0 or partner >= 8 or partner == index or gear_links[partner] != index:
-					errors.append("%s besitzt kein gegenseitiges Lochpaar bei %d" % [label,index])
+					errors.append(report.message("TEXT_HAS_NO_RECIPROCAL_HOLE_PAIR_AT", [label,index], null, ""))
 	if obstacle_type == ObstacleType.ROTATING_BLADE:
 		if blade_size.x <= 0.0 or blade_size.y <= 0.0:
-			errors.append("%s besitzt keine gueltige Hindernisgroesse" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_OBSTACLE_SIZE", [label], null, ""))
 		if seconds_per_revolution <= 0.0:
-			errors.append("%s besitzt keine gueltige Umlaufzeit" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_ROTATION_PERIOD", [label], null, ""))
 	elif obstacle_type == ObstacleType.SLIDING_GATE:
 		if gate_size.x <= 0.0 or gate_size.y <= 0.0:
-			errors.append("%s besitzt keine gueltige Torgroesse" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_GATE_SIZE", [label], null, ""))
 		if open_offset.is_zero_approx():
-			errors.append("%s besitzt keinen Oeffnungsweg" % label)
+			errors.append(report.message("TEXT_HAS_NO_OPENING_TRAVEL", [label], null, ""))
 		if cycle_seconds <= open_hold_seconds + transition_seconds * 2.0:
-			errors.append("%s besitzt keine geschlossene Haltephase" % label)
+			errors.append(report.message("TEXT_HAS_NO_CLOSED_HOLD_PHASE", [label], null, ""))
 	elif obstacle_type == ObstacleType.SEESAW:
 		if seesaw_size.x <= 0.0 or seesaw_size.y <= 0.0:
-			errors.append("%s besitzt keine gueltige Wippengroesse" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_SEESAW_SIZE", [label], null, ""))
 		if seesaw_max_angle_degrees <= 0.0 or seesaw_response_seconds <= 0.0 or seesaw_slope_strength <= 0.0:
-			errors.append("%s besitzt keine gueltige Wippenbewegung" % label)
+			errors.append(report.message("TEXT_HAS_INVALID_SEESAW_MOVEMENT", [label], null, ""))
 		if seesaw_end_lip_thickness <= 0.0 or seesaw_blocker_tilt_threshold <= 0.0:
-			errors.append("%s besitzt keine gueltige Wippensperre" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_SEESAW_BLOCKER", [label], null, ""))
 		if absf(seesaw_preferred_tilt) > 1.0:
-			errors.append("%s besitzt keine gueltige Wippen-Vorzugsposition" % label)
+			errors.append(report.message("TEXT_HAS_AN_INVALID_SEESAW_REST_POSITION", [label], null, ""))
 	return errors
 
 

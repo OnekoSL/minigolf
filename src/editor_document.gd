@@ -16,7 +16,7 @@ func _init(source: HoleDefinition = null, make_copy := false) -> void:
 	if source == null:
 		hole = HoleDefinition.new()
 		hole.hole_id = EditorCodec.new_id()
-		hole.display_name = "Meine Bahn"
+		hole.display_name = I18n.text("TEXT_MY_HOLE")
 		hole.par = 2
 		hole.theme = load("res://data/themes/stadtpark.tres")
 		hole.lane_outline = LaneOutlineDefinition.new()
@@ -28,7 +28,7 @@ func _init(source: HoleDefinition = null, make_copy := false) -> void:
 		hole = source.duplicate(true)
 		if make_copy:
 			hole.hole_id = EditorCodec.new_id()
-			hole.display_name += " – Kopie"
+			hole.display_name += I18n.text("TEXT_COPY")
 		hole.category = HoleDefinition.HoleCategory.COURSE
 	ensure_ids()
 	mark_saved()
@@ -245,34 +245,33 @@ func resize_course(size: Vector2) -> void:
 
 func issues() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	var limits := geometry_limit_errors()
-	if not limits.is_empty():
-		for message in limits:
-			result.append({"message": message, "id": ""})
+	var details: Array[ValidationIssue] = []
+	if not geometry_limit_errors(details).is_empty():
+		for issue in details:
+			result.append({"message": issue.message(), "id": issue.element_id, "key": issue.key, "parameters": issue.parameters})
 		return result
-	for message in validation_errors():
-		var id := ""
-		for group in GROUPS:
-			var labels := {"walls": "Bande", "wall_tiles": "Wandbaustein", "surfaces": "Flaeche", "arrow_tiles": "Pfeilzelle", "obstacles": "Hindernis", "triggers": "Trigger", "cannons": "Kanone", "tunnels": "Tunnel"}
-			for index in range(items(group).size()):
-				if (", %s %d" % [labels.get(group, "Rohr"), index]) in message:
-					id = items(group)[index].get_meta("editor_id", "")
-		result.append({"message": message, "id": id})
+	hole.validate(details)
+	for issue in details:
+		result.append({"message": issue.message(), "id": issue.element_id, "key": issue.key, "parameters": issue.parameters})
 	if hole.par < 1 or hole.par > 20:
-		result.append({"message": "PAR muss zwischen 1 und 20 liegen", "id": ""})
+		result.append(_issue("TEXT_PAR_MUST_BE_BETWEEN_1_AND_20"))
 	if hole.lane_outline == null or not hole.lane_outline.use_normalized_walls:
-		result.append({"message": "Eigene Bahnen benötigen eine geschlossene Normkontur", "id": ""})
-	if hole.lane_outline != null and hole.lane_outline.validate("Kontur").is_empty():
+		result.append(_issue("TEXT_CUSTOM_HOLES_REQUIRE_A_CLOSED_STANDARD_OUTLINE"))
+	if hole.lane_outline != null and hole.lane_outline.validate(I18n.text("TEXT_OUTLINE")).is_empty():
 		for marker in ["tee", "hole"]:
 			var point := hole.tee_position if marker == "tee" else hole.hole_position
 			if not clear_position(point):
-				result.append({"message": "Abschlag ist blockiert" if marker == "tee" else "Zielloch ist blockiert", "id": marker})
+				result.append(_issue("TEXT_TEE_IS_BLOCKED" if marker == "tee" else "TEXT_TARGET_HOLE_IS_BLOCKED", marker))
 	for group in ["walls", "boundary_arcs", "obstacles"]:
 		for resource in items(group):
 			var bounds := element_bounds(resource)
 			if bounds.has_area() and not hole.course_rect.grow(0.1).encloses(bounds):
-				result.append({"message": "Bauteil oder Bewegungsbereich ragt über den sichtbaren Bahnbereich hinaus", "id": resource.get_meta("editor_id", ""), "severity": "warning"})
+				result.append(_issue("TEXT_COMPONENT_OR_MOVEMENT_AREA_EXTENDS_BEYOND_THE_VISIBLE_HOLE_AREA", resource.get_meta("editor_id", ""), "warning"))
 	return result
+
+
+func _issue(key: String, element_id := "", severity := "error") -> Dictionary:
+	return {"message": I18n.text(key), "id": element_id, "key": key, "parameters": [], "severity": severity}
 
 
 func blocking_issues() -> Array[Dictionary]:
@@ -326,23 +325,24 @@ func validation_errors() -> PackedStringArray:
 	return limits if not limits.is_empty() else hole.validate()
 
 
-func geometry_limit_errors() -> PackedStringArray:
+func geometry_limit_errors(issues: Array[ValidationIssue] = []) -> PackedStringArray:
 	# Bound expansion before calling the normalized-wall tessellator or O(n²) validators.
+	var report := ValidationReport.new(issues, hole)
 	if hole.course_rect.size.x > 8192 or hole.course_rect.size.y > 8192:
-		return PackedStringArray(["Bahngröße darf höchstens 8192 × 8192 Pixel betragen"])
+		return PackedStringArray([report.message("TEXT_HOLE_SIZE_MUST_NOT_EXCEED_8192_8192_PIXELS")])
 	if hole.lane_outline != null:
 		if hole.lane_outline.points.size() > 512:
-			return PackedStringArray(["Höchstens 512 Konturpunkte erlaubt"])
+			return PackedStringArray([report.message("TEXT_AT_MOST_512_OUTLINE_POINTS_ALLOWED")])
 		for point in hole.lane_outline.points:
 			if not point.is_finite() or absf(point.x) > 16384 or absf(point.y) > 16384:
-				return PackedStringArray(["Konturpunkt liegt außerhalb des unterstützten Arbeitsbereichs"])
+				return PackedStringArray([report.message("TEXT_OUTLINE_POINT_LIES_OUTSIDE_THE_SUPPORTED_WORK_AREA")])
 	for group in GROUPS:
 		if items(group).size() > EditorCodec.MAX_ITEMS:
-			return PackedStringArray(["Zu viele Bauteile"])
+			return PackedStringArray([report.message("TEXT_TOO_MANY_COMPONENTS")])
 	for group in ["walls", "boundary_arcs"]:
 		for wall in items(group):
 			if wall.arc_segments < 4 or wall.arc_segments > 128 or wall.radius > 4096:
-				return PackedStringArray(["Bögen benötigen 4 bis 128 Segmente und höchstens 4096 Pixel Radius"])
+				return PackedStringArray([report.message("TEXT_ARCS_REQUIRE_4_TO_128_SEGMENTS_AND_A_RADIUS_OF_AT_MOST_4096_PIXEL", [], wall)])
 	return PackedStringArray()
 
 

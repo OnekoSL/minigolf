@@ -18,6 +18,7 @@ func _run_all() -> void:
 	var classic_course_test := preload("res://tests/classic_course_test.gd").new(self, _check)
 	var arrow_course_test := preload("res://tests/arrow_course_test.gd").new(self, _check)
 	var labyrinth_course_test := preload("res://tests/labyrinth_course_test.gd").new(self, _check)
+	await load("res://tests/settings_i18n_test.gd").run(self, _check)
 	await ball_physics_test._test_shot_state_machine()
 	await load("res://tests/golfer_animation_test.gd").run(self, _check)
 	await load("res://tests/golfer_profiles_test.gd").run(self, _check)

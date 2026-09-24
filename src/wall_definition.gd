@@ -14,26 +14,27 @@ enum WallType { RECTANGLE, CIRCLE, ARC }
 @export_range(4, 128, 1) var arc_segments := 24
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	match wall_type:
 		WallType.RECTANGLE:
 			if size.x <= 0.0 or size.y <= 0.0:
-				errors.append("%s besitzt keine gueltige Groesse" % label)
+				errors.append(report.message("TEXT_HAS_AN_INVALID_SIZE", [label], null, ""))
 		WallType.CIRCLE:
 			if radius <= 0.0:
-				errors.append("%s besitzt keinen gueltigen Radius" % label)
+				errors.append(report.message("TEXT_HAS_AN_INVALID_RADIUS", [label], null, ""))
 		WallType.ARC:
 			if radius <= thickness * 0.5 + 1.0:
-				errors.append("%s besitzt einen zu engen Bogenradius" % label)
+				errors.append(report.message("TEXT_HAS_AN_ARC_RADIUS_THAT_IS_TOO_SMALL", [label], null, ""))
 			if thickness <= 0.0:
-				errors.append("%s besitzt keine gueltige Bogenstaerke" % label)
+				errors.append(report.message("TEXT_HAS_AN_INVALID_ARC_THICKNESS", [label], null, ""))
 			if absf(arc_sweep_degrees) < 1.0 or absf(arc_sweep_degrees) > 350.0:
-				errors.append("%s besitzt keinen gueltigen Bogenwinkel" % label)
+				errors.append(report.message("TEXT_HAS_AN_INVALID_ARC_SWEEP", [label], null, ""))
 			if arc_segments < 4:
-				errors.append("%s besitzt zu wenige Bogensegmente" % label)
+				errors.append(report.message("TEXT_HAS_TOO_FEW_ARC_SEGMENTS", [label], null, ""))
 		_:
-			errors.append("%s besitzt einen unbekannten Wandtyp" % label)
+			errors.append(report.message("TEXT_HAS_AN_UNKNOWN_WALL_TYPE", [label], null, ""))
 	return errors
 
 

@@ -31,16 +31,16 @@ func validate() -> PackedStringArray:
 	var errors := PackedStringArray()
 	for stat in TEST_STATS:
 		if not is_finite(float(get(stat))):
-			errors.append("Golferwerte muessen endlich sein")
+			errors.append(I18n.text("TEXT_GOLFER_VALUES_MUST_BE_FINITE"))
 	if golfer_id == &"don":
 		for index in range(TEST_STATS.size()):
 			var value := float(get(TEST_STATS[index]))
 			if value < TEST_MINIMUMS[index] or value > TEST_MAXIMUMS[index]:
-				errors.append("Testwert ausserhalb des Einstellbereichs")
+				errors.append(I18n.text("TEXT_TEST_VALUE_OUTSIDE_THE_ALLOWED_RANGE"))
 	if golfer_id not in IDS or display_name.is_empty() or atlas == null:
-		errors.append("Golfer benoetigt bekannte ID, Namen und Atlas")
+		errors.append(I18n.text("TEXT_GOLFER_NEEDS_A_KNOWN_ID_NAME_AND_ATLAS"))
 	if range_factor <= 0.0 or power_cycle_seconds <= 0.0 or accuracy_cycle_seconds <= 0.0:
-		errors.append("Reichweite und Zykluszeiten muessen positiv sein")
+		errors.append(I18n.text("TEXT_RANGE_AND_CYCLE_DURATIONS_MUST_BE_POSITIVE"))
 	if perfect_accuracy_window <= 0.0 or perfect_accuracy_window >= 1.0 or maximum_error_degrees < 0.0:
-		errors.append("Ungueltiges Genauigkeitsprofil")
+		errors.append(I18n.text("TEXT_INVALID_ACCURACY_PROFILE"))
 	return errors

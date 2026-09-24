@@ -16,11 +16,11 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 	var course: CourseDefinition = course_catalog.get_course(course_id) if course_catalog != null else null
 	if is_course_mode():
 		if course == null:
-			errors.append("Runde verweist auf unbekannten Kurs %s" % course_id)
+			errors.append(I18n.text("TEXT_ROUND_REFERS_TO_UNKNOWN_COURSE") % course_id)
 		elif hole_ids != course.hole_ids:
-			errors.append("Kursrunde muss die vollstaendige geordnete Lochfolge enthalten")
+			errors.append(I18n.text("TEXT_COURSE_ROUND_MUST_CONTAIN_THE_FULL_ORDERED_HOLE_SEQUENCE"))
 		elif String(course.course_id).begins_with("custom_") != (content_origin == ContentOrigin.CUSTOM):
-			errors.append("Kursherkunft stimmt nicht mit dem Katalog überein")
+			errors.append(I18n.text("TEXT_COURSE_ORIGIN_DOES_NOT_MATCH_THE_CATALOG"))
 	var valid_player_count := false
 	match mode:
 		GameMode.COURSE_SOLO, GameMode.PRACTICE:
@@ -30,31 +30,31 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 		GameMode.FREE_PLAY:
 			valid_player_count = players.size() >= 1 and players.size() <= 4
 	if not valid_player_count:
-		errors.append("Ungueltige Spielerzahl fuer Modus %d" % mode)
+		errors.append(I18n.text("TEXT_INVALID_PLAYER_COUNT_FOR_MODE") % mode)
 	if hole_ids.is_empty() or hole_ids.size() > 9:
-		errors.append("Eine Runde benoetigt 1 bis 9 Loecher")
+		errors.append(I18n.text("TEXT_A_ROUND_REQUIRES_1_TO_9_HOLES"))
 	if mode == GameMode.PRACTICE and hole_ids.size() != 1:
-		errors.append("Uebung besteht aus genau einem Loch")
+		errors.append(I18n.text("TEXT_PRACTICE_CONSISTS_OF_EXACTLY_ONE_HOLE"))
 	var used_palettes: Dictionary = {}
 	for player in players:
 		if player == null:
-			errors.append("Runde enthaelt einen leeren Spieler")
+			errors.append(I18n.text("TEXT_ROUND_CONTAINS_AN_EMPTY_PLAYER"))
 			continue
 		if used_palettes.has(player.palette_id):
-			errors.append("Spielerfarben muessen eindeutig sein")
+			errors.append(I18n.text("TEXT_PLAYER_COLORS_MUST_BE_UNIQUE"))
 		used_palettes[player.palette_id] = true
 		if player.golfer_id not in GolferDefinition.IDS:
-			errors.append("Spieler verweist auf unbekannten Golfer")
+			errors.append(I18n.text("TEXT_PLAYER_REFERS_TO_AN_UNKNOWN_GOLFER"))
 		var definition := player.get_golfer_definition()
 		if definition.golfer_id != player.golfer_id:
-			errors.append("Spielerprofil und Golfer stimmen nicht ueberein")
+			errors.append(I18n.text("TEXT_PLAYER_PROFILE_AND_GOLFER_DO_NOT_MATCH"))
 		errors.append_array(definition.validate())
 	for hole_id in hole_ids:
 		var hole := hole_catalog.get_hole(hole_id) if hole_catalog != null else null
 		if hole == null:
-			errors.append("Runde enthaelt unbekannte Bahn %s" % hole_id)
+			errors.append(I18n.text("TEXT_ROUND_CONTAINS_UNKNOWN_HOLE") % hole_id)
 		elif mode != GameMode.PRACTICE and not hole.is_course_hole() and not (is_course_mode() and course != null and course.allow_technical_holes and hole_ids == course.hole_ids):
-			errors.append("Technische Bahnen sind nur in der Uebung erlaubt")
+			errors.append(I18n.text("TEXT_TECHNICAL_HOLES_ARE_ONLY_ALLOWED_IN_PRACTICE"))
 	return errors
 
 

@@ -14,7 +14,7 @@ var active_device_id := -1
 var active_device_name := "Kein Controller"
 var active_device_guid := ""
 var focused := true
-var last_input_kind := "Tastatur"
+var last_input_kind := I18n.text("TEXT_KEYBOARD")
 
 var user_mapping_path := USER_MAPPING_PATH
 var _calibration_status := ""
@@ -361,18 +361,18 @@ func is_calibrating() -> bool:
 
 func get_calibration_prompt() -> String:
 	if _calibration_step < 0:
-		return _calibration_status + "\nF4: Controller kalibrieren" if not _calibration_status.is_empty() else "F4: Controller kalibrieren"
+		return I18n.text(_calibration_status) + I18n.text("TEXT_NF4_CALIBRATE_CONTROLLER") if not _calibration_status.is_empty() else I18n.text("TEXT_F4_CALIBRATE_CONTROLLER")
 	var prompts := {
-		"shot_button": "Kreuz / Schlagtaste druecken",
-		"cancel_button": "Kreis / Abbruchtaste druecken",
-		"dpad_up": "Steuerkreuz OBEN druecken",
-		"dpad_down": "Steuerkreuz UNTEN druecken",
-		"dpad_left": "Steuerkreuz LINKS druecken",
-		"dpad_right": "Steuerkreuz RECHTS druecken",
-		"axis_x": "Linken Stick deutlich nach RECHTS bewegen",
-		"axis_y": "Linken Stick deutlich nach UNTEN bewegen",
+		"shot_button": I18n.text("TEXT_PRESS_CROSS_SHOT_BUTTON"),
+		"cancel_button": I18n.text("TEXT_PRESS_CIRCLE_CANCEL_BUTTON"),
+		"dpad_up": I18n.text("TEXT_PRESS_D_PAD_UP"),
+		"dpad_down": I18n.text("TEXT_PRESS_D_PAD_DOWN"),
+		"dpad_left": I18n.text("TEXT_PRESS_D_PAD_LEFT"),
+		"dpad_right": I18n.text("TEXT_PRESS_D_PAD_RIGHT"),
+		"axis_x": I18n.text("TEXT_MOVE_LEFT_STICK_FULLY_RIGHT"),
+		"axis_y": I18n.text("TEXT_MOVE_LEFT_STICK_FULLY_DOWN"),
 	}
-	return "Kalibrierung %d/%d: %s" % [
+	return I18n.text("TEXT_CALIBRATION") % [
 		_calibration_step + 1,
 		_calibration_steps.size(),
 		prompts[_calibration_steps[_calibration_step]],
@@ -412,34 +412,34 @@ func _advance_calibration() -> void:
 	var error := _save_user_profile(active_device_guid, _calibration_profile)
 	_calibration_step = -1
 	if error == OK:
-		_calibration_status = "Kalibrierung gespeichert"
+		_calibration_status = "TEXT_CALIBRATION_SAVED"
 		calibration_finished.emit(active_device_guid)
 	else:
-		_calibration_status = "Nur fuer diese Sitzung aktiv – Speichern fehlgeschlagen"
-	calibration_updated.emit(_calibration_status)
+		_calibration_status = "TEXT_ACTIVE_FOR_THIS_SESSION_ONLY_SAVING_FAILED"
+	calibration_updated.emit(I18n.text(_calibration_status))
 
 
 func get_diagnostics_text() -> String:
 	var lines := PackedStringArray()
-	lines.append("CONTROLLER-DIAGNOSE  [F3 schliessen | F4 kalibrieren]")
-	lines.append("ID: %d" % active_device_id)
-	lines.append("Name: %s" % active_device_name)
-	lines.append("GUID: %s" % (active_device_guid if not active_device_guid.is_empty() else "-"))
-	lines.append("SDL-Mapping: %s" % ("bekannt" if active_device_id >= 0 and Input.is_joy_known(active_device_id) else "unbekannt"))
-	lines.append("Eingabe: %s | Fokus: %s" % [last_input_kind, "ja" if focused else "nein"])
-	lines.append("Profil: %s" % ("benutzerdefiniert" if _profiles.has(active_device_guid) else "SDL-Standard"))
+	lines.append(I18n.text("TEXT_CONTROLLER_DIAGNOSTICS_F3_CLOSE_F4_CALIBRATE"))
+	lines.append(I18n.text("TEXT_ID") % active_device_id)
+	lines.append(I18n.text("TEXT_NAME") % (I18n.source("Kein Controller") if active_device_id < 0 else active_device_name))
+	lines.append(I18n.text("TEXT_GUID") % (active_device_guid if not active_device_guid.is_empty() else "-"))
+	lines.append(I18n.text("TEXT_SDL_MAPPING") % I18n.source("bekannt" if active_device_id >= 0 and Input.is_joy_known(active_device_id) else "unbekannt"))
+	lines.append(I18n.text("TEXT_INPUT_FOCUS") % [I18n.source(last_input_kind), I18n.source("ja" if focused else "nein")])
+	lines.append(I18n.text("TEXT_PROFILE") % (I18n.source("benutzerdefiniert") if _profiles.has(active_device_guid) else I18n.text("TEXT_SDL_DEFAULT")))
 	var axis_text := PackedStringArray()
 	var axis_keys := _last_axes.keys()
 	axis_keys.sort()
 	for key in axis_keys:
 		axis_text.append("%s=%+.2f" % [key, _last_axes[key]])
-	lines.append("Achsen: %s" % (", ".join(axis_text) if not axis_text.is_empty() else "noch keine Bewegung"))
+	lines.append(I18n.text("TEXT_AXES") % (", ".join(axis_text) if not axis_text.is_empty() else I18n.text("TEXT_NO_MOVEMENT_YET")))
 	var pressed := PackedStringArray()
 	var button_keys := _last_buttons.keys()
 	button_keys.sort()
 	for key in button_keys:
 		if _last_buttons[key]:
 			pressed.append(str(key))
-	lines.append("Gedrueckte Tasten: %s" % (", ".join(pressed) if not pressed.is_empty() else "keine"))
+	lines.append(I18n.text("TEXT_PRESSED_BUTTONS") % (", ".join(pressed) if not pressed.is_empty() else I18n.source("keine")))
 	lines.append(get_calibration_prompt())
 	return "\n".join(lines)

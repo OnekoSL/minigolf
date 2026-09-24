@@ -38,7 +38,7 @@ func _value_labels() -> Array[String]:
 	return ["%d %%" % roundi(definition.range_factor * 100.0),
 		("%.1f s" % definition.power_cycle_seconds).replace(".", ","),
 		("%.1f s" % definition.accuracy_cycle_seconds).replace(".", ","),
-		"max. %d°" % roundi(definition.maximum_error_degrees),
+		I18n.text("TEXT_MAX") % roundi(definition.maximum_error_degrees),
 		("%.1f %%" % (definition.perfect_accuracy_window * 100.0)).replace(".", ",")]
 
 
@@ -52,7 +52,7 @@ func _draw() -> void:
 	var reference_color := Color("#fff1b0")
 	for index in range(STAT_LABELS.size()):
 		var y := index * ROW_HEIGHT
-		draw_string(font, Vector2(0, y + 10), STAT_LABELS[index], HORIZONTAL_ALIGNMENT_LEFT, size.x, 10, ink)
+		draw_string(font, Vector2(0, y + 10), I18n.source(STAT_LABELS[index]), HORIZONTAL_ALIGNMENT_LEFT, size.x, 10, ink)
 		draw_string(font, Vector2(0, y + 10), labels[index], HORIZONTAL_ALIGNMENT_RIGHT, size.x, 10, muted)
 		var bar := Rect2(0, y + 17, size.x, 8)
 		draw_rect(bar, Color("#20333e"))
@@ -65,5 +65,10 @@ func _draw() -> void:
 		draw_line(Vector2(marker_x, bar.position.y - 2), Vector2(marker_x, bar.end.y + 1), reference_color, 1.0)
 	var legend_y := STAT_LABELS.size() * ROW_HEIGHT + 5
 	draw_line(Vector2(1, legend_y - 7), Vector2(1, legend_y + 1), reference_color, 1.0)
-	draw_string(font, Vector2(8, legend_y), "BEN ZUM VERGLEICH", HORIZONTAL_ALIGNMENT_LEFT, size.x - 8, 8, muted)
-	draw_string(font, Vector2(0, legend_y + 14), "MEHR BALKEN: MEHR WEITE / KONTROLLE", HORIZONTAL_ALIGNMENT_LEFT, size.x, 8, muted)
+	draw_string(font, Vector2(8, legend_y), I18n.text("TEXT_BEN_FOR_COMPARISON"), HORIZONTAL_ALIGNMENT_LEFT, size.x - 8, 8, muted)
+	draw_string(font, Vector2(0, legend_y + 14), I18n.text("TEXT_MORE_BARS_MORE_RANGE_CONTROL"), HORIZONTAL_ALIGNMENT_LEFT, size.x, 8, muted)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		queue_redraw()

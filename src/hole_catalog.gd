@@ -14,14 +14,14 @@ func validate() -> PackedStringArray:
 	var errors := PackedStringArray()
 	var ids: Dictionary = {}
 	if holes.is_empty():
-		errors.append("Lochkatalog ist leer")
+		errors.append(I18n.text("TEXT_HOLE_CATALOG_IS_EMPTY"))
 	for definition in holes:
 		if definition == null:
-			errors.append("Lochkatalog enthaelt einen leeren Eintrag")
+			errors.append(I18n.text("TEXT_HOLE_CATALOG_CONTAINS_AN_EMPTY_ENTRY"))
 			continue
 		errors.append_array(definition.validate())
 		if ids.has(definition.hole_id):
-			errors.append("Doppelte Bahn-ID: %s" % definition.hole_id)
+			errors.append(I18n.text("TEXT_DUPLICATE_HOLE_ID") % definition.hole_id)
 		ids[definition.hole_id] = true
 	return errors
 

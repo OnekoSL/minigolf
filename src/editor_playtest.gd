@@ -21,7 +21,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_window().content_scale_size = Vector2i(640, 360)
 	game = PrototypeMain.new()
-	game.configure_attempt(definition, PlayerProfile.create(1, "TEST", 0, golfer_id), true, 1, 1, 0, false)
+	game.configure_attempt(definition, PlayerProfile.create(1, I18n.text("TEXT_TEST"), 0, golfer_id), true, 1, 1, 0, false)
 	add_child(game)
 	game.set_input_enabled(false)
 	get_tree().paused = true
@@ -47,7 +47,7 @@ func _ready() -> void:
 	layer.add_child(panel)
 	game.hud.controller_label.hide()
 	game.hud.course_label.hide()
-	for entry in [["Editor", _close], ["Wiederholen", _repeat], ["Ball setzen", _place_mode], ["Spur an/aus", _toggle_trace], ["Pause", _toggle_pause], ["Neustart", _restart]]:
+	for entry in [[I18n.text("TEXT_EDITOR"), _close], [I18n.text("TEXT_REDO"), _repeat], [I18n.text("TEXT_PLACE_BALL"), _place_mode], [I18n.text("TEXT_TRAIL_ON_OFF"), _toggle_trace], [I18n.text("TEXT_PAUSE"), _toggle_pause], [I18n.text("TEXT_RESTART"), _restart]]:
 		var button := Button.new()
 		button.text = entry[0]
 		button.add_theme_font_size_override("font_size", 9)
@@ -56,7 +56,7 @@ func _ready() -> void:
 		panel.add_child(button)
 	_status = Label.new()
 	_status.add_theme_font_size_override("font_size", 8)
-	_status.text = "TEST · R Neustart · P Pause"
+	_status.text = I18n.text("TEXT_TEST_R_RESTART_P_PAUSE")
 	_status.position = Vector2(4, 73)
 	_status.size = Vector2(158, 12)
 	_status.clip_text = true
@@ -109,7 +109,7 @@ func _repeat() -> void:
 	_paused = false
 	placing = false
 	_arm_gate()
-	_status.text = "TEST · gleicher Ausgangszustand"
+	_status.text = I18n.text("TEXT_TEST_SAME_INITIAL_STATE")
 
 
 func _arm_gate() -> void:
@@ -127,7 +127,7 @@ func _place_mode() -> void:
 	game.set_external_paused(true)
 	game.set_input_enabled(false)
 	get_tree().paused = true
-	_status.text = "Freien Boden anklicken · Esc Abbruch"
+	_status.text = I18n.text("TEXT_CLICK_CLEAR_GROUND_ESC_CANCELS")
 
 
 func _input(event: InputEvent) -> void:
@@ -159,9 +159,9 @@ func _input(event: InputEvent) -> void:
 			_paused = false
 			game.set_external_paused(false)
 			_arm_gate()
-			_status.text = "TEST · Ball versetzt"
+			_status.text = I18n.text("TEXT_TEST_BALL_MOVED")
 		else:
-			_status.text = "Position blockiert · anderen Boden wählen"
+			_status.text = I18n.text("TEXT_POSITION_BLOCKED_CHOOSE_ANOTHER_SPOT")
 		get_viewport().set_input_as_handled()
 
 
@@ -182,7 +182,7 @@ func _toggle_pause() -> void:
 	_paused = not _paused
 	game.set_external_paused(_paused)
 	_arm_gate()
-	_status.text = "PAUSE · P fortsetzen" if _paused else "TEST · R Neustart · P Pause"
+	_status.text = I18n.text("TEXT_PAUSED_P_RESUMES") if _paused else I18n.text("TEXT_TEST_R_RESTART_P_PAUSE")
 
 
 func _toggle_trace() -> void:

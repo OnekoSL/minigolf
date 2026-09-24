@@ -21,11 +21,12 @@ static func exit_index_for_speed(speed: float) -> int:
 
 # Resource avoids a retained circular GDScript type reference to HoleDefinition,
 # which itself exports an array of these definitions.
-func validate(hole: Resource) -> PackedStringArray:
+func validate(hole: Resource, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
-	var label := "Bahn %s, Rohr bei %s" % [hole.hole_id, entrance]
+	var label := I18n.text("TEXT_HOLE_PIPE_AT") % [hole.hole_id, entrance]
 	if not entrance.is_finite() or exits.size() != 3 or exit_directions.size() != 3:
-		errors.append("%s braucht einen Eingang und genau drei Ausgaenge mit Richtungen" % label)
+		errors.append(report.message("TEXT_NEEDS_ONE_ENTRANCE_AND_EXACTLY_THREE_EXITS_WITH_DIRECTIONS", [label], null, ""))
 		return errors
 	var mouths := PackedVector2Array([entrance])
 	mouths.append_array(exits)
@@ -33,10 +34,10 @@ func validate(hole: Resource) -> PackedStringArray:
 	for index in range(mouths.size()):
 		var point := mouths[index]
 		if not point.is_finite() or not _is_clear(hole, geometry, point, RIM_RADIUS):
-			errors.append("%s: Muendung %d ist nicht frei innerhalb der Bahn" % [label, index])
+			errors.append(report.message("TEXT_MOUTH_IS_NOT_CLEAR_INSIDE_THE_HOLE", [label, index], null, ""))
 		for other in range(index):
 			if point.distance_to(mouths[other]) <= RIM_RADIUS * 2.0:
-				errors.append("%s: Muendungen ueberlappen" % label)
+				errors.append(report.message("TEXT_MOUTHS_OVERLAP", [label], null, ""))
 		for other_pipe in hole.pipe_systems:
 			if other_pipe == null or other_pipe == self:
 				continue
@@ -44,21 +45,21 @@ func validate(hole: Resource) -> PackedStringArray:
 			other_mouths.append_array(other_pipe.exits)
 			for other_point in other_mouths:
 				if point.distance_to(other_point) <= RIM_RADIUS * 2.0:
-					errors.append("%s ueberlappt ein weiteres Rohr" % label)
+					errors.append(report.message("TEXT_OVERLAPS_ANOTHER_PIPE", [label], null, ""))
 	for index in range(3):
 		var direction := exit_directions[index]
 		if not direction.is_finite() or direction.is_zero_approx() or not exits[index].is_finite():
-			errors.append("%s: Ausgang %d besitzt keine gueltige Richtung" % [label, index])
+			errors.append(report.message("TEXT_EXIT_HAS_AN_INVALID_DIRECTION", [label, index], null, ""))
 			continue
 		# Includes emergence and a further ball diameter of unobstructed runout.
 		for step in range(24):
 			var point := exits[index] + direction.normalized() * step
 			if not _is_clear(hole, geometry, point, PrototypeBall.RADIUS):
-				errors.append("%s: Ausgang %d hat keinen freien Auslauf" % [label, index])
+				errors.append(report.message("TEXT_EXIT_HAS_NO_CLEAR_RUNOUT", [label, index], null, ""))
 				break
 			for other_pipe in hole.pipe_systems:
 				if other_pipe != null and point.distance_to(other_pipe.entrance) <= INTAKE_RADIUS + PrototypeBall.RADIUS:
-					errors.append("%s: Ausgang %d fuehrt direkt in einen Eingang" % [label, index])
+					errors.append(report.message("TEXT_EXIT_LEADS_DIRECTLY_INTO_AN_ENTRANCE", [label, index], null, ""))
 	return errors
 
 

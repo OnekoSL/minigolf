@@ -9,84 +9,85 @@ extends Resource
 @export var boundary_arcs: Array[WallDefinition] = []
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if points.size() < 3:
-		errors.append("%s besitzt weniger als drei Konturpunkte" % label)
+		errors.append(report.message("TEXT_HAS_FEWER_THAN_THREE_OUTLINE_POINTS", [label], null, ""))
 		return errors
 	if wall_thickness <= 0.0:
-		errors.append("%s besitzt keine gueltige Bandenstaerke" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_WALL_THICKNESS", [label], null, ""))
 	if not boundary_arcs.is_empty() and not use_normalized_walls:
-		errors.append("%s: Aussenboegen erfordern das gemeinsame Normwandnetz" % label)
+		errors.append(report.message("TEXT_OUTER_ARCS_REQUIRE_THE_SHARED_STANDARD_WALL_MESH", [label], null, ""))
 	for arc_index in range(boundary_arcs.size()):
 		var arc := boundary_arcs[arc_index]
 		if arc == null or arc.wall_type != WallDefinition.WallType.ARC:
-			errors.append("%s: Aussenbogen %d ist kein Kreisbogen" % [label, arc_index])
+			errors.append(report.message("TEXT_OUTER_ARC_IS_NOT_A_CIRCULAR_ARC", [label, arc_index], boundary_arcs[arc_index], ""))
 			continue
-		errors.append_array(arc.validate("%s, Aussenbogen %d" % [label, arc_index]))
+		errors.append_array(arc.validate(I18n.text("TEXT_OUTER_ARC_575") % [label, arc_index], issues))
 		if not is_equal_approx(arc.thickness, wall_thickness):
-			errors.append("%s: Aussenbogen %d hat eine abweichende Wandstaerke" % [label, arc_index])
+			errors.append(report.message("TEXT_OUTER_ARC_HAS_A_DIFFERENT_WALL_THICKNESS", [label, arc_index], boundary_arcs[arc_index], ""))
 		var anchor_count := 0
 		for edge_index in range(points.size()):
 			if _arc_matches_edge(arc, edge_index):
 				anchor_count += 1
 		if anchor_count != 1 or boundary_arcs.count(arc) != 1:
-			errors.append("%s: Aussenbogen %d braucht genau eine eigene Ankerkante" % [label, arc_index])
+			errors.append(report.message("TEXT_OUTER_ARC_NEEDS_EXACTLY_ONE_DEDICATED_ANCHOR_EDGE", [label, arc_index], boundary_arcs[arc_index], ""))
 	if use_normalized_walls and not is_equal_approx(wall_thickness, WallTileDefinition.THICKNESS):
-		errors.append("%s muss fuer Normwaende exakt %.0f Pixel stark sein" % [label, WallTileDefinition.THICKNESS])
+		errors.append(report.message("TEXT_MUST_BE_EXACTLY_PIXELS_THICK_FOR_STANDARD_WALLS", [label, WallTileDefinition.THICKNESS], null, ""))
 	var uses_orthogonal_grid := use_normalized_walls and _uses_orthogonal_grid()
 	var uses_diagonal_grid := use_normalized_walls and _uses_diagonal_grid()
 	var uses_mixed_grid := use_normalized_walls and not uses_orthogonal_grid and not uses_diagonal_grid and _uses_mixed_grid()
 	if use_normalized_walls and not uses_orthogonal_grid and not uses_diagonal_grid and not uses_mixed_grid:
-		errors.append("%s verwendet eine Kante ausserhalb der acht Normwandrichtungen" % label)
+		errors.append(report.message("TEXT_USES_AN_EDGE_OUTSIDE_THE_EIGHT_STANDARD_WALL_DIRECTIONS", [label], null, ""))
 	var signed_area := 0.0
 	for index in range(points.size()):
 		var next_index := (index + 1) % points.size()
 		var start := points[index]
 		var end := points[next_index]
 		if start.distance_to(end) <= wall_thickness:
-			errors.append("%s besitzt eine zu kurze Konturkante %d" % [label, index])
+			errors.append(report.message("TEXT_HAS_AN_OUTLINE_EDGE_THAT_IS_TOO_SHORT", [label, index], null, ""))
 		var matched_arcs := 0
 		for arc in boundary_arcs:
 			if _arc_matches_edge(arc, index):
 				matched_arcs += 1
 		if matched_arcs > 1:
-			errors.append("%s: Konturkante %d wird mehrfach durch Boegen ersetzt" % [label, index])
+			errors.append(report.message("TEXT_OUTLINE_EDGE_IS_REPLACED_BY_MULTIPLE_ARCS", [label, index], null, ""))
 		if matched_arcs > 0:
 			continue
 		if uses_orthogonal_grid:
 			if not _is_cell_center(start):
-				errors.append("%s: Konturpunkt %d liegt nicht im 16-Pixel-Wandzentrumraster" % [label, index])
+				errors.append(report.message("TEXT_OUTLINE_POINT_IS_NOT_ON_THE_16_PIXEL_WALL_CENTER_GRID", [label, index], null, ""))
 			var edge := end - start
 			if not (is_zero_approx(edge.x) != is_zero_approx(edge.y)):
-				errors.append("%s: Normwandkante %d ist weder waagerecht noch senkrecht" % [label, index])
+				errors.append(report.message("TEXT_STANDARD_WALL_EDGE_IS_NEITHER_HORIZONTAL_NOR_VERTICAL", [label, index], null, ""))
 			elif int(round(maxf(absf(edge.x), absf(edge.y)))) % WallTileDefinition.CELL_SIZE != 0:
-				errors.append("%s: Normwandkante %d besitzt keine ganze Kaestchenlaenge" % [label, index])
+				errors.append(report.message("TEXT_STANDARD_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH", [label, index], null, ""))
 		elif uses_diagonal_grid:
 			if not _is_grid_corner(start):
-				errors.append("%s: Diagonalkonturpunkt %d liegt nicht auf einer 16-Pixel-Rasterecke" % [label, index])
+				errors.append(report.message("TEXT_DIAGONAL_OUTLINE_POINT_IS_NOT_ON_A_16_PIXEL_GRID_CORNER", [label, index], null, ""))
 			var edge := end - start
 			if not is_equal_approx(absf(edge.x), absf(edge.y)):
-				errors.append("%s: Diagonalwandkante %d besitzt keinen 45-Grad-Winkel" % [label, index])
+				errors.append(report.message("TEXT_DIAGONAL_WALL_EDGE_IS_NOT_AT_45_DEGREES", [label, index], null, ""))
 			elif int(round(absf(edge.x))) % WallTileDefinition.CELL_SIZE != 0:
-				errors.append("%s: Diagonalwandkante %d besitzt keine ganze Kaestchenlaenge" % [label, index])
+				errors.append(report.message("TEXT_DIAGONAL_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH", [label, index], null, ""))
 		elif uses_mixed_grid:
 			if not _is_cell_center(start):
-				errors.append("%s: Gemischter Konturpunkt %d liegt nicht im 16-Pixel-Wandzentrumraster" % [label, index])
+				errors.append(report.message("TEXT_MIXED_OUTLINE_POINT_IS_NOT_ON_THE_16_PIXEL_WALL_CENTER_GRID", [label, index], null, ""))
 			var edge := end - start
 			var is_cardinal := is_zero_approx(edge.x) != is_zero_approx(edge.y)
 			var is_diagonal := not is_zero_approx(edge.x) and not is_zero_approx(edge.y) and is_equal_approx(absf(edge.x), absf(edge.y))
 			if not is_cardinal and not is_diagonal:
-				errors.append("%s: Gemischte Normwandkante %d besitzt keine gueltige Richtung" % [label, index])
+				errors.append(report.message("TEXT_MIXED_STANDARD_WALL_EDGE_HAS_AN_INVALID_DIRECTION", [label, index], null, ""))
 			elif int(round(maxf(absf(edge.x), absf(edge.y)))) % WallTileDefinition.CELL_SIZE != 0:
-				errors.append("%s: Gemischte Normwandkante %d besitzt keine ganze Kaestchenlaenge" % [label, index])
+				errors.append(report.message("TEXT_MIXED_STANDARD_WALL_EDGE_HAS_A_FRACTIONAL_CELL_LENGTH", [label, index], null, ""))
 	var floor_points := get_floor_points()
 	for index in range(floor_points.size()):
 		var start := floor_points[index]
 		var end := floor_points[(index + 1) % floor_points.size()]
 		signed_area += start.x * end.y - end.x * start.y
 	if absf(signed_area) < 1.0:
-		errors.append("%s besitzt keine gueltige Flaeche" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_AREA", [label], null, ""))
 	for first_index in range(floor_points.size()):
 		var first_next := (first_index + 1) % floor_points.size()
 		for second_index in range(first_index + 1, floor_points.size()):
@@ -97,12 +98,12 @@ func validate(label: String) -> PackedStringArray:
 				floor_points[first_index], floor_points[first_next], floor_points[second_index], floor_points[second_next]
 			)
 			if intersection != null:
-				errors.append("%s ueberschneidet sich an den Kanten %d und %d" % [label, first_index, second_index])
+				errors.append(report.message("TEXT_INTERSECTS_ITSELF_AT_EDGES_AND", [label, first_index, second_index], null, ""))
 	if use_normalized_walls:
 		var used_cells: Dictionary = {}
 		for tile in get_normalized_wall_tiles():
 			if used_cells.has(tile.grid_cell):
-				errors.append("%s verwendet Wandkaestchen %s mehrfach" % [label, tile.grid_cell])
+				errors.append(report.message("TEXT_USES_WALL_CELL_MORE_THAN_ONCE", [label, tile.grid_cell], null, ""))
 			used_cells[tile.grid_cell] = true
 	return errors
 

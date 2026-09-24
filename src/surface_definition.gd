@@ -14,17 +14,18 @@ extends Resource
 @export_range(0.0, 30.0, 0.5) var flow_centering_strength := 0.0
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-		errors.append("%s besitzt keine gueltige Flaeche" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_AREA", [label], null, ""))
 	if deceleration < 0.0:
-		errors.append("%s besitzt negative Reibung" % label)
+		errors.append(report.message("TEXT_HAS_NEGATIVE_FRICTION", [label], null, ""))
 	if surface_type == SurfaceZone.SurfaceType.ICE:
 		if not is_equal_approx(deceleration, SurfaceZone.ICE_DECELERATION) or acceleration != Vector2.ZERO or minimum_flow_speed != 0.0 or maximum_flow_speed != 0.0 or flow_alignment_rate != 0.0 or flow_centering_strength != 0.0:
-			errors.append("%s: Eis benoetigt 20 px/s² Bremsung und keine Zusatzkraefte" % label)
+			errors.append(report.message("TEXT_ICE_REQUIRES_20_PX_S_BRAKING_AND_NO_ADDITIONAL_FORCES", [label], null, ""))
 	if surface_type == SurfaceZone.SurfaceType.SLOPE and slope_strength <= 0.0:
-		errors.append("%s besitzt kein wirksames Gefaelle" % label)
+		errors.append(report.message("TEXT_HAS_NO_EFFECTIVE_SLOPE", [label], null, ""))
 	return errors
 
 

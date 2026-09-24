@@ -16,6 +16,10 @@ var golfer: PlaceholderGolfer
 var player_label: Label
 var round_label: Label
 var golfer_title: Label
+var _result_strokes := -1
+var _result_par := 0
+var _result_prompt := ""
+var _limit_result := false
 
 
 func _ready() -> void:
@@ -72,16 +76,16 @@ func _build_hud() -> void:
 	golfer_panel.add_child(accuracy_bar)
 
 	# Keep the entire playable area clear, including upper return corridors.
-	stroke_label = _label("SCHLAEGE 0   PAR 4", Vector2(8, 86), Vector2(152, 20), 11, Color("#fff3ba"))
+	stroke_label = _label(I18n.text("TEXT_STROKES_0_PAR_4"), Vector2(8, 86), Vector2(152, 20), 11, Color("#fff3ba"))
 	root.add_child(stroke_label)
-	player_label = _label("SPIELER 1", Vector2(8, 110), Vector2(152, 18), 10, Color("#49d6cf"))
+	player_label = _label(I18n.text("TEXT_PLAYER_1"), Vector2(8, 110), Vector2(152, 18), 10, Color("#49d6cf"))
 	player_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	root.add_child(player_label)
-	round_label = _label("LOCH 1/1   GESAMT 0", Vector2(8, 132), Vector2(152, 16), 9, Color("#d7edcf"))
+	round_label = _label(I18n.text("TEXT_HOLE_1_1_TOTAL_0"), Vector2(8, 132), Vector2(152, 16), 9, Color("#d7edcf"))
 	root.add_child(round_label)
-	distance_label = _label("ENTFERNUNG 0 dm", Vector2(8, 148), Vector2(152, 18), 10, Color("#d7edcf"))
+	distance_label = _label(I18n.text("TEXT_DISTANCE_0_DM"), Vector2(8, 148), Vector2(152, 18), 10, Color("#d7edcf"))
 	root.add_child(distance_label)
-	controller_label = _label("Controller wird gesucht ...", Vector2(8, 8), Vector2(152, 38), 10, Color("#c9d6df"))
+	controller_label = _label(I18n.text("TEXT_SEARCHING_FOR_CONTROLLER"), Vector2(8, 8), Vector2(152, 38), 10, Color("#c9d6df"))
 	controller_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(controller_label)
 	course_label = _label("", Vector2(8, 50), Vector2(152, 32), 10, Color("#d7edcf"))
@@ -110,7 +114,7 @@ func _build_hud() -> void:
 	result_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	result_panel.add_child(result_label)
 
-	pause_label = _label("PAUSE", Vector2(270, 150), Vector2(160, 46), 24, Color("#fff1b0"))
+	pause_label = _label(I18n.text("TEXT_PAUSE_459"), Vector2(270, 150), Vector2(160, 46), 24, Color("#fff1b0"))
 	pause_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pause_label.visible = false
 	root.add_child(pause_label)
@@ -118,6 +122,7 @@ func _build_hud() -> void:
 
 func _label(text: String, position: Vector2, size: Vector2, font_size: int, color: Color) -> Label:
 	var label := Label.new()
+	label.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	# Apply font metrics before assigning bounds; otherwise the default font's
 	# minimum size can permanently enlarge narrow sidebar labels.
 	label.add_theme_font_size_override("font_size", font_size)
@@ -154,8 +159,8 @@ func _flat_style(background: Color, width: int, border: Color) -> StyleBoxFlat:
 
 
 func update_game(strokes: int, par: int, power: float, accuracy: float, shot_state: int, distance_decimeters: int, stroke_limit := 0) -> void:
-	stroke_label.text = "SCHLAEGE %d/%d   PAR %d" % [strokes, stroke_limit, par] if stroke_limit > 0 else "SCHLAEGE %d   PAR %d" % [strokes, par]
-	distance_label.text = "ENTFERNUNG %d dm" % distance_decimeters
+	stroke_label.text = I18n.text("TEXT_STROKES_PAR") % [strokes, stroke_limit, par] if stroke_limit > 0 else I18n.text("TEXT_STROKES_PAR_561") % [strokes, par]
+	distance_label.text = I18n.text("TEXT_DISTANCE_DM") % distance_decimeters
 	power_bar.set_value(power)
 	accuracy_bar.set_value(accuracy)
 	golfer.set_shot_state(shot_state)
@@ -172,9 +177,14 @@ func set_diagnostics(visible: bool, text: String) -> void:
 
 
 func show_result(strokes: int, par: int, prompt := "Kreuz / Leertaste: Nochmal") -> void:
+	_result_strokes = strokes
+	_result_par = par
+	_result_prompt = prompt
+	_limit_result = false
+	prompt = I18n.source(prompt)
 	var difference := strokes - par
-	var result := "PAR" if difference == 0 else ("%d UNTER PAR" % abs(difference) if difference < 0 else "+%d UEBER PAR" % difference)
-	result_label.text = "LOCH GESCHAFFT!\n%d SCHLAEGE - %s%s" % [
+	var result := "PAR" if difference == 0 else (I18n.text("TEXT_UNDER_PAR") % abs(difference) if difference < 0 else I18n.text("TEXT_OVER_PAR") % difference)
+	result_label.text = I18n.text("TEXT_HOLE_COMPLETE_N_STROKES") % [
 		strokes,
 		result,
 		"\n\n" + prompt if not prompt.is_empty() else "",
@@ -183,7 +193,9 @@ func show_result(strokes: int, par: int, prompt := "Kreuz / Leertaste: Nochmal")
 
 
 func show_limit_result(strokes: int) -> void:
-	result_label.text = "MAXIMUM ERREICHT\n%d SCHLAEGE\n\nNAECHSTER SPIELER ..." % strokes
+	_result_strokes = strokes
+	_limit_result = true
+	result_label.text = I18n.text("TEXT_LIMIT_REACHED_N_STROKES_N_NNEXT_PLAYER") % strokes
 	result_panel.visible = true
 
 
@@ -204,7 +216,7 @@ func set_player_context(profile: PlayerProfile, hole_number: int, hole_count: in
 		return
 	player_label.text = "P%d  %s" % [profile.player_id, profile.player_name]
 	player_label.add_theme_color_override("font_color", profile.get_color())
-	round_label.text = "LOCH %d/%d   GESAMT %d" % [hole_number, hole_count, total_strokes]
+	round_label.text = I18n.text("TEXT_HOLE_TOTAL") % [hole_number, hole_count, total_strokes]
 	var definition := profile.get_golfer_definition()
 	golfer_title.text = "P%d  %s" % [profile.player_id, definition.display_name]
 	golfer_title.add_theme_color_override("font_color", profile.get_color())
@@ -217,3 +229,13 @@ func play_golfer_reaction(kind: String) -> void:
 	golfer.play_reaction(kind)
 	if kind == "perfect_swing":
 		accuracy_bar.flash_perfect()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(pause_label):
+		pause_label.text = I18n.text("TEXT_PAUSE_459")
+		if result_panel.visible and _result_strokes >= 0:
+			if _limit_result:
+				show_limit_result(_result_strokes)
+			else:
+				show_result(_result_strokes, _result_par, _result_prompt)

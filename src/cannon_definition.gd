@@ -14,18 +14,19 @@ extends Resource
 @export_range(0.0, 128.0, 1.0) var arc_height := 34.0
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if mechanism_id == &"" or mechanism_id == &"unnamed_cannon":
-		errors.append("%s besitzt keine eindeutige Mechanismus-ID" % label)
+		errors.append(report.message("TEXT_HAS_NO_UNIQUE_MECHANISM_ID", [label], null, ""))
 	if capture_size.x <= 0.0 or capture_size.y <= 0.0:
-		errors.append("%s besitzt keinen gueltigen Aufnahmebereich" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_CAPTURE_AREA", [label], null, ""))
 	if entry_direction.is_zero_approx():
-		errors.append("%s besitzt keine Einflugrichtung" % label)
+		errors.append(report.message("TEXT_HAS_NO_ENTRY_DIRECTION", [label], null, ""))
 	if intake_seconds <= 0.0 or flight_seconds <= 0.0 or ignition_seconds < 0.0:
-		errors.append("%s besitzt ungueltige Ablaufzeiten" % label)
+		errors.append(report.message("TEXT_HAS_INVALID_SEQUENCE_TIMINGS", [label], null, ""))
 	if arc_height <= 0.0:
-		errors.append("%s besitzt keine sichtbare Bogenhoehe" % label)
+		errors.append(report.message("TEXT_HAS_NO_VISIBLE_ARC_HEIGHT", [label], null, ""))
 	return errors
 
 

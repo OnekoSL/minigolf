@@ -49,6 +49,8 @@ func set_follow_motion(world_position: Vector2, velocity: Vector2) -> void:
 
 
 func add_impact(contact_normal: Vector2, intensity: float) -> void:
+	if not SettingsManager.current.camera_shake:
+		return
 	impact_offset = impact_for_collision(
 		contact_normal,
 		intensity,
@@ -67,6 +69,9 @@ func snap_to_target() -> void:
 
 
 func _process(delta: float) -> void:
+	if not SettingsManager.current.camera_shake:
+		impact_offset = Vector2.ZERO
+		offset = Vector2.ZERO
 	if not has_focus_position and follow_target == null:
 		return
 	var target_position := focus_position if has_focus_position else follow_target.global_position

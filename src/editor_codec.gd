@@ -67,53 +67,53 @@ func decode(data: Variant, expected_kind := "") -> Resource:
 	_remaining = 100000
 	var result := _resource(data, 0)
 	if result != null and not expected_kind.is_empty() and result.get_script() != SCRIPTS.get(expected_kind):
-		error = "Falscher Dokumenttyp"
+		error = I18n.text("TEXT_WRONG_DOCUMENT_TYPE")
 	return result if error.is_empty() else null
 
 
 func _resource(data: Variant, depth: int) -> Resource:
 	_remaining -= 1
 	if depth > 20 or _remaining < 0 or not data is Dictionary:
-		return _fail("Ungültige oder zu tief verschachtelte Daten")
+		return _fail(I18n.text("TEXT_INVALID_OR_EXCESSIVELY_NESTED_DATA"))
 	if data.has("theme"):
 		if data.theme is String and data.theme in THEMES:
 			return load("res://data/themes/%s.tres" % data.theme)
-		return _fail("Unbekanntes Thema")
+		return _fail(I18n.text("TEXT_UNKNOWN_THEME"))
 	if not data.get("kind") is String or not SCRIPTS.has(data.kind) or not data.get("fields") is Dictionary:
-		return _fail("Unbekannter Bauteiltyp")
+		return _fail(I18n.text("TEXT_UNKNOWN_COMPONENT_TYPE"))
 	var resource: Resource = SCRIPTS[data.kind].new()
 	var known := {}
 	for property in fields(resource):
 		known[property.name] = property
 	for key in data.fields:
 		if not known.has(key):
-			return _fail("Unbekannte Eigenschaft: %s" % key)
+			return _fail(I18n.text("TEXT_UNKNOWN_PROPERTY") % key)
 		var decoded: Variant = _value(data.fields[key], resource.get(key), known[key], depth + 1)
 		if not error.is_empty():
 			return null
 		resource.set(key, decoded)
 	var eid: Variant = data.get("eid", "")
 	if not eid is String or eid.length() > 128:
-		return _fail("Ungültige Elementkennung")
+		return _fail(I18n.text("TEXT_INVALID_ELEMENT_ID"))
 	if not eid.is_empty():
 		resource.set_meta("editor_id", eid)
 	if resource is LaneOutlineDefinition:
 		if resource.points.size() > 512:
-			return _fail("Zu viele Konturpunkte")
+			return _fail(I18n.text("TEXT_TOO_MANY_OUTLINE_POINTS"))
 		for point in resource.points:
 			if absf(point.x) > 16384 or absf(point.y) > 16384:
-				return _fail("Kontur außerhalb des Arbeitsbereichs")
+				return _fail(I18n.text("TEXT_OUTLINE_OUTSIDE_THE_WORK_AREA"))
 	if resource is WallDefinition and (resource.arc_segments < 4 or resource.arc_segments > 128 or resource.radius > 4096):
-		return _fail("Nicht unterstützte Bogengröße oder Segmentzahl")
+		return _fail(I18n.text("TEXT_UNSUPPORTED_ARC_SIZE_OR_SEGMENT_COUNT"))
 	if resource is HoleDefinition and (resource.course_rect.size.x > 8192 or resource.course_rect.size.y > 8192):
-		return _fail("Bahn ist größer als 8192 × 8192 Pixel")
+		return _fail(I18n.text("TEXT_HOLE_EXCEEDS_8192_8192_PIXELS"))
 	return resource
 
 
 func _value(raw: Variant, sample: Variant, property: Dictionary, depth: int) -> Variant:
 	_remaining -= 1
 	if depth > 20 or _remaining < 0:
-		return _fail("Datei enthält zu viele Daten")
+		return _fail(I18n.text("TEXT_FILE_CONTAINS_TOO_MUCH_DATA"))
 	match int(property.type):
 		TYPE_BOOL:
 			if raw is bool:
@@ -125,14 +125,14 @@ func _value(raw: Variant, sample: Variant, property: Dictionary, depth: int) -> 
 			if _number(raw):
 				if property.type == TYPE_INT:
 					if float(raw) != floorf(float(raw)):
-						return _fail("Ganzzahl erwartet: %s" % property.name)
+						return _fail(I18n.text("TEXT_INTEGER_EXPECTED") % property.name)
 					if property.hint == PROPERTY_HINT_ENUM:
 						var choices := String(property.hint_string).split(",")
 						var allowed: Array[int] = []
 						for index in range(choices.size()):
 							allowed.append(int(choices[index].get_slice(":", 1)) if ":" in choices[index] else index)
 						if int(raw) not in allowed:
-							return _fail("Unbekannte Auswahl: %s" % property.name)
+							return _fail(I18n.text("TEXT_UNKNOWN_SELECTION") % property.name)
 					return int(raw)
 				return float(raw)
 		TYPE_VECTOR2, TYPE_VECTOR2I, TYPE_RECT2:
@@ -140,12 +140,12 @@ func _value(raw: Variant, sample: Variant, property: Dictionary, depth: int) -> 
 			if raw is Array and raw.size() == count:
 				for item in raw:
 					if not _number(item):
-						return _fail("Ungültige Koordinate")
+						return _fail(I18n.text("TEXT_INVALID_COORDINATE"))
 				if property.type == TYPE_RECT2:
 					return Rect2(raw[0], raw[1], raw[2], raw[3])
 				if property.type == TYPE_VECTOR2I:
 					if raw[0] != floorf(raw[0]) or raw[1] != floorf(raw[1]):
-						return _fail("Rasterkoordinaten müssen ganzzahlig sein")
+						return _fail(I18n.text("TEXT_GRID_COORDINATES_MUST_BE_INTEGERS"))
 					return Vector2i(raw[0], raw[1])
 				return Vector2(raw[0], raw[1])
 		TYPE_OBJECT:
@@ -157,11 +157,11 @@ func _value(raw: Variant, sample: Variant, property: Dictionary, depth: int) -> 
 				if expected.is_empty():
 					expected = property.get("hint_string", "")
 				if not _matches_class(resource, expected):
-					return _fail("Falscher Ressourcentyp: %s" % property.name)
+					return _fail(I18n.text("TEXT_WRONG_RESOURCE_TYPE") % property.name)
 			return resource
 		TYPE_ARRAY, TYPE_PACKED_VECTOR2_ARRAY, TYPE_PACKED_INT32_ARRAY, TYPE_PACKED_STRING_ARRAY:
 			if not raw is Array or raw.size() > MAX_ITEMS:
-				return _fail("Ungültige oder zu große Liste")
+				return _fail(I18n.text("TEXT_INVALID_OR_OVERSIZED_LIST"))
 			var output: Variant = sample.duplicate()
 			output.clear()
 			var element_type := TYPE_VECTOR2 if property.type == TYPE_PACKED_VECTOR2_ARRAY else TYPE_INT
@@ -175,10 +175,10 @@ func _value(raw: Variant, sample: Variant, property: Dictionary, depth: int) -> 
 					return null
 				if element_type == TYPE_OBJECT:
 					if decoded == null or decoded.get_script() != sample.get_typed_script():
-						return _fail("Falsches Element in %s" % property.name)
+						return _fail(I18n.text("TEXT_WRONG_ELEMENT_IN") % property.name)
 				output.append(decoded)
 			return output
-	return _fail("Ungültiger Wert: %s" % property.name)
+	return _fail(I18n.text("TEXT_INVALID_VALUE") % property.name)
 
 
 func _matches_class(resource: Resource, expected: String) -> bool:

@@ -9,6 +9,8 @@
 **Primaere Plattform:** Windows-PC  
 **Primaere Eingabe:** Controller/Joystick  
 
+**Erweiterung 24.09.2026 – Sprachen und Einstellungen:** Spiel und Ingame-Editor unterstützen Deutsch, Englisch, Französisch, Spanisch und Italienisch, einschließlich offizieller Kurs-/Bahnnamen und sichtbarer Fehlermeldungen. Der erste Start bleibt deutsch; Benutzernamen und eigene Inhaltsnamen werden nicht übersetzt. Ein controllerfreundliches Einstellungsmenü im Titel- und Pausenbildschirm bietet Sprache, Gesamt-/Effektlautstärke, Fenster/randloses Vollbild, Fenstergröße, VSync, Kamerawackeln und die vorhandene separat gespeicherte Controllerkalibrierung. Änderungen werden zunächst erprobt und erst mit **Übernehmen** gespeichert; **Abbrechen** verwirft die Vorschau. Anzeigewechsel besitzen eine 15-sekündige Rücknahmefrist. Einstellungen beeinflussen weder Physik noch Bestwertberechtigung. Musik, freie Tastenbelegung und einstellbare Stick-Totzone gehören nicht zu dieser Erweiterung. Technische Pflege und Prüfungen stehen in [data/i18n/README.md](data/i18n/README.md).
+
 **Erweiterung 17.09.2026:** Der [Ingame-Bahneditor](BAHNEDITOR.md) ergänzt den aktuellen Entwicklungsstand. Maus und Tastatur bedienen eine höher aufgelöste Werkzeugoberfläche; Testspiele und eigene Kurse verwenden weiterhin die originale Spielansicht und Physik. Alle aktuellen Mechaniken, lokale Kursbibliothek, Dateiaustausch und getrennte Bestwerte sind enthalten. Aussagen zum fehlenden Editor im ursprünglichen Prototyp beschreiben den historischen Umfang.
 
 > Dieses Dokument beschreibt die verbindliche kreative und spielerische Grundlage. Angaben, die noch getestet oder entschieden werden muessen, sind ausdruecklich als vorlaeufig oder offen gekennzeichnet.

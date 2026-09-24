@@ -25,9 +25,13 @@ var _course_name: LineEdit
 var _course_holes: ItemList
 var _refresh_pending := false
 var _previous_auto_quit := true
+var _language_refresh_pending := false
+var _display_locale := ""
 
 
 func _ready() -> void:
+	_display_locale = TranslationServer.get_locale()
+	auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_window().content_scale_size = Vector2i(1280, 720)
 	_previous_auto_quit = get_tree().auto_accept_quit
@@ -51,9 +55,9 @@ func _ready() -> void:
 		_message(store.error)
 	if FileAccess.file_exists(store.root.path_join("recovery.json")):
 		var dialog := ConfirmationDialog.new()
-		dialog.cancel_button_text = "Abbrechen"
-		dialog.title = "Entwurf wiederherstellen"
-		dialog.dialog_text = "Es gibt einen automatisch gesicherten Entwurf. Wiederherstellen?"
+		I18n.bind(dialog, "cancel_button_text", "TEXT_CANCEL")
+		I18n.bind(dialog, "title", "TEXT_RESTORE_DRAFT")
+		I18n.bind(dialog, "dialog_text", "TEXT_AN_AUTOMATICALLY_SAVED_DRAFT_IS_AVAILABLE_RESTORE_IT")
 		add_child(dialog)
 		dialog.confirmed.connect(func():
 			var data: Variant = store.read_file(store.root.path_join("recovery.json"))
@@ -144,83 +148,83 @@ func _scroll_column(parent: Node, width: float) -> VBoxContainer:
 	return column
 
 
-func show_editor() -> void:
+func show_editor(fit_view := true) -> void:
 	_clear_body()
 	var heading := HBoxContainer.new()
 	body.add_child(heading)
-	title_label = _label(heading, "BAHNEDITOR", 24)
+	title_label = _label(heading, I18n.text("TEXT_HOLE_EDITOR"), 24)
 	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_label(heading, "PUTT & PIXEL  /  BAUEN · PROBIEREN · TEILEN", 14)
+	_label(heading, I18n.text("TEXT_PUTT_PIXEL_BUILD_TRY_SHARE"), 14)
 	var toolbar := HBoxContainer.new()
 	body.add_child(toolbar)
-	_button(toolbar, "Neu", func(): _guard(func(): _open_document(EditorDocument.new())))
-	_button(toolbar, "Bibliothek", show_library)
-	_button(toolbar, "Vorlage", _template_dialog)
-	_button(toolbar, "Speichern", _save)
-	_button(toolbar, "Export", func(): _file_dialog(true, func(path: String): _report(store.write_file(path, store.payload([document.hole], [])), "Bahn exportiert")))
+	_button(toolbar, I18n.text("TEXT_NEW"), func(): _guard(func(): _open_document(EditorDocument.new())))
+	_button(toolbar, I18n.text("TEXT_LIBRARY"), show_library)
+	_button(toolbar, I18n.text("TEXT_TEMPLATE"), _template_dialog)
+	_button(toolbar, I18n.text("TEXT_SAVE"), _save)
+	_button(toolbar, I18n.text("TEXT_EXPORT"), func(): _file_dialog(true, func(path: String): _report(store.write_file(path, store.payload([document.hole], [])), I18n.text("TEXT_HOLE_EXPORTED"))))
 	_button(toolbar, "↶", func(): document.undo())
 	_button(toolbar, "↷", func(): document.redo())
 	golfer_choice = OptionButton.new()
 	for id in GolferDefinition.IDS:
 		golfer_choice.add_item(GolferDefinition.get_golfer(id).display_name)
 	toolbar.add_child(golfer_choice)
-	_button(toolbar, "▶ Testspiel", _test)
-	_button(toolbar, "Menü", func(): _guard(_close))
+	_button(toolbar, I18n.text("TEXT_PLAYTEST"), _test)
+	_button(toolbar, I18n.text("TEXT_MENU"), func(): _guard(_close))
 	var main := HBoxContainer.new()
 	main.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	main.add_theme_constant_override("separation", 12)
 	body.add_child(main)
 	var palette := _scroll_column(main, 184)
-	_label(palette, "WERKZEUGE", 14)
-	for entry in [["Auswahl / Verschieben", "select"], ["Kontur / Eckpunkte", "contour"], ["Außenbogen", "boundary_arc"], ["Abschlag", "tee"], ["Zielloch", "hole"], ["Zielrichtung", "aim"], ["Schalter verbinden", "link"]]:
+	_label(palette, I18n.text("TEXT_TOOLS"), 14)
+	for entry in [[I18n.text("TEXT_SELECT_MOVE"), "select"], [I18n.text("TEXT_OUTLINE_VERTICES"), "contour"], [I18n.text("TEXT_OUTER_ARC"), "boundary_arc"], [I18n.text("TEXT_TEE"), "tee"], [I18n.text("TEXT_TARGET_HOLE"), "hole"], [I18n.text("TEXT_AIM_DIRECTION"), "aim"], [I18n.text("TEXT_CONNECT_SWITCH"), "link"]]:
 		var key: String = entry[1]
 		_button(palette, entry[0], func(): _tool(key))
-	_button(palette, "Kontur neu zeichnen", func():
+	_button(palette, I18n.text("TEXT_REDRAW_OUTLINE"), func():
 		document.begin()
 		document.hole.lane_outline.points.clear()
 		document.hole.lane_outline.boundary_arcs.clear()
 		document.commit()
 		_tool("contour")
 	)
-	_label(palette, "WÄNDE", 14)
-	var wall_names := ["Ecke oben-rechts", "Ecke rechts-unten", "Ecke unten-links", "Ecke links-oben", "Diagonal ↘", "Diagonal ↗", "Waagerecht", "Senkrecht", "T oben", "T rechts", "T unten", "T links"]
+	_label(palette, I18n.text("TEXT_WALLS"), 14)
+	var wall_names := [I18n.text("TEXT_CORNER_UP_RIGHT"), I18n.text("TEXT_CORNER_RIGHT_DOWN"), I18n.text("TEXT_CORNER_DOWN_LEFT"), I18n.text("TEXT_CORNER_LEFT_UP"), I18n.text("TEXT_DIAGONAL"), I18n.text("TEXT_DIAGONAL_191"), I18n.text("TEXT_HORIZONTAL"), I18n.text("TEXT_VERTICAL"), I18n.text("TEXT_T_UP"), I18n.text("TEXT_T_RIGHT"), I18n.text("TEXT_T_DOWN"), I18n.text("TEXT_T_LEFT")]
 	var walls := OptionButton.new()
 	for name in wall_names:
 		walls.add_item(name)
 	walls.select(6)
 	walls.item_selected.connect(func(index: int): _tool("wall", index))
 	palette.add_child(walls)
-	_button(palette, "Wand zeichnen", func(): _tool("wall", walls.selected))
-	_button(palette, "Kreisbumper", func(): _tool("circle"))
-	_button(palette, "Innenbogen", func(): _tool("arc"))
-	_label(palette, "BELÄGE & GEFÄLLE", 14)
-	for entry in [["Sand", 0], ["Wasser", 2], ["Beton", 3], ["Eis", 4]]:
+	_button(palette, I18n.text("TEXT_DRAW_WALL"), func(): _tool("wall", walls.selected))
+	_button(palette, I18n.text("TEXT_ROUND_BUMPER"), func(): _tool("circle"))
+	_button(palette, I18n.text("TEXT_INNER_ARC"), func(): _tool("arc"))
+	_label(palette, I18n.text("TEXT_SURFACES_SLOPES"), 14)
+	for entry in [[I18n.text("TEXT_SAND"), 0], [I18n.text("TEXT_WATER"), 2], [I18n.text("TEXT_CONCRETE"), 3], [I18n.text("TEXT_ICE"), 4]]:
 		var value: int = entry[1]
 		_button(palette, entry[0], func(): _tool("surface", value))
 	var directions := OptionButton.new()
-	for name in ["↑ Oben", "↗ Oben rechts", "→ Rechts", "↘ Unten rechts", "↓ Unten", "↙ Unten links", "← Links", "↖ Oben links"]:
+	for name in [I18n.text("TEXT_UP_205"), I18n.text("TEXT_UP_RIGHT_206"), I18n.text("TEXT_RIGHT_207"), I18n.text("TEXT_DOWN_RIGHT_208"), I18n.text("TEXT_DOWN_209"), I18n.text("TEXT_DOWN_LEFT_210"), I18n.text("TEXT_LEFT_211"), I18n.text("TEXT_UP_LEFT_212")]:
 		directions.add_item(name)
 	directions.select(2)
 	palette.add_child(directions)
 	var grades := OptionButton.new()
-	for name in ["Grün – flach", "Blau – mittel", "Rot – steil"]:
+	for name in [I18n.text("TEXT_GREEN_SHALLOW"), I18n.text("TEXT_BLUE_MEDIUM"), I18n.text("TEXT_RED_STEEP")]:
 		grades.add_item(name)
 	palette.add_child(grades)
-	_button(palette, "Pfeile malen", func():
+	_button(palette, I18n.text("TEXT_PAINT_ARROWS"), func():
 		canvas.arrow_direction = directions.selected
 		canvas.arrow_grade = grades.selected
 		_tool("arrow")
 	)
-	_button(palette, "Pfeilfeld aufziehen", func():
+	_button(palette, I18n.text("TEXT_DRAW_ARROW_FIELD"), func():
 		canvas.arrow_direction = directions.selected
 		canvas.arrow_grade = grades.selected
 		_tool("arrow_rect")
 	)
-	_label(palette, "MECHANIKEN", 14)
+	_label(palette, I18n.text("TEXT_MECHANISMS"), 14)
 	for index in range(5):
 		var value := index
-		_button(palette, ["Rotor", "Schiebetor", "Wippe", "Tunnelzahnrad", "Elefant"][index], func(): _tool("obstacle", value))
-	for entry in [["Tunnelpaar", "tunnel"], ["Tempo-Rohr", "pipe"], ["Schalter", "trigger"], ["Kanone", "cannon"]]:
+		_button(palette, [I18n.text("TEXT_ROTOR"), I18n.text("TEXT_SLIDING_GATE"), I18n.text("TEXT_SEESAW"), I18n.text("TEXT_TUNNEL_GEAR"), I18n.text("TEXT_ELEPHANT")][index], func(): _tool("obstacle", value))
+	for entry in [[I18n.text("TEXT_TUNNEL_PAIR"), "tunnel"], [I18n.text("TEXT_SPEED_PIPE"), "pipe"], [I18n.text("TEXT_SWITCH"), "trigger"], [I18n.text("TEXT_CANNON"), "cannon"]]:
 		var key: String = entry[1]
 		_button(palette, entry[0], func(): _tool(key))
 	var center := VBoxContainer.new()
@@ -228,14 +232,14 @@ func show_editor() -> void:
 	main.add_child(center)
 	var view_bar := HBoxContainer.new()
 	center.add_child(view_bar)
-	_button(view_bar, "Auswahl", func(): _tool("select"))
-	_button(view_bar, "Gesamtansicht", func(): canvas.fit())
-	_button(view_bar, "Hilfen", func():
+	_button(view_bar, I18n.text("TEXT_SELECTION"), func(): _tool("select"))
+	_button(view_bar, I18n.text("TEXT_OVERVIEW"), func(): canvas.fit())
+	_button(view_bar, I18n.text("TEXT_GUIDES"), func():
 		canvas.show_helpers = not canvas.show_helpers
 		canvas.queue_redraw()
 	)
-	_button(view_bar, "Duplizieren", func(): document.duplicate_selection())
-	_button(view_bar, "Löschen", func(): canvas.delete_selected())
+	_button(view_bar, I18n.text("TEXT_DUPLICATE"), func(): document.duplicate_selection())
+	_button(view_bar, I18n.text("TEXT_DELETE"), func(): canvas.delete_selected())
 	canvas = EditorCanvas.new()
 	canvas.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	center.add_child(canvas)
@@ -243,23 +247,24 @@ func show_editor() -> void:
 	canvas.rebuild()
 	canvas.selection_changed.connect(_refresh_inspector)
 	canvas.hint_changed.connect(func(message: String): status.text = message)
-	canvas.call_deferred("fit")
+	if fit_view:
+		canvas.call_deferred("fit")
 	issues_list = ItemList.new()
 	issues_list.custom_minimum_size.y = 92
 	issues_list.add_theme_font_size_override("font_size", 13)
 	issues_list.item_selected.connect(_focus_issue)
 	center.add_child(issues_list)
 	inspector = _scroll_column(main, 260)
-	status = _label(body, "Mausrad: Zoom  ·  Mitte: Verschieben  ·  Shift: Mehrfachauswahl  ·  Strg+Z/Y: Rückgängig/Wiederholen", 13)
+	status = _label(body, I18n.text("TEXT_WHEEL_ZOOM_MIDDLE_PAN_SHIFT_MULTI_SELECT_CTRL_Z_Y_UNDO_REDO"), 13)
 	_refresh()
 
 
 func _tool(key: String, subtype := 0) -> void:
 	canvas.set_tool(key, subtype)
-	var names := {"select": "Auswahl", "contour": "Kontur", "boundary_arc": "Außenbogen", "tee": "Abschlag", "hole": "Zielloch", "aim": "Zielrichtung", "link": "Schalter verbinden", "wall": "Wand", "circle": "Kreisbumper", "arc": "Innenbogen", "surface": "Belag", "arrow": "Pfeilpinsel", "arrow_rect": "Pfeilfeld", "obstacle": "Hindernis", "tunnel": "Tunnelpaar", "pipe": "Tempo-Rohr", "trigger": "Schalter", "cannon": "Kanone"}
-	status.text = "Werkzeug: %s  ·  Ziehen zum Platzieren/Verschieben  ·  Escape bricht ab" % names.get(key, key)
+	var names := {"select": I18n.text("TEXT_SELECTION"), "contour": I18n.text("TEXT_OUTLINE"), "boundary_arc": I18n.text("TEXT_OUTER_ARC"), "tee": I18n.text("TEXT_TEE"), "hole": I18n.text("TEXT_TARGET_HOLE"), "aim": I18n.text("TEXT_AIM_DIRECTION"), "link": I18n.text("TEXT_CONNECT_SWITCH"), "wall": I18n.text("TEXT_WALL_233"), "circle": I18n.text("TEXT_ROUND_BUMPER"), "arc": I18n.text("TEXT_INNER_ARC"), "surface": I18n.text("TEXT_SURFACE_234"), "arrow": I18n.text("TEXT_ARROW_BRUSH"), "arrow_rect": I18n.text("TEXT_ARROW_FIELD"), "obstacle": I18n.text("TEXT_OBSTACLE"), "tunnel": I18n.text("TEXT_TUNNEL_PAIR"), "pipe": I18n.text("TEXT_SPEED_PIPE"), "trigger": I18n.text("TEXT_SWITCH"), "cannon": I18n.text("TEXT_CANNON")}
+	status.text = I18n.text("TEXT_TOOL_DRAG_TO_PLACE_MOVE_ESCAPE_CANCELS") % names.get(key, key)
 	if key == "tunnel":
-		status.text = "Tunnelpaar setzen · danach Enden einzeln oder das Paar am mittleren Griff verschieben"
+		status.text = I18n.text("TEXT_PLACE_TUNNEL_PAIR_THEN_DRAG_ENDS_OR_MOVE_BOTH_WITH_THE_MIDDLE_HAN")
 
 
 func _document_changed() -> void:
@@ -277,10 +282,10 @@ func _refresh() -> void:
 	_issues = document.issues()
 	issues_list.clear()
 	if _issues.is_empty():
-		issues_list.add_item("✓ Daten gültig. PAR und Spielbarkeit bitte im Testspiel prüfen.")
+		issues_list.add_item(I18n.text("TEXT_DATA_VALID_CHECK_PAR_AND_PLAYABILITY_IN_A_PLAYTEST"))
 	else:
 		for issue in _issues:
-			issues_list.add_item(("Hinweis: " if issue.get("severity", "error") == "warning" else "! ") + issue.message)
+			issues_list.add_item((I18n.text("TEXT_NOTE") if issue.get("severity", "error") == "warning" else "! ") + issue.message)
 	var focused := get_viewport().gui_get_focus_owner()
 	if focused == null or not inspector.is_ancestor_of(focused):
 		_refresh_inspector()
@@ -305,7 +310,7 @@ func _refresh_inspector() -> void:
 	for child in inspector.get_children():
 		inspector.remove_child(child)
 		child.queue_free()
-	_label(inspector, "EIGENSCHAFTEN", 14)
+	_label(inspector, I18n.text("TEXT_PROPERTIES"), 14)
 	var resource: Resource = document.hole
 	if document.selection.size() == 1:
 		var id := document.selection[0]
@@ -317,55 +322,55 @@ func _refresh_inspector() -> void:
 			var selected := document.find(id)
 			if selected != null:
 				resource = selected
-	var type_names := {"WallDefinition": "Kreis / Bogen", "WallTileDefinition": "Wandstück", "SurfaceDefinition": "Belag", "ArrowTileDefinition": "Gefällepfeil", "ObstacleDefinition": "Bewegliches Hindernis", "TriggerDefinition": "Schalter", "CannonDefinition": "Kanone", "TunnelDefinition": "Tunnelpaar", "PipeSystemDefinition": "Tempo-Rohr"}
-	_label(inspector, "Bahn" if resource == document.hole else type_names.get(String(resource.get_script().get_global_name()), "Bauteil"), 17)
+	var type_names := {"WallDefinition": I18n.text("TEXT_CIRCLE_ARC"), "WallTileDefinition": I18n.text("TEXT_WALL_PIECE"), "SurfaceDefinition": I18n.text("TEXT_SURFACE_234"), "ArrowTileDefinition": I18n.text("TEXT_SLOPE_ARROW"), "ObstacleDefinition": I18n.text("TEXT_MOVING_OBSTACLE"), "TriggerDefinition": I18n.text("TEXT_SWITCH"), "CannonDefinition": I18n.text("TEXT_CANNON"), "TunnelDefinition": I18n.text("TEXT_TUNNEL_PAIR"), "PipeSystemDefinition": I18n.text("TEXT_SPEED_PIPE")}
+	_label(inspector, I18n.text("TEXT_HOLE_255") if resource == document.hole else type_names.get(String(resource.get_script().get_global_name()), I18n.text("TEXT_COMPONENT")), 17)
 	if document.selection.size() > 1:
-		_label(inspector, "%d Elemente ausgewählt" % document.selection.size(), 14)
+		_label(inspector, I18n.text("TEXT_ELEMENTS_SELECTED") % document.selection.size(), 14)
 	if resource == document.hole:
-		_field(resource, "display_name", "Name")
+		_field(resource, "display_name", I18n.text("TEXT_NAME_258"))
 		_field(resource, "par", "PAR")
-		_vector_field("Bahngröße", document.hole.course_rect.size, func(value: Vector2):
+		_vector_field(I18n.text("TEXT_HOLE_SIZE"), document.hole.course_rect.size, func(value: Vector2):
 			document.begin()
 			document.resize_course(value)
 			document.commit()
 		)
-		_field(resource, "base_surface", "Grundbelag")
+		_field(resource, "base_surface", I18n.text("TEXT_BASE_SURFACE"))
 		var themes := OptionButton.new()
 		for id in EditorCodec.THEMES:
-			themes.add_item(id.capitalize())
+			themes.add_item(I18n.text("COURSE_" + id.to_upper() + "_COURSE"))
 		if document.hole.theme != null:
 			themes.select(maxi(0, EditorCodec.THEMES.find(String(document.hole.theme.theme_id))))
 		inspector.add_child(themes)
 		themes.item_selected.connect(func(index: int): _set_field(document.hole, "theme", load("res://data/themes/%s.tres" % EditorCodec.THEMES[index])))
-		_field(resource, "tee_position", "Abschlag")
-		_field(resource, "hole_position", "Zielloch")
-		_field(resource, "initial_aim_offset", "Zielrichtung")
+		_field(resource, "tee_position", I18n.text("TEXT_TEE"))
+		_field(resource, "hole_position", I18n.text("TEXT_TARGET_HOLE"))
+		_field(resource, "initial_aim_offset", I18n.text("TEXT_AIM_DIRECTION"))
 	else:
 		if resource is WallDefinition and resource in document.items("boundary_arcs") and document.boundary_edge(resource) >= 0:
-			_label(inspector, "Auswölbung (+ / −)", 13)
+			_label(inspector, I18n.text("TEXT_BULGE"), 13)
 			_number(inspector, document.boundary_bulge(resource), func(value: float):
 				document.begin()
 				document.set_boundary_bulge(resource, value)
 				document.commit()
 			)
-			_label(inspector, "Die Endpunkte bleiben verankert.", 13)
+			_label(inspector, I18n.text("TEXT_THE_ENDPOINTS_REMAIN_ANCHORED"), 13)
 		else:
 			for property in EditorCodec.fields(resource):
 				var key: String = property.name
 				if _visible_property(resource, key):
 					_field(resource, key, _property_label(key))
 		if resource is SurfaceDefinition:
-			_button(inspector, "Fläche eine Ebene höher", func(): _reorder_surface(resource, 1))
-			_button(inspector, "Fläche eine Ebene tiefer", func(): _reorder_surface(resource, -1))
+			_button(inspector, I18n.text("TEXT_RAISE_SURFACE_ONE_LAYER"), func(): _reorder_surface(resource, 1))
+			_button(inspector, I18n.text("TEXT_LOWER_SURFACE_ONE_LAYER"), func(): _reorder_surface(resource, -1))
 		if resource is CannonDefinition:
-			_button(inspector, "Schalterverbindung lösen", func():
+			_button(inspector, I18n.text("TEXT_DISCONNECT_SWITCH"), func():
 				document.begin()
 				for trigger in document.hole.triggers:
 					trigger.target_ids.erase(resource.mechanism_id)
 				resource.required_trigger_id = &""
 				document.commit()
 			)
-	_button(inspector, "Bahneigenschaften", func():
+	_button(inspector, I18n.text("TEXT_HOLE_PROPERTIES"), func():
 		document.selection.clear()
 		_refresh_inspector()
 	)
@@ -398,7 +403,7 @@ func _visible_property(resource: Resource, key: String) -> bool:
 
 
 func _property_label(key: String) -> String:
-	var names := {"position": "Position", "center": "Mittelpunkt", "radius": "Radius", "rect": "Fläche (X, Y, Breite, Höhe)", "rotation_degrees": "Drehung", "start_rotation_degrees": "Ausrichtung", "grid_cell": "Rasterzelle", "grid_offset": "Rasterversatz", "variant": "Wandstück", "direction": "Richtung", "slope_grade": "Gefällestärke", "endpoint_a": "Tunnel A", "endpoint_b": "Tunnel B", "entrance": "Rohreingang", "exits": "Ausgänge: langsam / passend / schnell", "exit_directions": "Ausgangsrichtungen", "landing_position": "Landeposition", "entry_direction": "Einfahrtrichtung", "landing_velocity": "Geschwindigkeit nach Landung", "gear_links": "Zahnradpaare (0–7)", "arc_start_degrees": "Bogenbeginn (Grad)", "arc_sweep_degrees": "Bogenwinkel", "arc_segments": "Bogensegmente", "surface_type": "Belag", "deceleration": "Rollwiderstand", "capture_size": "Aufnahmebereich", "intake_seconds": "Einzug (Sekunden)", "ignition_seconds": "Zündverzögerung (Sekunden)", "flight_seconds": "Flugdauer (Sekunden)", "arc_height": "Flughöhe", "blade_size": "Rotorgröße", "seconds_per_revolution": "Sekunden pro Umdrehung", "impulse_multiplier": "Kontaktimpuls (Faktor)", "minimum_kick_speed": "Mindestimpuls", "gate_size": "Torgröße", "open_offset": "Öffnungsweg", "cycle_seconds": "Zyklusdauer (Sekunden)", "transition_seconds": "Bewegungsdauer (Sekunden)", "open_hold_seconds": "Offen halten (Sekunden)", "phase_offset_seconds": "Zeitversatz (Sekunden)", "seesaw_size": "Wippengröße", "seesaw_max_angle_degrees": "Maximale Neigung", "seesaw_response_seconds": "Kippdauer (Sekunden)", "seesaw_slope_strength": "Gefällekraft", "seesaw_end_lip_thickness": "Stirnkantenstärke", "seesaw_blocker_tilt_threshold": "Freigabeschwelle", "seesaw_preferred_tilt": "Ruhelage (−1 bis 1)", "elephant_intake": "Aufnahme (lokal)", "elephant_exit": "Ausgang (lokal)", "elephant_gate_size": "Rüsselgröße", "elephant_gate_offset": "Rüsselweg", "elephant_intake_radius": "Aufnahmeradius", "elephant_exit_speed": "Ausgangstempo", "elephant_transport_seconds": "Transportdauer (Sekunden)", "elephant_cycle_seconds": "Elefantenzyklus (Sekunden)", "size": "Größe"}
+	var names := {"position": I18n.text("TEXT_POSITION"), "center": I18n.text("TEXT_CENTER"), "radius": I18n.text("TEXT_RADIUS"), "rect": I18n.text("TEXT_AREA_X_Y_WIDTH_HEIGHT"), "rotation_degrees": I18n.text("TEXT_ROTATION"), "start_rotation_degrees": I18n.text("TEXT_ORIENTATION"), "grid_cell": I18n.text("TEXT_GRID_CELL"), "grid_offset": I18n.text("TEXT_GRID_OFFSET"), "variant": I18n.text("TEXT_WALL_PIECE"), "direction": I18n.text("TEXT_DIRECTION"), "slope_grade": I18n.text("TEXT_SLOPE_GRADE"), "endpoint_a": I18n.text("TEXT_TUNNEL_A"), "endpoint_b": I18n.text("TEXT_TUNNEL_B"), "entrance": I18n.text("TEXT_PIPE_ENTRANCE"), "exits": I18n.text("TEXT_EXITS_SLOW_SUITABLE_FAST"), "exit_directions": I18n.text("TEXT_EXIT_DIRECTIONS"), "landing_position": I18n.text("TEXT_LANDING_POSITION"), "entry_direction": I18n.text("TEXT_ENTRY_DIRECTION"), "landing_velocity": I18n.text("TEXT_VELOCITY_AFTER_LANDING"), "gear_links": I18n.text("TEXT_GEAR_PAIRS_0_7"), "arc_start_degrees": I18n.text("TEXT_ARC_START_DEGREES"), "arc_sweep_degrees": I18n.text("TEXT_ARC_SWEEP"), "arc_segments": I18n.text("TEXT_ARC_SEGMENTS"), "surface_type": I18n.text("TEXT_SURFACE_234"), "deceleration": I18n.text("TEXT_ROLLING_RESISTANCE"), "capture_size": I18n.text("TEXT_CAPTURE_AREA"), "intake_seconds": I18n.text("TEXT_INTAKE_SECONDS"), "ignition_seconds": I18n.text("TEXT_IGNITION_DELAY_SECONDS"), "flight_seconds": I18n.text("TEXT_FLIGHT_DURATION_SECONDS"), "arc_height": I18n.text("TEXT_FLIGHT_HEIGHT"), "blade_size": I18n.text("TEXT_ROTOR_SIZE"), "seconds_per_revolution": I18n.text("TEXT_SECONDS_PER_REVOLUTION"), "impulse_multiplier": I18n.text("TEXT_CONTACT_IMPULSE_FACTOR"), "minimum_kick_speed": I18n.text("TEXT_MINIMUM_IMPULSE"), "gate_size": I18n.text("TEXT_GATE_SIZE"), "open_offset": I18n.text("TEXT_OPENING_TRAVEL"), "cycle_seconds": I18n.text("TEXT_CYCLE_DURATION_SECONDS"), "transition_seconds": I18n.text("TEXT_MOVEMENT_DURATION_SECONDS"), "open_hold_seconds": I18n.text("TEXT_HOLD_OPEN_SECONDS"), "phase_offset_seconds": I18n.text("TEXT_TIME_OFFSET_SECONDS"), "seesaw_size": I18n.text("TEXT_SEESAW_SIZE"), "seesaw_max_angle_degrees": I18n.text("TEXT_MAXIMUM_TILT"), "seesaw_response_seconds": I18n.text("TEXT_TILT_DURATION_SECONDS"), "seesaw_slope_strength": I18n.text("TEXT_SLOPE_FORCE"), "seesaw_end_lip_thickness": I18n.text("TEXT_END_LIP_THICKNESS"), "seesaw_blocker_tilt_threshold": I18n.text("TEXT_RELEASE_THRESHOLD"), "seesaw_preferred_tilt": I18n.text("TEXT_REST_POSITION_1_TO_1"), "elephant_intake": I18n.text("TEXT_INTAKE_LOCAL"), "elephant_exit": I18n.text("TEXT_EXIT_LOCAL"), "elephant_gate_size": I18n.text("TEXT_TRUNK_SIZE"), "elephant_gate_offset": I18n.text("TEXT_TRUNK_TRAVEL"), "elephant_intake_radius": I18n.text("TEXT_INTAKE_RADIUS"), "elephant_exit_speed": I18n.text("TEXT_EXIT_SPEED"), "elephant_transport_seconds": I18n.text("TEXT_TRANSPORT_DURATION_SECONDS"), "elephant_cycle_seconds": I18n.text("TEXT_ELEPHANT_CYCLE_SECONDS"), "size": I18n.text("TEXT_SIZE")}
 	return names.get(key, key.replace("_", " ").capitalize())
 
 
@@ -418,7 +423,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 			rect.position = next
 			_set_field(resource, key, rect)
 		)
-		_vector_field("Breite / Höhe", value.size, func(next: Vector2):
+		_vector_field(I18n.text("TEXT_WIDTH_HEIGHT"), value.size, func(next: Vector2):
 			var rect: Rect2 = resource.get(key)
 			rect.size = next
 			_set_field(resource, key, rect)
@@ -435,6 +440,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 	elif value is PackedInt32Array:
 		_label(inspector, label, 13)
 		var line := LineEdit.new()
+		line.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
 		var parts := PackedStringArray()
 		for item in value:
 			parts.append(str(item))
@@ -444,7 +450,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 			var values := PackedInt32Array()
 			for part in text.split(","):
 				if not part.strip_edges().is_valid_int():
-					_message("Bitte durch Kommas getrennte Ganzzahlen eingeben")
+					_message(I18n.text("TEXT_PLEASE_ENTER_COMMA_SEPARATED_INTEGERS"))
 					return
 				values.append(int(part))
 			_set_field(resource, key, values)
@@ -455,7 +461,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 		var index := 0
 		for option in String(property.hint_string).split(","):
 			var id := int(option.get_slice(":", 1)) if ":" in option else index
-			choice.add_item(option.get_slice(":", 0), id)
+			choice.add_item(I18n.source(option.get_slice(":", 0)), id)
 			if id == value:
 				choice.select(index)
 			index += 1
@@ -467,6 +473,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 	elif value is String or value is StringName:
 		_label(inspector, label, 13)
 		var line := LineEdit.new()
+		line.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
 		line.text = value
 		line.max_length = 100
 		inspector.add_child(line)
@@ -479,6 +486,7 @@ func _field(resource: Resource, key: String, label: String) -> void:
 
 func _number(parent: Node, value: float, callback: Callable, step := 1.0) -> SpinBox:
 	var spin := SpinBox.new()
+	spin.get_line_edit().auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
 	spin.min_value = -100000
 	spin.max_value = 100000
 	spin.step = step
@@ -531,7 +539,7 @@ func _save() -> void:
 		_clear_recovery()
 		_refresh()
 		if is_instance_valid(status):
-			status.text = "Bahn gespeichert"
+			status.text = I18n.text("TEXT_HOLE_SAVED")
 	else:
 		_message(store.error)
 
@@ -540,7 +548,7 @@ func _write_recovery() -> void:
 	if document.dirty():
 		if not store.write_file(store.root.path_join("recovery.json"), store.payload([document.hole], [])):
 			if is_instance_valid(status):
-				status.text = "Automatische Sicherung fehlgeschlagen: " + store.error
+				status.text = I18n.text("TEXT_AUTOSAVE_FAILED") + store.error
 
 
 func _clear_recovery() -> void:
@@ -554,12 +562,12 @@ func _guard(action: Callable) -> void:
 		action.call()
 		return
 	var dialog := ConfirmationDialog.new()
-	dialog.cancel_button_text = "Abbrechen"
-	dialog.title = "Ungespeicherte Änderungen"
+	I18n.bind(dialog, "cancel_button_text", "TEXT_CANCEL")
+	I18n.bind(dialog, "title", "TEXT_UNSAVED_CHANGES")
 	dialog.dialog_hide_on_ok = false
-	dialog.dialog_text = "Änderungen vor dem Verlassen speichern?"
-	dialog.ok_button_text = "Speichern"
-	dialog.add_button("Verwerfen", false, "discard")
+	I18n.bind(dialog, "dialog_text", "TEXT_SAVE_CHANGES_BEFORE_LEAVING")
+	I18n.bind(dialog, "ok_button_text", "TEXT_SAVE")
+	dialog.add_button(I18n.text("TEXT_DISCARD"), false, "discard")
 	add_child(dialog)
 	dialog.confirmed.connect(func():
 		_save()
@@ -586,13 +594,16 @@ func _exit_tree() -> void:
 
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and TranslationServer.get_locale() != _display_locale and not _language_refresh_pending:
+		_language_refresh_pending = true
+		call_deferred("_refresh_language")
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and is_inside_tree():
 		_guard(func(): get_tree().quit())
 
 
 func _message(text: String) -> void:
 	var dialog := AcceptDialog.new()
-	dialog.title = "Bahneditor"
+	I18n.bind(dialog, "title", "TEXT_HOLE_EDITOR_328")
 	dialog.dialog_text = text
 	add_child(dialog)
 	dialog.popup_centered(Vector2i(560, 180))
@@ -605,11 +616,12 @@ func _report(success: bool, message: String) -> void:
 
 func _file_dialog(save: bool, action: Callable) -> void:
 	var dialog := FileDialog.new()
+	dialog.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
 	dialog.access = FileDialog.ACCESS_FILESYSTEM
 	dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE if save else FileDialog.FILE_MODE_OPEN_FILE
-	dialog.filters = PackedStringArray(["*.json ; Putt & Pixel Bahnen/Kurse"])
+	dialog.filters = PackedStringArray([I18n.text("TEXT_JSON_PUTT_PIXEL_HOLES_COURSES")])
 	dialog.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-	dialog.current_file = "Meine-Bahn.json" if save else ""
+	dialog.current_file = "PuttAndPixel.json" if save else ""
 	add_child(dialog)
 	dialog.file_selected.connect(action)
 	dialog.file_selected.connect(func(_path: String): dialog.queue_free())
@@ -620,17 +632,17 @@ func _file_dialog(save: bool, action: Callable) -> void:
 func _template_dialog() -> void:
 	_guard(func():
 		var dialog := AcceptDialog.new()
-		dialog.title = "Spielbahn als eigene Kopie öffnen"
+		I18n.bind(dialog, "title", "TEXT_OPEN_GAME_HOLE_AS_YOUR_OWN_COPY")
 		var list := ItemList.new()
 		list.custom_minimum_size = Vector2(720, 400)
 		var templates: Array[HoleDefinition] = []
 		for hole in HoleCatalog.load_default().holes:
 			if hole.is_course_hole():
 				templates.append(hole)
-				list.add_item("%s  /  PAR %d" % [hole.display_name, hole.par])
+				list.add_item("%s  /  PAR %d" % [I18n.content_name(hole), hole.par])
 		dialog.add_child(list)
 		add_child(dialog)
-		dialog.ok_button_text = "Kopie öffnen"
+		I18n.bind(dialog, "ok_button_text", "TEXT_OPEN_COPY")
 		dialog.confirmed.connect(func():
 			if not list.get_selected_items().is_empty():
 				_open_document(EditorDocument.new(templates[list.get_selected_items()[0]], true))
@@ -642,7 +654,7 @@ func _template_dialog() -> void:
 
 func _test() -> void:
 	if not document.blocking_issues().is_empty():
-		_message("Bitte zuerst die markierten Datenfehler beheben. Der Entwurf kann jederzeit gespeichert werden.")
+		_message(I18n.text("TEXT_PLEASE_FIX_THE_MARKED_DATA_ERRORS_FIRST_YOU_CAN_SAVE_THE_DRAFT_AT"))
 		return
 	var test := EditorPlaytest.new()
 	test.definition = document.hole.duplicate(true)
@@ -682,27 +694,27 @@ func show_library() -> void:
 	_clear_body()
 	var header := HBoxContainer.new()
 	body.add_child(header)
-	_label(header, "EIGENE INHALTE", 26).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_button(header, "Zum Entwurf", show_editor)
-	_button(header, "Importieren", func(): _file_dialog(false, func(path: String):
+	_label(header, I18n.text("TEXT_CUSTOM_CONTENT"), 26).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(header, I18n.text("TEXT_BACK_TO_DRAFT"), show_editor)
+	_button(header, I18n.text("TEXT_IMPORT"), func(): _file_dialog(false, func(path: String):
 		if store.import_file(path):
 			show_library()
 		else:
 			_message(store.error)
 	))
-	_button(header, "Menü", func(): _guard(_close))
+	_button(header, I18n.text("TEXT_MENU"), func(): _guard(_close))
 	var tabs := HBoxContainer.new()
 	body.add_child(tabs)
-	_button(tabs, "Bahnen", func():
+	_button(tabs, I18n.text("TEXT_HOLES"), func():
 		_library_tab = 0
 		show_library()
 	)
-	_button(tabs, "Kurse", func():
+	_button(tabs, I18n.text("TEXT_COURSES"), func():
 		_library_tab = 1
 		show_library()
 	)
-	_button(tabs, "Neue Bahn", func(): _guard(func(): _open_document(EditorDocument.new())))
-	_button(tabs, "Neuer Kurs", func(): _edit_course(null))
+	_button(tabs, I18n.text("TEXT_NEW_HOLE"), func(): _guard(func(): _open_document(EditorDocument.new())))
+	_button(tabs, I18n.text("TEXT_NEW_COURSE"), func(): _edit_course(null))
 	var main := HBoxContainer.new()
 	main.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(main)
@@ -720,19 +732,19 @@ func show_library() -> void:
 	right.add_child(_library_preview)
 	var row := HBoxContainer.new()
 	right.add_child(row)
-	_button(row, "Bearbeiten", _edit_selected)
-	_button(row, "Spielen", _play_selected)
-	_button(row, "Exportieren", _export_selected)
-	_button(row, "Löschen", _delete_selected)
-	status = _label(body, "Eigene Inhalte werden lokal gespeichert. Doppelklick öffnet die Bearbeitung.", 14)
+	_button(row, I18n.text("TEXT_EDIT"), _edit_selected)
+	_button(row, I18n.text("TEXT_PLAY"), _play_selected)
+	_button(row, I18n.text("TEXT_EXPORT_344"), _export_selected)
+	_button(row, I18n.text("TEXT_DELETE"), _delete_selected)
+	status = _label(body, I18n.text("TEXT_CUSTOM_CONTENT_IS_SAVED_LOCALLY_DOUBLE_CLICK_TO_EDIT"), 14)
 	if _library_tab == 0:
 		for hole in store.holes:
 			var valid := EditorDocument.new(hole).blocking_issues().is_empty()
-			_library_list.add_item("%s  /  PAR %d%s" % [hole.display_name, hole.par, "" if valid else "  [Entwurf]"])
+			_library_list.add_item("%s  /  PAR %d%s" % [hole.display_name, hole.par, "" if valid else I18n.text("TEXT_DRAFT")])
 	else:
 		for course in store.courses:
 			var best := BestScoreStore.new(store.root.path_join("progress.cfg")).get_best(store.best_key(course))
-			_library_list.add_item("%s  /  %d Bahnen%s" % [course.display_name, course.hole_ids.size(), "  /  Bestwert %d" % best if best >= 0 else ""])
+			_library_list.add_item(I18n.text("TEXT_HOLES_348") % [course.display_name, course.hole_ids.size(), I18n.text("TEXT_BEST") % best if best >= 0 else ""])
 	_library_list.item_selected.connect(_preview_selected)
 	_library_list.item_activated.connect(func(_index: int): _edit_selected())
 	if _library_list.item_count > 0:
@@ -772,7 +784,7 @@ func _export_selected() -> void:
 		return
 	_file_dialog(true, func(path: String):
 		var success := store.write_file(path, store.payload([store.holes[index]], [])) if _library_tab == 0 else store.export_course(store.courses[index], path)
-		_report(success, "Datei exportiert")
+		_report(success, I18n.text("TEXT_FILE_EXPORTED"))
 	)
 
 
@@ -781,8 +793,8 @@ func _delete_selected() -> void:
 	if index < 0:
 		return
 	var dialog := ConfirmationDialog.new()
-	dialog.cancel_button_text = "Abbrechen"
-	dialog.dialog_text = "Ausgewählten Inhalt aus der Bibliothek löschen?"
+	I18n.bind(dialog, "cancel_button_text", "TEXT_CANCEL")
+	I18n.bind(dialog, "dialog_text", "TEXT_DELETE_THE_SELECTED_CONTENT_FROM_THE_LIBRARY")
 	add_child(dialog)
 	dialog.confirmed.connect(func():
 		var success := store.delete_hole(store.holes[index].hole_id) if _library_tab == 0 else store.delete_course(store.courses[index])
@@ -799,16 +811,17 @@ func _edit_course(source: CourseDefinition) -> void:
 	_course_work = source.duplicate(true) if source != null else CourseDefinition.new()
 	if source == null:
 		_course_work.course_id = EditorCodec.new_id()
-		_course_work.display_name = "Mein Kurs"
+		_course_work.display_name = I18n.text("TEXT_MY_COURSE")
 	var dialog := ConfirmationDialog.new()
-	dialog.cancel_button_text = "Abbrechen"
-	dialog.title = "Kurs zusammenstellen"
+	I18n.bind(dialog, "cancel_button_text", "TEXT_CANCEL")
+	I18n.bind(dialog, "title", "TEXT_BUILD_COURSE")
 	dialog.dialog_hide_on_ok = false
-	dialog.ok_button_text = "Kurs speichern"
+	I18n.bind(dialog, "ok_button_text", "TEXT_SAVE_COURSE")
 	var column := VBoxContainer.new()
 	column.custom_minimum_size = Vector2(850, 440)
 	dialog.add_child(column)
 	_course_name = LineEdit.new()
+	_course_name.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
 	_course_name.text = _course_work.display_name
 	column.add_child(_course_name)
 	var row := HBoxContainer.new()
@@ -822,13 +835,13 @@ func _edit_course(source: CourseDefinition) -> void:
 	_course_holes.item_activated.connect(func(index: int): _append_course_hole(index))
 	var commands := VBoxContainer.new()
 	row.add_child(commands)
-	_button(commands, "Hinzufügen →", func():
+	_button(commands, I18n.text("TEXT_ADD"), func():
 		if not _course_holes.get_selected_items().is_empty():
 			_append_course_hole(_course_holes.get_selected_items()[0])
 	)
 	_button(commands, "↑", func(): _move_course_hole(-1))
 	_button(commands, "↓", func(): _move_course_hole(1))
-	_button(commands, "Entfernen", func():
+	_button(commands, I18n.text("TEXT_REMOVE"), func():
 		if not _course_sequence.get_selected_items().is_empty():
 			_course_work.hole_ids.remove_at(_course_sequence.get_selected_items()[0])
 			_refresh_course_sequence()
@@ -837,7 +850,7 @@ func _edit_course(source: CourseDefinition) -> void:
 	_course_sequence.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_course_sequence)
 	_refresh_course_sequence()
-	_label(column, "1 bis 9 Bahnen · Wiederholungen erlaubt · Änderungen an Bahnen gelten auch im Kurs", 13)
+	_label(column, I18n.text("TEXT_1_TO_9_HOLES_REPEATS_ALLOWED_HOLE_CHANGES_ALSO_AFFECT_THE_COURSE"), 13)
 	add_child(dialog)
 	dialog.confirmed.connect(func():
 		_course_work.display_name = _course_name.text
@@ -862,7 +875,7 @@ func _refresh_course_sequence() -> void:
 	_course_sequence.clear()
 	for index in range(_course_work.hole_ids.size()):
 		var hole := store.get_hole(_course_work.hole_ids[index])
-		_course_sequence.add_item("%d. %s" % [index + 1, hole.display_name if hole != null else "Fehlende Bahn"])
+		_course_sequence.add_item("%d. %s" % [index + 1, hole.display_name if hole != null else I18n.text("TEXT_MISSING_HOLE")])
 
 
 func _move_course_hole(direction: int) -> void:
@@ -892,17 +905,17 @@ func _play_selected() -> void:
 	for id in course.hole_ids:
 		var hole := store.get_hole(id)
 		if hole == null or not EditorDocument.new(hole).blocking_issues().is_empty():
-			_message("Diese Auswahl enthält einen Entwurf mit Datenfehlern. Bitte zuerst bearbeiten.")
+			_message(I18n.text("TEXT_THIS_SELECTION_CONTAINS_A_DRAFT_WITH_DATA_ERRORS_PLEASE_EDIT_IT_F"))
 			return
 	var dialog := ConfirmationDialog.new()
-	dialog.cancel_button_text = "Abbrechen"
-	dialog.title = "Spieler für „%s“" % course.display_name
-	dialog.ok_button_text = "Spielen"
+	I18n.bind(dialog, "cancel_button_text", "TEXT_CANCEL")
+	I18n.bind(dialog, "title", "TEXT_PLAYERS_FOR", [course.display_name])
+	I18n.bind(dialog, "ok_button_text", "TEXT_PLAY")
 	var column := VBoxContainer.new()
 	dialog.add_child(column)
 	var count := OptionButton.new()
 	for number in range(1, 5):
-		count.add_item("%d Spieler" % number)
+		count.add_item(I18n.text("TEXT_PLAYERS") % number)
 	column.add_child(count)
 	var names: Array[LineEdit] = []
 	var golfers: Array[OptionButton] = []
@@ -910,7 +923,8 @@ func _play_selected() -> void:
 		var row := HBoxContainer.new()
 		column.add_child(row)
 		var name := LineEdit.new()
-		name.text = "Spieler %d" % (number + 1)
+		name.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
+		name.text = I18n.text("TEXT_PLAYER") % (number + 1)
 		name.max_length = 12
 		row.add_child(name)
 		names.append(name)
@@ -927,3 +941,31 @@ func _play_selected() -> void:
 		_guard(func(): play_requested.emit(course, players))
 	)
 	dialog.popup_centered(Vector2i(540, 280))
+
+
+func _refresh_language() -> void:
+	_language_refresh_pending = false
+	if not is_inside_tree() or not visible or document == null:
+		return
+	_display_locale = TranslationServer.get_locale()
+	# Commit an active text field just as a normal focus change would.
+	var focus := get_viewport().gui_get_focus_owner()
+	if focus is LineEdit and is_ancestor_of(focus):
+		focus.text_submitted.emit(focus.text)
+	if is_instance_valid(canvas):
+		var view := {}
+		for key in ["tool", "variant", "arrow_direction", "arrow_grade", "zoom", "pan", "show_helpers"]:
+			view[key] = canvas.get(key)
+		var golfer_index := golfer_choice.selected
+		show_editor(false)
+		for key in view:
+			canvas.set(key, view[key])
+		canvas._update_transform()
+		golfer_choice.select(golfer_index)
+		_tool(canvas.tool, canvas.variant)
+	else:
+		var selected := _selected_index()
+		show_library()
+		if selected >= 0 and selected < _library_list.item_count:
+			_library_list.select(selected)
+			_preview_selected(selected)

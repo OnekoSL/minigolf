@@ -23,12 +23,13 @@ const THICKNESS := 4.0
 @export_enum("Ecke oben-rechts", "Ecke rechts-unten", "Ecke unten-links", "Ecke links-oben", "Diagonal abwaerts", "Diagonal aufwaerts", "Waagerecht", "Senkrecht", "T oben", "T rechts", "T unten", "T links") var variant: int = Variant.HORIZONTAL
 
 
-func validate(label: String, grid_spacing: int) -> PackedStringArray:
+func validate(label: String, grid_spacing: int, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if grid_spacing <= 0 or CELL_SIZE % grid_spacing != 0:
-		errors.append("%s liegt nicht im Bahnraster" % label)
+		errors.append(report.message("TEXT_IS_NOT_ON_THE_HOLE_GRID", [label], null, ""))
 	if variant < Variant.CORNER_UP_RIGHT or variant > Variant.T_LEFT:
-		errors.append("%s besitzt keine der zwoelf Wandvarianten" % label)
+		errors.append(report.message("TEXT_NEEDS_ONE_OF_THE_TWELVE_WALL_VARIANTS", [label], null, ""))
 	return errors
 
 

@@ -14,14 +14,14 @@ func validate(hole_catalog: HoleCatalog) -> PackedStringArray:
 	var errors := PackedStringArray()
 	var ids: Dictionary = {}
 	if courses.is_empty():
-		errors.append("Kurskatalog ist leer")
+		errors.append(I18n.text("TEXT_COURSE_CATALOG_IS_EMPTY"))
 	for course in courses:
 		if course == null:
-			errors.append("Kurskatalog enthaelt einen leeren Eintrag")
+			errors.append(I18n.text("TEXT_COURSE_CATALOG_CONTAINS_AN_EMPTY_ENTRY"))
 			continue
 		errors.append_array(course.validate(hole_catalog))
 		if ids.has(course.course_id):
-			errors.append("Doppelte Kurs-ID: %s" % course.course_id)
+			errors.append(I18n.text("TEXT_DUPLICATE_COURSE_ID") % course.course_id)
 		ids[course.course_id] = true
 	return errors
 

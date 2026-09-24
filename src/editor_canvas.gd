@@ -61,6 +61,8 @@ func _resize() -> void:
 
 
 func _update_transform() -> void:
+	if not is_inside_tree() or viewport == null or not viewport.is_inside_tree():
+		return
 	viewport.canvas_transform = Transform2D(0.0, Vector2.ONE * zoom, 0.0, pan)
 	queue_redraw()
 
@@ -168,7 +170,7 @@ func _press(point: Vector2, additive: bool) -> void:
 		var resource := document.find(hit(point))
 		if resource is TriggerDefinition:
 			_link_source = resource
-			hint_changed.emit("Jetzt die Zielkanone anklicken")
+			hint_changed.emit(I18n.text("TEXT_NOW_CLICK_THE_TARGET_CANNON"))
 		elif resource is CannonDefinition and _link_source != null:
 			document.link(_link_source, resource)
 			_link_source = null
@@ -202,7 +204,7 @@ func _press(point: Vector2, additive: bool) -> void:
 		var vertex := _vertex_at(point)
 		if vertex < 0:
 			if outline.points.size() >= 512:
-				hint_changed.emit("Höchstens 512 Konturpunkte erlaubt")
+				hint_changed.emit(I18n.text("TEXT_AT_MOST_512_OUTLINE_POINTS_ALLOWED"))
 				return
 			var edge := _edge_at(point)
 			vertex = edge + 1 if edge >= 0 else outline.points.size()
@@ -294,7 +296,7 @@ func _release(point: Vector2) -> void:
 				for y in range(mini(first.y, last.y), maxi(first.y, last.y) + 1):
 					_paint(Vector2(x * 16 + 8, y * 16 + 8))
 		else:
-			hint_changed.emit("Pfeilfeld ist zu groß")
+			hint_changed.emit(I18n.text("TEXT_ARROW_FIELD_IS_TOO_LARGE"))
 	if _box_select:
 		var rect := Rect2(_drag_start, point - _drag_start).abs()
 		for group in EditorDocument.GROUPS:
@@ -308,7 +310,7 @@ func _release(point: Vector2) -> void:
 	document.commit()
 	if tool == "tunnel":
 		set_tool("select")
-		hint_changed.emit("Auswahl: Tunnelenden einzeln ziehen · mittlerer Griff verschiebt das Paar · Tunnelpaar legt ein weiteres an")
+		hint_changed.emit(I18n.text("TEXT_SELECTION_DRAG_TUNNEL_ENDS_SEPARATELY_MIDDLE_HANDLE_MOVES_BOTH_TU"))
 	selection_changed.emit()
 
 
@@ -334,7 +336,7 @@ func _paint(point: Vector2) -> void:
 		arrow.direction = arrow_direction
 		arrow.slope_grade = arrow_grade
 		var outline := document.hole.lane_outline
-		if outline != null and outline.validate("Kontur").is_empty():
+		if outline != null and outline.validate(I18n.text("TEXT_OUTLINE")).is_empty():
 			var rect := arrow.get_rect()
 			var square := PackedVector2Array([rect.position, rect.position + Vector2(16, 0), rect.end, rect.position + Vector2(0, 16)])
 			var pieces := Geometry2D.intersect_polygons(square, outline.get_floor_points())
@@ -566,14 +568,14 @@ func _draw() -> void:
 				for handle in _handles(resource):
 					draw_rect(Rect2(screen(handle.point) - Vector2(4, 4), Vector2(8, 8)), Color("f4c96b"))
 					if handle.get("translate_pair", false):
-						draw_string(ThemeDB.fallback_font, screen(handle.point) + Vector2(8, -8), "Paar verschieben", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("f4c96b"))
+						draw_string(ThemeDB.fallback_font, screen(handle.point) + Vector2(8, -8), I18n.text("TEXT_MOVE_PAIR"), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("f4c96b"))
 			if show_helpers:
 				_draw_links(resource)
 	if show_helpers:
 		for id in ["tee", "hole", "aim"]:
 			var point := screen(_marker_position(id))
 			draw_circle(point, 7, Color("f4c96b"), false, 1)
-			draw_string(ThemeDB.fallback_font, point + Vector2(10, -5), {"tee": "Start", "hole": "Loch", "aim": "Zielrichtung"}[id], HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("fff0c9"))
+			draw_string(ThemeDB.fallback_font, point + Vector2(10, -5), {"tee": I18n.text("TEXT_START"), "hole": I18n.text("TEXT_HOLE"), "aim": I18n.text("TEXT_AIM_DIRECTION")}[id], HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("fff0c9"))
 	if _box_select:
 		draw_rect(Rect2(screen(_drag_start), _mouse - screen(_drag_start)).abs(), Color("f4c96b"), false, 1)
 	if tool == "arrow_rect" and _dragging:
@@ -614,25 +616,30 @@ func _line(a: Vector2, b: Vector2, label := "") -> void:
 
 func _draw_links(resource: Resource) -> void:
 	if resource is TunnelDefinition:
-		_line(resource.endpoint_a, resource.endpoint_b, "Tunnel B")
+		_line(resource.endpoint_a, resource.endpoint_b, I18n.text("TEXT_TUNNEL_B"))
 	elif resource is PipeSystemDefinition:
 		for index in range(resource.exits.size()):
-			_line(resource.entrance, resource.exits[index], ["Langsam", "Passend", "Schnell"][index])
+			_line(resource.entrance, resource.exits[index], [I18n.text("TEXT_SLOW"), I18n.text("TEXT_SUITABLE"), I18n.text("TEXT_FAST")][index])
 			_line(resource.exits[index], resource.exits[index] + resource.exit_directions[index].normalized() * 24)
 	elif resource is CannonDefinition:
-		_line(resource.position, resource.landing_position, "Landung")
+		_line(resource.position, resource.landing_position, I18n.text("TEXT_LANDING"))
 	elif resource is TriggerDefinition:
 		for cannon in document.hole.cannons:
 			if cannon.mechanism_id in resource.target_ids:
-				_line(resource.position, cannon.position, "Schalterziel")
+				_line(resource.position, cannon.position, I18n.text("TEXT_SWITCH_TARGET"))
 	elif resource is ObstacleDefinition:
 		match resource.obstacle_type:
 			ObstacleDefinition.ObstacleType.SLIDING_GATE:
-				_line(resource.position, resource.position + resource.open_offset.rotated(deg_to_rad(resource.start_rotation_degrees)), "Torweg")
+				_line(resource.position, resource.position + resource.open_offset.rotated(deg_to_rad(resource.start_rotation_degrees)), I18n.text("TEXT_GATE_TRAVEL"))
 			ObstacleDefinition.ObstacleType.ROTATING_BLADE:
 				draw_circle(screen(resource.position), resource.blade_size.length() * 0.5 * zoom, Color("82cad9"), false, 1)
 			ObstacleDefinition.ObstacleType.SEESAW:
-				_line(resource.position, resource.position + Vector2(resource.seesaw_size.x * 0.5, 0).rotated(deg_to_rad(resource.start_rotation_degrees)), "Wippenachse")
+				_line(resource.position, resource.position + Vector2(resource.seesaw_size.x * 0.5, 0).rotated(deg_to_rad(resource.start_rotation_degrees)), I18n.text("TEXT_SEESAW_AXIS"))
 			ObstacleDefinition.ObstacleType.ELEPHANT:
-				_line(resource.position, resource.position + resource.elephant_intake.rotated(deg_to_rad(resource.start_rotation_degrees)), "Aufnahme")
-				_line(resource.position, resource.position + resource.elephant_exit.rotated(deg_to_rad(resource.start_rotation_degrees)), "Ausgang")
+				_line(resource.position, resource.position + resource.elephant_intake.rotated(deg_to_rad(resource.start_rotation_degrees)), I18n.text("TEXT_INTAKE"))
+				_line(resource.position, resource.position + resource.elephant_exit.rotated(deg_to_rad(resource.start_rotation_degrees)), I18n.text("TEXT_EXIT"))
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		queue_redraw()

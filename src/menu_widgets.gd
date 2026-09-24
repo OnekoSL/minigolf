@@ -4,6 +4,7 @@ extends RefCounted
 
 static func label(text: String, position: Vector2, size: Vector2, font_size: int, color: Color) -> Label:
 	var label := Label.new()
+	label.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	label.text = text
 	label.position = position
 	label.size = size
@@ -27,6 +28,7 @@ static func panel_style(background: Color, border: Color, width: int) -> StyleBo
 
 static func button(text: String, rect: Rect2) -> Button:
 	var button := Button.new()
+	button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	button.text = text
 	button.position = rect.position
 	button.size = rect.size

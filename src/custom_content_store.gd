@@ -30,25 +30,25 @@ func read_file(path: String) -> Variant:
 	error = ""
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		error = "Datei konnte nicht geöffnet werden: %s" % error_string(FileAccess.get_open_error())
+		error = I18n.text("TEXT_COULD_NOT_OPEN_FILE") % error_string(FileAccess.get_open_error())
 		return null
 	if file.get_length() > EditorCodec.MAX_BYTES:
-		error = "Datei ist größer als 16 MB"
+		error = I18n.text("TEXT_FILE_IS_LARGER_THAN_16_MB")
 		return null
 	var parser := JSON.new()
 	if parser.parse(file.get_as_text()) != OK:
-		error = "Ungültiges JSON: %s" % parser.get_error_message()
+		error = I18n.text("TEXT_INVALID_JSON") % parser.get_error_message()
 		return null
 	var data: Variant = parser.data
 	if not data is Dictionary or data.get("version") != EditorCodec.VERSION:
-		error = "Unbekannte Dateiversion"
+		error = I18n.text("TEXT_UNKNOWN_FILE_VERSION")
 		return null
 	return data
 
 
 func _decode_library(data: Dictionary) -> bool:
 	if not data.get("holes") is Array or not data.get("courses") is Array or data.holes.size() > 1024 or data.courses.size() > 1024:
-		error = "Ungültige Bibliothek"
+		error = I18n.text("TEXT_INVALID_LIBRARY")
 		return false
 	var decoded_holes: Array[HoleDefinition] = []
 	var decoded_courses: Array[CourseDefinition] = []
@@ -60,7 +60,7 @@ func _decode_library(data: Dictionary) -> bool:
 			error = codec.error
 			return false
 		if not String(hole.hole_id).begins_with("custom_") or ids.has(hole.hole_id):
-			error = "Ungültige oder doppelte Bahnkennung"
+			error = I18n.text("TEXT_INVALID_OR_DUPLICATE_HOLE_ID")
 			return false
 		ids[hole.hole_id] = true
 		decoded_holes.append(hole)
@@ -70,7 +70,7 @@ func _decode_library(data: Dictionary) -> bool:
 			error = codec.error
 			return false
 		if not String(course.course_id).begins_with("custom_") or ids.has(course.course_id) or course.hole_ids.is_empty() or course.hole_ids.size() > 9:
-			error = "Ungültiger Kurs"
+			error = I18n.text("TEXT_INVALID_COURSE")
 			return false
 		ids[course.course_id] = true
 		for id in course.hole_ids:
@@ -78,7 +78,7 @@ func _decode_library(data: Dictionary) -> bool:
 			for hole in decoded_holes:
 				found = found or hole.hole_id == id
 			if not found:
-				error = "Kurs verweist auf eine fehlende Bahn"
+				error = I18n.text("TEXT_COURSE_REFERS_TO_A_MISSING_HOLE")
 				return false
 		decoded_courses.append(course)
 	holes = decoded_holes
@@ -100,30 +100,30 @@ func write_file(path: String, data: Dictionary) -> bool:
 	error = ""
 	var serialized := JSON.stringify(data, "\t", true, true)
 	if serialized.to_utf8_buffer().size() > EditorCodec.MAX_BYTES:
-		error = "Datei würde die unterstützte Größe von 16 MB überschreiten"
+		error = I18n.text("TEXT_FILE_WOULD_EXCEED_THE_SUPPORTED_SIZE_OF_16_MB")
 		return false
 	var folder := ProjectSettings.globalize_path(path.get_base_dir())
 	var ancestor := folder
 	while not ancestor.is_empty() and ancestor != ancestor.get_base_dir():
 		if FileAccess.file_exists(ancestor):
-			error = "Speicherordner ist durch eine Datei blockiert"
+			error = I18n.text("TEXT_A_FILE_IS_BLOCKING_THE_SAVE_FOLDER")
 			return false
 		ancestor = ancestor.get_base_dir()
 	var mkdir_error := DirAccess.make_dir_recursive_absolute(folder)
 	if mkdir_error != OK:
-		error = "Ordner konnte nicht angelegt werden: %s" % error_string(mkdir_error)
+		error = I18n.text("TEXT_COULD_NOT_CREATE_FOLDER") % error_string(mkdir_error)
 		return false
 	var temporary := path + ".tmp"
 	var file := FileAccess.open(temporary, FileAccess.WRITE)
 	if file == null:
-		error = "Speichern fehlgeschlagen: %s" % error_string(FileAccess.get_open_error())
+		error = I18n.text("TEXT_SAVING_FAILED") % error_string(FileAccess.get_open_error())
 		return false
 	file.store_string(serialized)
 	file.flush()
 	var write_error := file.get_error()
 	file.close()
 	if write_error != OK:
-		error = "Datei konnte nicht vollständig geschrieben werden"
+		error = I18n.text("TEXT_COULD_NOT_WRITE_THE_COMPLETE_FILE")
 		return false
 	var absolute := ProjectSettings.globalize_path(path)
 	var backup := absolute + ".bak"
@@ -131,21 +131,21 @@ func write_file(path: String, data: Dictionary) -> bool:
 	if had_file:
 		var backup_error := DirAccess.copy_absolute(absolute, backup)
 		if backup_error != OK:
-			error = "Sicherung fehlgeschlagen; bisherige Datei bleibt erhalten"
+			error = I18n.text("TEXT_BACKUP_FAILED_THE_PREVIOUS_FILE_IS_PRESERVED")
 			return false
 	var move_error := DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), absolute)
 	if move_error != OK:
-		error = "Datei konnte nicht ersetzt werden; bisherige Datei bleibt erhalten"
+		error = I18n.text("TEXT_COULD_NOT_REPLACE_FILE_THE_PREVIOUS_FILE_IS_PRESERVED")
 		return false
 	return true
 
 
 func save_library() -> bool:
 	if holes.size() > 1024 or courses.size() > 1024:
-		error = "Die Bibliothek unterstützt bis zu 1024 Bahnen und 1024 Kurse"
+		error = I18n.text("TEXT_THE_LIBRARY_SUPPORTS_UP_TO_1024_HOLES_AND_1024_COURSES")
 		return false
 	if _load_failed:
-		error = "Beschädigte Bibliothek wird nicht überschrieben. Bitte library.json sichern und reparieren."
+		error = I18n.text("TEXT_DAMAGED_LIBRARY_WILL_NOT_BE_OVERWRITTEN_BACK_UP_AND_REPAIR_LIBRAR")
 		return false
 	return write_file(root.path_join("library.json"), payload(holes, courses))
 
@@ -153,7 +153,7 @@ func save_library() -> bool:
 func save_hole(hole: HoleDefinition) -> bool:
 	var codec := EditorCodec.new()
 	if codec.decode(EditorCodec.encode(hole), "hole") == null:
-		error = "Entwurf überschreitet unterstützte Datengrenzen: " + codec.error
+		error = I18n.text("TEXT_DRAFT_EXCEEDS_SUPPORTED_DATA_LIMITS") + codec.error
 		return false
 	var previous := holes.duplicate()
 	var replaced := false
@@ -171,11 +171,11 @@ func save_hole(hole: HoleDefinition) -> bool:
 
 func save_course(course: CourseDefinition) -> bool:
 	if course.hole_ids.is_empty() or course.hole_ids.size() > 9 or course.display_name.strip_edges().is_empty():
-		error = "Kurs benötigt einen Namen und 1 bis 9 Bahnen"
+		error = I18n.text("TEXT_COURSE_NEEDS_A_NAME_AND_1_TO_9_HOLES")
 		return false
 	for id in course.hole_ids:
 		if get_hole(id) == null:
-			error = "Kurs enthält eine fehlende Bahn"
+			error = I18n.text("TEXT_COURSE_CONTAINS_A_MISSING_HOLE")
 			return false
 	var previous := courses.duplicate()
 	for index in range(courses.size() - 1, -1, -1):
@@ -198,7 +198,7 @@ func get_hole(id: StringName) -> HoleDefinition:
 func delete_hole(id: StringName) -> bool:
 	for course in courses:
 		if id in course.hole_ids:
-			error = "Bahn wird noch in „%s“ verwendet" % course.display_name
+			error = I18n.text("TEXT_HOLE_IS_STILL_USED_IN") % course.display_name
 			return false
 	var previous := holes.duplicate()
 	holes.erase(get_hole(id))
@@ -250,7 +250,7 @@ func export_course(course: CourseDefinition, path: String) -> bool:
 	for id in course.hole_ids:
 		var hole := get_hole(id)
 		if hole == null:
-			error = "Kurs enthält eine fehlende Bahn"
+			error = I18n.text("TEXT_COURSE_CONTAINS_A_MISSING_HOLE")
 			return false
 		if hole not in included:
 			included.append(hole)

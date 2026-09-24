@@ -30,6 +30,7 @@ func _ready() -> void:
 	roll_streams[&"sand"] = _make_stream(&"roll_sand", 0.16, 58.0, 58.0, 0.11, true)
 	roll_streams[&"slope"] = _make_stream(&"roll_slope", 0.16, 112.0, 112.0, 0.08, true)
 	roll_player = AudioStreamPlayer.new()
+	roll_player.bus = &"Effects"
 	roll_player.volume_db = -40.0
 	add_child(roll_player)
 
@@ -138,6 +139,7 @@ func _play_one_shot(name: String, volume_db: float, pitch_scale: float) -> void:
 
 func _make_player(stream: AudioStreamWAV) -> AudioStreamPlayer:
 	var player := AudioStreamPlayer.new()
+	player.bus = &"Effects"
 	player.stream = stream
 	return player
 

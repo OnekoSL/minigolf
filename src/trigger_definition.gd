@@ -10,14 +10,15 @@ enum TriggerType { BALL_SWITCH }
 @export var target_ids: Array[StringName] = []
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if trigger_id == &"" or trigger_id == &"unnamed_trigger":
-		errors.append("%s besitzt keine eindeutige Trigger-ID" % label)
+		errors.append(report.message("TEXT_HAS_NO_UNIQUE_TRIGGER_ID", [label], null, ""))
 	if size.x <= 0.0 or size.y <= 0.0:
-		errors.append("%s besitzt keine gueltige Triggergroesse" % label)
+		errors.append(report.message("TEXT_HAS_AN_INVALID_TRIGGER_SIZE", [label], null, ""))
 	if target_ids.is_empty():
-		errors.append("%s besitzt kein Triggerziel" % label)
+		errors.append(report.message("TEXT_HAS_NO_TRIGGER_TARGET", [label], null, ""))
 	return errors
 
 

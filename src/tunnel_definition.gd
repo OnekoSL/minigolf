@@ -7,10 +7,11 @@ const HOLE_RADIUS := 7.0
 @export var endpoint_b := Vector2.ZERO
 
 
-func validate(label: String) -> PackedStringArray:
+func validate(label: String, issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if endpoint_a.distance_to(endpoint_b) <= HOLE_RADIUS * 2.0:
-		errors.append("%s verbindet keine zwei getrennten Loecher" % label)
+		errors.append(report.message("TEXT_DOES_NOT_CONNECT_TWO_SEPARATE_HOLES", [label], null, ""))
 	return errors
 
 

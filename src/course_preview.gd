@@ -34,7 +34,7 @@ func show_course(course: CourseDefinition, catalog: HoleCatalog) -> void:
 		return
 	course_id = course.course_id
 	hole_ids = course.hole_ids.duplicate()
-	title.text = "%s  /  ALLE %d BAHNEN" % [course.display_name,hole_ids.size()]
+	title.text = I18n.text("TEXT_ALL_HOLES") % [I18n.content_name(course),hole_ids.size()]
 	if viewport != null:
 		picture.texture = null
 		viewport.queue_free()

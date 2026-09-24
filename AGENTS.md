@@ -24,6 +24,7 @@ Godot 4.7.2 Standard mit typisiertem GDScript, Windows und Compatibility-Rendere
 | Loch- und Kurskatalog | `data/holes/hole_catalog.tres`, `data/course_catalog.tres`, `data/*_course.tres` |
 | Runden, Spieler und Bestwerte | `src/round_session.gd`, `src/round_config.gd`, `src/player_profile.gd`, `src/best_score_store.gd` |
 | Eingabe und Kalibrierung | Autoload `src/controller_support.gd`, `config/controller_mappings.cfg` |
+| Sprachen und Einstellungen | `src/i18n.gd`, `data/i18n/*.po`, Autoload `src/settings_manager.gd`, `src/settings_menu.gd`; Pflege: `data/i18n/README.md` |
 | HUD, Kamera und Feedback | `src/hud.gd`, `src/course_camera.gd`, `src/prototype_audio.gd`, `src/feedback_effects.gd` |
 | Tests | `tests/run_tests.gd`, `tests/*_test.gd`, `tests/test_runner.tscn` |
 | Bahneditor und eigene Inhalte | `src/editor_ui.gd`, `src/editor_document.gd`, `src/custom_content_store.gd`, `BAHNEDITOR.md` |

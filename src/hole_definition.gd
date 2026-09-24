@@ -28,157 +28,158 @@ enum HoleCategory { COURSE, TECHNICAL }
 @export var tunnels: Array[TunnelDefinition] = []
 
 
-func validate() -> PackedStringArray:
+func validate(issues: Array[ValidationIssue] = []) -> PackedStringArray:
+	var report := ValidationReport.new(issues, self)
 	var errors := PackedStringArray()
 	if base_surface not in [-1, SurfaceZone.SurfaceType.CONCRETE]:
-		errors.append("Bahn %s besitzt einen unbekannten Grundbelag" % hole_id)
+		errors.append(report.message("TEXT_HOLE_HAS_AN_UNKNOWN_BASE_SURFACE", [hole_id], null, ""))
 	for pipe in pipe_systems:
 		if pipe == null:
-			errors.append("Bahn %s enthaelt ein leeres Rohrsystem" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_PIPE_SYSTEM", [hole_id], null, ""))
 		else:
-			errors.append_array(pipe.validate(self))
+			errors.append_array(pipe.validate(self, issues))
 	if hole_id == &"" or hole_id == &"unnamed":
-		errors.append("Bahn besitzt keine eindeutige ID")
+		errors.append(report.message("TEXT_HOLE_HAS_NO_UNIQUE_ID", [], null, ""))
 	if display_name.strip_edges().is_empty():
-		errors.append("Bahn %s besitzt keinen Anzeigenamen" % hole_id)
+		errors.append(report.message("TEXT_HOLE_HAS_NO_DISPLAY_NAME", [hole_id], null, ""))
 	if course_rect.size.x <= 0.0 or course_rect.size.y <= 0.0:
-		errors.append("Bahn %s besitzt kein gueltiges Spielfeld" % hole_id)
+		errors.append(report.message("TEXT_HOLE_HAS_AN_INVALID_PLAY_AREA", [hole_id], null, ""))
 	if lane_outline != null:
-		errors.append_array(lane_outline.validate("Bahn %s, Kontur" % hole_id))
+		errors.append_array(lane_outline.validate(I18n.text("TEXT_HOLE_OUTLINE") % hole_id, issues))
 		for point in lane_outline.get_floor_points():
 			if not course_rect.grow(0.1).has_point(point):
-				errors.append("Bahn %s: Konturpunkt liegt ausserhalb des Spielfelds" % hole_id)
+				errors.append(report.message("TEXT_HOLE_OUTLINE_POINT_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id], null, ""))
 				break
 		if lane_outline.use_normalized_walls:
 			for tile in lane_outline.get_normalized_wall_tiles():
-				errors.append_array(tile.validate("Bahn %s, Aussenwandkaestchen %s" % [hole_id, tile.grid_cell], grid_spacing))
+				errors.append_array(tile.validate(I18n.text("TEXT_HOLE_BOUNDARY_WALL_TILE") % [hole_id, tile.grid_cell], grid_spacing, issues))
 				if not course_rect.encloses(tile.get_cell_rect()):
-					errors.append("Bahn %s: Aussenwandkaestchen %s liegt ausserhalb des Spielfelds" % [hole_id, tile.grid_cell])
+					errors.append(report.message("TEXT_HOLE_BOUNDARY_WALL_TILE_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id, tile.grid_cell], null, ""))
 			for piece in lane_outline.get_normalized_wall_pieces():
 				for segment in piece["segments"]:
 					for endpoint in segment:
 						if not course_rect.grow(0.1).has_point(endpoint):
-							errors.append("Bahn %s: Normwandsegment liegt ausserhalb des Spielfelds" % hole_id)
+							errors.append(report.message("TEXT_HOLE_STANDARD_WALL_SEGMENT_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id], null, ""))
 							break
 	if not course_rect.has_point(tee_position):
-		errors.append("Bahn %s: Abschlag liegt ausserhalb des Spielfelds" % hole_id)
+		errors.append(report.message("TEXT_HOLE_TEE_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id], null, "tee"))
 	if not course_rect.has_point(hole_position):
-		errors.append("Bahn %s: Loch liegt ausserhalb des Spielfelds" % hole_id)
+		errors.append(report.message("TEXT_HOLE_TARGET_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id], null, "hole"))
 	if lane_outline != null and lane_outline.points.size() >= 3:
 		if not lane_outline.contains_point(tee_position):
-			errors.append("Bahn %s: Abschlag liegt ausserhalb der Bahnkontur" % hole_id)
+			errors.append(report.message("TEXT_HOLE_TEE_LIES_OUTSIDE_THE_OUTLINE", [hole_id], null, "tee"))
 		if not lane_outline.contains_point(hole_position):
-			errors.append("Bahn %s: Loch liegt ausserhalb der Bahnkontur" % hole_id)
+			errors.append(report.message("TEXT_HOLE_TARGET_LIES_OUTSIDE_THE_OUTLINE", [hole_id], null, "hole"))
 	if camera_center_bounds.size.x < 0.0 or camera_center_bounds.size.y < 0.0:
-		errors.append("Bahn %s besitzt negative Kameragrenzen" % hole_id)
+		errors.append(report.message("TEXT_HOLE_HAS_NEGATIVE_CAMERA_BOUNDS", [hole_id], null, ""))
 	var expected_camera_end := Vector2(
 		maxf(320.0, course_rect.end.x + 8.0 - 320.0),
 		maxf(180.0, course_rect.end.y + 8.0 - 180.0)
 	)
 	if not camera_center_bounds.position.is_equal_approx(Vector2(320.0, 180.0)) \
 		or not camera_center_bounds.end.is_equal_approx(expected_camera_end):
-		errors.append("Bahn %s: Kameragrenzen zeigen die Aussenwaende nicht vollstaendig" % hole_id)
+		errors.append(report.message("TEXT_HOLE_CAMERA_BOUNDS_HIDE_PARTS_OF_THE_BOUNDARY_WALLS", [hole_id], null, ""))
 	for index in range(walls.size()):
 		if walls[index] == null:
-			errors.append("Bahn %s enthaelt eine leere Bande" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_WALL", [hole_id], null, ""))
 			continue
-		errors.append_array(walls[index].validate("Bahn %s, Bande %d" % [hole_id, index]))
+		errors.append_array(walls[index].validate(I18n.text("TEXT_HOLE_WALL") % [hole_id, index], issues))
 		if not course_rect.grow(16.0).has_point(walls[index].center):
-			errors.append("Bahn %s, Bande %d liegt ausserhalb der Bahn" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_WALL_LIES_OUTSIDE_THE_HOLE", [hole_id, index], walls[index], ""))
 	var wall_tile_rects: Array[Rect2] = []
 	for index in range(wall_tiles.size()):
 		var tile := wall_tiles[index]
 		if tile == null:
-			errors.append("Bahn %s enthaelt einen leeren Wandbaustein" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_WALL_TILE", [hole_id], null, ""))
 			continue
-		errors.append_array(tile.validate("Bahn %s, Wandbaustein %d" % [hole_id, index], grid_spacing))
+		errors.append_array(tile.validate(I18n.text("TEXT_HOLE_WALL_TILE") % [hole_id, index], grid_spacing, issues))
 		var tile_rect := tile.get_cell_rect()
 		if not course_rect.encloses(tile_rect):
-			errors.append("Bahn %s, Wandbaustein %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_WALL_TILE_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id, index], wall_tiles[index], ""))
 		if lane_outline != null:
 			for segment in tile.get_segments():
 				for point in segment:
 					if not lane_outline.contains_point(point):
-						errors.append("Bahn %s, Wandbaustein %d liegt nicht vollstaendig in der Bahnkontur" % [hole_id, index])
+						errors.append(report.message("TEXT_HOLE_WALL_TILE_IS_NOT_FULLY_INSIDE_THE_OUTLINE", [hole_id, index], wall_tiles[index], ""))
 						break
 		for previous_rect in wall_tile_rects:
 			if tile_rect.intersects(previous_rect):
-				errors.append("Bahn %s, Wandbaustein %d belegt ein bereits verwendetes Kaestchen" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_WALL_TILE_OCCUPIES_AN_ALREADY_USED_CELL", [hole_id, index], wall_tiles[index], ""))
 				break
 		wall_tile_rects.append(tile_rect)
 	for index in range(surfaces.size()):
 		if surfaces[index] == null:
-			errors.append("Bahn %s enthaelt eine leere Flaeche" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_SURFACE", [hole_id], null, ""))
 			continue
-		errors.append_array(surfaces[index].validate("Bahn %s, Flaeche %d" % [hole_id, index]))
+		errors.append_array(surfaces[index].validate(I18n.text("TEXT_HOLE_SURFACE") % [hole_id, index], issues))
 		for corner in surfaces[index].get_rotated_corners():
 			if not course_rect.has_point(corner):
-				errors.append("Bahn %s, Flaeche %d liegt ausserhalb der Bahn" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_SURFACE_LIES_OUTSIDE_THE_HOLE", [hole_id, index], surfaces[index], ""))
 				break
 	var arrow_rects: Array[Rect2] = []
 	for index in range(arrow_tiles.size()):
 		var tile := arrow_tiles[index]
 		if tile == null:
-			errors.append("Bahn %s enthaelt eine leere Pfeilzelle" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_ARROW_TILE", [hole_id], null, ""))
 			continue
-		errors.append_array(tile.validate("Bahn %s, Pfeilzelle %d" % [hole_id, index], grid_spacing))
+		errors.append_array(tile.validate(I18n.text("TEXT_HOLE_ARROW_TILE") % [hole_id, index], grid_spacing, issues))
 		var tile_rect := tile.get_rect()
 		if not course_rect.encloses(tile_rect):
-			errors.append("Bahn %s, Pfeilzelle %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_ARROW_TILE_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id, index], arrow_tiles[index], ""))
 		if lane_outline != null:
 			for corner in tile.get_inset_corners():
 				if not lane_outline.contains_point(corner):
-					errors.append("Bahn %s, Pfeilzelle %d liegt nicht vollstaendig in der Bahnkontur" % [hole_id, index])
+					errors.append(report.message("TEXT_HOLE_ARROW_TILE_IS_NOT_FULLY_INSIDE_THE_OUTLINE", [hole_id, index], arrow_tiles[index], ""))
 					break
 		for previous_rect in arrow_rects:
 			if tile_rect.intersects(previous_rect):
-				errors.append("Bahn %s, Pfeilzelle %d ueberlappt eine andere Pfeilzelle" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_ARROW_TILE_OVERLAPS_ANOTHER_ARROW_TILE", [hole_id, index], arrow_tiles[index], ""))
 				break
 		arrow_rects.append(tile_rect)
 	for index in range(obstacles.size()):
 		if obstacles[index] == null:
-			errors.append("Bahn %s enthaelt ein leeres Hindernis" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_OBSTACLE", [hole_id], null, ""))
 			continue
-		errors.append_array(obstacles[index].validate("Bahn %s, Hindernis %d" % [hole_id, index]))
+		errors.append_array(obstacles[index].validate(I18n.text("TEXT_HOLE_OBSTACLE") % [hole_id, index], issues))
 		if not course_rect.has_point(obstacles[index].position):
-			errors.append("Bahn %s, Hindernis %d liegt ausserhalb der Bahn" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_OBSTACLE_LIES_OUTSIDE_THE_HOLE", [hole_id, index], obstacles[index], ""))
 	var trigger_ids: Dictionary = {}
 	for index in range(triggers.size()):
 		var trigger := triggers[index]
 		if trigger == null:
-			errors.append("Bahn %s enthaelt einen leeren Trigger" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_TRIGGER", [hole_id], null, ""))
 			continue
-		errors.append_array(trigger.validate("Bahn %s, Trigger %d" % [hole_id, index]))
+		errors.append_array(trigger.validate(I18n.text("TEXT_HOLE_TRIGGER") % [hole_id, index], issues))
 		if trigger_ids.has(trigger.trigger_id):
-			errors.append("Bahn %s besitzt doppelte Trigger-ID %s" % [hole_id, trigger.trigger_id])
+			errors.append(report.message("TEXT_HOLE_HAS_DUPLICATE_TRIGGER_ID", [hole_id, trigger.trigger_id], trigger, ""))
 		trigger_ids[trigger.trigger_id] = true
 		if not course_rect.has_point(trigger.position):
-			errors.append("Bahn %s, Trigger %d liegt ausserhalb der Bahn" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_TRIGGER_LIES_OUTSIDE_THE_HOLE", [hole_id, index], trigger, ""))
 	var cannon_ids: Dictionary = {}
 	for index in range(cannons.size()):
 		var cannon := cannons[index]
 		if cannon == null:
-			errors.append("Bahn %s enthaelt eine leere Kanone" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_CANNON", [hole_id], null, ""))
 			continue
-		errors.append_array(cannon.validate("Bahn %s, Kanone %d" % [hole_id, index]))
+		errors.append_array(cannon.validate(I18n.text("TEXT_HOLE_CANNON") % [hole_id, index], issues))
 		if cannon_ids.has(cannon.mechanism_id):
-			errors.append("Bahn %s besitzt doppelte Mechanismus-ID %s" % [hole_id, cannon.mechanism_id])
+			errors.append(report.message("TEXT_HOLE_HAS_DUPLICATE_MECHANISM_ID", [hole_id, cannon.mechanism_id], cannon, ""))
 		cannon_ids[cannon.mechanism_id] = true
 		if not course_rect.has_point(cannon.position):
-			errors.append("Bahn %s, Kanone %d liegt ausserhalb der Bahn" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_CANNON_LIES_OUTSIDE_THE_HOLE", [hole_id, index], cannon, ""))
 		if not course_rect.has_point(cannon.landing_position):
-			errors.append("Bahn %s, Kanone %d landet ausserhalb der Bahn" % [hole_id, index])
+			errors.append(report.message("TEXT_HOLE_CANNON_LANDS_OUTSIDE_THE_HOLE", [hole_id, index], cannon, ""))
 	for trigger in triggers:
 		if trigger == null:
 			continue
 		for target_id in trigger.target_ids:
 			if not cannon_ids.has(target_id):
-				errors.append("Bahn %s: Trigger %s verweist auf unbekanntes Ziel %s" % [hole_id, trigger.trigger_id, target_id])
+				errors.append(report.message("TEXT_HOLE_TRIGGER_REFERS_TO_UNKNOWN_TARGET", [hole_id, trigger.trigger_id, target_id], trigger, ""))
 	for cannon in cannons:
 		if cannon == null or cannon.required_trigger_id == &"":
 			continue
 		if not trigger_ids.has(cannon.required_trigger_id):
-			errors.append("Bahn %s: Kanone %s benoetigt unbekannten Trigger %s" % [hole_id, cannon.mechanism_id, cannon.required_trigger_id])
+			errors.append(report.message("TEXT_HOLE_CANNON_REQUIRES_UNKNOWN_TRIGGER", [hole_id, cannon.mechanism_id, cannon.required_trigger_id], cannon, ""))
 		else:
 			var linked := false
 			for trigger in triggers:
@@ -186,24 +187,24 @@ func validate() -> PackedStringArray:
 					linked = true
 					break
 			if not linked:
-				errors.append("Bahn %s: Kanone %s ist nicht als Ziel ihres Triggers eingetragen" % [hole_id, cannon.mechanism_id])
+				errors.append(report.message("TEXT_HOLE_CANNON_IS_NOT_A_TARGET_OF_ITS_TRIGGER", [hole_id, cannon.mechanism_id], cannon, ""))
 	var tunnel_endpoints: Array[Vector2] = []
 	for index in range(tunnels.size()):
 		var tunnel := tunnels[index]
 		if tunnel == null:
-			errors.append("Bahn %s enthaelt einen leeren Tunnel" % hole_id)
+			errors.append(report.message("TEXT_HOLE_CONTAINS_AN_EMPTY_TUNNEL", [hole_id], null, ""))
 			continue
-		errors.append_array(tunnel.validate("Bahn %s, Tunnel %d" % [hole_id, index]))
+		errors.append_array(tunnel.validate(I18n.text("TEXT_HOLE_TUNNEL") % [hole_id, index], issues))
 		for endpoint in [tunnel.endpoint_a, tunnel.endpoint_b]:
 			if not course_rect.has_point(endpoint):
-				errors.append("Bahn %s, Tunnel %d liegt ausserhalb des Spielfelds" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_TUNNEL_LIES_OUTSIDE_THE_PLAY_AREA", [hole_id, index], tunnel, ""))
 			elif lane_outline != null and lane_outline.points.size() >= 3 and not lane_outline.contains_point(endpoint):
-				errors.append("Bahn %s, Tunnel %d liegt ausserhalb der Bahnkontur" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_TUNNEL_LIES_OUTSIDE_THE_OUTLINE", [hole_id, index], tunnel, ""))
 			if endpoint.distance_to(hole_position) <= TunnelDefinition.HOLE_RADIUS * 2.0:
-				errors.append("Bahn %s, Tunnel %d ueberlappt das Zielloch" % [hole_id, index])
+				errors.append(report.message("TEXT_HOLE_TUNNEL_OVERLAPS_THE_TARGET_HOLE", [hole_id, index], tunnel, ""))
 			for previous_endpoint in tunnel_endpoints:
 				if endpoint.distance_to(previous_endpoint) <= TunnelDefinition.HOLE_RADIUS * 2.0:
-					errors.append("Bahn %s, Tunnel %d ueberlappt ein anderes Tunnelloch" % [hole_id, index])
+					errors.append(report.message("TEXT_HOLE_TUNNEL_OVERLAPS_ANOTHER_TUNNEL_ENTRANCE", [hole_id, index], tunnel, ""))
 					break
 			tunnel_endpoints.append(endpoint)
 	return errors

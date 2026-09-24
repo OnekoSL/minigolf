@@ -36,7 +36,7 @@ func get_golfer_definition() -> GolferDefinition:
 static func sanitize_name(value: String, fallback_id: int) -> String:
 	var clean := value.strip_edges()
 	if clean.is_empty():
-		return "SPIELER %d" % clampi(fallback_id, 1, 4)
+		return I18n.text("TEXT_PLAYER_385") % clampi(fallback_id, 1, 4)
 	return clean.left(12)
 
 
@@ -45,4 +45,4 @@ func get_color() -> Color:
 
 
 func get_palette_name() -> String:
-	return PALETTE_NAMES[clampi(palette_id, 0, PALETTE_NAMES.size() - 1)]
+	return I18n.source(PALETTE_NAMES[clampi(palette_id, 0, PALETTE_NAMES.size() - 1)])

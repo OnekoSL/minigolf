@@ -22,6 +22,20 @@ func _run() -> void:
 	get_tree().root.add_child(app)
 	await get_tree().process_frame
 	var verify := "--verify" in OS.get_cmdline_user_args()
+	var manager := get_node("/root/SettingsManager")
+	if verify:
+		_check(manager.current.language == "it" and manager.current.effects_volume == 40, "Export: Neustart lädt Sprache und Lautstärke")
+	for locale in GameSettings.LANGUAGES:
+		TranslationServer.set_locale(locale)
+		_check(I18n.text("SETTINGS_TITLE") != "SETTINGS_TITLE" and I18n.content_name(app.course_catalog.courses[0]) != "", "Export: Übersetzungskatalog %s verfügbar" % locale)
+	if not verify:
+		manager.begin()
+		manager.draft.language = "it"
+		manager.draft.effects_volume = 40
+		manager.preview()
+		_check(manager.commit() == OK, "Export: Einstellungen gespeichert")
+	# Keep existing probe assertions and fixtures independent of user language.
+	TranslationServer.set_locale("de")
 	app._show_editor(verify)
 	await get_tree().process_frame
 	var ui := app.editor

@@ -20,6 +20,7 @@ enum ScreenState {
 	LEAVE_CONFIRM,
 	EDITOR,
 	PLAYER_TEST_STATS,
+	SETTINGS,
 }
 
 const MENU_NAV_THRESHOLD := 0.45
@@ -34,6 +35,7 @@ var course_catalog: CourseCatalog
 var best_store := BestScoreStore.new()
 var session: RoundSession
 var gameplay: PrototypeMain
+var settings_menu: SettingsMenu
 var editor: EditorUI
 var custom_store := CustomContentStore.new()
 var _custom_session_catalog_active := false
@@ -87,7 +89,7 @@ func _ready() -> void:
 	hole_catalog = HoleCatalog.load_default()
 	course_catalog = CourseCatalog.load_default()
 	if hole_catalog == null or course_catalog == null:
-		push_error("Spielkataloge konnten nicht geladen werden")
+		push_error(I18n.text("TEXT_COULD_NOT_LOAD_GAME_CATALOGS"))
 		return
 	var errors := hole_catalog.validate()
 	errors.append_array(course_catalog.validate(hole_catalog))
@@ -104,6 +106,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if settings_menu != null:
+		settings_menu.update()
 	if current_screen == ScreenState.EDITOR:
 		return
 	if _menu_input_locked:
@@ -147,6 +151,15 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("start_calibration", false, true):
+		if settings_menu != null:
+			if settings_menu.confirmation_visible or not ControllerSupport.focused:
+				return
+			if settings_menu.calibration_visible:
+				settings_menu._close_calibration()
+			else:
+				settings_menu._calibrate()
+			get_viewport().set_input_as_handled()
+			return
 		if ControllerSupport.is_calibrating():
 			ControllerSupport.cancel_calibration()
 		else:
@@ -154,6 +167,11 @@ func _input(event: InputEvent) -> void:
 		diagnostics_visible = true
 		_refresh_diagnostics()
 		get_viewport().set_input_as_handled()
+		return
+	if settings_menu != null and settings_menu.calibration_visible:
+		if event.is_action_pressed("pause") or (not ControllerSupport.is_calibrating() and ControllerSupport.event_is_pressed(event, &"menu_back")):
+			settings_menu.back()
+			get_viewport().set_input_as_handled()
 		return
 	if not _can_use_menu():
 		return
@@ -187,14 +205,15 @@ func _input(event: InputEvent) -> void:
 
 func _show_title() -> void:
 	current_screen = ScreenState.TITLE
-	var root := _build_screen("PUTT & PIXEL", "RETRO MINIGOLF  •  VERSION %s" % ProjectSettings.get_setting("application/config/version", ""))
+	var root := _build_screen("PUTT & PIXEL", I18n.text("TEXT_RETRO_MINIGOLF_VERSION") % ProjectSettings.get_setting("application/config/version", ""))
 	var mark := MenuWidgets.label("●", Vector2(296, 82), Vector2(48, 48), 38, Color("#f0c45b"))
 	mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(mark)
-	_add_option_button("SPIEL STARTEN", Rect2(205, 190, 230, 38), _show_mode)
-	_add_option_button("BAHNEDITOR", Rect2(205, 234, 230, 30), func(): _show_editor(false))
-	_add_option_button("EIGENE INHALTE", Rect2(205, 270, 230, 30), func(): _show_editor(true))
-	_add_footer("KREUZ / ENTER / KLICK", "F3 DIAGNOSE  •  F4 KALIBRIERUNG")
+	_add_option_button(I18n.text("TEXT_START_GAME"), Rect2(205, 160, 230, 34), _show_mode)
+	_add_option_button(I18n.text("TEXT_HOLE_EDITOR"), Rect2(205, 202, 230, 30), func(): _show_editor(false))
+	_add_option_button(I18n.text("TEXT_CUSTOM_CONTENT"), Rect2(205, 240, 230, 30), func(): _show_editor(true))
+	_add_option_button(tr("SETTINGS_TITLE"), Rect2(205, 278, 230, 30), func(): _show_settings(false))
+	_add_footer(I18n.text("TEXT_CROSS_ENTER_CLICK"), I18n.text("TEXT_F3_DIAGNOSTICS_F4_CALIBRATION"))
 	_finalize_options()
 
 
@@ -203,13 +222,13 @@ func _show_mode() -> void:
 		_reload_content(false)
 		_custom_session_catalog_active = false
 	current_screen = ScreenState.MODE
-	_build_screen("SPIELMODUS", "WAS MOECHTEST DU SPIELEN?")
-	_add_option_button("EINZELNER KURS", Rect2(176, 82, 288, 38), func(): _select_mode(RoundConfig.GameMode.COURSE_SOLO))
-	_add_option_button("LOKALER MEHRSPIELER", Rect2(176, 126, 288, 38), func(): _select_mode(RoundConfig.GameMode.COURSE_LOCAL))
-	_add_option_button("UEBUNG", Rect2(176, 170, 288, 38), func(): _select_mode(RoundConfig.GameMode.PRACTICE))
-	_add_option_button("FREIES SPIEL", Rect2(176, 214, 288, 38), func(): _select_mode(RoundConfig.GameMode.FREE_PLAY))
-	_add_option_button("ZURUECK", Rect2(246, 278, 148, 30), _show_title)
-	_add_footer("STICK / D-PAD  AUSWAEHLEN", "KREUZ BESTAETIGEN  •  KREIS ZURUECK")
+	_build_screen(I18n.text("TEXT_GAME_MODE"), I18n.text("TEXT_WHAT_WOULD_YOU_LIKE_TO_PLAY"))
+	_add_option_button(I18n.text("TEXT_SINGLE_COURSE"), Rect2(176, 82, 288, 38), func(): _select_mode(RoundConfig.GameMode.COURSE_SOLO))
+	_add_option_button(I18n.text("TEXT_LOCAL_MULTIPLAYER"), Rect2(176, 126, 288, 38), func(): _select_mode(RoundConfig.GameMode.COURSE_LOCAL))
+	_add_option_button(I18n.text("TEXT_PRACTICE"), Rect2(176, 170, 288, 38), func(): _select_mode(RoundConfig.GameMode.PRACTICE))
+	_add_option_button(I18n.text("TEXT_FREE_PLAY"), Rect2(176, 214, 288, 38), func(): _select_mode(RoundConfig.GameMode.FREE_PLAY))
+	_add_option_button(I18n.text("TEXT_BACK"), Rect2(246, 278, 148, 30), _show_title)
+	_add_footer(I18n.text("TEXT_STICK_D_PAD_SELECT"), I18n.text("TEXT_CROSS_CONFIRM_CIRCLE_BACK"))
 	_finalize_options()
 
 
@@ -231,15 +250,15 @@ func _select_mode(mode: int) -> void:
 
 func _show_player_count() -> void:
 	current_screen = ScreenState.PLAYER_COUNT
-	_build_screen("SPIELERZAHL", "WIE VIELE SPIELER TRETEN AN?")
+	_build_screen(I18n.text("TEXT_PLAYER_COUNT"), I18n.text("TEXT_HOW_MANY_PLAYERS_WILL_COMPETE"))
 	var counts := [2, 3, 4] if selected_mode == RoundConfig.GameMode.COURSE_LOCAL else [1, 2, 3, 4]
 	var start_x := 320 - counts.size() * 45
 	for index in range(counts.size()):
 		var count: int = counts[index]
 		_add_option_button(str(count), Rect2(start_x + index * 90, 130, 72, 54), func(): _choose_player_count(count))
 	option_columns = counts.size()
-	_add_option_button("ZURUECK", Rect2(246, 232, 148, 30), _show_mode)
-	_add_footer("EIN CONTROLLER WIRD WEITERGEREICHT", "JEDER SPIELER BEENDET DAS LOCH")
+	_add_option_button(I18n.text("TEXT_BACK"), Rect2(246, 232, 148, 30), _show_mode)
+	_add_footer(I18n.text("TEXT_PASS_ONE_CONTROLLER_AROUND"), I18n.text("TEXT_EACH_PLAYER_FINISHES_THE_HOLE"))
 	_finalize_options()
 
 
@@ -253,10 +272,10 @@ func _choose_player_count(count: int) -> void:
 func _show_player_name() -> void:
 	current_screen = ScreenState.PLAYER_NAME
 	if setup_name.is_empty():
-		setup_name = "SPIELER %d" % (setup_player_index + 1)
+		setup_name = I18n.text("TEXT_PLAYER_385") % (setup_player_index + 1)
 	var root := _build_screen(
-		"SPIELER %d/%d" % [setup_player_index + 1, desired_player_count],
-		"NAME EINGEBEN  •  MAXIMAL 12 ZEICHEN"
+		I18n.text("TEXT_PLAYER_386") % [setup_player_index + 1, desired_player_count],
+		I18n.text("TEXT_ENTER_NAME_UP_TO_12_CHARACTERS")
 	)
 	name_value_label = MenuWidgets.label(setup_name, Vector2(66, 62), Vector2(508, 34), 19, Color("#fff1b0"))
 	name_value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -271,11 +290,11 @@ func _show_player_name() -> void:
 		var key: String = keys[index]
 		var x := 45 + (index % 10) * 55
 		var y := 105 + (index / 10) * 37
-		_add_option_button(key, Rect2(x, y, 48, 30), func(): _type_screen_key(key))
-	_add_option_button("LOESCHEN", Rect2(155, 263, 148, 32), _remove_name_character)
-	_add_option_button("FERTIG", Rect2(337, 263, 148, 32), _confirm_player_name)
+		_add_option_button(I18n.source(key), Rect2(x, y, 48, 30), func(): _type_screen_key(key))
+	_add_option_button(I18n.text("TEXT_DELETE_392"), Rect2(155, 263, 148, 32), _remove_name_character)
+	_add_option_button(I18n.text("TEXT_DONE"), Rect2(337, 263, 148, 32), _confirm_player_name)
 	option_columns = 10
-	_add_footer("TASTATUR KANN DIREKT SCHREIBEN", "KREIS ZURUECK")
+	_add_footer(I18n.text("TEXT_YOU_CAN_TYPE_WITH_THE_KEYBOARD"), I18n.text("TEXT_CIRCLE_BACK"))
 	_finalize_options()
 
 
@@ -293,7 +312,7 @@ func _type_screen_key(key: String) -> void:
 
 
 func _append_name(character: String) -> void:
-	if setup_name == "SPIELER %d" % (setup_player_index + 1):
+	if setup_name == I18n.text("TEXT_PLAYER_385") % (setup_player_index + 1):
 		setup_name = ""
 	if setup_name.length() >= 12:
 		return
@@ -316,7 +335,7 @@ func _confirm_player_name() -> void:
 
 func _show_player_golfer() -> void:
 	current_screen = ScreenState.PLAYER_GOLFER
-	_build_screen(setup_name, "GOLFER WAEHLEN")
+	_build_screen(setup_name, I18n.text("TEXT_CHOOSE_GOLFER"))
 	golfer_preview = PlaceholderGolfer.new()
 	golfer_preview.position = Vector2(224, 102)
 	golfer_preview.size = Vector2(88, 144)
@@ -333,7 +352,7 @@ func _show_player_golfer() -> void:
 		var id := GolferDefinition.IDS[index]
 		var definition := GolferDefinition.get_golfer(id)
 		_add_option_button(definition.display_name, Rect2(32, 82 + index * 39, 178, 34), func(): _confirm_player_golfer(id))
-	_add_footer("JEDE FIGUR IST SOFORT VERFUEGBAR", "MEHRFACHE FIGURENWAHL MOEGLICH")
+	_add_footer(I18n.text("TEXT_ALL_CHARACTERS_AVAILABLE_NOW"), I18n.text("TEXT_PLAYERS_MAY_SHARE_A_CHARACTER"))
 	_finalize_options()
 	selected_option = maxi(0, GolferDefinition.IDS.find(setup_golfer_id))
 	_refresh_option_styles()
@@ -351,14 +370,14 @@ func _show_test_golfer_stats() -> void:
 	if setup_test_golfer == null:
 		setup_test_golfer = GolferDefinition.get_golfer(&"don").duplicate() as GolferDefinition
 	current_screen = ScreenState.PLAYER_TEST_STATS
-	_build_screen("DON - TESTSPIELER", "\"ICH BIN DER BESTE. DIE WERTE SAGEN ES AUCH.\"")
+	_build_screen(I18n.text("TEXT_DON_TEST_GOLFER"), I18n.text("TEXT_I_M_THE_BEST_THE_STATS_SAY_SO_TOO"))
 	golfer_preview = PlaceholderGolfer.new()
 	golfer_preview.position = Vector2(55, 98)
 	golfer_preview.size = Vector2(88, 144)
 	screen_root.add_child(golfer_preview)
 	golfer_preview.set_golfer(setup_test_golfer)
 	golfer_preview.set_palette(setup_player_index % 4)
-	var hint := MenuWidgets.label("FREIE WERTE\nKeine Kursbestwerte", Vector2(20, 252), Vector2(160, 36), 10, Color("#f0c45b"))
+	var hint := MenuWidgets.label(I18n.text("TEXT_CUSTOM_STATS_NNO_COURSE_RECORDS"), Vector2(20, 252), Vector2(160, 36), 10, Color("#f0c45b"))
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	screen_root.add_child(hint)
 	test_stat_labels.clear()
@@ -370,10 +389,10 @@ func _show_test_golfer_stats() -> void:
 		screen_root.add_child(label)
 		test_stat_labels.append(label)
 		_add_option_button("+", Rect2(570, y, 38, 32), func(): _adjust_test_stat(index, 1))
-	_add_option_button("BEN-WERTE", Rect2(192, 286, 196, 34), _reset_test_stats)
-	_add_option_button("WEITER", Rect2(412, 286, 196, 34), _show_player_color)
+	_add_option_button(I18n.text("TEXT_BEN_S_STATS"), Rect2(192, 286, 196, 34), _reset_test_stats)
+	_add_option_button(I18n.text("TEXT_NEXT"), Rect2(412, 286, 196, 34), _show_player_color)
 	option_columns = 2
-	_add_footer("-/+ WAEHLEN, KREUZ / ENTER: AENDERN", "KREIS / ESC: ZURUECK")
+	_add_footer(I18n.text("TEXT_SELECT_CROSS_ENTER_CHANGE"), I18n.text("TEXT_CIRCLE_ESC_BACK"))
 	_refresh_test_stat_labels()
 	_finalize_options()
 
@@ -392,11 +411,11 @@ func _reset_test_stats() -> void:
 
 func _refresh_test_stat_labels() -> void:
 	var labels := [
-		"REICHWEITE   %d %%" % roundi(setup_test_golfer.range_factor * 100.0),
-		"KRAFTZYKLUS   %.1f s" % setup_test_golfer.power_cycle_seconds,
-		"ZIELZYKLUS   %.1f s" % setup_test_golfer.accuracy_cycle_seconds,
-		"PERFEKTFENSTER   +/- %.1f %%" % (setup_test_golfer.perfect_accuracy_window * 100.0),
-		"RICHTUNGSFEHLER   MAX %.0f°" % setup_test_golfer.maximum_error_degrees,
+		I18n.text("TEXT_RANGE") % roundi(setup_test_golfer.range_factor * 100.0),
+		I18n.text("TEXT_POWER_CYCLE_S") % setup_test_golfer.power_cycle_seconds,
+		I18n.text("TEXT_AIM_CYCLE_S") % setup_test_golfer.accuracy_cycle_seconds,
+		I18n.text("TEXT_PERFECT_WINDOW") % (setup_test_golfer.perfect_accuracy_window * 100.0),
+		I18n.text("TEXT_AIM_ERROR_MAX") % setup_test_golfer.maximum_error_degrees,
 	]
 	for index in range(labels.size()):
 		test_stat_labels[index].text = labels[index].replace(".", ",")
@@ -406,21 +425,21 @@ func _show_player_color() -> void:
 	current_screen = ScreenState.PLAYER_COLOR
 	_build_screen(
 		"%s" % setup_name,
-		"FARBE FUER SPIELER %d WAEHLEN" % (setup_player_index + 1)
+		I18n.text("TEXT_CHOOSE_COLOR_FOR_PLAYER") % (setup_player_index + 1)
 	)
 	var used: Dictionary = {}
 	for player in working_players:
 		used[player.palette_id] = true
 	for palette in range(4):
 		var button := _add_option_button(
-			PlayerProfile.PALETTE_NAMES[palette],
+			I18n.source(PlayerProfile.PALETTE_NAMES[palette]),
 			Rect2(76 + palette * 126, 126, 112, 62),
 			func(): _confirm_player_color(palette)
 		)
 		button.disabled = used.has(palette)
 		button.add_theme_color_override("font_color", PlayerProfile.PALETTE_COLORS[palette])
 	option_columns = 4
-	_add_footer("FARBEN SIND NUR KOSMETISCH", "SPIELERNUMMER BLEIBT ZUSAETZLICH SICHTBAR")
+	_add_footer(I18n.text("TEXT_COLORS_ARE_COSMETIC_ONLY"), I18n.text("TEXT_PLAYER_NUMBER_STAYS_VISIBLE_TOO"))
 	_finalize_options()
 
 
@@ -452,8 +471,8 @@ func _show_course_select() -> void:
 	var page_count := maxi(1, ceili(float(course_catalog.courses.size()) / COURSES_PER_PAGE))
 	course_select_page = clampi(course_select_page, 0, page_count - 1)
 	_build_screen(
-		"KURSAUSWAHL",
-		"SEITE %d/%d  •  %d KURSE SIND SPIELBEREIT" % [course_select_page + 1, page_count, course_catalog.courses.size()]
+		I18n.text("TEXT_CHOOSE_COURSE"),
+		I18n.text("TEXT_PAGE_COURSES_READY") % [course_select_page + 1, page_count, course_catalog.courses.size()]
 	)
 	var card_height := 54.0
 	var card_gap := 6.0
@@ -469,20 +488,20 @@ func _show_course_select() -> void:
 		var total_par := course.get_total_par(hole_catalog)
 		var course_store := BestScoreStore.new("user://custom_content/progress.cfg") if String(course.course_id).begins_with("custom_") else BestScoreStore.new()
 		var best := course_store.get_best(_course_best_key(course))
-		var best_text := "NOCH KEIN BESTWERT" if best < 0 else "BESTWERT %d (%s)" % [best, _format_difference(best - total_par)]
+		var best_text := I18n.text("TEXT_NO_RECORD_YET") if best < 0 else I18n.text("TEXT_BEST_417") % [best, _format_difference(best - total_par)]
 		var course_button := _add_option_button(
-			"%s\n%d BAHNEN  /  PAR %d\n%s" % [course.display_name, course.hole_ids.size(), total_par, best_text],
+			I18n.text("TEXT_N_HOLES_PAR_N") % [I18n.content_name(course), course.hole_ids.size(), total_par, best_text],
 			Rect2(16, start_y + (index - first_index) * (card_height + card_gap), 198, card_height),
 			func(): _start_course(course)
 		)
 		course_button.add_theme_font_size_override("font_size",9)
 		course_button.size = Vector2(198,card_height)
-	var previous := _add_option_button("< VORHERIGE", Rect2(62, 276, 152, 30), func(): _change_course_page(-1))
+	var previous := _add_option_button(I18n.text("TEXT_PREVIOUS"), Rect2(62, 276, 152, 30), func(): _change_course_page(-1))
 	previous.disabled = course_select_page <= 0
-	_add_option_button("ZURUECK", Rect2(246, 276, 148, 30), _show_mode)
-	var next := _add_option_button("NAECHSTE >", Rect2(426, 276, 152, 30), func(): _change_course_page(1))
+	_add_option_button(I18n.text("TEXT_BACK"), Rect2(246, 276, 148, 30), _show_mode)
+	var next := _add_option_button(I18n.text("TEXT_NEXT_420"), Rect2(426, 276, 152, 30), func(): _change_course_page(1))
 	next.disabled = course_select_page >= page_count - 1
-	_add_footer("KURS MARKIEREN: VORSCHAU", "BESTAETIGEN: KURS STARTEN")
+	_add_footer(I18n.text("TEXT_SELECT_COURSE_PREVIEW"), I18n.text("TEXT_CONFIRM_START_COURSE"))
 	_finalize_options()
 
 
@@ -506,22 +525,22 @@ func _show_hole_select() -> void:
 	var course_holes := _get_course_holes()
 	var page_count := maxi(1, ceili(float(course_holes.size()) / HOLES_PER_PAGE))
 	hole_select_page = clampi(hole_select_page, 0, page_count - 1)
-	_build_screen("UEBUNGSLOCH", "SEITE %d/%d  •  EIN LOCH FREI AUSWAEHLEN" % [hole_select_page + 1, page_count])
+	_build_screen(I18n.text("TEXT_PRACTICE_HOLE"), I18n.text("TEXT_PAGE_CHOOSE_ANY_HOLE") % [hole_select_page + 1, page_count])
 	var first_index := hole_select_page * HOLES_PER_PAGE
 	var last_index := mini(first_index + HOLES_PER_PAGE, course_holes.size())
 	for index in range(first_index, last_index):
 		var hole: HoleDefinition = course_holes[index]
 		_add_option_button(
-			"%d  %s  •  PAR %d" % [index + 1, hole.display_name, hole.par],
+			"%d  %s  •  PAR %d" % [index + 1, I18n.content_name(hole), hole.par],
 			Rect2(106, 76 + (index - first_index) * 37, 428, 32),
 			func(): _start_practice(hole.hole_id)
 		)
-	var previous := _add_option_button("< VORHERIGE", Rect2(62, 276, 152, 30), func(): _change_hole_page(-1))
+	var previous := _add_option_button(I18n.text("TEXT_PREVIOUS"), Rect2(62, 276, 152, 30), func(): _change_hole_page(-1))
 	previous.disabled = hole_select_page <= 0
-	_add_option_button("ZURUECK", Rect2(246, 276, 148, 30), _show_mode)
-	var next := _add_option_button("NAECHSTE >", Rect2(426, 276, 152, 30), func(): _change_hole_page(1))
+	_add_option_button(I18n.text("TEXT_BACK"), Rect2(246, 276, 148, 30), _show_mode)
+	var next := _add_option_button(I18n.text("TEXT_NEXT_420"), Rect2(426, 276, 152, 30), func(): _change_hole_page(1))
 	next.disabled = hole_select_page >= page_count - 1
-	_add_footer("5 BAHNEN PRO SEITE", "DREIECK / F2 IM SPIEL: TESTBAHNEN")
+	_add_footer(I18n.text("TEXT_5_HOLES_PER_PAGE"), I18n.text("TEXT_TRIANGLE_F2_IN_GAME_TEST_HOLES"))
 	_finalize_options()
 
 
@@ -542,30 +561,30 @@ func _start_practice(hole_id: StringName) -> void:
 
 func _show_free_builder() -> void:
 	current_screen = ScreenState.FREE_BUILD
-	var sequence_text := "NOCH KEIN LOCH" if free_hole_ids.is_empty() else _free_sequence_text()
+	var sequence_text := I18n.text("TEXT_NO_HOLE_YET") if free_hole_ids.is_empty() else _free_sequence_text()
 	var course_holes := _get_course_holes()
 	var page_count := maxi(1, ceili(float(course_holes.size()) / HOLES_PER_PAGE))
 	free_select_page = clampi(free_select_page, 0, page_count - 1)
-	_build_screen("FREIE LOCHFOLGE", "%d/%d  •  SEITE %d/%d  •  %s" % [free_hole_ids.size(), MAX_FREE_HOLES, free_select_page + 1, page_count, sequence_text])
+	_build_screen(I18n.text("TEXT_CUSTOM_HOLE_SEQUENCE"), I18n.text("TEXT_PAGE") % [free_hole_ids.size(), MAX_FREE_HOLES, free_select_page + 1, page_count, sequence_text])
 	var first_index := free_select_page * HOLES_PER_PAGE
 	var last_index := mini(first_index + HOLES_PER_PAGE, course_holes.size())
 	for index in range(first_index, last_index):
 		var hole: HoleDefinition = course_holes[index]
 		_add_option_button(
-			"+ %s" % hole.display_name,
+			"+ %s" % I18n.content_name(hole),
 			Rect2(80, 74 + (index - first_index) * 33, 480, 29),
 			func(): _append_free_hole(hole.hole_id)
 		)
-	var remove_button := _add_option_button("LETZTES ENTFERNEN", Rect2(52, 244, 250, 28), _remove_free_hole)
+	var remove_button := _add_option_button(I18n.text("TEXT_REMOVE_LAST"), Rect2(52, 244, 250, 28), _remove_free_hole)
 	remove_button.disabled = free_hole_ids.is_empty()
-	var start_button := _add_option_button("RUNDE STARTEN", Rect2(338, 244, 250, 28), _start_free_round)
+	var start_button := _add_option_button(I18n.text("TEXT_START_ROUND"), Rect2(338, 244, 250, 28), _start_free_round)
 	start_button.disabled = free_hole_ids.is_empty()
-	var previous := _add_option_button("< VORHERIGE", Rect2(62, 282, 152, 28), func(): _change_free_page(-1))
+	var previous := _add_option_button(I18n.text("TEXT_PREVIOUS"), Rect2(62, 282, 152, 28), func(): _change_free_page(-1))
 	previous.disabled = free_select_page <= 0
-	_add_option_button("ZURUECK", Rect2(246, 282, 148, 28), _show_mode)
-	var next := _add_option_button("NAECHSTE >", Rect2(426, 282, 152, 28), func(): _change_free_page(1))
+	_add_option_button(I18n.text("TEXT_BACK"), Rect2(246, 282, 148, 28), _show_mode)
+	var next := _add_option_button(I18n.text("TEXT_NEXT_420"), Rect2(426, 282, 152, 28), func(): _change_free_page(1))
 	next.disabled = free_select_page >= page_count - 1
-	_add_footer("KREUZ FUEGT DIE SICHTBARE BAHN AN", "REIHENFOLGE UND WIEDERHOLUNG FREI")
+	_add_footer(I18n.text("TEXT_CROSS_ADDS_THE_SELECTED_HOLE"), I18n.text("TEXT_ANY_ORDER_REPEATS_ALLOWED"))
 	_finalize_options()
 
 
@@ -660,37 +679,37 @@ func _show_handoff(completed_player: int) -> void:
 	current_screen = ScreenState.HANDOFF
 	var previous := session.config.players[completed_player]
 	var next := session.get_current_player()
-	_build_screen("SPIELERWECHSEL", "%s: %d SCHLAEGE%s" % [
+	_build_screen(I18n.text("TEXT_NEXT_PLAYER"), I18n.text("TEXT_STROKES") % [
 		previous.player_name,
 		_last_attempt_strokes,
 		"  •  MAX" if _last_attempt_capped else "",
 	])
 	var label := MenuWidgets.label(
-		"CONTROLLER AN\nP%d  %s\nWEITERGEBEN" % [next.player_id, next.player_name],
+		I18n.text("TEXT_PASS_CONTROLLER_TO_NP") % [next.player_id, next.player_name],
 		Vector2(145, 105), Vector2(350, 92), 20, next.get_color()
 	)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	screen_root.add_child(label)
-	_add_option_button("BEREIT", Rect2(224, 225, 192, 36), _start_current_attempt)
-	_add_footer("ERST NACH DEM LOSLASSEN BESTAETIGEN", "IDENTISCHE HINDERNISPHASE")
+	_add_option_button(I18n.text("TEXT_READY"), Rect2(224, 225, 192, 36), _start_current_attempt)
+	_add_footer(I18n.text("TEXT_RELEASE_BUTTONS_BEFORE_CONFIRMING"), I18n.text("TEXT_IDENTICAL_OBSTACLE_PHASE"))
 	_finalize_options()
 
 
 func _show_scorecard(final: bool, from_pause: bool) -> void:
 	current_screen = ScreenState.PAUSE_SCORECARD if from_pause else (ScreenState.FINAL if final else ScreenState.SCORECARD)
-	var title := "ZWISCHENSTAND" if from_pause else ("ENDTABELLE" if final else "ERGEBNISTABELLE")
+	var title := I18n.text("TEXT_CURRENT_SCORES") if from_pause else (I18n.text("TEXT_FINAL_SCORES") if final else I18n.text("TEXT_SCORECARD"))
 	_build_screen(title, _scorecard_subtitle(final, from_pause))
 	_build_score_table(final)
 	if from_pause:
-		_add_option_button("ZURUECK ZUR PAUSE", Rect2(220, 302, 200, 30), _show_pause)
+		_add_option_button(I18n.text("TEXT_BACK_TO_PAUSE"), Rect2(220, 302, 200, 30), _show_pause)
 	elif final:
-		_add_option_button("NOCHMAL", Rect2(52, 302, 160, 30), _rematch)
-		_add_option_button("AUSWAHL AENDERN", Rect2(230, 302, 180, 30), _change_selection)
-		_add_option_button("HAUPTMENUE", Rect2(428, 302, 160, 30), _leave_to_menu)
+		_add_option_button(I18n.text("TEXT_PLAY_AGAIN"), Rect2(52, 302, 160, 30), _rematch)
+		_add_option_button(I18n.text("TEXT_CHANGE_SELECTION"), Rect2(230, 302, 180, 30), _change_selection)
+		_add_option_button(I18n.text("TEXT_MAIN_MENU"), Rect2(428, 302, 160, 30), _leave_to_menu)
 		option_columns = 3
 	else:
-		_add_option_button("WEITER ZUM NAECHSTEN LOCH", Rect2(185, 302, 270, 30), _continue_after_hole)
+		_add_option_button(I18n.text("TEXT_CONTINUE_TO_NEXT_HOLE"), Rect2(185, 302, 270, 30), _continue_after_hole)
 	_finalize_options()
 
 
@@ -702,25 +721,25 @@ func _build_score_table(final: bool) -> void:
 
 func _scorecard_subtitle(final: bool, from_pause := false) -> String:
 	if from_pause:
-		return "LOCH %d/%d  •  P%d %s AM BALL" % [
+		return I18n.text("TEXT_HOLE_P_TO_PLAY") % [
 			session.current_hole_index + 1,
 			session.config.hole_ids.size(),
 			session.get_current_player().player_id,
 			session.get_current_player().player_name,
 		]
 	if final and _best_save_error != OK:
-		return "BESTWERT KONNTE NICHT GESPEICHERT WERDEN"
+		return I18n.text("TEXT_COULD_NOT_SAVE_BEST_SCORE")
 	if final and session.config.has_test_player():
-		return "TESTRUNDE ABGESCHLOSSEN - OHNE KURSBESTWERT"
+		return I18n.text("TEXT_TEST_ROUND_COMPLETE_NO_COURSE_RECORD")
 	if final and session.config.is_best_eligible(hole_catalog, course_catalog):
 		var best := best_store.get_best(_active_best_score_key())
 		var course_par := 0
 		for hole_id in session.config.hole_ids:
 			course_par += hole_catalog.get_hole(hole_id).par
-		return "KURSBESTWERT  %d  (%s)" % [best, _format_difference(best - course_par)] if best >= 0 else "RUNDE ABGESCHLOSSEN"
+		return I18n.text("TEXT_COURSE_BEST") % [best, _format_difference(best - course_par)] if best >= 0 else I18n.text("TEXT_ROUND_COMPLETE")
 	if final:
-		return "UEBUNG ABGESCHLOSSEN" if session.config.mode == RoundConfig.GameMode.PRACTICE else "FREIE RUNDE ABGESCHLOSSEN"
-	return "LOCH %d VON %d ABGESCHLOSSEN" % [session.current_hole_index + 1, session.config.hole_ids.size()]
+		return I18n.text("TEXT_PRACTICE_COMPLETE") if session.config.mode == RoundConfig.GameMode.PRACTICE else I18n.text("TEXT_FREE_ROUND_COMPLETE")
+	return I18n.text("TEXT_HOLE_OF_COMPLETE") % [session.current_hole_index + 1, session.config.hole_ids.size()]
 
 
 func _continue_after_hole() -> void:
@@ -766,13 +785,14 @@ func _show_pause() -> void:
 	gameplay.set_external_paused(true)
 	get_tree().paused = true
 	current_screen = ScreenState.PAUSE
-	_build_screen("PAUSE", "RUNDE ANGEHALTEN")
-	_add_option_button("FORTSETZEN", Rect2(190, 94, 260, 36), _resume_game)
-	_add_option_button("TABELLE", Rect2(190, 138, 260, 36), func(): _show_scorecard(false, true))
+	_build_screen(I18n.text("TEXT_PAUSE_459"), I18n.text("TEXT_ROUND_PAUSED"))
+	_add_option_button(I18n.text("TEXT_RESUME"), Rect2(190, 94, 260, 36), _resume_game)
+	_add_option_button(I18n.text("TEXT_SCORES"), Rect2(190, 138, 260, 36), func(): _show_scorecard(false, true))
 	if session.config.allows_restart():
-		_add_option_button("LOCH NEU STARTEN", Rect2(190, 182, 260, 36), _restart_from_pause)
-	_add_option_button("RUNDE VERLASSEN", Rect2(190, 226, 260, 36), _show_leave_confirm)
-	_add_footer("START / KREIS: FORTSETZEN", "LAUFENDE RUNDE WIRD NICHT GESPEICHERT")
+		_add_option_button(I18n.text("TEXT_RESTART_HOLE"), Rect2(190, 182, 260, 36), _restart_from_pause)
+	_add_option_button(I18n.text("TEXT_LEAVE_ROUND"), Rect2(190, 226, 260, 36), _show_leave_confirm)
+	_add_option_button(tr("SETTINGS_TITLE"), Rect2(190, 270, 260, 36), func(): _show_settings(true))
+	_add_footer(I18n.text("TEXT_START_CIRCLE_RESUME"), I18n.text("TEXT_CURRENT_ROUND_WILL_NOT_BE_SAVED"))
 	_finalize_options()
 
 
@@ -782,6 +802,7 @@ func _resume_game() -> void:
 	get_tree().paused = false
 	if gameplay != null:
 		gameplay.set_external_paused(false)
+		gameplay.set_input_enabled(false)
 	_arm_input_gate()
 
 
@@ -793,11 +814,11 @@ func _restart_from_pause() -> void:
 
 func _show_leave_confirm() -> void:
 	current_screen = ScreenState.LEAVE_CONFIRM
-	_build_screen("RUNDE VERLASSEN?", "DER AKTUELLE STAND GEHT VERLOREN")
-	_add_option_button("NEIN", Rect2(156, 150, 150, 40), _show_pause)
-	_add_option_button("JA", Rect2(334, 150, 150, 40), _leave_to_menu)
+	_build_screen(I18n.text("TEXT_LEAVE_ROUND_467"), I18n.text("TEXT_CURRENT_PROGRESS_WILL_BE_LOST"))
+	_add_option_button(I18n.text("TEXT_NO"), Rect2(156, 150, 150, 40), _show_pause)
+	_add_option_button(I18n.text("TEXT_YES"), Rect2(334, 150, 150, 40), _leave_to_menu)
 	option_columns = 2
-	_add_footer("KREIS: NEIN", "BESTWERTE NUR NACH VOLLSTAENDIGER RUNDE")
+	_add_footer(I18n.text("TEXT_CIRCLE_NO"), I18n.text("TEXT_RECORDS_ONLY_FOR_COMPLETE_ROUNDS"))
 	_finalize_options()
 
 
@@ -837,7 +858,7 @@ func _free_sequence_text() -> String:
 				course_index = hole_index + 1
 				break
 		parts.append(str(course_index))
-	return "FOLGE: " + "-".join(parts)
+	return I18n.text("TEXT_SEQUENCE") + "-".join(parts)
 
 
 func _format_difference(value: int) -> String:
@@ -847,6 +868,9 @@ func _format_difference(value: int) -> String:
 
 
 func _go_back() -> void:
+	if settings_menu != null:
+		settings_menu.back()
+		return
 	match current_screen:
 		ScreenState.MODE:
 			_show_title()
@@ -888,6 +912,7 @@ func _build_screen(title: String, subtitle: String) -> Control:
 	screen_layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(screen_layer)
 	screen_root = Control.new()
+	screen_root.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	screen_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	screen_root.process_mode = Node.PROCESS_MODE_ALWAYS
 	screen_layer.add_child(screen_root)
@@ -953,6 +978,8 @@ func _select_option(index: int) -> void:
 
 
 func _move_selection(direction: Vector2) -> void:
+	if settings_menu != null and settings_menu.navigate(direction):
+		return
 	if option_buttons.is_empty():
 		return
 	var step := 1
@@ -984,6 +1011,9 @@ func _can_use_menu() -> bool:
 
 
 func _invoke_option(index: int) -> void:
+	if settings_menu != null and settings_menu.calibration_visible and ControllerSupport.focused and not _menu_input_locked:
+		settings_menu.back()
+		return
 	if not _can_use_menu():
 		return
 	if index < 0 or index >= option_actions.size() or option_buttons[index].disabled:
@@ -1002,7 +1032,7 @@ func _refresh_option_styles() -> void:
 		if definition.golfer_id == &"don" and setup_test_golfer != null:
 			definition = setup_test_golfer
 		golfer_preview.set_golfer(definition)
-		golfer_description.text = definition.description
+		golfer_description.text = I18n.golfer_description(definition)
 		golfer_stats.set_golfer(definition)
 	for index in range(option_buttons.size()):
 		var button := option_buttons[index]
@@ -1080,6 +1110,11 @@ func _refresh_diagnostics() -> void:
 
 func _on_controller_changed(_id: int, _name: String, _guid: String) -> void:
 	_arm_input_gate()
+	if settings_menu != null:
+		if _id < 0 and settings_menu.calibration_visible:
+			settings_menu._close_calibration()
+		else:
+			settings_menu.show()
 	if current_screen == ScreenState.GAMEPLAY and gameplay != null:
 		gameplay.set_input_enabled(false)
 	_update_screen_controller_status()
@@ -1095,11 +1130,15 @@ func _on_focus_changed(has_focus: bool) -> void:
 
 
 func _on_calibration_updated(_prompt: String) -> void:
+	if settings_menu != null and settings_menu.calibration_visible:
+		return
 	diagnostics_visible = true
 	_refresh_diagnostics()
 
 
 func _on_calibration_finished(_guid: String) -> void:
+	if settings_menu != null and settings_menu.calibration_visible:
+		return
 	diagnostics_visible = true
 	_refresh_diagnostics()
 
@@ -1108,9 +1147,9 @@ func _update_screen_controller_status() -> void:
 	if controller_status_label == null:
 		return
 	if ControllerSupport.active_device_id < 0:
-		controller_status_label.text = "KEIN CONTROLLER\nTASTATUR / MAUS"
+		controller_status_label.text = I18n.text("TEXT_NO_CONTROLLER_NKEYBOARD_MOUSE")
 	else:
-		controller_status_label.text = "CONTROLLER %d\n%s" % [ControllerSupport.active_device_id, ControllerSupport.active_device_name]
+		controller_status_label.text = I18n.text("TEXT_CONTROLLER_N") % [ControllerSupport.active_device_id, ControllerSupport.active_device_name]
 
 
 func _reload_content(include_courses: bool) -> void:
@@ -1168,3 +1207,16 @@ func _start_custom_content(course: CourseDefinition, players: Array[PlayerProfil
 		config.mode = RoundConfig.GameMode.COURSE_SOLO if players.size() == 1 else RoundConfig.GameMode.COURSE_LOCAL
 	selected_mode = config.mode
 	_start_round(config)
+
+
+func _show_settings(from_pause: bool) -> void:
+	settings_menu = SettingsMenu.new(self, from_pause)
+	settings_menu.show()
+
+
+func _exit_tree() -> void:
+	if settings_menu != null:
+		settings_menu.adjustments.clear()
+		settings_menu = null
+		if is_instance_valid(SettingsManager):
+			SettingsManager.cancel()

@@ -79,7 +79,7 @@ func configure_arrow_tile(
 	alignment_rate := 0.0,
 	centering_strength := 0.0
 ) -> void:
-	assert(is_equal_approx(rect.size.x, rect.size.y), "Pfeilzellen muessen quadratisch sein")
+	assert(is_equal_approx(rect.size.x, rect.size.y), I18n.text("TEXT_ARROW_CELLS_MUST_BE_SQUARE"))
 	configure_slope(
 		rect,
 		direction,

@@ -50,7 +50,7 @@ func _ready() -> void:
 	else:
 		hole_catalog = HoleCatalog.load_default()
 	if hole_catalog == null:
-		push_error("Lochkatalog konnte nicht geladen werden")
+		push_error(I18n.text("TEXT_COULD_NOT_LOAD_HOLE_CATALOG"))
 		return
 	if configured_hole_id != &"":
 		for index in range(hole_catalog.holes.size()):
@@ -299,7 +299,7 @@ func _on_hazard_entered(_hazard_type: String) -> void:
 func _on_ball_holed(final_strokes: int) -> void:
 	shot_controller.notify_hole_complete()
 	hud.play_golfer_reaction("success")
-	hud.show_result(final_strokes, hole.get_par(), "" if managed_attempt else "Kreuz / Leertaste: Nochmal")
+	hud.show_result(final_strokes, hole.get_par(), "" if managed_attempt else I18n.text("TEXT_CROSS_SPACE_AGAIN"))
 	if audio_feedback != null:
 		audio_feedback.play_hole()
 	if feedback_effects != null:
@@ -442,20 +442,24 @@ func _update_controller_status(id: int, device_name: String, guid: String) -> vo
 	if hud == null:
 		return
 	if id < 0:
-		hud.set_controller_status("KEIN CONTROLLER\nTastatur und Maus aktiv")
+		hud.set_controller_status(I18n.text("TEXT_NO_CONTROLLER_NKEYBOARD_AND_MOUSE_ACTIVE"))
 		if shot_controller != null:
 			shot_controller.cancel_shot()
 	else:
 		var short_guid := guid.left(12) + "..." if guid.length() > 15 else guid
-		hud.set_controller_status("CONTROLLER %d\n%s\n%s" % [id, device_name, short_guid])
+		hud.set_controller_status(I18n.text("TEXT_CONTROLLER_N_N") % [id, device_name, short_guid])
 
 
 func _on_calibration_updated(_prompt: String) -> void:
+	if get_parent() is GameApp and get_parent().settings_menu != null:
+		return
 	diagnostics_visible = true
 	hud.set_diagnostics(true, ControllerSupport.get_diagnostics_text())
 
 
 func _on_calibration_finished(_guid: String) -> void:
+	if get_parent() is GameApp and get_parent().settings_menu != null:
+		return
 	diagnostics_visible = true
 	hud.set_diagnostics(true, ControllerSupport.get_diagnostics_text())
 
@@ -464,3 +468,17 @@ func _create_audio() -> void:
 	audio_feedback = PrototypeAudio.new()
 	audio_feedback.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(audio_feedback)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(hud) and is_instance_valid(hole):
+		_update_hud()
+		hud.set_course_name(hole.get_display_name())
+		# Refresh only text: device notifications can cancel a prepared shot.
+		if ControllerSupport.active_device_id < 0:
+			hud.set_controller_status(I18n.text("TEXT_NO_CONTROLLER_NKEYBOARD_AND_MOUSE_ACTIVE"))
+		else:
+			var guid := ControllerSupport.active_device_guid
+			var short_guid := guid.left(12) + "..." if guid.length() > 15 else guid
+			hud.set_controller_status(I18n.text("TEXT_CONTROLLER_N_N") % [ControllerSupport.active_device_id, ControllerSupport.active_device_name, short_guid])
+		hud.set_diagnostics(diagnostics_visible, ControllerSupport.get_diagnostics_text())

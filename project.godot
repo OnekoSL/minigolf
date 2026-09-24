@@ -13,6 +13,7 @@ config/windows_native_icon="res://assets/branding/putt_and_pixel.ico"
 
 [autoload]
 
+SettingsManager="*res://src/settings_manager.gd"
 ControllerSupport="*res://src/controller_support.gd"
 
 [display]
@@ -39,3 +40,8 @@ environment/defaults/default_clear_color=Color(0.035, 0.047, 0.061, 1)
 [physics]
 
 common/physics_ticks_per_second=60
+
+[internationalization]
+
+locale/fallback="de"
+locale/translations=PackedStringArray("res://data/i18n/de.po", "res://data/i18n/en.po", "res://data/i18n/fr.po", "res://data/i18n/es.po", "res://data/i18n/it.po")
