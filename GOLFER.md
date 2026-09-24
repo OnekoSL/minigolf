@@ -1,4 +1,4 @@
-# Vier Golfer
+# Vier Golfer und ein Testspieler
 
 Stand: 10.09.2026. Alle Figuren sind direkt verfuegbar, ohne Ausruestungsboni oder Freischaltungen. Die Auswahl folgt auf den Spielernamen; danach wird eine eindeutige Spielerfarbe vergeben. Mehrere Spieler duerfen dieselbe Figur waehlen. Die Figur gilt fuer die gesamte Runde.
 
@@ -8,6 +8,27 @@ Stand: 10.09.2026. Alle Figuren sind direkt verfuegbar, ohne Ausruestungsboni od
 | Mara | Visor, brauner Zopf, gerade Hose; kleines Faustzeichen und Nicken, bei Fehlern Schultern senken | 85 %, 195 dm | 5,2 s | 2,4 s | +/-0,05 | 8 Grad |
 | Bruno | Breite Statur, Cap, hochgekrempelte Aermel; erhobene Faust, unglaeubiger Blick | 125 %, 287 dm | 3,2 s | 2,4 s | +/-0,05 | 10 Grad |
 | Nika | Kurze dunkle Haare, Weste ueber hellem Shirt; kleine Faustbewegung, skeptische Putterpruefung | 95 %, 218 dm | 4,0 s | 1,8 s | +/-0,025 | 4 Grad |
+| Don (Testspieler) | Gelbe Foehnfrisur, oranges Gesicht, dunkler Anzug und ueberlange rote Krawatte; selbstzufriedener Daumen hoch, Faustjubel und empoerter Blick | frei, Start 100 % | frei, Start 4,0 s | frei, Start 2,4 s | frei, Start +/-0,05 | frei, Start 8 Grad |
+
+## Don: freie Testwerte (24.09.2026)
+
+Don ist der fuenfte Eintrag in der Figurenauswahl. Bestaetigen oeffnet vor der Farbwahl seine Einstellungen. Mit Stick/D-Pad oder Pfeiltasten die Minus-/Plus-Taste waehlen und mit Kreuz/Enter bestaetigen; Mausklicks funktionieren ebenfalls. Die fuenf Werte sind unabhaengig, ohne Punktebudget einstellbar:
+
+| Wert | Einstellbereich | Schritt |
+|---|---|---|
+| Reichweite gegenueber Ben | 10 bis 300 % | 5 Prozentpunkte |
+| Kraftzyklus | 0,2 bis 12 Sekunden | 0,2 Sekunden |
+| Genauigkeitszyklus | 0,2 bis 12 Sekunden | 0,2 Sekunden |
+| Perfektfenster | +/-0,5 bis +/-50 % | 0,5 Prozentpunkte |
+| Maximaler Richtungsfehler | 0 bis 45 Grad | 1 Grad |
+
+**BEN-WERTE** setzt alle fuenf Werte zurueck; **WEITER** fuehrt zur Farbe. Zurueckgehen erhaelt die Einstellungen. Jeder Spieler bekommt eine eigene Kopie fuer die ganze Runde, einschliesslich Neustarts und Lochwechseln. Die Werte werden nicht dauerhaft gespeichert. Die kosmetische Spielerfarbe faerbt bei Don das Einstecktuch; Haare, Haut und Krawatte bleiben unveraendert.
+
+Sobald Don mitspielt, wird die ganze Runde als Testrunde ohne Kursbestwert behandelt, auch im gemischten Hotseat. Die Ergebnistabelle funktioniert weiterhin. Bestehende Bestwerte und Kursrevisionen bleiben erhalten. Beliebige extreme Testwerte sind keine Zusage, dass jede Bahn damit erreichbar ist.
+
+`tests/test_golfer_test.gd` prueft Einstellgrenzen, Menueeingabesperren und alte Signale, Zuruecknavigation, getrennte Spielerprofile, Datenvalidierung, Bestwertberechtigung sowie tatsaechliche Startgeschwindigkeit und Timing nach Neustart und in weiteren Versuchen. Die gemeinsamen Animationspruefungen laufen auch fuer Don. Die zusaetzliche Menueaufnahme liegt unter `.godot/golfer/don-settings-2x.png`.
+
+Pruefstand 24.09.2026: Godot 4.7.2, Gesamtsuite mit isoliertem APPDATA ueber `tools/test_editor.ps1 -FullSuite`: **5669 Checks, 0 Fehler**, Exitcode 0. `tests/capture_golfer.tscn` ohne Headless: alle fuenf Figuren aufgenommen, Dons Posen, Farben, Auswahl, Einstellungen und Spielansicht visuell geprueft. Keine erneute Controller-Hardwarepruefung.
 
 Zykluszeiten gelten fuer hin und zurueck. Alle Figuren beginnen bei etwa 1 dm. Maximale Ballgeschwindigkeit: `420 * sqrt(range_factor)`. Die Weiten sind gerundet und gelten ausschliesslich fuer ebenes Gruen. Die bestehende nichtlineare Winkel-Fehlerkurve bleibt bestehen; keine Zufallsfehler. Ben ist der bisherige Allrounder mit unveraenderten Werten. Seine interne ID bleibt `allrounder`, damit vorhandene Spielerprofile und Ressourcen kompatibel bleiben.
 
@@ -36,4 +57,4 @@ Zusaetzlicher Live-Audit: 69 erfolgreiche Laeufe (alle drei neuen Figuren auf de
 
 **Bestehende Pruefluecke:** Fuer die acht anderen Labyrinthbahnen liefern die bisherigen Geometrierouten auch mit dem Allrounder keinen erfolgreichen Live-Nachweis. Der Kontrolllauf mit Mara scheitert an denselben Routenproblemen; alle urspruenglichen Schlagstaerken liegen bereits in Maras Bereich. Daraus folgt weder ein Nachweis der Unspielbarkeit noch eine Freigabe dieser acht Bahnen. Ihre Live-Routen und PAR-Abnahme bleiben offen; der Golfer-Build ist keine vollstaendige Kursfreigabe.
 
-Turniersieg-Reaktionen und weitere Figuren sind nicht Bestandteil dieser Erweiterung. Eine echte Controller-Hardwarepruefung wird durch die automatisierten Menuepruefungen nicht ersetzt.
+Die historischen Pruefzahlen oben betreffen die vier festen Figuren vom 10.09.2026. Eine echte Controller-Hardwarepruefung wird durch die automatisierten Menuepruefungen nicht ersetzt.

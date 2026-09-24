@@ -1,7 +1,11 @@
 class_name GolferDefinition
 extends Resource
 
-const IDS: Array[StringName] = [&"allrounder", &"mara", &"bruno", &"nika"]
+const IDS: Array[StringName] = [&"allrounder", &"mara", &"bruno", &"nika", &"don"]
+const TEST_STATS := [&"range_factor", &"power_cycle_seconds", &"accuracy_cycle_seconds", &"perfect_accuracy_window", &"maximum_error_degrees"]
+const TEST_MINIMUMS := [0.1, 0.2, 0.2, 0.005, 0.0]
+const TEST_MAXIMUMS := [3.0, 12.0, 12.0, 0.5, 45.0]
+const TEST_STEPS := [0.05, 0.2, 0.2, 0.005, 1.0]
 
 @export var golfer_id := &"allrounder"
 @export var display_name := "BEN"
@@ -25,6 +29,14 @@ func get_maximum_ball_speed() -> float:
 
 func validate() -> PackedStringArray:
 	var errors := PackedStringArray()
+	for stat in TEST_STATS:
+		if not is_finite(float(get(stat))):
+			errors.append("Golferwerte muessen endlich sein")
+	if golfer_id == &"don":
+		for index in range(TEST_STATS.size()):
+			var value := float(get(TEST_STATS[index]))
+			if value < TEST_MINIMUMS[index] or value > TEST_MAXIMUMS[index]:
+				errors.append("Testwert ausserhalb des Einstellbereichs")
 	if golfer_id not in IDS or display_name.is_empty() or atlas == null:
 		errors.append("Golfer benoetigt bekannte ID, Namen und Atlas")
 	if range_factor <= 0.0 or power_cycle_seconds <= 0.0 or accuracy_cycle_seconds <= 0.0:

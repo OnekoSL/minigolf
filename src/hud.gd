@@ -205,7 +205,7 @@ func set_player_context(profile: PlayerProfile, hole_number: int, hole_count: in
 	player_label.text = "P%d  %s" % [profile.player_id, profile.player_name]
 	player_label.add_theme_color_override("font_color", profile.get_color())
 	round_label.text = "LOCH %d/%d   GESAMT %d" % [hole_number, hole_count, total_strokes]
-	var definition := GolferDefinition.get_golfer(profile.golfer_id)
+	var definition := profile.get_golfer_definition()
 	golfer_title.text = "P%d  %s" % [profile.player_id, definition.display_name]
 	golfer_title.add_theme_color_override("font_color", profile.get_color())
 	golfer.set_golfer(definition)

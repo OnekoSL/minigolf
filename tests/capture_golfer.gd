@@ -147,7 +147,8 @@ func _capture_games() -> void:
 	for index in range(GolferDefinition.IDS.size()):
 		var id := GolferDefinition.IDS[index]
 		var main := (load("res://scenes/prototype_main.tscn") as PackedScene).instantiate() as PrototypeMain
-		main.attempt_profile = PlayerProfile.create(index + 1, "SPIELER %d" % (index + 1), index, id)
+		var player_index := index % PlayerProfile.PALETTE_COLORS.size()
+		main.attempt_profile = PlayerProfile.create(player_index + 1, "SPIELER %d" % (player_index + 1), player_index, id)
 		viewport.add_child(main)
 		main.set_process(false)
 		main.shot_controller.set_process(false)
@@ -177,5 +178,12 @@ func _capture_games() -> void:
 			screenshot.save_png("res://.godot/golfer/selection.png")
 		screenshot.resize(1280, 720, Image.INTERPOLATE_NEAREST)
 		screenshot.save_png("res://.godot/golfer/%s-selection-2x.png" % GolferDefinition.IDS[index])
+	app._confirm_player_golfer(&"don")
+	await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var settings_image := viewport.get_texture().get_image()
+	settings_image.save_png("res://.godot/golfer/don-settings.png")
+	settings_image.resize(1280, 720, Image.INTERPOLATE_NEAREST)
+	settings_image.save_png("res://.godot/golfer/don-settings-2x.png")
 	viewport.queue_free()
 	await get_tree().process_frame

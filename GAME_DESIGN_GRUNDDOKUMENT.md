@@ -229,6 +229,8 @@ Die Physik ist eine kontrollierte 2D-Simulation. Realismus ist weniger wichtig a
 
 ## 9. Golferfiguren
 
+**Erweiterung 24.09.2026:** Don ergaenzt als fuenfte Figur die vier festen Golfer. Die satirische Pixelkarikatur mit gelber Foehnfrisur, orangem Gesicht und langer roter Krawatte dient als Testspieler. Seine fuenf Spielwerte sind vor der Runde unabhaengig einstellbar. Runden mit Don schreiben keine Kursbestwerte; die folgenden Balancingregeln gelten fuer die vier festen Figuren. Bedienung und Grenzen stehen in `GOLFER.md`.
+
 Vier Golfer bieten unterschiedliche Spielweisen, ohne Fortschrittsboni oder bessere Ausruestung zu benoetigen. Ben (Allrounder), Mara (ruhig), Bruno (kraftvoll) und Nika (technisch) sind als animierte Pixelgolfer umgesetzt; feste Startwerte und Pruefstand stehen in `GOLFER.md`.
 
 | Rolle | Maximale Weite auf ebenem Gruen | Kraft-Timing | Genauigkeitsprofil | Spielgefuehl |

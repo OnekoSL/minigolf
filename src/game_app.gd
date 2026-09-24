@@ -19,6 +19,7 @@ enum ScreenState {
 	PAUSE_SCORECARD,
 	LEAVE_CONFIRM,
 	EDITOR,
+	PLAYER_TEST_STATS,
 }
 
 const MENU_NAV_THRESHOLD := 0.45
@@ -45,6 +46,8 @@ var working_players: Array[PlayerProfile] = []
 var setup_player_index := 0
 var setup_name := ""
 var setup_golfer_id := &"allrounder"
+var setup_test_golfer: GolferDefinition
+var test_stat_labels: Array[Label] = []
 var golfer_preview: PlaceholderGolfer
 var golfer_description: Label
 var golfer_stats: GolferStatsView
@@ -213,6 +216,7 @@ func _show_mode() -> void:
 func _select_mode(mode: int) -> void:
 	selected_mode = mode
 	setup_golfer_id = &"allrounder"
+	setup_test_golfer = null
 	working_players.clear()
 	setup_player_index = 0
 	course_select_page = 0
@@ -328,7 +332,7 @@ func _show_player_golfer() -> void:
 	for index in range(GolferDefinition.IDS.size()):
 		var id := GolferDefinition.IDS[index]
 		var definition := GolferDefinition.get_golfer(id)
-		_add_option_button(definition.display_name, Rect2(32, 88 + index * 45, 178, 38), func(): _confirm_player_golfer(id))
+		_add_option_button(definition.display_name, Rect2(32, 82 + index * 39, 178, 34), func(): _confirm_player_golfer(id))
 	_add_footer("JEDE FIGUR IST SOFORT VERFUEGBAR", "MEHRFACHE FIGURENWAHL MOEGLICH")
 	_finalize_options()
 	selected_option = maxi(0, GolferDefinition.IDS.find(setup_golfer_id))
@@ -337,7 +341,65 @@ func _show_player_golfer() -> void:
 
 func _confirm_player_golfer(id: StringName) -> void:
 	setup_golfer_id = id
-	_show_player_color()
+	if id == &"don":
+		_show_test_golfer_stats()
+	else:
+		_show_player_color()
+
+
+func _show_test_golfer_stats() -> void:
+	if setup_test_golfer == null:
+		setup_test_golfer = GolferDefinition.get_golfer(&"don").duplicate() as GolferDefinition
+	current_screen = ScreenState.PLAYER_TEST_STATS
+	_build_screen("DON - TESTSPIELER", "\"ICH BIN DER BESTE. DIE WERTE SAGEN ES AUCH.\"")
+	golfer_preview = PlaceholderGolfer.new()
+	golfer_preview.position = Vector2(55, 98)
+	golfer_preview.size = Vector2(88, 144)
+	screen_root.add_child(golfer_preview)
+	golfer_preview.set_golfer(setup_test_golfer)
+	golfer_preview.set_palette(setup_player_index % 4)
+	var hint := MenuWidgets.label("FREIE WERTE\nKeine Kursbestwerte", Vector2(20, 252), Vector2(160, 36), 10, Color("#f0c45b"))
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	screen_root.add_child(hint)
+	test_stat_labels.clear()
+	for index in range(GolferDefinition.TEST_STATS.size()):
+		var y := 81 + index * 39
+		_add_option_button("-", Rect2(192, y, 38, 32), func(): _adjust_test_stat(index, -1))
+		var label := MenuWidgets.label("", Vector2(238, y), Vector2(320, 32), 11, Color("#d7edcf"))
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		screen_root.add_child(label)
+		test_stat_labels.append(label)
+		_add_option_button("+", Rect2(570, y, 38, 32), func(): _adjust_test_stat(index, 1))
+	_add_option_button("BEN-WERTE", Rect2(192, 286, 196, 34), _reset_test_stats)
+	_add_option_button("WEITER", Rect2(412, 286, 196, 34), _show_player_color)
+	option_columns = 2
+	_add_footer("-/+ WAEHLEN, KREUZ / ENTER: AENDERN", "KREIS / ESC: ZURUECK")
+	_refresh_test_stat_labels()
+	_finalize_options()
+
+
+func _adjust_test_stat(index: int, direction: int) -> void:
+	var key: StringName = GolferDefinition.TEST_STATS[index]
+	var value: float = float(setup_test_golfer.get(key)) + direction * GolferDefinition.TEST_STEPS[index]
+	setup_test_golfer.set(key, snappedf(clampf(value, GolferDefinition.TEST_MINIMUMS[index], GolferDefinition.TEST_MAXIMUMS[index]), 0.001))
+	_refresh_test_stat_labels()
+
+
+func _reset_test_stats() -> void:
+	setup_test_golfer = GolferDefinition.get_golfer(&"don").duplicate() as GolferDefinition
+	_refresh_test_stat_labels()
+
+
+func _refresh_test_stat_labels() -> void:
+	var labels := [
+		"REICHWEITE   %d %%" % roundi(setup_test_golfer.range_factor * 100.0),
+		"KRAFTZYKLUS   %.1f s" % setup_test_golfer.power_cycle_seconds,
+		"ZIELZYKLUS   %.1f s" % setup_test_golfer.accuracy_cycle_seconds,
+		"PERFEKTFENSTER   +/- %.1f %%" % (setup_test_golfer.perfect_accuracy_window * 100.0),
+		"RICHTUNGSFEHLER   MAX %.0f°" % setup_test_golfer.maximum_error_degrees,
+	]
+	for index in range(labels.size()):
+		test_stat_labels[index].text = labels[index].replace(".", ",")
 
 
 func _show_player_color() -> void:
@@ -363,10 +425,11 @@ func _show_player_color() -> void:
 
 
 func _confirm_player_color(palette: int) -> void:
-	working_players.append(PlayerProfile.create(setup_player_index + 1, setup_name, palette, setup_golfer_id))
+	working_players.append(PlayerProfile.create(setup_player_index + 1, setup_name, palette, setup_golfer_id, setup_test_golfer))
 	setup_player_index += 1
 	setup_name = ""
 	setup_golfer_id = &"allrounder"
+	setup_test_golfer = null
 	if setup_player_index < desired_player_count:
 		_show_player_name()
 	else:
@@ -647,6 +710,8 @@ func _scorecard_subtitle(final: bool, from_pause := false) -> String:
 		]
 	if final and _best_save_error != OK:
 		return "BESTWERT KONNTE NICHT GESPEICHERT WERDEN"
+	if final and session.config.has_test_player():
+		return "TESTRUNDE ABGESCHLOSSEN - OHNE KURSBESTWERT"
 	if final and session.config.is_best_eligible(hole_catalog, course_catalog):
 		var best := best_store.get_best(_active_best_score_key())
 		var course_par := 0
@@ -793,13 +858,19 @@ func _go_back() -> void:
 				var previous: PlayerProfile = working_players.pop_back()
 				setup_name = previous.player_name
 				setup_golfer_id = previous.golfer_id
+				setup_test_golfer = previous.get_golfer_definition().duplicate() as GolferDefinition if previous.golfer_id == &"don" else null
 				_show_player_name()
 			else:
 				_show_mode()
 		ScreenState.PLAYER_GOLFER:
 			_show_player_name()
-		ScreenState.PLAYER_COLOR:
+		ScreenState.PLAYER_TEST_STATS:
 			_show_player_golfer()
+		ScreenState.PLAYER_COLOR:
+			if setup_golfer_id == &"don":
+				_show_test_golfer_stats()
+			else:
+				_show_player_golfer()
 		ScreenState.COURSE_SELECT, ScreenState.HOLE_SELECT, ScreenState.FREE_BUILD:
 			_show_mode()
 		ScreenState.PAUSE:
@@ -928,6 +999,8 @@ func _refresh_option_styles() -> void:
 			course_preview.show_course(course_catalog.courses[first_index+selected_option],hole_catalog)
 	if current_screen == ScreenState.PLAYER_GOLFER and golfer_preview != null and not option_buttons.is_empty():
 		var definition := GolferDefinition.get_golfer(GolferDefinition.IDS[selected_option])
+		if definition.golfer_id == &"don" and setup_test_golfer != null:
+			definition = setup_test_golfer
 		golfer_preview.set_golfer(definition)
 		golfer_description.text = definition.description
 		golfer_stats.set_golfer(definition)

@@ -45,6 +45,10 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 		used_palettes[player.palette_id] = true
 		if player.golfer_id not in GolferDefinition.IDS:
 			errors.append("Spieler verweist auf unbekannten Golfer")
+		var definition := player.get_golfer_definition()
+		if definition.golfer_id != player.golfer_id:
+			errors.append("Spielerprofil und Golfer stimmen nicht ueberein")
+		errors.append_array(definition.validate())
 	for hole_id in hole_ids:
 		var hole := hole_catalog.get_hole(hole_id) if hole_catalog != null else null
 		if hole == null:
@@ -55,7 +59,11 @@ func validate(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> Packe
 
 
 func is_best_eligible(hole_catalog: HoleCatalog, course_catalog: CourseCatalog) -> bool:
-	return is_course_mode() and validate(hole_catalog, course_catalog).is_empty()
+	return not has_test_player() and is_course_mode() and validate(hole_catalog, course_catalog).is_empty()
+
+
+func has_test_player() -> bool:
+	return players.any(func(player: PlayerProfile): return player != null and player.golfer_id == &"don")
 
 
 func allows_restart() -> bool:

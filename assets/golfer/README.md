@@ -1,5 +1,13 @@
 # Allrounder: Pixelatlas
 
+## Don: Testspieler (24.09.2026)
+
+`don_atlas.png` ist der fuenfte Atlas, 1024 x 1536 Pixel mit denselben 16 Posen und Zellankern. Mit dem eingebauten Imagegen-Werkzeug anhand von Bruno als Stil- und Posenreferenz erzeugt; keine CLI/API-Ausweichloesung. Gelbe Foehnfrisur, orange Haut, marineblauer Anzug, weisses Hemd und lange rote Krawatte ergeben eine satirische Donald-Trump-Karikatur. Nur das tuerkise Einstecktuch wird von der Spielerpalette umgefaerbt.
+
+Das erste Ergebnis enthielt trotz Transparenzanforderung einen farbigen Hintergrund. Ein zweiter Imagegen-Aufruf ersetzte ihn durch Magenta; der vorhandene Shader stellt ihn frei. Finale Quelle: `exec-e5785968-bbc0-4d00-8c4f-476893498588.png`, unveraendert ins Projekt kopiert. Vollstaendige Prompts: [don_prompts.md](don_prompts.md). Posen, Farben, Spielansicht und beide Auswahlmenues wurden mit `tests/capture_golfer.tscn` im Godot-Renderer aufgenommen und visuell geprueft.
+
+## Bestehender Allrounder
+
 - Erzeugt am 10.09.2026 mit dem eingebauten Imagegen-Werkzeug; kein CLI/API-Fallback.
 - Quelle: `allrounder_atlas.png`, 1024 x 1536 Pixel, 4 x 4 gleich grosse Zellen.
 - Jede Zelle wird in Godot auf 88 x 144 interne Pixel abgebildet. Der Shader tastet pro internem Pixel einmal ab; ganzzahlige Vergroesserung bleibt scharf.

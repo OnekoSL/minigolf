@@ -109,7 +109,7 @@ func _build_game() -> void:
 	add_child(shot_controller)
 	shot_controller.configure(ball, hole.get_course_rect(), hole.get_initial_aim_offset())
 	if attempt_profile != null:
-		shot_controller.apply_golfer(GolferDefinition.get_golfer(attempt_profile.golfer_id))
+		shot_controller.apply_golfer(attempt_profile.get_golfer_definition())
 
 	course_camera = CourseCamera.new()
 	course_camera.process_mode = Node.PROCESS_MODE_PAUSABLE

@@ -21,6 +21,7 @@ func _run_all() -> void:
 	await ball_physics_test._test_shot_state_machine()
 	await load("res://tests/golfer_animation_test.gd").run(self, _check)
 	await load("res://tests/golfer_profiles_test.gd").run(self, _check)
+	await load("res://tests/test_golfer_test.gd").run(self, _check)
 	await load("res://tests/course_preview_test.gd").run(self, _check)
 	await load("res://tests/golfer_routes_test.gd").run(self, _check)
 	ball_physics_test._test_ball_math()

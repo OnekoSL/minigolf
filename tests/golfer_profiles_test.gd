@@ -50,7 +50,7 @@ static func run(host: Node, check: Callable) -> void:
 	app._select_mode(RoundConfig.GameMode.COURSE_LOCAL)
 	app._choose_player_count(2)
 	app._confirm_player_name()
-	check.call(app.current_screen == GameApp.ScreenState.PLAYER_GOLFER and app.option_buttons.size() == 4, "Nach dem Namen stehen alle vier Golfer zur Auswahl")
+	check.call(app.current_screen == GameApp.ScreenState.PLAYER_GOLFER and app.option_buttons.size() == 5, "Nach dem Namen stehen alle fuenf Golfer zur Auswahl")
 	app._invoke_option(2)
 	check.call(app.current_screen == GameApp.ScreenState.PLAYER_GOLFER, "Eingabesperre verhindert Folgeaktion im Golfermenue")
 	app._move_selection(Vector2.DOWN)
