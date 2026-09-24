@@ -30,7 +30,7 @@ func _run() -> void:
 	# Release templates disable external script overrides. Mount the exported
 	# EXE with the matching editor engine and a scene override for this audit; launch the
 	# actual standalone executable separately with --write-movie/--quit-after.
-	_check(ProjectSettings.get_setting("application/config/version")=="0.5.0","Version 0.5.0 im ausgelieferten Paket")
+	_check(ProjectSettings.get_setting("application/config/version")=="0.6.0","Version 0.6.0 im ausgelieferten Paket")
 	_check(ProjectSettings.get_setting("application/config/icon")=="res://assets/branding/putt_and_pixel.png" and ResourceLoader.exists("res://assets/branding/putt_and_pixel.png"),"Eigenes Anwendungssymbol im Paket")
 	_check(FileAccess.file_exists("res://config/controller_mappings.cfg"),"Controllerprofile im Paket enthalten")
 	_check(not ResourceLoader.exists("res://tests/run_tests.gd") and not ResourceLoader.exists("res://tools/release_smoke.gd"),"Entwicklertests und Buildwerkzeuge nicht ausgeliefert")
@@ -39,10 +39,11 @@ func _run() -> void:
 	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
 	root.add_child(app)
 	await get_tree().process_frame
-	_check(root.title=="Putt & Pixel 0.5.0","Release-Fenstertitel")
+	_check(root.title=="Putt & Pixel 0.6.0","Release-Fenstertitel")
 	_check(app.hole_catalog.validate().is_empty() and app.course_catalog.validate(app.hole_catalog).is_empty(),"Exportierte Bahn- und Kursdaten sind gueltig")
 	_check(app.course_catalog.courses.size()==11 and app.hole_catalog.holes.size()==113,"Elf Kurse und 113 exportierte Bahnen")
 	await _capture("titel")
+	await _check_settings(app)
 	for index in range(app.course_catalog.courses.size()):
 		var course := app.course_catalog.courses[index]
 		app.course_select_page = index/app.COURSES_PER_PAGE
@@ -77,6 +78,32 @@ func _run() -> void:
 	await get_tree().process_frame
 	print("RELEASE: %d Checks, %d Fehler" % [checks,failures])
 	get_tree().quit(0 if failures==0 else 1)
+
+
+func _check_settings(app: GameApp) -> void:
+	_check(SettingsManager.current.language == "de", "Erster Paketstart verwendet Deutsch")
+	app._show_settings(false)
+	for locale in GameSettings.LANGUAGES:
+		var catalog := load("res://data/i18n/%s.po" % locale) as Translation
+		_check(catalog != null and catalog.get_message_list().size() == 849, "Vollstaendiger Sprachkatalog im Paket: " + locale)
+		SettingsManager.draft.language = locale
+		SettingsManager.preview()
+		app.settings_menu.page = 2
+		app.settings_menu.show()
+		await get_tree().process_frame
+		_check(TranslationServer.get_locale() == locale and I18n.text("SETTINGS_TITLE") != "SETTINGS_TITLE", "Sprachvorschau im Paket: " + locale)
+		await _capture("einstellungen-" + locale)
+	app.settings_menu.cancel()
+	_check(SettingsManager.current.language == "de" and app.current_screen == GameApp.ScreenState.TITLE, "Abbrechen stellt Paketsprache wieder her")
+	app._show_settings(false)
+	SettingsManager.draft.language = "fr"
+	SettingsManager.preview()
+	app.settings_menu._commit()
+	_check(SettingsStore.new().read().language == "fr", "Einstellungen lassen sich im Paket speichern und laden")
+	app._show_settings(false)
+	SettingsManager.draft.language = "de"
+	SettingsManager.preview()
+	app.settings_menu._commit()
 
 
 func _check_editor(app: GameApp) -> void:

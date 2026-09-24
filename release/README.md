@@ -1,7 +1,9 @@
-# Windows-Release 0.5.0
+# Windows-Release 0.6.0
 
 Spielbare Vorabversion mit Ingame-Bahneditor, eigenen Kursen, elf Themenkursen,
-99 regulären Bahnen und vier Golfern.
+99 regulären Bahnen, vier regulären Golfern und Testgolfer Don.
+Spiel und Editor sind in fünf Sprachen verfügbar; das Einstellungsmenü bietet
+Sprachwahl, Ton, Anzeige und die bestehende Controllerkalibrierung.
 Die ZIP-Datei enthält eine eigenständige x64-EXE, Kurzanleitung, Neuerungen,
 Editoranleitung, Godot-/Drittanbieter-Lizenzhinweise, Builddaten, Prüfbericht und SHA-256-Prüfsummen.
 
@@ -55,9 +57,11 @@ alle enthaltenen Prüfsummen vergleichen und die entpackte EXE starten.
 
 Der interne Anwendungsname bleibt für bestehende Spielstände stabil.
 Fenstertitel und Titelbildschirm zeigen Produktname und Version. Das Startfenster
-ist 2560 × 1440 groß; die interne Auflösung und Physik bleiben unverändert.
+verwendet standardmäßig bis zu 2560 × 1440, begrenzt auf den Bildschirm.
+Sprache, Ton und Anzeige werden in `user://settings.cfg` gespeichert.
+Die interne Auflösung und Physik bleiben unverändert.
 
 Automatische Prüfungen ersetzen nicht das manuelle Durchspielen aller Varianten
 oder Controllerprüfungen auf fremden PCs. Das Release ist daher als spielbare
 Vorabversion bezeichnet. Das geprüfte ZIP und seine SHA-256-Prüfsumme gehören zum
-[GitHub-Release v0.5.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.5.0).
+[GitHub-Release v0.6.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.6.0).

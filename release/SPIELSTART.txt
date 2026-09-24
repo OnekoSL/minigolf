@@ -1,4 +1,4 @@
-PUTT & PIXEL 0.5.0
+PUTT & PIXEL 0.6.0
 Spielbare Vorabversion fuer Windows x64
 
 STARTEN
@@ -7,13 +7,28 @@ STARTEN
 3. SPIEL STARTEN waehlen, Spielmodus und Figur aussuchen, dann Kurs markieren.
    Die Kursvorschau zeigt alle neun Bahnen vor dem Start.
 
-Das Spiel startet mit 2560 x 1440 Pixeln. Das Fenster kann vergroessert werden.
+Das Spiel startet im Fenster mit bis zu 2560 x 1440 Pixeln, auf den Bildschirm
+begrenzt. Im Einstellungsmenue lassen sich Fenster und Vollbild waehlen.
 Es nutzt OpenGL 3.3 / den Godot-Compatibility-Renderer.
 
 INHALT
-Elf Themenkurse mit je neun Bahnen, vier Golfer (Ben, Mara, Bruno, Nika),
+Elf Themenkurse mit je neun Bahnen, vier regulaere Golfer (Ben, Mara, Bruno, Nika)
+und Testgolfer Don mit frei einstellbaren Werten (ohne Kursbestwerte),
 Einzelspieler, lokaler Mehrspieler fuer 2-4 Personen, Uebung und freies Spiel.
 Hotseat: Alle Spieler beenden nacheinander ein Loch, dann geht es weiter.
+
+SPRACHEN UND EINSTELLUNGEN
+EINSTELLUNGEN ist im Titel- und Pausenmenue erreichbar.
+Deutsch, English, Français, Español und Italiano stehen zur Auswahl.
+Beim ersten Start ist Deutsch aktiv; danach gilt die gespeicherte Sprache.
+Oben/unten waehlt eine Zeile; links/rechts aendert Kategorie und Werte.
+Alle Optionen sind auch per Maus erreichbar.
+Gesamt- und Effektlautstaerke, Fenster/Vollbild, Fenstergroesse, VSync und
+Kamerawackeln lassen sich anpassen. Steuerung zeigt Hilfe und Kalibrierung.
+Sprache und Ton wirken als Vorschau. Anzeigewechsel innerhalb von 15 Sekunden
+bestaetigen, sonst werden sie zurueckgenommen. UEBERNEHMEN speichert,
+ABBRECHEN verwirft die Vorschau. STANDARDWERTE aendert zunaechst den Entwurf.
+Kalibrierung speichert separat. Die Runde bleibt dabei pausiert.
 
 STEUERUNG
                          Controller          Tastatur           Maus
@@ -61,13 +76,14 @@ JSON-Import/Export tauscht Bahnen und vollstaendige Kurse aus.
 Weitere Bedienung und Grenzen: BAHNEDITOR.md im Paket.
 
 SPIELSTAENDE
-Bestwerte und Controllerkalibrierung werden pro Windows-Benutzer gespeichert:
+Bestwerte, Einstellungen und Controllerkalibrierung werden pro Benutzer gespeichert:
 %APPDATA%\Godot\app_userdata\Putt & Pixel - Spielrahmen-Prototyp\
 Der historische Ordnername bleibt fuer vorhandene Spielstaende erhalten.
 Eigene Bahnen, Kurse und ihre Bestwerte liegen dort unter custom_content.
-Das ZIP enthaelt keine persoenlichen Bestwerte oder Kalibrierungen.
+Einstellungen liegen in settings.cfg, getrennt von Bestwerten und Kalibrierung.
+Das ZIP enthaelt keine persoenlichen Daten.
 
 FEEDBACK
-Bitte Version 0.5.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
+Bitte Version 0.6.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
 nennen; ein Screenshot hilft. Die Protokolle liegen im Unterordner logs
 des oben genannten Benutzerordners.

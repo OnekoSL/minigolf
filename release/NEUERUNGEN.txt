@@ -1,23 +1,24 @@
-PUTT & PIXEL 0.5.0 - SPIELBARE VORABVERSION
+PUTT & PIXEL 0.6.0 - SPIELBARE VORABVERSION
 
-NEU GEGENUEBER 0.4.0
-- Vollstaendiger Ingame-Bahneditor mit Maus und Tastatur.
-- Hochaufgeloeste Werkzeugoberflaeche, Zoom, Raster, Mehrfachauswahl,
-  Rueckgaengig/Wiederholen und praezise Zahlenfelder.
-- Eigene Konturen, Aussenboegen, alle Wandbausteine, Belaege und Gefaelle.
-- Alle vorhandenen Mechaniken einschliesslich Tunnel, Tempo-Rohre,
-  Schalter/Kanonen, Tunnelzahnrad und Elefant.
-- Tunnel nach dem Setzen sofort verschiebbar: Enden einzeln oder
-  beide gemeinsam am beschrifteten mittleren Griff.
-- Testspiel mit echter Physik, vier Golfern, Ballplatzierung, Bewegungsspur
-  und Schlagwiederholung aus dem vollstaendigen Ausgangszustand.
-- Lokale Bibliothek fuer eigene Bahnen und Kurse mit 1-9 Bahnplaetzen.
-- Solo und lokaler Mehrspieler; regulaere Bahnen als unabhaengige Vorlagen.
-- Versionierter JSON-Austausch, automatische Entwurfswiederherstellung
-  und getrennte eigene Bestwerte nach spielrelevantem Bahnstand.
+NEU GEGENUEBER 0.5.0
+- Deutsch, Englisch, Franzoesisch, Spanisch und Italienisch fuer Spiel,
+  Editor, Hilfen, Meldungen und offizielle Kurs- und Bahnnamen.
+- Eigene Namen und vorhandene Inhalte bleiben unveraendert.
+- Einstellungsmenue im Titelbildschirm und in der Pause: Sprache, Gesamt-
+  und Effektlautstaerke, Fenster/randloses Vollbild, Fenstergroesse,
+  VSync, Kamerawackeln und bestehende Controllerkalibrierung.
+- Controller, Tastatur und Maus bedienen das Menue. Sprache und Ton wirken
+  als Vorschau; Anzeigewechsel werden nach 15 Sekunden ohne Bestaetigung
+  zurueckgenommen. Erst UEBERNEHMEN speichert dauerhaft.
+- Einstellungen separat in user://settings.cfg. Abbrechen verwirft den
+  Entwurf; die Controllerkalibrierung bleibt ein eigener Speichervorgang.
+- Sprachwechsel erhaelt pausierte Runde, Editorentwurf und Undo-Verlauf.
+- Editorfehler markieren Bauteile unabhaengig von der ausgewaehlten Sprache.
+- Testgolfer Don mit frei einstellbaren Werten; keine Kursbestwerte mit Don.
 
 WEITERHIN ENTHALTEN
-- Elf Themenkurse mit 99 regulaeren Bahnen und vier Golfern.
+- Elf Themenkurse mit 99 regulaeren Bahnen und vier regulaeren Golfern.
+- Ingame-Bahneditor, eigene Kurse, Testspiel und JSON-Import/Export.
 - Kursvorschau, Hotseat fuer bis zu vier Spieler, Uebung und freies Spiel.
 - Beton, Eis, Tempo-Rohre, Zirkusmechaniken und 14 technische Referenzen.
 - Eigenstaendiger Windows-x64-Build; kein Godot-Editor erforderlich.
@@ -28,13 +29,18 @@ Die Bauoberflaeche verwendet 1280 x 720, das Spiel weiterhin 640 x 360.
 BAHNEDITOR.md beschreibt Bedienung, Dateiformat und Grenzen.
 Eigene Inhalte werden unter user://custom_content/ gespeichert.
 Das Paket enthaelt keine persoenlichen Daten; der Benutzerordner bleibt stabil.
+Bestehende Bestwerte und Kalibrierung bleiben unveraendert.
+Keine Inhaltsmigration oder neue Bestwertrevision erforderlich.
 
 PRUEFSTAND UND GRENZEN
-5462 Checks der vollstaendigen Headless-Suite bestanden, 0 Fehler.
+5735 Checks der vollstaendigen Headless-Suite bestanden, 0 Fehler.
+55 Renderaufnahmen ueber alle fuenf Sprachen visuell geprueft.
+Anzeigewechsel sowie Windows-Testexport mit Speichern und Neustart bestanden.
 Zusaetzliche Paketpruefungen und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
-Editoransichten, Tunnelgriffe und Testspiele sind visuell geprueft.
 Die automatische Datenpruefung beweist keine spielbare PAR-Route.
 Der Bauvorgang verwendet Maus/Tastatur. Grafikimporte, neue Mechaniken
 und Onlineveroeffentlichung gehoeren nicht zu dieser Version.
-Dies bleibt eine spielbare Vorabversion. Echte Controllerhardware auf
-weiteren PCs und beliebige Schlag-/Timingkombinationen sind nicht abgenommen.
+Dies bleibt eine spielbare Vorabversion. Kein Controller angeschlossen:
+Echte Controllerbedienung und Hardwarekalibrierung sind nicht abgenommen.
+Musikregler, freie Tastenbelegung und einstellbare Stick-Totzone sind nicht
+Bestandteil dieser Version. Weitere PCs wurden nicht erneut geprueft.
