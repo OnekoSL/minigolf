@@ -7,6 +7,7 @@ var root: Window
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	root = get_tree().root
 	var arguments := OS.get_cmdline_user_args()
 	if arguments.size()>0: output = arguments[0]
@@ -30,7 +31,7 @@ func _run() -> void:
 	# Release templates disable external script overrides. Mount the exported
 	# EXE with the matching editor engine and a scene override for this audit; launch the
 	# actual standalone executable separately with --write-movie/--quit-after.
-	_check(ProjectSettings.get_setting("application/config/version")=="0.6.0","Version 0.6.0 im ausgelieferten Paket")
+	_check(ProjectSettings.get_setting("application/config/version")=="0.7.0","Version 0.7.0 im ausgelieferten Paket")
 	_check(ProjectSettings.get_setting("application/config/icon")=="res://assets/branding/putt_and_pixel.png" and ResourceLoader.exists("res://assets/branding/putt_and_pixel.png"),"Eigenes Anwendungssymbol im Paket")
 	_check(FileAccess.file_exists("res://config/controller_mappings.cfg"),"Controllerprofile im Paket enthalten")
 	_check(not ResourceLoader.exists("res://tests/run_tests.gd") and not ResourceLoader.exists("res://tools/release_smoke.gd"),"Entwicklertests und Buildwerkzeuge nicht ausgeliefert")
@@ -39,7 +40,7 @@ func _run() -> void:
 	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
 	root.add_child(app)
 	await get_tree().process_frame
-	_check(root.title=="Putt & Pixel 0.6.0","Release-Fenstertitel")
+	_check(root.title=="Putt & Pixel 0.7.0","Release-Fenstertitel")
 	_check(app.hole_catalog.validate().is_empty() and app.course_catalog.validate(app.hole_catalog).is_empty(),"Exportierte Bahn- und Kursdaten sind gueltig")
 	_check(app.course_catalog.courses.size()==11 and app.hole_catalog.holes.size()==113,"Elf Kurse und 113 exportierte Bahnen")
 	await _capture("titel")
@@ -72,6 +73,7 @@ func _run() -> void:
 		if index==0: await _capture("spiel")
 	await _check_new_courses(app)
 	app._remove_gameplay()
+	await _check_practice(app)
 	await _check_editor(app)
 	app.queue_free()
 	await get_tree().process_frame
@@ -85,7 +87,7 @@ func _check_settings(app: GameApp) -> void:
 	app._show_settings(false)
 	for locale in GameSettings.LANGUAGES:
 		var catalog := load("res://data/i18n/%s.po" % locale) as Translation
-		_check(catalog != null and catalog.get_message_list().size() == 849, "Vollstaendiger Sprachkatalog im Paket: " + locale)
+		_check(catalog != null and catalog.get_message_list().size() == 926, "Vollstaendiger Sprachkatalog im Paket: " + locale)
 		SettingsManager.draft.language = locale
 		SettingsManager.preview()
 		app.settings_menu.page = 2
@@ -104,6 +106,59 @@ func _check_settings(app: GameApp) -> void:
 	SettingsManager.draft.language = "de"
 	SettingsManager.preview()
 	app.settings_menu._commit()
+
+
+func _check_practice(app: GameApp) -> void:
+	var catalog := TutorialCatalog.load_default()
+	_check(catalog != null and catalog.validate().is_empty() and catalog.lessons.size() == 8, "Acht gueltige Lektionen im Paket")
+	var sections := 0
+	for lesson in catalog.lessons:
+		sections += lesson.sections.size()
+	_check(sections == 14, "Vierzehn Lernbahnen im Paket")
+	app._select_mode(RoundConfig.GameMode.PRACTICE)
+	var practice := app.practice
+	_check(practice != null and practice.screen == "hub", "Direkter Uebungseinstieg")
+	await _capture("uebung")
+	practice.start_lesson(0, true)
+	_check(practice.screen == "intro" and get_tree().paused, "Grundkurs pausiert die Erklaerung")
+	await _capture("tutorial")
+	practice.resume()
+	for tick in range(20): await get_tree().physics_frame
+	_check(practice.game.input_enabled and not get_tree().paused, "Neutrale Eingabe startet die Uebung")
+	var shot := practice.game.shot_controller
+	var origin := practice.game.ball.position
+	shot.action_pressed()
+	shot.power_value = 0.4
+	shot.action_pressed()
+	shot.accuracy_value = 0
+	shot.action_pressed()
+	shot.action_released()
+	for tick in range(30): await get_tree().physics_frame
+	_check(practice.snapshot != null and practice.game.strokes == 1 and not practice.trace.current.is_empty(), "Schlagzustand und Ballspur aufgezeichnet")
+	practice.show_tools()
+	await practice.retry()
+	_check(practice.game.ball.position.is_equal_approx(origin) and practice.game.strokes == 0 and not practice.trace.previous.is_empty(), "Schlagwiederholung im Paket")
+	for tick in range(20): await get_tree().physics_frame
+	await _capture("ballspur")
+	practice.start_lesson(4, false, 2)
+	_check(practice.game.hole.definition.theme != null and practice.game.ball.base_surface == SurfaceZone.SurfaceType.CONCRETE, "Betonlektion mit Betonphysik und sichtbarem Belag")
+	practice.resume()
+	for tick in range(20): await get_tree().physics_frame
+	await _capture("betonlektion")
+	for part in range(3):
+		practice.start_lesson(5, false, part)
+		_check(practice.game.hole.definition.arrow_tiles.size() == 40 and practice.section.passage.position.x == 456, "Breites Gefaellefeld mit passendem Abschlussbereich")
+		practice.resume()
+		for tick in range(20): await get_tree().physics_frame
+		await _capture("gefaelle-%d" % part)
+	practice.progress.storage_path = "user://release-practice.cfg"
+	practice.progress.mark_complete(&"learn_first_putt")
+	var saved := PracticeProgress.new()
+	saved.storage_path = practice.progress.storage_path
+	saved.read()
+	_check(saved.error == OK and saved.contains(&"learn_first_putt"), "Lernfortschritt im Paket speicherbar")
+	practice.close()
+	await get_tree().process_frame
 
 
 func _check_editor(app: GameApp) -> void:

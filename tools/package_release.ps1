@@ -6,7 +6,7 @@ if (!$version) { throw 'Release-Version fehlt.' }
 $packageName = "PuttAndPixel-$version-windows-x64"
 $releaseRoot = Join-Path $projectRoot 'build/releases'
 $packageDir = Join-Path $releaseRoot $packageName
-$files = @('PuttAndPixel.exe','SPIELSTART.txt','NEUERUNGEN.txt','BAHNEDITOR.md','GODOT-LIZENZEN.txt','BUILD.json','PRUEFBERICHT.txt')
+$files = @('PuttAndPixel.exe','SPIELSTART.txt','NEUERUNGEN.txt','BAHNEDITOR.md','UEBUNG.md','GODOT-LIZENZEN.txt','BUILD.json','PRUEFBERICHT.txt')
 foreach ($name in $files) {
     if (!(Test-Path -LiteralPath (Join-Path $packageDir $name) -PathType Leaf)) { throw "Paketdatei fehlt: $name" }
 }

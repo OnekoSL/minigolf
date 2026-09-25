@@ -1,46 +1,41 @@
-PUTT & PIXEL 0.6.0 - SPIELBARE VORABVERSION
+PUTT & PIXEL 0.7.0 - SPIELBARE VORABVERSION
 
-NEU GEGENUEBER 0.5.0
-- Deutsch, Englisch, Franzoesisch, Spanisch und Italienisch fuer Spiel,
-  Editor, Hilfen, Meldungen und offizielle Kurs- und Bahnnamen.
-- Eigene Namen und vorhandene Inhalte bleiben unveraendert.
-- Einstellungsmenue im Titelbildschirm und in der Pause: Sprache, Gesamt-
-  und Effektlautstaerke, Fenster/randloses Vollbild, Fenstergroesse,
-  VSync, Kamerawackeln und bestehende Controllerkalibrierung.
-- Controller, Tastatur und Maus bedienen das Menue. Sprache und Ton wirken
-  als Vorschau; Anzeigewechsel werden nach 15 Sekunden ohne Bestaetigung
-  zurueckgenommen. Erst UEBERNEHMEN speichert dauerhaft.
-- Einstellungen separat in user://settings.cfg. Abbrechen verwirft den
-  Entwurf; die Controllerkalibrierung bleibt ein eigener Speichervorgang.
-- Sprachwechsel erhaelt pausierte Runde, Editorentwurf und Undo-Verlauf.
-- Editorfehler markieren Bauteile unabhaengig von der ausgewaehlten Sprache.
-- Testgolfer Don mit frei einstellbaren Werten; keine Kursbestwerte mit Don.
+NEU GEGENUEBER 0.6.0
+- Uebung startet direkt mit Grundkurs, Lektionen und freiem Training.
+- Acht frei zugaengliche Lektionen mit 14 eigenen Lernbahnen: Schlagsystem,
+  Kraft, Timing, Banden, Untergruende, Gefaelle, bewegliche Hindernisse und Wippen.
+- Schrittweise Hinweise, pausierende Erklaerungen und sichtbares Perfektfenster.
+- Fortschritt nur bei erfuellten Aufgaben; Wiederholen und Ueberspringen moeglich.
+- Freies Training: elf Kurse mit 3x3-Bahnauswahl, Technik-Labore mit 14 Bahnen.
+- Unbegrenzte Schlaege, keine Kursbestwerte; alle fuenf Golfer inklusive Don.
+- Dreieck/F2 oeffnet die Trainingshilfen statt zyklisch die Bahn zu wechseln.
+- Schlag neu versuchen setzt Ball, Schlagzahl, Hindernisse und Lernbedingungen
+  zum Beginn der letzten Kraftauswahl zurueck. Abbrechen ersetzt den Schlag nicht.
+- Vergleichbare Ballspuren: vorheriger Versuch gestrichelt, neuer Versuch golden.
+- Betonlektion mit grauer Plattenflaeche; Gefaellefelder doppelt so breit (128 px).
+- Separate Speicherung der Abschluesse in practice.cfg; alle Texte in fuenf Sprachen.
+- Korrekte Wiederherstellung rotierender Hindernisse und laufender Einlochanimationen.
 
 WEITERHIN ENTHALTEN
-- Elf Themenkurse mit 99 regulaeren Bahnen und vier regulaeren Golfern.
+- Elf Themenkurse mit 99 regulaeren Bahnen, vier regulaere Golfer und Testgolfer Don.
 - Ingame-Bahneditor, eigene Kurse, Testspiel und JSON-Import/Export.
-- Kursvorschau, Hotseat fuer bis zu vier Spieler, Uebung und freies Spiel.
-- Beton, Eis, Tempo-Rohre, Zirkusmechaniken und 14 technische Referenzen.
+- Deutsch, Englisch, Franzoesisch, Spanisch und Italienisch.
+- Einstellungsmenue fuer Sprache, Ton, Anzeige und Controllerkalibrierung.
+- Hotseat fuer bis zu vier Spieler und freies Zusammenstellen von Bahnfolgen.
 - Eigenstaendiger Windows-x64-Build; kein Godot-Editor erforderlich.
 
 START UND SPEICHERUNG
-BAHNEDITOR und EIGENE INHALTE sind im Titelbildschirm erreichbar.
-Die Bauoberflaeche verwendet 1280 x 720, das Spiel weiterhin 640 x 360.
-BAHNEDITOR.md beschreibt Bedienung, Dateiformat und Grenzen.
-Eigene Inhalte werden unter user://custom_content/ gespeichert.
-Das Paket enthaelt keine persoenlichen Daten; der Benutzerordner bleibt stabil.
-Bestehende Bestwerte und Kalibrierung bleiben unveraendert.
-Keine Inhaltsmigration oder neue Bestwertrevision erforderlich.
+SPIELSTART.txt beschreibt den Einstieg und die Steuerung.
+UEBUNG.md erklaert Training und Tutorial; BAHNEDITOR.md den Editor.
+Bestehende Kurse, Bestwertrevisionen und Speicherordner bleiben erhalten.
+Das ZIP enthaelt keine persoenlichen Daten. Keine Inhaltsmigration erforderlich.
 
 PRUEFSTAND UND GRENZEN
-5735 Checks der vollstaendigen Headless-Suite bestanden, 0 Fehler.
-55 Renderaufnahmen ueber alle fuenf Sprachen visuell geprueft.
-Anzeigewechsel sowie Windows-Testexport mit Speichern und Neustart bestanden.
-Zusaetzliche Paketpruefungen und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
-Die automatische Datenpruefung beweist keine spielbare PAR-Route.
-Der Bauvorgang verwendet Maus/Tastatur. Grafikimporte, neue Mechaniken
-und Onlineveroeffentlichung gehoeren nicht zu dieser Version.
-Dies bleibt eine spielbare Vorabversion. Kein Controller angeschlossen:
-Echte Controllerbedienung und Hardwarekalibrierung sind nicht abgenommen.
-Musikregler, freie Tastenbelegung und einstellbare Stick-Totzone sind nicht
-Bestandteil dieser Version. Weitere PCs wurden nicht erneut geprueft.
+Letzter Spieltest: 5970 Checks der Gesamtsuite, 0 Fehler, Exitcode 0.
+Lernrouten mit kleinen Ziel- und Kraftabweichungen geprueft.
+95 Uebungsansichten in fuenf Sprachen gerendert und visuell geprueft;
+Betonkorrektur und breitere Pfeilfelder anschliessend separat geprueft.
+Paketpruefungen und EXE-Pruefsumme stehen in PRUEFBERICHT.txt.
+Kein Controller angeschlossen: echte Controllerbedienung und Hardwarekalibrierung
+bleiben offen. Andere PCs wurden nicht erneut geprueft.
+Automatisches Abspielen alter Schlaege und freie Ballplatzierung sind nicht enthalten.

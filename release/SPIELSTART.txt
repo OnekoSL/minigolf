@@ -1,4 +1,4 @@
-PUTT & PIXEL 0.6.0
+PUTT & PIXEL 0.7.0
 Spielbare Vorabversion fuer Windows x64
 
 STARTEN
@@ -37,7 +37,7 @@ Bestaetigen / Schlag     Kreuz               Enter / Leertaste Linke Taste
 Zurueck / Abbrechen      Kreis               Escape            Rechte Taste
 Loch neu starten         Quadrat             R
 Pause                    Start               P
-Naechste Uebungsbahn     Dreieck              F2
+Trainingshilfen (Uebung) Dreieck              F2                Taste oben links
 Controllerdiagnose                           F3
 Controllerkalibrierung                       F4
 
@@ -51,6 +51,17 @@ SO SCHLAEGST DU
 3. Erneut bestaetigen: Kraft festlegen und Genauigkeitsanzeige starten.
 4. Ein drittes Mal druecken und halten: Schlag vorbereiten.
 5. Loslassen: Der Golfer schwingt und trifft den Ball.
+
+UEBUNG UND TUTORIAL
+SPIEL STARTEN > UEBUNG oeffnet Grundkurs, Lektionen und freies Training.
+Keine Namens- oder Farbeingabe; Lektionen starten mit Ben. Alle acht Lektionen
+sind frei zugaenglich. Abschnitte koennen wiederholt oder uebersprungen werden.
+Freies Training: Kurs und Bahn in der 3x3-Vorschau waehlen. Technik-Labore
+enthalten die 14 technischen Bahnen. Alle fuenf Golfer sind hier verfuegbar.
+Dreieck/F2 pausiert und oeffnet Schlag neu versuchen, Neustart, Ballspur,
+Golferwechsel und Bahnauswahl. Die gestrichelte Spur zeigt den alten Versuch.
+Kein Schlaglimit, keine Kursbestwerte. Erfolge werden separat in practice.cfg
+gespeichert. Weitere Einzelheiten: UEBUNG.md.
 
 TIPPS
 Uebung eignet sich zum Kennenlernen der Bahnen und beweglichen Hindernisse.
@@ -84,6 +95,6 @@ Einstellungen liegen in settings.cfg, getrennt von Bestwerten und Kalibrierung.
 Das ZIP enthaelt keine persoenlichen Daten.
 
 FEEDBACK
-Bitte Version 0.6.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
+Bitte Version 0.7.0, Kurs/Bahn, Eingabegeraet und eine kurze Beschreibung
 nennen; ein Screenshot hilft. Die Protokolle liegen im Unterordner logs
 des oben genannten Benutzerordners.

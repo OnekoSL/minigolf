@@ -1,4 +1,4 @@
-# Putt & Pixel 0.6.0
+# Putt & Pixel 0.7.0
 
 Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
@@ -36,9 +36,9 @@ Jeder Kurs umfasst neun eigene Bahnplaetze und einen neuen Bestwertschluessel. A
 
 ## Starten
 
-Der [Ingame-Bahneditor](BAHNEDITOR.md) ist über **Bahneditor** und **Eigene Inhalte** im Titelbildschirm erreichbar. Er unterstützt Maus/Tastatur, den vollständigen aktuellen Baukasten, Testspiele, eigene Kurse, JSON-Dateiaustausch und getrennte eigene Bestwerte. Aktueller lokaler Entwicklungsbuild mit Bahneditor und frei einstellbarem Testgolfer Don: [PuttAndPixel.exe](build/windows/PuttAndPixel.exe).
+Der [Ingame-Bahneditor](BAHNEDITOR.md) ist über **Bahneditor** und **Eigene Inhalte** im Titelbildschirm erreichbar. Er unterstützt Maus/Tastatur, den vollständigen aktuellen Baukasten, Testspiele, eigene Kurse, JSON-Dateiaustausch und getrennte eigene Bestwerte. Aktueller lokaler Entwicklungsbuild mit Übungsmodus, Tutorial, Bahneditor und frei einstellbarem Testgolfer Don: [PuttAndPixel.exe](build/windows/PuttAndPixel.exe).
 
-Das [Windows-Release 0.6.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.6.0/PuttAndPixel-0.6.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthält alle elf Kurse, fünf Sprachen, das Einstellungsmenü, Testgolfer Don, Kurzanleitung, Neuerungen, Lizenzhinweise und Prüfsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.6.0), [Release-Anleitung](release/README.md) und [Prüfstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
+Das [Windows-Release 0.7.0 als ZIP](https://github.com/OnekoSL/minigolf/releases/download/v0.7.0/PuttAndPixel-0.7.0-windows-x64.zip) entpacken und `PuttAndPixel.exe` starten. Das Paket ist ohne Editor oder Installation spielbar und enthält den neuen Übungsmodus mit acht Lektionen, Schlagwiederholung und Ballspuren sowie alle elf Kurse, fünf Sprachen, das Einstellungsmenü, Testgolfer Don, Anleitungen, Neuerungen, Lizenzhinweise und Prüfsummen. [GitHub-Release](https://github.com/OnekoSL/minigolf/releases/tag/v0.7.0), [Release-Anleitung](release/README.md) und [Prüfstand](release/PRUEFSTAND.md) dokumentieren Export und Abnahme.
 
 Vorheriger Windows-Build ohne Bahneditor: [PuttAndPixel-UrbanWinter.exe](build/windows/PuttAndPixel-UrbanWinter.exe). Enthält alle elf Kurse; **Urban Winter** und **Die Baustelle** sind auf **Kursseite 4** spielbar. Die EXE läuft ohne Godot-Editor oder Installation. Damalige Gesamtsuite: 5.183 Checks, 0 Fehler; exportiertes Paket: 32 Checks, 0 Fehler. [Kurs und Prüfstand](URBAN_WINTER.md).
 
