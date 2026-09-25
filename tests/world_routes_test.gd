@@ -3,6 +3,9 @@ extends RefCounted
 
 static func run(host: Node, check: Callable, exhaustive := false) -> void:
 	print("\n[Acht Welten: aktive PAR-Routen]")
+	if DirAccess.make_dir_recursive_absolute("res://tmp/worlds") != OK:
+		check.call(false, "Ausgabeordner fuer Routenbericht kann nicht angelegt werden")
+		return
 	var entries: Array = JSON.parse_string(FileAccess.get_file_as_string("res://tests/world_routes.json"))
 	var report: Array = []
 	for entry in entries:
@@ -18,4 +21,7 @@ static func run(host: Node, check: Callable, exhaustive := false) -> void:
 			if not result.within_par: print("  ROUTENLUECKE ",label," ",JSON.stringify(result))
 			report.append({"id":entry.id,"golfer":String(test_case[0]),"angle":test_case[1],"power":test_case[2],"result":result})
 		var file := FileAccess.open("res://tmp/worlds/route-audit.json" if exhaustive else "res://tmp/worlds/route-suite.json",FileAccess.WRITE)
+		if file == null:
+			check.call(false, "Routenbericht kann nicht geschrieben werden")
+			return
 		file.store_string(JSON.stringify(report,"\t")+"\n")
