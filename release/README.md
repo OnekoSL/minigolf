@@ -70,6 +70,8 @@ Vorabversion bezeichnet. Das geprüfte ZIP und seine SHA-256-Prüfsumme gehören
 
 ## Linux x64
 
+Das geprüfte Paket und die Grenzen der Linux-Abnahme stehen im [Linux-Prüfbericht](PRUEFSTAND_LINUX.md).
+
 Der Export verwendet dieselben Spielquellen und den separaten Preset **Linux x64**.
 Die offiziellen Godot-4.7.2-Vorlagen `linux_debug.x86_64` und `linux_release.x86_64`
 gehören nach `.tools/export-templates/templates/`. Die Engine darf unter Windows

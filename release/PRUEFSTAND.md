@@ -1,5 +1,7 @@
 # Release-Abnahme 0.7.0
 
+Die ergänzte Linux-Version besitzt einen eigenen [Linux-Prüfbericht](PRUEFSTAND_LINUX.md). Der folgende Bericht dokumentiert weiterhin das unveränderte Windows-Paket.
+
 Windows-x64-Vorabversion mit Übungsmodus, Tutorial, Schlagwiederholung und vergleichbaren Ballspuren. Acht Lektionen mit 14 Lernbahnen, elf Themenkurse, fünf Sprachen, Bahneditor und eigene Kurse. Abgenommen am 25.09.2026 mit Godot 4.7.2, Compatibility-Renderer.
 
 Die EXE stammt aus dem sauberen Commit `24927f63756c6d3e506baababc3719ebc4e5a99c` (`source_dirty: false`). Der Release-Tag ergänzt diesen Stand ausschließlich um diesen Prüfbericht. Seit dem vollständig geprüften Übungsstand `7eb6278` wurden nur Versionsdaten, Releaseanleitungen und die Paketprüfung geändert; Spielquellen und Bahndaten sind unverändert.
