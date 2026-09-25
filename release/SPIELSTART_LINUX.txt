@@ -1,0 +1,45 @@
+PUTT & PIXEL 0.7.0 - LINUX x64
+Spielbare Vorabversion fuer PCs mit 64-Bit-Intel/AMD-Prozessor
+
+STARTEN
+1. PuttAndPixel-0.7.0-linux-x64.tar.gz vollstaendig entpacken.
+2. Im entpackten Ordner PuttAndPixel.x86_64 starten.
+   Im Terminal: ./PuttAndPixel.x86_64
+   Falls das Ausfuehrungsrecht verloren ging: chmod +x PuttAndPixel.x86_64
+3. SPIEL STARTEN waehlen. UEBUNG fuehrt direkt zu Grundkurs, Lektionen
+   und freiem Training. Ein Godot-Editor ist nicht erforderlich.
+
+VORAUSSETZUNGEN
+Linux x86_64, glibc und Grafiktreiber mit OpenGL 3.3-Unterstuetzung.
+Dies ist kein ARM-/Raspberry-Pi-Build. Getestete Umgebung und Einschraenkungen
+stehen im beiliegenden PRUEFBERICHT.txt. Kein pauschaler Test aller Distributionen.
+
+STEUERUNG
+Zielen: Stick, WASD/Pfeile oder Maus.
+Schlag: Kreuz / Enter / Leertaste / linke Maustaste.
+Abbrechen: Kreis / Escape / rechte Maustaste.
+Neustart: Quadrat / R. Pause: Start / P.
+Trainingshilfen: Dreieck / F2 oder Schaltflaeche oben links.
+Controllerdiagnose: F3. Kalibrierung: F4 oder Einstellungen.
+
+SO SCHLAEGST DU
+Zielen, einmal druecken fuer Kraft, erneut fuer Genauigkeit,
+ein drittes Mal druecken und halten. Loslassen fuehrt den Schlag aus.
+
+INHALT
+Elf Themenkurse, 99 regulaere Bahnen, 14 Technik-Labore, fuenf Golfer.
+Acht Tutoriallektionen mit 14 Lernbahnen, Schlagwiederholung und Ballspuren.
+Ingame-Bahneditor, eigene Inhalte und lokaler Mehrspieler.
+Deutsch, Englisch, Franzoesisch, Spanisch und Italienisch.
+UEBUNG.md und BAHNEDITOR.md enthalten die ausfuehrliche Bedienung.
+
+SPEICHERSTAENDE
+Standard: ~/.local/share/godot/app_userdata/Putt & Pixel - Spielrahmen-Prototyp/
+Wenn XDG_DATA_HOME gesetzt ist, beginnt der Pfad dort statt ~/.local/share.
+Einstellungen: settings.cfg; Tutorialfortschritt: practice.cfg.
+Eigene Bahnen und Kurse: custom_content/. Das Paket enthaelt keine persoenlichen Daten.
+
+PRUEFSUMMEN
+Im Paketordner: sha256sum -c SHA256SUMS.txt
+Zum Melden eines Fehlers bitte Version, Distribution, Grafiktreiber,
+Eingabegeraet und Kurs/Bahn angeben. Protokolle liegen im Speicherordner unter logs/.

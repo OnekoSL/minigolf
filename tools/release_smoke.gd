@@ -36,7 +36,8 @@ func _run() -> void:
 	_check(FileAccess.file_exists("res://config/controller_mappings.cfg"),"Controllerprofile im Paket enthalten")
 	_check(not ResourceLoader.exists("res://tests/run_tests.gd") and not ResourceLoader.exists("res://tools/release_smoke.gd"),"Entwicklertests und Buildwerkzeuge nicht ausgeliefert")
 	print("USER_DIR ",OS.get_user_data_dir())
-	_check(OS.get_user_data_dir().replace("\\","/").ends_with("Godot/app_userdata/Putt & Pixel - Spielrahmen-Prototyp"),"Bisheriger Speicherordner bleibt erhalten")
+	var data_suffix := "Godot/app_userdata/Putt & Pixel - Spielrahmen-Prototyp" if OS.get_name() == "Windows" else "godot/app_userdata/Putt & Pixel - Spielrahmen-Prototyp"
+	_check(OS.get_user_data_dir().replace("\\","/").ends_with(data_suffix),"Bisheriger Speicherordner bleibt erhalten")
 	var app := (load("res://scenes/game_app.tscn") as PackedScene).instantiate() as GameApp
 	root.add_child(app)
 	await get_tree().process_frame

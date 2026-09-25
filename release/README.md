@@ -67,3 +67,30 @@ Automatische Prüfungen ersetzen nicht das manuelle Durchspielen aller Varianten
 oder Controllerprüfungen auf fremden PCs. Das Release ist daher als spielbare
 Vorabversion bezeichnet. Das geprüfte ZIP und seine SHA-256-Prüfsumme gehören zum
 [GitHub-Release v0.7.0](https://github.com/OnekoSL/minigolf/releases/tag/v0.7.0).
+
+## Linux x64
+
+Der Export verwendet dieselben Spielquellen und den separaten Preset **Linux x64**.
+Die offiziellen Godot-4.7.2-Vorlagen `linux_debug.x86_64` und `linux_release.x86_64`
+gehören nach `.tools/export-templates/templates/`. Die Engine darf unter Windows
+oder Linux laufen; Python 3.10 oder neuer genügt für das Paketwerkzeug.
+
+```powershell
+python tools/linux_release.py build --engine '.tools/godot-4.7.2/Godot_v4.7.2-stable_win64_console.exe'
+# Erst nach Paket- und Startprüfung PRUEFBERICHT.txt mit ELF-SHA-256 ablegen:
+python tools/linux_release.py package
+```
+
+Die manuell gestartete GitHub-Actions-Prüfung `Linux release validation` lädt
+Godot samt Vorlagen mit SHA-512-Prüfung und baut unter Ubuntu 22.04. Sie prüft
+die Gesamtsuite, das exportierte Paket, OpenGL-Rendering unter Xvfb/Mesa,
+die native Release-Binary und das frisch entpackte Archiv. Schreibtests
+verwenden getrennte `XDG_DATA_HOME`-Verzeichnisse. Das Workflow-Artefakt
+`linux-release` wird erst nach erfolgreichen Prüfungen bereitgestellt; es
+wird anschließend ausdrücklich als zusätzliches Asset des Releases hochgeladen.
+
+Das `.tar.gz` enthält die Binary mit Modus 0755, Anleitungen, Lizenzen,
+Builddaten, Prüfbericht und Dateiprüfsummen. Die Linux-Spielstände liegen unter
+`~/.local/share/godot/app_userdata/Putt & Pixel - Spielrahmen-Prototyp/`
+beziehungsweise unter `XDG_DATA_HOME`. Softwaregrafik unter Xvfb belegt keinen
+Hardware-, Wayland-, Audio- oder Controllertest auf einem echten Linux-Desktop.

@@ -30,6 +30,7 @@ Godot 4.7.2 Standard mit typisiertem GDScript, Windows und Compatibility-Rendere
 | Tests | `tests/run_tests.gd`, `tests/*_test.gd`, `tests/test_runner.tscn` |
 | Bahneditor und eigene Inhalte | `src/editor_ui.gd`, `src/editor_document.gd`, `src/custom_content_store.gd`, `BAHNEDITOR.md` |
 | Windows-Release | `tools/build_release.ps1`, `tools/package_release.ps1`, `release/README.md` |
+| Linux-Release | `tools/linux_release.py`, `.github/workflows/linux-release.yml`, `release/SPIELSTART_LINUX.txt` |
 
 ## Änderungen umsetzen
 

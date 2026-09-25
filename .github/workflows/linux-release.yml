@@ -1,0 +1,114 @@
+name: Linux release validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-x64:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      LIBGL_ALWAYS_SOFTWARE: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install graphics test dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri libasound2 libpulse0
+      - name: Download verified Godot 4.7.2 tools
+        run: |
+          mkdir -p .tools/downloads .tools/godot-linux .tools/export-templates
+          cd .tools/downloads
+          base=https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable
+          for file in Godot_v4.7.2-stable_linux.x86_64.zip Godot_v4.7.2-stable_export_templates.tpz SHA512-SUMS.txt; do
+            curl --fail --location --silent --show-error --retry 3 "$base/$file" -o "$file"
+          done
+          sha512sum --check --ignore-missing SHA512-SUMS.txt
+          unzip -q Godot_v4.7.2-stable_linux.x86_64.zip -d ../godot-linux
+          unzip -q Godot_v4.7.2-stable_export_templates.tpz 'templates/linux_*.x86_64' -d ../export-templates
+          chmod +x ../godot-linux/Godot_v4.7.2-stable_linux.x86_64
+          echo "GODOT=$GITHUB_WORKSPACE/.tools/godot-linux/Godot_v4.7.2-stable_linux.x86_64" >> "$GITHUB_ENV"
+          echo "PACKAGE=$GITHUB_WORKSPACE/build/releases/PuttAndPixel-0.7.0-linux-x64" >> "$GITHUB_ENV"
+          echo "LOGS=$GITHUB_WORKSPACE/tmp/release-0.7.0-linux" >> "$GITHUB_ENV"
+      - name: Import and test production physics on Linux
+        run: |
+          mkdir -p "$LOGS/captures"
+          XDG_DATA_HOME="$RUNNER_TEMP/import-data" "$GODOT" --headless --editor --path . --quit > "$LOGS/import.log" 2>&1
+          XDG_DATA_HOME="$RUNNER_TEMP/suite-data" "$GODOT" --headless --fixed-fps 60 --path . res://tests/test_runner.tscn > "$LOGS/suite.log" 2>&1
+          tail -n 3 "$LOGS/suite.log"
+          grep -Eq 'Ergebnis: [0-9]+ Checks, 0 Fehler' "$LOGS/suite.log"
+          ! grep -E 'SCRIPT ERROR|Parse Error' "$LOGS/import.log" "$LOGS/suite.log"
+      - name: Build Linux package
+        run: python3 tools/linux_release.py build --engine "$GODOT"
+      - name: Test exported package with and without rendering
+        run: |
+          cd "$PACKAGE"
+          XDG_DATA_HOME="$RUNNER_TEMP/package-headless" "$GODOT" --headless --fixed-fps 60 --main-pack "$PACKAGE/PuttAndPixel.x86_64" "$GITHUB_WORKSPACE/tools/release_smoke.tscn" > "$LOGS/headless.log" 2>&1
+          XDG_DATA_HOME="$RUNNER_TEMP/package-render" xvfb-run -a -s '-screen 0 2560x1440x24' "$GODOT" --audio-driver Dummy --fixed-fps 60 --main-pack "$PACKAGE/PuttAndPixel.x86_64" "$GITHUB_WORKSPACE/tools/release_smoke.tscn" -- "$LOGS/captures" > "$LOGS/render.log" 2>&1
+          tail -n 2 "$LOGS/headless.log"
+          tail -n 2 "$LOGS/render.log"
+          grep -Eq 'RELEASE: [0-9]+ Checks, 0 Fehler' "$LOGS/headless.log"
+          grep -Eq 'RELEASE: [0-9]+ Checks, 0 Fehler' "$LOGS/render.log"
+          ! grep -E 'SCRIPT ERROR|Parse Error|^FAIL ' "$LOGS/headless.log" "$LOGS/render.log"
+      - name: Start native executable
+        run: |
+          cd "$PACKAGE"
+          ldd ./PuttAndPixel.x86_64 > "$LOGS/libraries.log"
+          ! grep 'not found' "$LOGS/libraries.log"
+          XDG_DATA_HOME="$RUNNER_TEMP/standalone-data" xvfb-run -a -s '-screen 0 2560x1440x24' ./PuttAndPixel.x86_64 --audio-driver Dummy --write-movie "$LOGS/standalone.png" --quit-after 8 --log-file "$LOGS/standalone.log"
+          ! grep -E 'SCRIPT ERROR|ERROR:' "$LOGS/standalone.log"
+      - name: Write report and create archive
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, re
+          from pathlib import Path
+          p, logs = Path(os.environ['PACKAGE']), Path(os.environ['LOGS'])
+          build = json.loads((p/'BUILD.json').read_text())
+          assert not build['source_dirty'], 'Build must use a clean checkout'
+          results = []
+          for name, prefix in [('suite','Ergebnis'),('headless','RELEASE'),('render','RELEASE')]:
+              text = (logs/(name+'.log')).read_text()
+              found = re.search(prefix + r': (\d+) Checks, 0 Fehler', text)
+              assert found, name
+              results.append(name + ': ' + found.group(1) + ' Checks, 0 Fehler, Exitcode 0')
+          sha = hashlib.sha256((p/'PuttAndPixel.x86_64').read_bytes()).hexdigest().upper()
+          report = ('PUTT & PIXEL 0.7.0 - LINUX x64\n'
+                    'Ubuntu 22.04, Godot 4.7.2, Mesa/llvmpipe und Xvfb\n'
+                    'Quellcommit: ' + build['source_commit'] + '\nArbeitsbaum: sauber\n'
+                    'ELF SHA-256: ' + sha + '\n\n' + '\n'.join(results) + '\n\n'
+                    'Native Release-Binary mit OpenGL-Rendering gestartet, Exitcode 0.\n'
+                    '23 Paketaufnahmen sowie eine native Startaufnahme erzeugt.\n'
+                    'Speichertests mit isoliertem XDG_DATA_HOME.\n'
+                    'Kein Test realer Controller, Audioausgabe, Wayland oder anderer Distributionen.\n'
+                    'Spielbare Vorabversion; Xvfb/Softwaregrafik ersetzt keine physische Hardwarepruefung.\n')
+          (p/'PRUEFBERICHT.txt').write_text(report, encoding='utf-8')
+          PY
+          python3 tools/linux_release.py package
+      - name: Verify freshly extracted archive and launch it
+        run: |
+          mkdir -p "$RUNNER_TEMP/unpacked"
+          tar -xzf build/releases/PuttAndPixel-0.7.0-linux-x64.tar.gz -C "$RUNNER_TEMP/unpacked"
+          cd "$RUNNER_TEMP/unpacked/PuttAndPixel-0.7.0-linux-x64"
+          sha256sum -c SHA256SUMS.txt
+          test -x ./PuttAndPixel.x86_64
+          XDG_DATA_HOME="$RUNNER_TEMP/unpacked-data" xvfb-run -a -s '-screen 0 2560x1440x24' ./PuttAndPixel.x86_64 --audio-driver Dummy --write-movie "$LOGS/unpacked.png" --quit-after 8 --log-file "$LOGS/unpacked.log"
+          ! grep -E 'SCRIPT ERROR|ERROR:' "$LOGS/unpacked.log"
+      - name: Upload validated Linux release
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: linux-release
+          path: |
+            build/releases/PuttAndPixel-0.7.0-linux-x64.tar.gz
+            build/releases/PuttAndPixel-0.7.0-linux-x64.tar.gz.sha256
+          compression-level: 0
+          if-no-files-found: error
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: linux-test-evidence
+          path: tmp/release-0.7.0-linux/
+          retention-days: 14
