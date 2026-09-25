@@ -46,12 +46,18 @@ func _capture_node(node: Node) -> void:
 
 
 func restore(game: PrototypeMain) -> void:
+	game.ball.cancel_hole_animation()
 	# Invalidate outstanding water-return coroutines before restoring simulation state.
 	var hazard_generation := game.ball._hazard_generation + 1
 	for entry in nodes:
 		var node: Node = entry.node
 		if not is_instance_valid(node):
 			continue
+		# AnimatableBody2D otherwise queues a visual transform which the physics
+		# server can replace with the old pose on the next synchronization frame.
+		var synchronized: bool = node is AnimatableBody2D and node.sync_to_physics
+		if synchronized:
+			node.sync_to_physics = false
 		for key in entry.values:
 			var value: Variant = entry.values[key]
 			if value is Array or value is Dictionary:
@@ -59,6 +65,8 @@ func restore(game: PrototypeMain) -> void:
 			if key == "shape" and value is Shape2D:
 				value = value.duplicate()
 			node.set(key, value)
+		if synchronized:
+			node.sync_to_physics = true
 		if node is CanvasItem:
 			node.queue_redraw()
 	game.ball._hazard_generation = hazard_generation

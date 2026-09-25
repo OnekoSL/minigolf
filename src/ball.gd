@@ -63,6 +63,7 @@ var _tunnel_entry := Vector2.ZERO
 var _tunnel_exit_hole := Vector2.ZERO
 var _tunnel_exit_position := Vector2.ZERO
 var _tunnel_velocity := Vector2.ZERO
+var _hole_tween: Tween
 
 
 func _ready() -> void:
@@ -115,6 +116,7 @@ func launch(direction: Vector2, speed: float, stroke_count: int) -> void:
 
 
 func reset_to(target_position: Vector2) -> void:
+	cancel_hole_animation()
 	_hazard_generation += 1
 	_cancel_cannon_sequence()
 	_cancel_tunnel_sequence()
@@ -325,13 +327,19 @@ func _capture_hole() -> void:
 	global_position = hole_position
 	_hazard_generation += 1
 	var generation := _hazard_generation
-	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2.ZERO, 0.35).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	await tween.finished
+	_hole_tween = create_tween()
+	_hole_tween.tween_property(self, "scale", Vector2.ZERO, 0.35).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await _hole_tween.finished
 	if generation != _hazard_generation:
 		return
 	visible = false
 	holed.emit(current_stroke_count)
+
+
+func cancel_hole_animation() -> void:
+	if _hole_tween != null and _hole_tween.is_valid():
+		_hole_tween.kill()
+	_hole_tween = null
 
 
 func _try_mechanism_capture() -> bool:

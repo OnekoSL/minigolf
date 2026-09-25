@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="HoleDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/hole_definition.gd" id="hole"]
+[ext_resource type="Script" path="res://src/lane_outline_definition.gd" id="outline"]
+[ext_resource type="Script" path="res://src/obstacle_definition.gd" id="obstacle"]
+[ext_resource type="Script" path="res://src/surface_definition.gd" id="surface"]
+[ext_resource type="Script" path="res://src/arrow_tile_definition.gd" id="arrow"]
+
+[sub_resource type="Resource" id="outline"]
+script = ExtResource("outline")
+points = PackedVector2Array(184, 136, 600, 136, 600, 216, 184, 216)
+use_normalized_walls = true
+
+[sub_resource type="Resource" id="obstacle"]
+script = ExtResource("obstacle")
+position = Vector2(360, 176)
+obstacle_type = 2
+seesaw_size = Vector2(96, 88)
+
+[resource]
+script = ExtResource("hole")
+hole_id = &"tutorial_seesaw"
+display_name = "Wippen verstehen"
+category = 1
+par = 3
+lane_outline = SubResource("outline")
+tee_position = Vector2(224, 176)
+hole_position = Vector2(568, 176)
+initial_aim_offset = Vector2(64, 0)
+obstacles = Array[ExtResource("obstacle")]([SubResource("obstacle")])

@@ -3399,3 +3399,234 @@ msgstr "Select All"
 #. Godot standard control source key.
 msgid "Clear"
 msgstr "Clear"
+
+msgid "PRACTICE_TITLE"
+msgstr "Practice"
+
+msgid "PRACTICE_WELCOME"
+msgstr "Learn, experiment, improve"
+
+msgid "PRACTICE_BASIC"
+msgstr "Basics"
+
+msgid "PRACTICE_LESSONS"
+msgstr "Lessons"
+
+msgid "PRACTICE_FREE"
+msgstr "Free practice"
+
+msgid "PRACTICE_ALL_OPEN"
+msgstr "All lessons are available"
+
+msgid "PRACTICE_CHOOSE_SECTION"
+msgstr "Choose or repeat a section"
+
+msgid "PRACTICE_CHOOSE_COURSE"
+msgstr "Choose a course, then a hole"
+
+msgid "PRACTICE_LABS"
+msgstr "Technical labs"
+
+msgid "PRACTICE_TOOLS"
+msgstr "Practice · F2 / Triangle"
+
+msgid "PRACTICE_NAV"
+msgstr "Stick / arrows: select · Action: confirm"
+
+msgid "PRACTICE_NO_RECORDS"
+msgstr "Unlimited practice · No course records"
+
+msgid "PRACTICE_SAVE_ERROR"
+msgstr "Progress saved for this session only"
+
+msgid "PRACTICE_RETRY"
+msgstr "Retry last shot"
+
+msgid "PRACTICE_TRACE_OFF"
+msgstr "Hide ball trail"
+
+msgid "PRACTICE_TRACE_ON"
+msgstr "Show ball trail"
+
+msgid "PRACTICE_GOLFER"
+msgstr "Change golfer"
+
+msgid "PRACTICE_GOLFER_RESTART"
+msgstr "Changing golfer restarts the hole"
+
+msgid "PRACTICE_PICK_HOLE"
+msgstr "Choose hole"
+
+msgid "PRACTICE_NEXT_HOLE"
+msgstr "Next hole"
+
+msgid "PRACTICE_BEGIN"
+msgstr "Let's go"
+
+msgid "PRACTICE_SKIP"
+msgstr "Skip section"
+
+msgid "PRACTICE_CONTINUE"
+msgstr "Continue"
+
+msgid "PRACTICE_AGAIN"
+msgstr "Practice again"
+
+msgid "PRACTICE_OVERVIEW"
+msgstr "Back to lessons"
+
+msgid "PRACTICE_SUCCESS"
+msgstr "Well done!"
+
+msgid "PRACTICE_TRY_GOAL"
+msgstr "Try the task again"
+
+msgid "PRACTICE_RESULT"
+msgstr "Strokes: %d · Every attempt helps"
+
+msgid "PRACTICE_INTRO_HELP"
+msgstr "Action: Cross, Space or left click. Cancel: Circle, Escape or right click. F2 / Triangle opens practice tools."
+
+msgid "PRACTICE_FREE_HINT"
+msgstr "F2 / Triangle: practice tools. The scale shows distance on grass."
+
+msgid "PRACTICE_AIM"
+msgstr "Aim with stick, arrows or mouse. Action starts the power meter."
+
+msgid "PRACTICE_POWER"
+msgstr "Press Action to lock power. The scale assumes level grass."
+
+msgid "PRACTICE_ACCURACY"
+msgstr "Press and HOLD Action near the centre. Green is the perfect window."
+
+msgid "PRACTICE_HOLD"
+msgstr "Ready! Hold to wait. Release to hit. You can still cancel."
+
+msgid "PRACTICE_FIRST"
+msgstr "Your first putt"
+
+msgid "PRACTICE_DISTANCE"
+msgstr "Control the distance"
+
+msgid "PRACTICE_TIMING"
+msgstr "Choose the moment"
+
+msgid "PRACTICE_BANK"
+msgstr "Use the walls"
+
+msgid "PRACTICE_SURFACES"
+msgstr "Understand surfaces"
+
+msgid "PRACTICE_SLOPES"
+msgstr "Read the slopes"
+
+msgid "PRACTICE_MECHANISMS"
+msgstr "Moving obstacles"
+
+msgid "PRACTICE_SEESAW"
+msgstr "Understand seesaws"
+
+msgid "PRACTICE_GRASS"
+msgstr "Grass"
+
+msgid "PRACTICE_SAND"
+msgstr "Sand"
+
+msgid "PRACTICE_CONCRETE"
+msgstr "Concrete"
+
+msgid "PRACTICE_ICE"
+msgstr "Ice"
+
+msgid "PRACTICE_SHALLOW"
+msgstr "Gentle slope"
+
+msgid "PRACTICE_MEDIUM"
+msgstr "Medium slope"
+
+msgid "PRACTICE_STEEP"
+msgstr "Steep slope"
+
+msgid "PRACTICE_GATE"
+msgstr "Sliding gate"
+
+msgid "PRACTICE_ROTOR"
+msgstr "Rotor"
+
+msgid "PRACTICE_FIRST_HINT"
+msgstr "Putt into the hole. Follow the meter hints. A perfect hit is not required."
+
+msgid "PRACTICE_DISTANCE_HINT"
+msgstr "Stop the ball inside the yellow area. The distance scale assumes level grass."
+
+msgid "PRACTICE_TIMING_HINT"
+msgstr "Hold your shot for about a second. Wait for the open gate, then putt into the hole."
+
+msgid "PRACTICE_BANK_HINT"
+msgstr "Use a wall bounce to reach the hole. You can keep putting after the bounce."
+
+msgid "PRACTICE_GRASS_HINT"
+msgstr "Putt into the hole on grass. Here the scale matches the free rolling distance."
+
+msgid "PRACTICE_SAND_HINT"
+msgstr "Cross the sand and putt into the hole. Sand slows the ball more than grass."
+
+msgid "PRACTICE_CONCRETE_HINT"
+msgstr "Putt on concrete. It slows the ball less. The scale still shows grass distance."
+
+msgid "PRACTICE_ICE_HINT"
+msgstr "Cross the ice and putt in. It is very slippery. The scale still assumes grass."
+
+msgid "PRACTICE_SLOPE_HINT"
+msgstr "Cross the arrows and putt in. Arrows point downhill: going against them needs more power."
+
+msgid "PRACTICE_GATE_HINT"
+msgstr "Pass the gate and putt in. Prepare your shot and wait for the opening."
+
+msgid "PRACTICE_ROTOR_HINT"
+msgstr "Pass the rotor and putt in. Watch its rotation from a safe distance."
+
+msgid "PRACTICE_SEESAW_HINT"
+msgstr "Enter the low left end, cross the seesaw and putt in. The raised end bounces the ball back."
+
+msgid "HOLE_TUTORIAL_BANK"
+msgstr "Use the walls"
+
+msgid "HOLE_TUTORIAL_CONCRETE"
+msgstr "Concrete"
+
+msgid "HOLE_TUTORIAL_DISTANCE"
+msgstr "Control the distance"
+
+msgid "HOLE_TUTORIAL_FIRST_PUTT"
+msgstr "Your first putt"
+
+msgid "HOLE_TUTORIAL_GATE"
+msgstr "Sliding gate"
+
+msgid "HOLE_TUTORIAL_GRASS"
+msgstr "Grass"
+
+msgid "HOLE_TUTORIAL_ICE"
+msgstr "Ice"
+
+msgid "HOLE_TUTORIAL_ROTOR"
+msgstr "Rotor"
+
+msgid "HOLE_TUTORIAL_SAND"
+msgstr "Sand"
+
+msgid "HOLE_TUTORIAL_SEESAW"
+msgstr "Understand seesaws"
+
+msgid "HOLE_TUTORIAL_SLOPE_MEDIUM"
+msgstr "Medium slope"
+
+msgid "HOLE_TUTORIAL_SLOPE_SHALLOW"
+msgstr "Gentle slope"
+
+msgid "HOLE_TUTORIAL_SLOPE_STEEP"
+msgstr "Steep slope"
+
+msgid "HOLE_TUTORIAL_TIMING"
+msgstr "Choose the moment"

@@ -3399,3 +3399,234 @@ msgstr "Alles auswählen"
 #. Godot standard control source key.
 msgid "Clear"
 msgstr "Leeren"
+
+msgid "PRACTICE_TITLE"
+msgstr "Übung"
+
+msgid "PRACTICE_WELCOME"
+msgstr "Lernen, ausprobieren, besser werden"
+
+msgid "PRACTICE_BASIC"
+msgstr "Grundkurs"
+
+msgid "PRACTICE_LESSONS"
+msgstr "Lektionen"
+
+msgid "PRACTICE_FREE"
+msgstr "Freies Training"
+
+msgid "PRACTICE_ALL_OPEN"
+msgstr "Alle Lektionen sind frei wählbar"
+
+msgid "PRACTICE_CHOOSE_SECTION"
+msgstr "Abschnitt wählen oder erneut üben"
+
+msgid "PRACTICE_CHOOSE_COURSE"
+msgstr "Kurs wählen, dann eine einzelne Bahn"
+
+msgid "PRACTICE_LABS"
+msgstr "Technik-Labore"
+
+msgid "PRACTICE_TOOLS"
+msgstr "Training · F2 / Dreieck"
+
+msgid "PRACTICE_NAV"
+msgstr "Stick / Pfeile: wählen · Aktion: bestätigen"
+
+msgid "PRACTICE_NO_RECORDS"
+msgstr "Unbegrenzt üben · Keine Kursbestwerte"
+
+msgid "PRACTICE_SAVE_ERROR"
+msgstr "Fortschritt nur für diese Sitzung gespeichert"
+
+msgid "PRACTICE_RETRY"
+msgstr "Schlag neu versuchen"
+
+msgid "PRACTICE_TRACE_OFF"
+msgstr "Ballspur ausblenden"
+
+msgid "PRACTICE_TRACE_ON"
+msgstr "Ballspur anzeigen"
+
+msgid "PRACTICE_GOLFER"
+msgstr "Golfer wechseln"
+
+msgid "PRACTICE_GOLFER_RESTART"
+msgstr "Ein Wechsel startet die Bahn neu"
+
+msgid "PRACTICE_PICK_HOLE"
+msgstr "Bahn wählen"
+
+msgid "PRACTICE_NEXT_HOLE"
+msgstr "Nächste Bahn"
+
+msgid "PRACTICE_BEGIN"
+msgstr "Los geht’s"
+
+msgid "PRACTICE_SKIP"
+msgstr "Abschnitt überspringen"
+
+msgid "PRACTICE_CONTINUE"
+msgstr "Weiter"
+
+msgid "PRACTICE_AGAIN"
+msgstr "Erneut üben"
+
+msgid "PRACTICE_OVERVIEW"
+msgstr "Zur Übersicht"
+
+msgid "PRACTICE_SUCCESS"
+msgstr "Geschafft!"
+
+msgid "PRACTICE_TRY_GOAL"
+msgstr "Versuche die Aufgabe noch einmal"
+
+msgid "PRACTICE_RESULT"
+msgstr "Schläge: %d · Jeder Versuch hilft"
+
+msgid "PRACTICE_INTRO_HELP"
+msgstr "Aktion: Kreuz, Leertaste oder linke Maustaste. Abbrechen: Kreis, Escape oder rechts klicken. F2 / Dreieck öffnet die Trainingshilfen."
+
+msgid "PRACTICE_FREE_HINT"
+msgstr "F2 / Dreieck: Trainingshilfen. Die Skala zeigt die Weite auf Grün."
+
+msgid "PRACTICE_AIM"
+msgstr "Ziele mit Stick, Pfeilen oder Maus. Aktion startet die Kraftanzeige."
+
+msgid "PRACTICE_POWER"
+msgstr "Aktion drücken: Kraft festlegen. Die Skala gilt für ebenes Grün."
+
+msgid "PRACTICE_ACCURACY"
+msgstr "Aktion nahe der Mitte drücken und HALTEN. Grün ist das Perfektfenster."
+
+msgid "PRACTICE_HOLD"
+msgstr "Bereit! Halte zum Warten. Loslassen schlägt. Abbrechen bleibt möglich."
+
+msgid "PRACTICE_FIRST"
+msgstr "Dein erster Putt"
+
+msgid "PRACTICE_DISTANCE"
+msgstr "Kraft dosieren"
+
+msgid "PRACTICE_TIMING"
+msgstr "Den Moment wählen"
+
+msgid "PRACTICE_BANK"
+msgstr "Banden nutzen"
+
+msgid "PRACTICE_SURFACES"
+msgstr "Untergründe verstehen"
+
+msgid "PRACTICE_SLOPES"
+msgstr "Gefälle lesen"
+
+msgid "PRACTICE_MECHANISMS"
+msgstr "Bewegliche Hindernisse"
+
+msgid "PRACTICE_SEESAW"
+msgstr "Wippen verstehen"
+
+msgid "PRACTICE_GRASS"
+msgstr "Grün"
+
+msgid "PRACTICE_SAND"
+msgstr "Sand"
+
+msgid "PRACTICE_CONCRETE"
+msgstr "Beton"
+
+msgid "PRACTICE_ICE"
+msgstr "Eis"
+
+msgid "PRACTICE_SHALLOW"
+msgstr "Flaches Gefälle"
+
+msgid "PRACTICE_MEDIUM"
+msgstr "Mittleres Gefälle"
+
+msgid "PRACTICE_STEEP"
+msgstr "Steiles Gefälle"
+
+msgid "PRACTICE_GATE"
+msgstr "Schiebetor"
+
+msgid "PRACTICE_ROTOR"
+msgstr "Rotor"
+
+msgid "PRACTICE_FIRST_HINT"
+msgstr "Loche ein. Folge den Hinweisen an den Anzeigen. Ein perfekter Treffer ist nicht nötig."
+
+msgid "PRACTICE_DISTANCE_HINT"
+msgstr "Lass den Ball im gelben Feld anhalten. Die Weitenskala gilt für ebenes Grün."
+
+msgid "PRACTICE_TIMING_HINT"
+msgstr "Halte den Schlag etwa eine Sekunde bereit. Warte auf das offene Tor und loche ein."
+
+msgid "PRACTICE_BANK_HINT"
+msgstr "Spiele über eine Bande ins Loch. Nach einem Abpraller kannst du weiterputten."
+
+msgid "PRACTICE_GRASS_HINT"
+msgstr "Loche auf Grün ein. Hier entspricht die Weitenskala der freien Rollweite."
+
+msgid "PRACTICE_SAND_HINT"
+msgstr "Durchquere den Sand und loche ein. Sand bremst stärker als Grün."
+
+msgid "PRACTICE_CONCRETE_HINT"
+msgstr "Loche auf Beton ein. Er bremst weniger. Die Skala zeigt weiterhin Grün-Weite."
+
+msgid "PRACTICE_ICE_HINT"
+msgstr "Überquere das Eis und loche ein. Es ist sehr glatt. Die Skala bleibt auf Grün geeicht."
+
+msgid "PRACTICE_SLOPE_HINT"
+msgstr "Überquere das Pfeilfeld und loche ein. Pfeile zeigen bergab: gegen sie brauchst du mehr Kraft."
+
+msgid "PRACTICE_GATE_HINT"
+msgstr "Passiere das Tor und loche ein. Bereite den Schlag vor und warte auf die Öffnung."
+
+msgid "PRACTICE_ROTOR_HINT"
+msgstr "Passiere den Rotor und loche ein. Beobachte seine Drehung aus sicherer Entfernung."
+
+msgid "PRACTICE_SEESAW_HINT"
+msgstr "Fahre links flach auf, überquere die Wippe und loche ein. Die hohe Stirnseite wirft den Ball zurück."
+
+msgid "HOLE_TUTORIAL_BANK"
+msgstr "Banden nutzen"
+
+msgid "HOLE_TUTORIAL_CONCRETE"
+msgstr "Beton"
+
+msgid "HOLE_TUTORIAL_DISTANCE"
+msgstr "Kraft dosieren"
+
+msgid "HOLE_TUTORIAL_FIRST_PUTT"
+msgstr "Dein erster Putt"
+
+msgid "HOLE_TUTORIAL_GATE"
+msgstr "Schiebetor"
+
+msgid "HOLE_TUTORIAL_GRASS"
+msgstr "Grün"
+
+msgid "HOLE_TUTORIAL_ICE"
+msgstr "Eis"
+
+msgid "HOLE_TUTORIAL_ROTOR"
+msgstr "Rotor"
+
+msgid "HOLE_TUTORIAL_SAND"
+msgstr "Sand"
+
+msgid "HOLE_TUTORIAL_SEESAW"
+msgstr "Wippen verstehen"
+
+msgid "HOLE_TUTORIAL_SLOPE_MEDIUM"
+msgstr "Mittleres Gefälle"
+
+msgid "HOLE_TUTORIAL_SLOPE_SHALLOW"
+msgstr "Flaches Gefälle"
+
+msgid "HOLE_TUTORIAL_SLOPE_STEEP"
+msgstr "Steiles Gefälle"
+
+msgid "HOLE_TUTORIAL_TIMING"
+msgstr "Den Moment wählen"

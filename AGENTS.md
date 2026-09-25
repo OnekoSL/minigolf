@@ -18,6 +18,7 @@ Godot 4.7.2 Standard mit typisiertem GDScript, Windows und Compatibility-Rendere
 | --- | --- |
 | Start, Menüs und Spielmodi | `scenes/game_app.tscn`, `src/game_app.gd` |
 | Ablauf eines Lochs | `scenes/prototype_main.tscn`, `src/prototype_main.gd` |
+| Übung und Tutorial | `src/practice_session.gd`, `data/tutorial/catalog.tres`, `UEBUNG.md` |
 | Ball, Schuss und Oberflächen | `src/ball.gd`, `src/shot_controller.gd`, `src/surface_zone.gd` |
 | Bahnbau und Darstellung | `src/hole_runtime.gd`, `src/hole_overlay.gd`, `src/wall_join_geometry.gd` |
 | Typisierte Bahndaten | `src/*_definition.gd`, `data/holes/*.tres` |

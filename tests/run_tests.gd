@@ -79,6 +79,7 @@ func _run_all() -> void:
 	game_shell_test._test_controller_support()
 	await load("res://tests/cleanup_regression_test.gd").run(self, _check)
 	await load("res://tests/editor_test.gd").run(self, _check)
+	await load("res://tests/practice_test.gd").run(self, _check)
 	print("\nErgebnis: %d Checks, %d Fehler" % [checks, failures])
 	await get_tree().process_frame
 	get_tree().quit(0 if failures == 0 else 1)

@@ -5,6 +5,7 @@ signal attempt_finished(strokes: int, reached_limit: bool)
 signal pause_requested()
 signal practice_hole_switched(hole_id: StringName)
 signal hole_restarted()
+signal training_menu_requested()
 
 const PIXELS_PER_METER := 32.0
 
@@ -34,6 +35,7 @@ var attempt_previous_total := 0
 var allow_developer_switch := true
 var _attempt_reported := false
 var input_enabled := true
+var practice_enabled := false
 
 
 func _ready() -> void:
@@ -207,6 +209,10 @@ func _input(event: InputEvent) -> void:
 		return
 	if prototype_paused:
 		return
+	if practice_enabled and event.is_action_pressed("switch_test_hole", false, true):
+		training_menu_requested.emit()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("switch_test_hole", false, true) and _switch_cooldown <= 0.0 and allow_developer_switch:
 		_switch_cooldown = 0.25
 		switch_test_hole()
@@ -247,7 +253,7 @@ func _on_shot_state_changed(state: int) -> void:
 
 
 func _on_ball_stopped(at_position: Vector2) -> void:
-	if managed_attempt and strokes >= get_stroke_limit():
+	if managed_attempt and not practice_enabled and strokes >= get_stroke_limit():
 		_finish_managed_attempt(true)
 		return
 	shot_controller.notify_ball_stopped(at_position)
@@ -286,7 +292,7 @@ func _on_wall_hit(intensity: float, position: Vector2, normal: Vector2, kind: St
 
 
 func _on_hazard_entered(_hazard_type: String) -> void:
-	strokes = mini(strokes + 1, get_stroke_limit()) if managed_attempt else strokes + 1
+	strokes = mini(strokes + 1, get_stroke_limit()) if managed_attempt and not practice_enabled else strokes + 1
 	ball.current_stroke_count = strokes
 	hud.play_golfer_reaction("frustration")
 	if audio_feedback != null:
@@ -305,7 +311,7 @@ func _on_ball_holed(final_strokes: int) -> void:
 	if feedback_effects != null:
 		feedback_effects.spawn_hole(ball.global_position)
 	_update_hud()
-	if managed_attempt:
+	if managed_attempt and not practice_enabled:
 		_finish_managed_attempt(false)
 
 
@@ -411,7 +417,7 @@ func _update_hud() -> void:
 		shot_controller.accuracy_value,
 		shot_controller.state,
 		int(round(ball.global_position.distance_to(shot_controller.cursor_position) / PIXELS_PER_METER * 10.0)),
-		get_stroke_limit() if managed_attempt else 0
+		get_stroke_limit() if managed_attempt and not practice_enabled else 0
 	)
 	if attempt_profile != null:
 		hud.set_player_context(
@@ -451,17 +457,24 @@ func _update_controller_status(id: int, device_name: String, guid: String) -> vo
 
 
 func _on_calibration_updated(_prompt: String) -> void:
-	if get_parent() is GameApp and get_parent().settings_menu != null:
+	if _settings_owns_calibration():
 		return
 	diagnostics_visible = true
 	hud.set_diagnostics(true, ControllerSupport.get_diagnostics_text())
 
 
 func _on_calibration_finished(_guid: String) -> void:
-	if get_parent() is GameApp and get_parent().settings_menu != null:
+	if _settings_owns_calibration():
 		return
 	diagnostics_visible = true
 	hud.set_diagnostics(true, ControllerSupport.get_diagnostics_text())
+
+
+func _settings_owns_calibration() -> bool:
+	var app := get_parent() as GameApp
+	if get_parent() is PracticeSession:
+		app = get_parent().app
+	return app != null and app.settings_menu != null
 
 
 func _create_audio() -> void:

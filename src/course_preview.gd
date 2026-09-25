@@ -3,6 +3,7 @@ extends Control
 
 const IMAGE_SIZE := Vector2i(396, 174)
 const CELL_SIZE := Vector2(132, 58)
+var cell_size := CELL_SIZE
 
 var course_id: StringName
 var hole_ids: Array[StringName] = []
@@ -19,7 +20,7 @@ func _ready() -> void:
 	add_child(title)
 	picture = TextureRect.new()
 	picture.position = Vector2(0,20)
-	picture.size = Vector2(IMAGE_SIZE)
+	picture.size = cell_size * 3
 	picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	picture.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(picture)
@@ -42,7 +43,7 @@ func show_course(course: CourseDefinition, catalog: HoleCatalog) -> void:
 	for child in tile_labels.get_children():
 		child.queue_free()
 	viewport = SubViewport.new()
-	viewport.size = IMAGE_SIZE
+	viewport.size = Vector2i(cell_size * 3)
 	viewport.disable_3d = true
 	viewport.gui_disable_input = true
 	# Isolated, static scene: previews cannot move or collide with the real ball.
@@ -51,14 +52,14 @@ func show_course(course: CourseDefinition, catalog: HoleCatalog) -> void:
 	add_child(viewport)
 	for index in range(hole_ids.size()):
 		var hole := catalog.get_hole(hole_ids[index])
-		var origin := Vector2(index%3,index/3)*CELL_SIZE
+		var origin := Vector2(index%3,index/3)*cell_size
 		var backdrop := ColorRect.new()
 		backdrop.position = origin
-		backdrop.size = CELL_SIZE-Vector2(4,4)
+		backdrop.size = cell_size-Vector2(4,4)
 		backdrop.color = Color("#122331")
 		backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		viewport.add_child(backdrop)
-		var area := Rect2(origin+Vector2(3,13),CELL_SIZE-Vector2(10,20))
+		var area := Rect2(origin+Vector2(3,13),cell_size-Vector2(10,20))
 		var factor := minf(area.size.x/hole.course_rect.size.x,area.size.y/hole.course_rect.size.y)
 		var runtime := HoleRuntime.new()
 		runtime.configure(hole)

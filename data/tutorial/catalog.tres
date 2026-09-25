@@ -1,0 +1,195 @@
+[gd_resource type="Resource" script_class="TutorialCatalog" format=3]
+
+[ext_resource type="Script" path="res://src/tutorial_catalog.gd" id="catalog"]
+[ext_resource type="Script" path="res://src/tutorial_lesson.gd" id="lesson"]
+[ext_resource type="Script" path="res://src/tutorial_section.gd" id="section"]
+[ext_resource type="Resource" path="res://data/tutorial/first_putt.tres" id="first_putt"]
+[ext_resource type="Resource" path="res://data/tutorial/distance.tres" id="distance"]
+[ext_resource type="Resource" path="res://data/tutorial/timing.tres" id="timing"]
+[ext_resource type="Resource" path="res://data/tutorial/bank.tres" id="bank"]
+[ext_resource type="Resource" path="res://data/tutorial/grass.tres" id="grass"]
+[ext_resource type="Resource" path="res://data/tutorial/sand.tres" id="sand"]
+[ext_resource type="Resource" path="res://data/tutorial/concrete.tres" id="concrete"]
+[ext_resource type="Resource" path="res://data/tutorial/ice.tres" id="ice"]
+[ext_resource type="Resource" path="res://data/tutorial/slope_shallow.tres" id="slope_shallow"]
+[ext_resource type="Resource" path="res://data/tutorial/slope_medium.tres" id="slope_medium"]
+[ext_resource type="Resource" path="res://data/tutorial/slope_steep.tres" id="slope_steep"]
+[ext_resource type="Resource" path="res://data/tutorial/gate.tres" id="gate"]
+[ext_resource type="Resource" path="res://data/tutorial/rotor.tres" id="rotor"]
+[ext_resource type="Resource" path="res://data/tutorial/seesaw.tres" id="seesaw"]
+
+[sub_resource type="Resource" id="s_first_putt"]
+script = ExtResource("section")
+section_id = &"learn_first_putt"
+title_key = &"PRACTICE_FIRST"
+hint_key = &"PRACTICE_FIRST_HINT"
+hole = ExtResource("first_putt")
+goal = 0
+
+[sub_resource type="Resource" id="s_distance"]
+script = ExtResource("section")
+section_id = &"learn_distance"
+title_key = &"PRACTICE_DISTANCE"
+hint_key = &"PRACTICE_DISTANCE_HINT"
+hole = ExtResource("distance")
+goal = 1
+target_zone = Rect2(360, 148, 88, 56)
+
+[sub_resource type="Resource" id="s_timing"]
+script = ExtResource("section")
+section_id = &"learn_timing"
+title_key = &"PRACTICE_TIMING"
+hint_key = &"PRACTICE_TIMING_HINT"
+hole = ExtResource("timing")
+goal = 2
+passage = Rect2(424, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_bank"]
+script = ExtResource("section")
+section_id = &"learn_bank"
+title_key = &"PRACTICE_BANK"
+hint_key = &"PRACTICE_BANK_HINT"
+hole = ExtResource("bank")
+goal = 3
+
+[sub_resource type="Resource" id="s_grass"]
+script = ExtResource("section")
+section_id = &"learn_grass"
+title_key = &"PRACTICE_GRASS"
+hint_key = &"PRACTICE_GRASS_HINT"
+hole = ExtResource("grass")
+goal = 4
+required_surface = -1
+
+[sub_resource type="Resource" id="s_sand"]
+script = ExtResource("section")
+section_id = &"learn_sand"
+title_key = &"PRACTICE_SAND"
+hint_key = &"PRACTICE_SAND_HINT"
+hole = ExtResource("sand")
+goal = 4
+required_surface = 0
+
+[sub_resource type="Resource" id="s_concrete"]
+script = ExtResource("section")
+section_id = &"learn_concrete"
+title_key = &"PRACTICE_CONCRETE"
+hint_key = &"PRACTICE_CONCRETE_HINT"
+hole = ExtResource("concrete")
+goal = 4
+required_surface = 3
+
+[sub_resource type="Resource" id="s_ice"]
+script = ExtResource("section")
+section_id = &"learn_ice"
+title_key = &"PRACTICE_ICE"
+hint_key = &"PRACTICE_ICE_HINT"
+hole = ExtResource("ice")
+goal = 4
+required_surface = 4
+
+[sub_resource type="Resource" id="s_slope_shallow"]
+script = ExtResource("section")
+section_id = &"learn_slope_shallow"
+title_key = &"PRACTICE_SHALLOW"
+hint_key = &"PRACTICE_SLOPE_HINT"
+hole = ExtResource("slope_shallow")
+goal = 5
+passage = Rect2(456, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_slope_medium"]
+script = ExtResource("section")
+section_id = &"learn_slope_medium"
+title_key = &"PRACTICE_MEDIUM"
+hint_key = &"PRACTICE_SLOPE_HINT"
+hole = ExtResource("slope_medium")
+goal = 5
+passage = Rect2(456, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_slope_steep"]
+script = ExtResource("section")
+section_id = &"learn_slope_steep"
+title_key = &"PRACTICE_STEEP"
+hint_key = &"PRACTICE_SLOPE_HINT"
+hole = ExtResource("slope_steep")
+goal = 5
+passage = Rect2(456, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_gate"]
+script = ExtResource("section")
+section_id = &"learn_gate"
+title_key = &"PRACTICE_GATE"
+hint_key = &"PRACTICE_GATE_HINT"
+hole = ExtResource("gate")
+goal = 5
+passage = Rect2(424, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_rotor"]
+script = ExtResource("section")
+section_id = &"learn_rotor"
+title_key = &"PRACTICE_ROTOR"
+hint_key = &"PRACTICE_ROTOR_HINT"
+hole = ExtResource("rotor")
+goal = 5
+passage = Rect2(424, 136, 64, 80)
+
+[sub_resource type="Resource" id="s_seesaw"]
+script = ExtResource("section")
+section_id = &"learn_seesaw"
+title_key = &"PRACTICE_SEESAW"
+hint_key = &"PRACTICE_SEESAW_HINT"
+hole = ExtResource("seesaw")
+goal = 6
+passage = Rect2(424, 136, 64, 80)
+
+[sub_resource type="Resource" id="l_putt"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_putt"
+title_key = &"PRACTICE_FIRST"
+sections = Array[ExtResource("section")]([SubResource("s_first_putt")])
+
+[sub_resource type="Resource" id="l_power"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_power"
+title_key = &"PRACTICE_DISTANCE"
+sections = Array[ExtResource("section")]([SubResource("s_distance")])
+
+[sub_resource type="Resource" id="l_hold"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_hold"
+title_key = &"PRACTICE_TIMING"
+sections = Array[ExtResource("section")]([SubResource("s_timing")])
+
+[sub_resource type="Resource" id="l_banks"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_banks"
+title_key = &"PRACTICE_BANK"
+sections = Array[ExtResource("section")]([SubResource("s_bank")])
+
+[sub_resource type="Resource" id="l_surfaces"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_surfaces"
+title_key = &"PRACTICE_SURFACES"
+sections = Array[ExtResource("section")]([SubResource("s_grass"), SubResource("s_sand"), SubResource("s_concrete"), SubResource("s_ice")])
+
+[sub_resource type="Resource" id="l_slopes"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_slopes"
+title_key = &"PRACTICE_SLOPES"
+sections = Array[ExtResource("section")]([SubResource("s_slope_shallow"), SubResource("s_slope_medium"), SubResource("s_slope_steep")])
+
+[sub_resource type="Resource" id="l_mechanisms"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_mechanisms"
+title_key = &"PRACTICE_MECHANISMS"
+sections = Array[ExtResource("section")]([SubResource("s_gate"), SubResource("s_rotor")])
+
+[sub_resource type="Resource" id="l_seesaws"]
+script = ExtResource("lesson")
+lesson_id = &"lesson_seesaws"
+title_key = &"PRACTICE_SEESAW"
+sections = Array[ExtResource("section")]([SubResource("s_seesaw")])
+
+[resource]
+script = ExtResource("catalog")
+lessons = Array[ExtResource("lesson")]([SubResource("l_putt"), SubResource("l_power"), SubResource("l_hold"), SubResource("l_banks"), SubResource("l_surfaces"), SubResource("l_slopes"), SubResource("l_mechanisms"), SubResource("l_seesaws")])

@@ -83,14 +83,14 @@ Brunos maximale Richtungsabweichung betraegt 10 Grad. Strandzugang besitzt zwei 
 | Schlagphasen | Kreuz | Leertaste / Enter | linke Taste |
 | Abbrechen | Kreis | Escape | rechte Taste |
 | Neustart | Quadrat | R | - |
-| Testloch wechseln (Uebung) | Dreieck | F2 | - |
+| Trainingshilfen (Übung) | Dreieck | F2 | Schaltfläche oben links |
 | Pause | Start | P | - |
 | Diagnose | - | F3 | - |
 | Kalibrierung | - | F4 | - |
 
 Schlagfolge: einmal druecken startet Kraft, erneut druecken startet Genauigkeit, ein drittes Mal druecken und halten bereitet den Schlag vor. Loslassen startet den sichtbaren Abschwung; nach exakt 0,10 Sekunden treffen Schlaeger, Ton und Ball gleichzeitig aufeinander.
 
-Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. Im Uebungsmodus schaltet Dreieck/F2 weiterhin zyklisch durch den gesamten Katalog aus 99 Kurs- und 14 technischen Bahnen.
+Auf grossen Bahnen bewegt das Zielkreuz die Kamera erst am Rand ihres Ruhebereichs. Das haelt besonders das Erkunden mit der Maus ruhig. Beim Rollen und im Kanonenflug folgt die Kamera dem Ball weich und blickt geschwindigkeitsabhaengig bis zu 48 interne Pixel voraus; nur harte Kontakte und der Kanonenabschuss geben einen sehr kleinen Kameraimpuls. In der Übung öffnet Dreieck/F2 das pausierende Trainingsmenü. Die technischen Bahnen sind über **Freies Training → Technik-Labore** erreichbar.
 
 Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spieler- und Lochwechseln wartet eine Eingabeschranke auf einen neutralen Stick und losgelassene Tasten. Dadurch bleiben Stick und D-Pad aktiv, ohne einen gehaltenen Impuls in den naechsten Bildschirm zu uebertragen.
 
@@ -98,12 +98,14 @@ Die Controllerachsen werden direkt vom aktiven Geraet gelesen. Nach Menue-, Spie
 
 - **Einzelner Kurs:** ein Spieler waehlt einen der elf Themenkurse auf vier Seiten mit bis zu drei Eintraegen.
 - **Lokaler Mehrspieler:** zwei bis vier Spieler waehlen ebenfalls einen Kurs, beenden jeweils ein ganzes Loch und reichen danach den Controller weiter.
-- **Uebung:** ein frei gewaehltes Loch mit schnellem Neustart; Dreieck/F2 behaelt den Zugriff auf alle technischen Testbahnen.
+- **Übung:** direkter Einstieg in Grundkurs, acht Lektionen und freies Training. Kursweise 3×3-Bahnauswahl, unbegrenzte Schläge, letzter Schlag neu versuchbar und Ballspur zum Vergleichen. Details: [Übung und Tutorial](UEBUNG.md).
 - **Freies Spiel:** ein bis vier Spieler bauen eine eigene Folge aus bis zu neun echten Loechern; Wiederholungen sind erlaubt.
 
 Beim Markieren eines Kurses erscheint rechts eine **3×3-Vorschau aller neun Bahnen** mit Bahnnummer und PAR. Controller, Tastatur und Maus aktualisieren dieselbe Uebersicht; Bestaetigen startet den angezeigten Kurs. Auch lange Bahnen sind vollstaendig abgebildet.
 
-Spieler geben ueber eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwoelf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum betraegt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollstaendige offizielle Kursrunden koennen den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Uebung und freies Spiel zeigen die 99 regulaeren Bahnen auf controllerfreundlichen Seiten mit je fuenf Eintraegen.
+In den Rundenmodi geben Spieler über eine controllerfreundliche Bildschirmtastatur Namen mit bis zu zwölf Zeichen ein und erhalten eine eindeutige kosmetische Farbe. Nach jedem Loch erscheint die gemeinsame Tabelle. Das Schlagmaximum beträgt mindestens 8 und steigt bei langen Bahnen auf `PAR + 3`; ein nicht eingelochtes Maximalergebnis wird mit `*` markiert. Nur vollständige offizielle Kursrunden können den jeweiligen lokalen Bestwert in `user://progress.cfg` verbessern. Freies Spiel zeigt die 99 regulären Bahnen auf Seiten mit je fünf Einträgen. Der neue Übungsbereich startet direkt mit Ben, verwendet kein Schlaglimit und erlaubt im freien Training den Wechsel zu allen fünf Golfern einschließlich Dons Werteauswahl.
+
+Der Grundkurs erklärt Zielen, Kraft, Genauigkeit und das Bereithalten vor einem Tor. Weitere einzeln anwählbare Lernabschnitte vermitteln Banden, Beläge, Gefälle, Rotoren und Wippen. Eigene Lernbahnen liegen getrennt von den offiziellen Kursen. Nur tatsächlich erfüllte Aufgaben werden in `user://practice.cfg` markiert; Überspringen bleibt jederzeit möglich. **Schlag neu versuchen** stellt Ball, Hindernisse und Schlagzahl zum Beginn der letzten Kraftauswahl zurück und lässt neu zielen. Eine gestrichelte alte Ballspur hilft beim Vergleichen. Alle neuen Menüs und Hinweise sind in den fünf Spielsprachen verfügbar.
 
 Die Kursfreigabe wird aus Kurs-ID und exakter vollständiger Lochfolge abgeleitet. Beschädigte Bestwertdateien werden nicht überschrieben; fehlgeschlagenes Speichern wird in der Endtabelle angezeigt. Menüaktionen beachten Eingabesperre, Fokus, Diagnose und Kalibrierung auch bei Mausklicks und verspäteten Signalen alter Bildschirme.
 

@@ -3399,3 +3399,234 @@ msgstr "Seleccionar todo"
 #. Godot standard control source key.
 msgid "Clear"
 msgstr "Borrar"
+
+msgid "PRACTICE_TITLE"
+msgstr "Práctica"
+
+msgid "PRACTICE_WELCOME"
+msgstr "Aprende, prueba y mejora"
+
+msgid "PRACTICE_BASIC"
+msgstr "Curso básico"
+
+msgid "PRACTICE_LESSONS"
+msgstr "Lecciones"
+
+msgid "PRACTICE_FREE"
+msgstr "Práctica libre"
+
+msgid "PRACTICE_ALL_OPEN"
+msgstr "Todas las lecciones disponibles"
+
+msgid "PRACTICE_CHOOSE_SECTION"
+msgstr "Elige o repite una sección"
+
+msgid "PRACTICE_CHOOSE_COURSE"
+msgstr "Elige un campo y luego un hoyo"
+
+msgid "PRACTICE_LABS"
+msgstr "Laboratorios"
+
+msgid "PRACTICE_TOOLS"
+msgstr "Práctica · F2 / Triángulo"
+
+msgid "PRACTICE_NAV"
+msgstr "Stick / flechas: elegir · Acción: confirmar"
+
+msgid "PRACTICE_NO_RECORDS"
+msgstr "Práctica ilimitada · Sin récords"
+
+msgid "PRACTICE_SAVE_ERROR"
+msgstr "Progreso guardado solo en esta sesión"
+
+msgid "PRACTICE_RETRY"
+msgstr "Reintentar golpe"
+
+msgid "PRACTICE_TRACE_OFF"
+msgstr "Ocultar trayectoria"
+
+msgid "PRACTICE_TRACE_ON"
+msgstr "Mostrar trayectoria"
+
+msgid "PRACTICE_GOLFER"
+msgstr "Cambiar golfista"
+
+msgid "PRACTICE_GOLFER_RESTART"
+msgstr "Cambiar de golfista reinicia el hoyo"
+
+msgid "PRACTICE_PICK_HOLE"
+msgstr "Elegir hoyo"
+
+msgid "PRACTICE_NEXT_HOLE"
+msgstr "Siguiente hoyo"
+
+msgid "PRACTICE_BEGIN"
+msgstr "Empezar"
+
+msgid "PRACTICE_SKIP"
+msgstr "Saltar sección"
+
+msgid "PRACTICE_CONTINUE"
+msgstr "Continuar"
+
+msgid "PRACTICE_AGAIN"
+msgstr "Practicar otra vez"
+
+msgid "PRACTICE_OVERVIEW"
+msgstr "Volver a lecciones"
+
+msgid "PRACTICE_SUCCESS"
+msgstr "¡Conseguido!"
+
+msgid "PRACTICE_TRY_GOAL"
+msgstr "Intenta el objetivo otra vez"
+
+msgid "PRACTICE_RESULT"
+msgstr "Golpes: %d · Cada intento ayuda"
+
+msgid "PRACTICE_INTRO_HELP"
+msgstr "Acción: Cruz, Espacio o clic izquierdo. Cancelar: Círculo, Escape o clic derecho. F2 / Triángulo abre las herramientas."
+
+msgid "PRACTICE_FREE_HINT"
+msgstr "F2 / Triángulo: herramientas. La escala indica alcance en césped."
+
+msgid "PRACTICE_AIM"
+msgstr "Apunta con stick, flechas o ratón. Acción inicia la potencia."
+
+msgid "PRACTICE_POWER"
+msgstr "Pulsa Acción para fijar potencia. Escala para césped llano."
+
+msgid "PRACTICE_ACCURACY"
+msgstr "Pulsa y MANTÉN Acción cerca del centro. Verde: zona perfecta."
+
+msgid "PRACTICE_HOLD"
+msgstr "¡Listo! Mantén para esperar. Suelta para golpear. Puedes cancelar."
+
+msgid "PRACTICE_FIRST"
+msgstr "Tu primer putt"
+
+msgid "PRACTICE_DISTANCE"
+msgstr "Dosificar la fuerza"
+
+msgid "PRACTICE_TIMING"
+msgstr "Elegir el momento"
+
+msgid "PRACTICE_BANK"
+msgstr "Usar las bandas"
+
+msgid "PRACTICE_SURFACES"
+msgstr "Entender las superficies"
+
+msgid "PRACTICE_SLOPES"
+msgstr "Leer las pendientes"
+
+msgid "PRACTICE_MECHANISMS"
+msgstr "Obstáculos móviles"
+
+msgid "PRACTICE_SEESAW"
+msgstr "Entender los balancines"
+
+msgid "PRACTICE_GRASS"
+msgstr "Césped"
+
+msgid "PRACTICE_SAND"
+msgstr "Arena"
+
+msgid "PRACTICE_CONCRETE"
+msgstr "Hormigón"
+
+msgid "PRACTICE_ICE"
+msgstr "Hielo"
+
+msgid "PRACTICE_SHALLOW"
+msgstr "Pendiente suave"
+
+msgid "PRACTICE_MEDIUM"
+msgstr "Pendiente media"
+
+msgid "PRACTICE_STEEP"
+msgstr "Pendiente pronunciada"
+
+msgid "PRACTICE_GATE"
+msgstr "Puerta deslizante"
+
+msgid "PRACTICE_ROTOR"
+msgstr "Rotor"
+
+msgid "PRACTICE_FIRST_HINT"
+msgstr "Emboca siguiendo las indicaciones. No hace falta un golpe perfecto."
+
+msgid "PRACTICE_DISTANCE_HINT"
+msgstr "Detén la bola en la zona amarilla. La escala corresponde a césped llano."
+
+msgid "PRACTICE_TIMING_HINT"
+msgstr "Mantén el golpe listo un segundo. Espera a que se abra la puerta y emboca."
+
+msgid "PRACTICE_BANK_HINT"
+msgstr "Usa un rebote en la banda. Puedes seguir golpeando después del rebote."
+
+msgid "PRACTICE_GRASS_HINT"
+msgstr "Emboca en césped. Aquí la escala coincide con la distancia de rodadura libre."
+
+msgid "PRACTICE_SAND_HINT"
+msgstr "Cruza la arena y emboca. La arena frena más que el césped."
+
+msgid "PRACTICE_CONCRETE_HINT"
+msgstr "Emboca en hormigón: frena menos. La escala sigue indicando distancia en césped."
+
+msgid "PRACTICE_ICE_HINT"
+msgstr "Cruza el hielo y emboca. Resbala mucho. La escala sigue calibrada para césped."
+
+msgid "PRACTICE_SLOPE_HINT"
+msgstr "Cruza las flechas y emboca. Indican bajada: ir en contra requiere más fuerza."
+
+msgid "PRACTICE_GATE_HINT"
+msgstr "Pasa la puerta y emboca. Prepara el golpe y espera a que se abra."
+
+msgid "PRACTICE_ROTOR_HINT"
+msgstr "Pasa el rotor y emboca. Observa su giro desde una distancia segura."
+
+msgid "PRACTICE_SEESAW_HINT"
+msgstr "Entra por el extremo bajo izquierdo, cruza y emboca. El extremo elevado hace rebotar la bola."
+
+msgid "HOLE_TUTORIAL_BANK"
+msgstr "Usar las bandas"
+
+msgid "HOLE_TUTORIAL_CONCRETE"
+msgstr "Hormigón"
+
+msgid "HOLE_TUTORIAL_DISTANCE"
+msgstr "Dosificar la fuerza"
+
+msgid "HOLE_TUTORIAL_FIRST_PUTT"
+msgstr "Tu primer putt"
+
+msgid "HOLE_TUTORIAL_GATE"
+msgstr "Puerta deslizante"
+
+msgid "HOLE_TUTORIAL_GRASS"
+msgstr "Césped"
+
+msgid "HOLE_TUTORIAL_ICE"
+msgstr "Hielo"
+
+msgid "HOLE_TUTORIAL_ROTOR"
+msgstr "Rotor"
+
+msgid "HOLE_TUTORIAL_SAND"
+msgstr "Arena"
+
+msgid "HOLE_TUTORIAL_SEESAW"
+msgstr "Entender los balancines"
+
+msgid "HOLE_TUTORIAL_SLOPE_MEDIUM"
+msgstr "Pendiente media"
+
+msgid "HOLE_TUTORIAL_SLOPE_SHALLOW"
+msgstr "Pendiente suave"
+
+msgid "HOLE_TUTORIAL_SLOPE_STEEP"
+msgstr "Pendiente pronunciada"
+
+msgid "HOLE_TUTORIAL_TIMING"
+msgstr "Elegir el momento"

@@ -21,6 +21,7 @@ enum ScreenState {
 	EDITOR,
 	PLAYER_TEST_STATS,
 	SETTINGS,
+	PRACTICE,
 }
 
 const MENU_NAV_THRESHOLD := 0.45
@@ -35,6 +36,7 @@ var course_catalog: CourseCatalog
 var best_store := BestScoreStore.new()
 var session: RoundSession
 var gameplay: PrototypeMain
+var practice: PracticeSession
 var settings_menu: SettingsMenu
 var editor: EditorUI
 var custom_store := CustomContentStore.new()
@@ -106,6 +108,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if practice != null and settings_menu == null:
+		return
 	if settings_menu != null:
 		settings_menu.update()
 	if current_screen == ScreenState.EDITOR:
@@ -140,6 +144,8 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if practice != null and settings_menu == null:
+		return
 	if current_screen == ScreenState.EDITOR:
 		return
 	if event is InputEventKey and event.echo:
@@ -234,6 +240,11 @@ func _show_mode() -> void:
 
 func _select_mode(mode: int) -> void:
 	selected_mode = mode
+	if mode == RoundConfig.GameMode.PRACTICE:
+		practice = PracticeSession.new()
+		practice.app = self
+		add_child(practice)
+		return
 	setup_golfer_id = &"allrounder"
 	setup_test_golfer = null
 	working_players.clear()
@@ -780,6 +791,9 @@ func _change_selection() -> void:
 
 
 func _show_pause() -> void:
+	if practice != null:
+		practice.show_tools()
+		return
 	if gameplay == null:
 		return
 	gameplay.set_external_paused(true)
@@ -797,6 +811,9 @@ func _show_pause() -> void:
 
 
 func _resume_game() -> void:
+	if practice != null:
+		practice.resume()
+		return
 	_clear_screen()
 	current_screen = ScreenState.GAMEPLAY
 	get_tree().paused = false

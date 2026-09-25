@@ -3399,3 +3399,234 @@ msgstr "Tout sélectionner"
 #. Godot standard control source key.
 msgid "Clear"
 msgstr "Effacer"
+
+msgid "PRACTICE_TITLE"
+msgstr "Entraînement"
+
+msgid "PRACTICE_WELCOME"
+msgstr "Apprendre, essayer, progresser"
+
+msgid "PRACTICE_BASIC"
+msgstr "Initiation"
+
+msgid "PRACTICE_LESSONS"
+msgstr "Leçons"
+
+msgid "PRACTICE_FREE"
+msgstr "Entraînement libre"
+
+msgid "PRACTICE_ALL_OPEN"
+msgstr "Toutes les leçons sont accessibles"
+
+msgid "PRACTICE_CHOOSE_SECTION"
+msgstr "Choisir ou répéter une étape"
+
+msgid "PRACTICE_CHOOSE_COURSE"
+msgstr "Choisir un parcours, puis une piste"
+
+msgid "PRACTICE_LABS"
+msgstr "Laboratoires"
+
+msgid "PRACTICE_TOOLS"
+msgstr "Outils · F2 / Triangle"
+
+msgid "PRACTICE_NAV"
+msgstr "Stick / flèches : choisir · Action : valider"
+
+msgid "PRACTICE_NO_RECORDS"
+msgstr "Essais illimités · Aucun record"
+
+msgid "PRACTICE_SAVE_ERROR"
+msgstr "Progrès conservés pour cette session"
+
+msgid "PRACTICE_RETRY"
+msgstr "Retenter le coup"
+
+msgid "PRACTICE_TRACE_OFF"
+msgstr "Masquer la trace"
+
+msgid "PRACTICE_TRACE_ON"
+msgstr "Afficher la trace"
+
+msgid "PRACTICE_GOLFER"
+msgstr "Changer de golfeur"
+
+msgid "PRACTICE_GOLFER_RESTART"
+msgstr "Changer de golfeur recommence la piste"
+
+msgid "PRACTICE_PICK_HOLE"
+msgstr "Choisir une piste"
+
+msgid "PRACTICE_NEXT_HOLE"
+msgstr "Piste suivante"
+
+msgid "PRACTICE_BEGIN"
+msgstr "C'est parti"
+
+msgid "PRACTICE_SKIP"
+msgstr "Passer cette étape"
+
+msgid "PRACTICE_CONTINUE"
+msgstr "Continuer"
+
+msgid "PRACTICE_AGAIN"
+msgstr "Recommencer"
+
+msgid "PRACTICE_OVERVIEW"
+msgstr "Liste des leçons"
+
+msgid "PRACTICE_SUCCESS"
+msgstr "Réussi !"
+
+msgid "PRACTICE_TRY_GOAL"
+msgstr "Réessaie l'objectif"
+
+msgid "PRACTICE_RESULT"
+msgstr "Coups : %d · Chaque essai compte"
+
+msgid "PRACTICE_INTRO_HELP"
+msgstr "Action : Croix, Espace ou clic gauche. Annuler : Rond, Échap ou clic droit. F2 / Triangle ouvre les outils."
+
+msgid "PRACTICE_FREE_HINT"
+msgstr "F2 / Triangle : outils. La jauge indique la portée sur gazon."
+
+msgid "PRACTICE_AIM"
+msgstr "Vise avec stick, flèches ou souris. Action lance la puissance."
+
+msgid "PRACTICE_POWER"
+msgstr "Appuie sur Action pour fixer la force. Jauge pour gazon plat."
+
+msgid "PRACTICE_ACCURACY"
+msgstr "Appuie et MAINTIENS Action au centre. Le vert est la zone parfaite."
+
+msgid "PRACTICE_HOLD"
+msgstr "Prêt ! Maintiens pour attendre. Relâche pour frapper. Annulation possible."
+
+msgid "PRACTICE_FIRST"
+msgstr "Ton premier putt"
+
+msgid "PRACTICE_DISTANCE"
+msgstr "Doser la force"
+
+msgid "PRACTICE_TIMING"
+msgstr "Choisir le moment"
+
+msgid "PRACTICE_BANK"
+msgstr "Utiliser les bandes"
+
+msgid "PRACTICE_SURFACES"
+msgstr "Comprendre les surfaces"
+
+msgid "PRACTICE_SLOPES"
+msgstr "Lire les pentes"
+
+msgid "PRACTICE_MECHANISMS"
+msgstr "Obstacles mobiles"
+
+msgid "PRACTICE_SEESAW"
+msgstr "Comprendre les bascules"
+
+msgid "PRACTICE_GRASS"
+msgstr "Gazon"
+
+msgid "PRACTICE_SAND"
+msgstr "Sable"
+
+msgid "PRACTICE_CONCRETE"
+msgstr "Béton"
+
+msgid "PRACTICE_ICE"
+msgstr "Glace"
+
+msgid "PRACTICE_SHALLOW"
+msgstr "Pente douce"
+
+msgid "PRACTICE_MEDIUM"
+msgstr "Pente moyenne"
+
+msgid "PRACTICE_STEEP"
+msgstr "Pente forte"
+
+msgid "PRACTICE_GATE"
+msgstr "Porte coulissante"
+
+msgid "PRACTICE_ROTOR"
+msgstr "Rotor"
+
+msgid "PRACTICE_FIRST_HINT"
+msgstr "Rentre la balle. Suis les conseils des jauges. Un coup parfait n'est pas nécessaire."
+
+msgid "PRACTICE_DISTANCE_HINT"
+msgstr "Arrête la balle dans la zone jaune. La jauge correspond au gazon plat."
+
+msgid "PRACTICE_TIMING_HINT"
+msgstr "Maintiens ton coup prêt une seconde. Attends que la porte soit ouverte, puis rentre la balle."
+
+msgid "PRACTICE_BANK_HINT"
+msgstr "Utilise un rebond sur une bande. Tu peux continuer à jouer après le rebond."
+
+msgid "PRACTICE_GRASS_HINT"
+msgstr "Rentre la balle sur gazon. Ici la jauge indique la distance de roulement libre."
+
+msgid "PRACTICE_SAND_HINT"
+msgstr "Traverse le sable et rentre la balle. Le sable freine plus que le gazon."
+
+msgid "PRACTICE_CONCRETE_HINT"
+msgstr "Joue sur le béton : il freine moins. La jauge reste celle du gazon."
+
+msgid "PRACTICE_ICE_HINT"
+msgstr "Traverse la glace et rentre la balle. Elle glisse beaucoup. Jauge pour gazon."
+
+msgid "PRACTICE_SLOPE_HINT"
+msgstr "Traverse les flèches et rentre la balle. Elles indiquent la descente : remonter demande plus de force."
+
+msgid "PRACTICE_GATE_HINT"
+msgstr "Passe la porte et rentre la balle. Prépare ton coup et attends l'ouverture."
+
+msgid "PRACTICE_ROTOR_HINT"
+msgstr "Passe le rotor et rentre la balle. Observe sa rotation à distance."
+
+msgid "PRACTICE_SEESAW_HINT"
+msgstr "Entre par le côté bas à gauche, traverse et rentre la balle. Le côté relevé la fait rebondir."
+
+msgid "HOLE_TUTORIAL_BANK"
+msgstr "Utiliser les bandes"
+
+msgid "HOLE_TUTORIAL_CONCRETE"
+msgstr "Béton"
+
+msgid "HOLE_TUTORIAL_DISTANCE"
+msgstr "Doser la force"
+
+msgid "HOLE_TUTORIAL_FIRST_PUTT"
+msgstr "Ton premier putt"
+
+msgid "HOLE_TUTORIAL_GATE"
+msgstr "Porte coulissante"
+
+msgid "HOLE_TUTORIAL_GRASS"
+msgstr "Gazon"
+
+msgid "HOLE_TUTORIAL_ICE"
+msgstr "Glace"
+
+msgid "HOLE_TUTORIAL_ROTOR"
+msgstr "Rotor"
+
+msgid "HOLE_TUTORIAL_SAND"
+msgstr "Sable"
+
+msgid "HOLE_TUTORIAL_SEESAW"
+msgstr "Comprendre les bascules"
+
+msgid "HOLE_TUTORIAL_SLOPE_MEDIUM"
+msgstr "Pente moyenne"
+
+msgid "HOLE_TUTORIAL_SLOPE_SHALLOW"
+msgstr "Pente douce"
+
+msgid "HOLE_TUTORIAL_SLOPE_STEEP"
+msgstr "Pente forte"
+
+msgid "HOLE_TUTORIAL_TIMING"
+msgstr "Choisir le moment"
