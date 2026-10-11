@@ -2,6 +2,20 @@
 
 Controllerorientiertes 2D-Minigolfspiel mit elf Themenkursen, 99 regulaeren Bahnen, 14 technischen Referenzen und Laboren, vier Spielmodi, Hotseat und Ergebnistabelle. Entwickelt mit Godot 4.7.2.
 
+## Einblicke ins Spiel
+
+Zum Vergrößern ein Bild anklicken.
+
+| Minigolf spielen | Kurse entdecken |
+| --- | --- |
+| [![Bahn Am Leuchtturm in der Dünenküste mit Sand, Wasser, Gefälle und Golferanzeige](docs/screenshots/duenenkueste.png)](docs/screenshots/duenenkueste.png) | [![Kursauswahl mit der Vorschau aller neun Bahnen der Dünenküste](docs/screenshots/kursauswahl.png)](docs/screenshots/kursauswahl.png) |
+| Zielen und die Schlagkraft dosieren: Sand, Wasser und Gefälle bestimmen den Weg zum Loch. | Elf Themenkurse stehen bereit; vor dem Start zeigt die Kursauswahl alle neun Bahnen und ihre PAR-Werte. |
+
+| Schläge üben | Eigene Bahnen bauen |
+| --- | --- |
+| [![Übungsmodus mit aktueller Ballspur und gestrichelter Spur des vorherigen Schlags](docs/screenshots/uebung.png)](docs/screenshots/uebung.png) | [![Ingame-Bahneditor mit Werkzeugen, Bahnansicht und Eigenschaften einer ausgewählten Kanone](docs/screenshots/bahneditor.png)](docs/screenshots/bahneditor.png) |
+| Im Training Schläge neu versuchen und Ballspuren vergleichen – ohne Schlaglimit. | Im Bahneditor eigene Bahnen gestalten, Mechaniken einstellen und direkt im Testspiel ausprobieren. |
+
 ## Sprachen und Einstellungen
 
 **Einstellungen** ist im Titelbildschirm und im Pausenmenü erreichbar. Spiel, Bahneditor, Meldungen sowie offizielle Kurs- und Bahnnamen stehen auf **Deutsch, Englisch, Französisch, Spanisch und Italienisch** bereit. Der erste Start ist deutsch; eine gespeicherte Sprachauswahl gilt auch nach einem Neustart. Selbst vergebene Namen und vorhandene Inhalte bleiben unverändert.
